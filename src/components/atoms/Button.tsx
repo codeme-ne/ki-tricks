@@ -25,9 +25,12 @@ export function Button({
   
   const sizeClasses = {
     sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-sm',
-    lg: 'px-6 py-3 text-base',
+    md: 'px-3 py-2 text-sm sm:px-4',
+    lg: 'px-4 py-3 text-sm sm:px-6 sm:text-base',
   }
+  
+  // Mobile-optimierte Klassen für bessere Touch-Targets und deutsche Texte
+  const mobileOptimizedClasses = 'min-h-[44px] min-w-[44px] hyphens-auto'
   
   const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : ''
   
@@ -35,6 +38,7 @@ export function Button({
     baseClasses,
     variantClasses[variant],
     sizeClasses[size],
+    mobileOptimizedClasses,
     disabledClasses,
     className
   )

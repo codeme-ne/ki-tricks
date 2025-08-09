@@ -10,8 +10,9 @@ export const BackButton = () => {
   return (
     <Button
       variant="primary"
+      size="sm"
       onClick={() => router.push('/tricks')}
-      className="gap-2 bg-neutral-800/80 hover:bg-neutral-700 text-white border-neutral-600 backdrop-blur-sm"
+      className="gap-2 bg-neutral-800/80 hover:bg-neutral-700 text-white border-neutral-600 backdrop-blur-sm w-auto shrink-0"
       aria-label="Zurück zur Tricks-Übersicht"
     >
       <ArrowLeft className="h-4 w-4" />

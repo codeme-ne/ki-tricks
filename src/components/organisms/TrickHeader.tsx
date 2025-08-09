@@ -1,6 +1,5 @@
 import { KITrick } from '@/lib/types/types'
 import { Badge } from '@/components/atoms'
-import { BackButton } from '@/components/atoms'
 import { BreadcrumbNav, TrickMeta } from '@/components/molecules'
 import { categoryLabels, difficultyLabels, difficultyVariants } from '@/lib/constants/constants'
 
@@ -25,14 +24,11 @@ function parseMarkdown(text: string): React.ReactNode {
 export const TrickHeader = ({ trick }: TrickHeaderProps) => {
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <BreadcrumbNav 
-          category={trick.category}
-          categoryLabel={categoryLabels[trick.category]}
-          trickTitle={trick.title}
-        />
-        <BackButton />
-      </div>
+      <BreadcrumbNav 
+        category={trick.category}
+        categoryLabel={categoryLabels[trick.category]}
+        trickTitle={trick.title}
+      />
       
       <div className="relative">
         {/* Subtle Background Glow */}
