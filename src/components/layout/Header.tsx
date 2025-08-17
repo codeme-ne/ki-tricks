@@ -24,6 +24,12 @@ export function Header({ className = '' }: HeaderProps) {
               Alle Tricks
             </Link>
             <Link 
+              href="/tricks/einreichen" 
+              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Trick einreichen
+            </Link>
+            <Link 
               href="https://www.produktiv.me/kiz/" 
               target="_blank"
               rel="noopener noreferrer"

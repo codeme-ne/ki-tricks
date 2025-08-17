@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Plus } from 'lucide-react';
 import { GlowingButton } from '@/components/enhanced';
 import { AnimatedHeroTitle } from './text-reveal';
 
@@ -44,6 +44,17 @@ export const AnimatedHeroSection = () => {
             className="hover:scale-105 transition-transform duration-200"
           >
             Tricks entdecken
+          </GlowingButton>
+        </Link>
+        <Link href="/tricks/einreichen">
+          <GlowingButton
+            variant="success"
+            size="lg"
+            icon={<Plus className="w-5 h-5" />}
+            iconPosition="left"
+            className="hover:scale-105 transition-transform duration-200"
+          >
+            Trick einreichen
           </GlowingButton>
         </Link>
         <Link href="#categories">

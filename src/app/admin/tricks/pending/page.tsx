@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { PageContainer } from '@/components/layout'
 import { Button, Badge } from '@/components/atoms'
 import { KITrick } from '@/lib/types/types'
@@ -25,7 +25,7 @@ export default function PendingTricksPage() {
   const [statusFilter, setStatusFilter] = useState<'all' | 'pending'>('pending')
 
   // Fetch pending tricks
-  const fetchTricks = async () => {
+  const fetchTricks = useCallback(async () => {
     try {
       const authToken = await AdminAuth.authenticateWithPrompt()
       if (!authToken) {
@@ -66,11 +66,11 @@ export default function PendingTricksPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [statusFilter])
 
   useEffect(() => {
     fetchTricks()
-  }, [statusFilter])
+  }, [fetchTricks])
 
   const handleAction = async (id: string, action: 'approve' | 'reject') => {
     setProcessing(id)

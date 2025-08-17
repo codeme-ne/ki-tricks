@@ -62,8 +62,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="de" className={inter.className}>
-      <body className="min-h-screen bg-neutral-900 text-neutral-100 antialiased">
+    <html lang="de">
+      <body className="min-h-screen bg-neutral-900 text-neutral-100 antialiased font-sans">
         {children}
         <DevToolbar />
         <Analytics />
