@@ -4,6 +4,21 @@ import DevToolbar from '@/components/DevToolbar';
 import type { Metadata } from 'next'
 import '../styles/globals.css'
 
+// Conditional font loading - use system fonts in CI/restricted environments
+const inter = process.env.SKIP_GOOGLE_FONTS === 'true' 
+  ? { className: 'font-sans' }
+  : (() => {
+      try {
+        const { Inter } = require('next/font/google')
+        return Inter({ 
+          subsets: ['latin'],
+          display: 'swap',
+        })
+      } catch {
+        return { className: 'font-sans' }
+      }
+    })()
+
 export const metadata: Metadata = {
   title: 'KI-Automationen, KI-Workflows und KI-Prompts',
   description: 'Entdecke praktische KI-Automationen, Workflows und Prompts für Berater und Coaches. Steigere deine Produktivität mit Claude Code, Claude AI, ChatGPT und No-Code Tools. KI-Workflows die funktionieren.',
