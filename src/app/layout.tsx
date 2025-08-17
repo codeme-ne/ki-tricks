@@ -2,13 +2,7 @@
 import { Analytics } from '@vercel/analytics/next';
 import DevToolbar from '@/components/DevToolbar';
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import '../styles/globals.css'
-
-const inter = Inter({ 
-  subsets: ['latin'],
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: 'KI-Automationen, KI-Workflows und KI-Prompts',
@@ -53,8 +47,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="de" className={inter.className}>
-      <body className="min-h-screen bg-neutral-900 text-neutral-100 antialiased">
+    <html lang="de">
+      <body className="min-h-screen bg-neutral-900 text-neutral-100 antialiased font-sans">
         {children}
         <DevToolbar />
         <Analytics />
