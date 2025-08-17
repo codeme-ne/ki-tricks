@@ -1,8 +1,10 @@
 # Product Requirements Document: KI-Tricks Online-Einreichung
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Datum:** 17. August 2025  
-**Erstellt für:** KI-Tricks Plattform
+**Letzte Aktualisierung:** 17. August 2025  
+**Erstellt für:** KI-Tricks Plattform  
+**Status:** In Entwicklung (60% abgeschlossen)
 
 ## Product overview
 
@@ -76,25 +78,25 @@ Das Ziel ist es, eine minimale Code-Erweiterung zu schaffen, die es ermöglicht,
 ## Functional requirements
 
 ### High Priority (Must Have)
-1. **Trick-Einreichungsformular** - Erweiterte Version des bestehenden TrickForm
-2. **Persistente Datenspeicherung** - JSON-basierte Speicherung für eingereichte Tricks
-3. **Automatische Slug-Generierung** - SEO-freundliche URLs für neue Tricks
-4. **Spam-Schutz** - Rate Limiting und grundlegende Validierung
-5. **Admin-Moderation** - Überprüfung und Freigabe neuer Tricks
+1. **Trick-Einreichungsformular** ✅ - Implementiert unter `/tricks/einreichen`
+2. **Persistente Datenspeicherung** ✅ - JSON-Dateien in `/data/` Verzeichnis
+3. **Automatische Slug-Generierung** ✅ - Mit Umlaut-Konvertierung implementiert
+4. **Spam-Schutz** ✅ - Rate Limiting (3/IP/Stunde) und Validierung aktiv
+5. **Admin-Moderation** ✅ - Interface unter `/admin/tricks/pending`
 
 ### Medium Priority (Should Have)
-6. **Preview-Funktionalität** - Vorschau des Tricks vor Einreichung
-7. **Erfolgs-Feedback** - Bestätigung nach erfolgreicher Einreichung
-8. **Duplicate-Detection** - Erkennung ähnlicher/doppelter Tricks
-9. **Email-Benachrichtigung** - Notification an Admin bei neuen Einreichungen
-10. **Bulk-Import** - Tool für Admin zum Import mehrerer Tricks
+6. **Preview-Funktionalität** ❌ - Noch zu implementieren
+7. **Erfolgs-Feedback** ✅ - Bestätigungsseite mit 3-Sekunden-Redirect
+8. **Duplicate-Detection** ❌ - Noch zu implementieren
+9. **Email-Benachrichtigung** ❌ - EmailJS vorbereitet, noch nicht integriert
+10. **Bulk-Import** ⚠️ - Merge-Script vorhanden, benötigt Bugfix
 
 ### Low Priority (Could Have)
-11. **Erweiterte Validierung** - Intelligente Content-Prüfung
-12. **Auto-Kategorisierung** - KI-basierte Kategorie-Vorschläge
-13. **Template-System** - Vordefinierte Trick-Templates
-14. **Export-Funktionalität** - Backup und Migration der Trick-Datenbank
-15. **Analytics Dashboard** - Statistiken zu eingereichten Tricks
+11. **Erweiterte Validierung** ❌ - Intelligente Content-Prüfung
+12. **Auto-Kategorisierung** ❌ - KI-basierte Kategorie-Vorschläge
+13. **Template-System** ❌ - Vordefinierte Trick-Templates
+14. **Export-Funktionalität** ❌ - Backup und Migration der Trick-Datenbank
+15. **Analytics Dashboard** ❌ - Statistiken zu eingereichten Tricks
 
 ## User experience
 
@@ -194,39 +196,33 @@ Als KI-Enthusiast möchte ich einen praktischen Trick, den ich in meiner täglic
 ## Milestones & sequencing
 
 ### Project estimate
-**Gesamtaufwand:** 3-4 Wochen  
-**Team-Größe:** 1 Entwickler + 1 Designer (Teilzeit)
+**Gesamtaufwand:** 1-2 Wochen (verbleibend)  
+**Bereits investiert:** ~2 Wochen  
+**Team-Größe:** 1 Entwickler
 
-### Team size
-- **1 Senior Frontend Developer** (Vollzeit, 4 Wochen)
-- **1 UX/UI Designer** (50% Auslastung, 2 Wochen)
-- **1 Product Manager** (20% Auslastung, 4 Wochen)
+### Aktueller Status
+- **Phase 1: Foundation** ✅ Abgeschlossen
+- **Phase 2: Integration** ✅ Abgeschlossen  
+- **Phase 3: Enhancement** 🚧 In Arbeit (40% fertig)
+- **Phase 4: Polish & Launch** ⏳ Ausstehend
 
-### Suggested phases
+### Verbleibende Aufgaben
 
-**Phase 1: Foundation (Woche 1)**
-- Erweitern der TrickForm Komponente
-- Implementierung JSON-basierte Datenspeicherung
-- Grundlegende Validierung und Error-Handling
-- **Deliverable:** Funktionierendes Einreichungsformular
+**Sofort (Priorität 1):**
+- ⚠️ Merge-Script Bugfix für approved-tricks Integration
+- ❌ Preview-Funktionalität im Einreichungsformular
+- ❌ Admin-Session-Management (statt wiederholte Password-Prompts)
 
-**Phase 2: Integration (Woche 2)**
-- Integration in bestehende Trick-Browsing Experience
-- Admin-Interface für Moderation
-- Spam-Schutz und Rate-Limiting
-- **Deliverable:** End-to-End funktionierender Workflow
+**Woche 1:**
+- ❌ Email-Benachrichtigungen bei neuen Einreichungen
+- ❌ Duplicate Detection mit Ähnlichkeitsprüfung
+- ❌ Bulk-Operations im Admin-Interface
 
-**Phase 3: Enhancement (Woche 3)**
-- Preview-Funktionalität
-- Email-Benachrichtigungen
-- Erweiterte Validierung
-- **Deliverable:** Produktionsreife Lösung
-
-**Phase 4: Polish & Launch (Woche 4)**
-- Performance-Optimierung
-- Testing und Bug-Fixes
-- Dokumentation und Monitoring
-- **Deliverable:** Live-Deployment
+**Woche 2:**
+- ❌ Analytics Dashboard für Statistiken
+- ❌ Content Quality Scoring
+- ❌ Erweiterte Spam-Protection
+- ❌ Performance-Optimierung und Testing
 
 ## User stories
 
@@ -410,3 +406,131 @@ Als KI-Enthusiast möchte ich einen praktischen Trick, den ich in meiner täglic
 - Logging aller kritischen Systemereignisse
 - Error-Monitoring und Alerting für Administratoren
 - Offline-Support mit lokaler Speicherung für spätere Synchronisation
+
+## Implementierungsplan
+
+### Kritische Bugfixes (Sofort zu beheben)
+
+#### 1. Merge-Script Reparatur
+**Problem:** Das Script `/scripts/merge-approved-tricks.ts` ist nicht kompatibel mit dem aktuellen Datenformat  
+**Lösung:**
+- Type-Guards für KITrick Interface hinzufügen
+- Korrekte Behandlung von Date-Objekten
+- Validierung von required fields
+- Test mit Dummy-Daten vor Production-Einsatz
+
+#### 2. Admin-Authentifizierung
+**Problem:** Wiederholte Password-Prompts bei jeder Aktion  
+**Lösung:**
+- Auth-Token in sessionStorage speichern
+- Token-Validierung in API-Routes
+- Automatisches Logout nach 30 Minuten Inaktivität
+
+### Phase 1: Core Features (1 Woche)
+
+#### Preview-Funktionalität
+**Neue Komponente:** `/src/components/organisms/TrickPreview.tsx`
+- Toggle zwischen Edit und Preview Mode
+- Live-Update bei Formular-Änderungen
+- Identisches Layout wie Trick-Detail-Seite
+- Responsive für alle Geräte
+
+#### Email-Benachrichtigungen
+**Integration:** EmailJS erweitern
+- Template für Admin-Benachrichtigung erstellen
+- Environment Variable: `ADMIN_EMAIL`
+- Digest-Mode für mehrere Einreichungen
+- Fallback bei Service-Ausfall
+
+#### Duplicate Detection
+**Neue Utility:** `/src/lib/utils/duplicate-detection.ts`
+- Levenshtein Distance Algorithmus
+- Titel- und Beschreibungsvergleich
+- Schwellenwert für Ähnlichkeit: 80%
+- UI-Warning mit ähnlichen Tricks
+
+### Phase 2: Admin-Erweiterungen (1 Woche)
+
+#### Bulk-Operations
+- Checkbox-Selection für mehrere Tricks
+- Actions: Bulk-Approve, Bulk-Reject
+- Filterung nach Status
+- Suche in Titel und Beschreibung
+
+#### Analytics Dashboard
+**Neue Route:** `/src/app/admin/analytics/page.tsx`
+- Chart.js Integration für Visualisierungen
+- Metriken:
+  - Einreichungen pro Tag/Woche/Monat
+  - Kategorien-Verteilung
+  - Approval-Rate
+  - Durchschnittliche Bearbeitungszeit
+- CSV-Export Funktionalität
+
+#### Quality Scoring
+**Neue Utility:** `/src/lib/utils/quality-scoring.ts`
+- Scoring-Faktoren:
+  - Textlänge (min. 200 Zeichen): +20 Punkte
+  - Vorhandene Schritte: +30 Punkte
+  - Beispiele vorhanden: +25 Punkte
+  - Tools spezifiziert: +15 Punkte
+  - Formatierung korrekt: +10 Punkte
+- Kategorisierung:
+  - 80-100: Hochwertig (Auto-Approve möglich)
+  - 50-79: Standard (Review erforderlich)
+  - 0-49: Überprüfung nötig
+
+### Technische Verbesserungen
+
+#### Datenbank-Migration (Optional)
+**Wenn > 500 Tricks:**
+- SQLite für bessere Performance
+- Migrations-Script von JSON zu DB
+- Backup-Strategie mit täglichen Exports
+- Query-Optimierung mit Indizes
+
+#### SEO-Optimierung
+- Automatische Sitemap-Generierung
+- Meta-Description aus ersten 160 Zeichen
+- Structured Data (JSON-LD) für Tricks
+- Canonical URLs für alle Seiten
+
+#### Security-Enhancements
+- Honeypot-Field im Formular
+- Zeit-basierte Validierung (min. 5 Sek für Submission)
+- IP-Blacklist bei wiederholtem Spam
+- Content-Security-Policy Headers
+
+### Testing-Strategie
+
+#### Unit Tests
+- Jest für Utility-Functions
+- React Testing Library für Komponenten
+- Coverage-Ziel: 80%
+
+#### E2E Tests
+- Playwright für kritische User-Flows
+- Test-Szenarien:
+  - Trick-Einreichung
+  - Admin-Moderation
+  - Merge-Prozess
+
+#### Performance Tests
+- Lighthouse CI für Performance-Monitoring
+- Ziel-Metriken:
+  - LCP < 2.5s
+  - FID < 100ms
+  - CLS < 0.1
+
+### Deployment-Checkliste
+
+- [ ] Alle Environment Variables in Vercel gesetzt
+- [ ] Build lokal erfolgreich
+- [ ] Alle Tests grün
+- [ ] Merge-Script getestet
+- [ ] Admin-Credentials sicher hinterlegt
+- [ ] EmailJS konfiguriert
+- [ ] Rate-Limiting aktiv
+- [ ] Monitoring eingerichtet
+- [ ] Backup-Strategie dokumentiert
+- [ ] Rollback-Plan vorhanden

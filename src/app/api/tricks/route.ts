@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { promises as fs } from 'fs'
 import path from 'path'
 import { KITrick, Category, Difficulty, Impact } from '@/lib/types/types'
+import { checkForDuplicates, checkPendingDuplicates } from '@/lib/utils/duplicate-detection'
+import { calculateQualityScore } from '@/lib/utils/quality-scoring'
+import { mockTricks } from '@/lib/data/mock-data'
 
 // Helper function to generate slugs
 const generateSlug = (title: string): string => {
@@ -87,6 +90,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
+    const { forceDuplicate = false } = body
     
     // Validation
     if (!body.title || body.title.length < 10) {
@@ -137,8 +141,41 @@ export async function POST(request: NextRequest) {
       status: 'pending'
     }
 
+    // Calculate and store quality score
+    const qualityScore = calculateQualityScore(newTrick)
+    newTrick.qualityScore = qualityScore.total
+    newTrick.qualityCategory = qualityScore.category
+
     // Read existing pending tricks
     const pendingTricks = await readJsonFile(PENDING_TRICKS_PATH)
+    
+    // Check for duplicates in existing tricks
+    const existingDuplicates = checkForDuplicates(newTrick, mockTricks)
+    
+    // Check for duplicates in pending tricks
+    const pendingDuplicates = checkPendingDuplicates(newTrick, pendingTricks)
+    
+    // If high similarity found and not forcing duplicate, return warning
+    if (!forceDuplicate && (existingDuplicates.isDuplicate || pendingDuplicates.isDuplicate)) {
+      const highestSimilarity = Math.max(
+        existingDuplicates.highestSimilarity,
+        pendingDuplicates.highestSimilarity
+      )
+      
+      const similarTrick = existingDuplicates.isDuplicate 
+        ? existingDuplicates.similarTricks[0]?.trick
+        : pendingDuplicates.similarTricks[0]?.trick
+      
+      return NextResponse.json({
+        success: false,
+        error: 'duplicate_detected',
+        message: `Ein ähnlicher Trick wurde bereits gefunden: "${similarTrick?.title}" (${highestSimilarity}% Ähnlichkeit). Bitte überarbeite deinen Trick oder prüfe die bestehenden Tricks.`,
+        similarTricks: [
+          ...existingDuplicates.similarTricks.slice(0, 3),
+          ...pendingDuplicates.similarTricks.slice(0, 2)
+        ]
+      }, { status: 400 })
+    }
     
     // Check for duplicate slugs
     const existingSlug = pendingTricks.find(t => t.slug === newTrick.slug)

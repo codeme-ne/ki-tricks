@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Button, Badge } from '@/components/atoms'
+import { TrickPreview } from '@/components/organisms/TrickPreview'
 import { KITrick, Category, Difficulty, Impact } from '@/lib/types/types'
 import { Plus, X, Eye, Edit } from 'lucide-react'
 
@@ -131,104 +132,19 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
   // Preview Mode Component
   if (previewMode) {
     return (
-      <div className="space-y-6">
-        {/* Preview Header */}
-        <div className="flex justify-between items-center bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p className="text-sm text-blue-800 font-medium">
-            Vorschau-Modus: So wird dein Trick auf der Plattform angezeigt
-          </p>
-          <Button
-            type="button"
-            variant="primary"
-            onClick={() => setPreviewMode(false)}
-          >
-            <Edit className="w-4 h-4 mr-2" />
-            Bearbeiten
-          </Button>
-        </div>
-
-        {/* Trick Preview */}
-        <div className="bg-white border border-neutral-200 rounded-lg p-6">
-          <h1 className="text-2xl font-bold text-neutral-900 mb-4">
-            {formData.title || 'Kein Titel angegeben'}
-          </h1>
-
-          <div className="flex flex-wrap gap-2 mb-4">
-            <Badge variant={getDifficultyColor(formData.difficulty || 'beginner')}>
-              {getDifficultyLabel(formData.difficulty || 'beginner')}
-            </Badge>
-            <Badge variant="neutral">
-              {getCategoryLabel(formData.category || 'productivity')}
-            </Badge>
-            <Badge variant="primary">
-              {formData.timeToImplement || 'Zeit nicht angegeben'}
-            </Badge>
-            <Badge variant={formData.impact === 'high' ? 'success' : formData.impact === 'low' ? 'warning' : 'neutral'}>
-              Impact: {formData.impact || 'medium'}
-            </Badge>
-          </div>
-
-          <div className="prose max-w-none space-y-4">
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Beschreibung</h3>
-              <p className="text-neutral-700">
-                {formData.description || 'Keine Beschreibung angegeben'}
-              </p>
-            </div>
-
-            {formData['Warum es funktioniert'] && (
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Warum es funktioniert</h3>
-                <p className="text-neutral-700">
-                  {formData['Warum es funktioniert']}
-                </p>
-              </div>
-            )}
-
-            {formData.tools && formData.tools.length > 0 && (
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Benötigte Tools</h3>
-                <div className="flex flex-wrap gap-2">
-                  {formData.tools.map((tool, idx) => (
-                    <Badge key={idx} variant="primary">{tool}</Badge>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {formData.steps && formData.steps.length > 0 && (
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Schritt-für-Schritt Anleitung</h3>
-                <ol className="space-y-2">
-                  {formData.steps.map((step, idx) => (
-                    <li key={idx} className="flex">
-                      <span className="font-semibold mr-2">{idx + 1}.</span>
-                      <span>{step}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
-
-            {formData.examples && formData.examples.length > 0 && (
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Beispiele</h3>
-                <ul className="space-y-2">
-                  {formData.examples.map((example, idx) => (
-                    <li key={idx} className="flex">
-                      <span className="mr-2">•</span>
-                      <span>{example}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
+      <div className="space-y-6 animate-in fade-in-0 duration-300">
+        {/* Preview Component */}
+        <TrickPreview formData={formData} />
 
         {/* Actions */}
-        <div className="flex justify-end gap-4">
-          <Button type="button" variant="secondary" onClick={() => setPreviewMode(false)}>
+        <div className="flex justify-between bg-white border border-neutral-200 rounded-lg p-4">
+          <Button 
+            type="button" 
+            variant="secondary" 
+            onClick={() => setPreviewMode(false)}
+            className="transition-all duration-200 hover:scale-105"
+          >
+            <Edit className="w-4 h-4 mr-2" />
             Zurück zur Bearbeitung
           </Button>
           <Button 
@@ -236,6 +152,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             variant="primary" 
             onClick={() => onSubmit(formData)}
             disabled={isSubmitting}
+            className="transition-all duration-200 hover:scale-105 disabled:hover:scale-100"
           >
             {isSubmitting ? 'Wird eingereicht...' : 'Trick einreichen'}
           </Button>
@@ -245,7 +162,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in-0 duration-300">
       {/* Basis-Informationen */}
       <div className="bg-white border border-neutral-200 rounded-lg p-6">
         <h2 className="text-lg font-semibold mb-4">Basis-Informationen</h2>
@@ -453,18 +370,35 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
       </div>
 
       {/* Submit Buttons */}
-      <div className="flex justify-between">
-        <Button type="button" variant="secondary" onClick={() => setPreviewMode(true)}>
-          <Eye className="w-4 h-4 mr-2" />
-          Vorschau anzeigen
-        </Button>
-        <div className="flex gap-4">
-          <Button type="button" variant="secondary" onClick={() => window.history.back()}>
-            Abbrechen
+      <div className="bg-white border border-neutral-200 rounded-lg p-6">
+        <div className="flex flex-col sm:flex-row justify-between gap-4">
+          <Button 
+            type="button" 
+            variant="secondary" 
+            onClick={() => setPreviewMode(true)}
+            className="transition-all duration-200 hover:scale-105 flex items-center justify-center"
+          >
+            <Eye className="w-4 h-4 mr-2" />
+            Vorschau anzeigen
           </Button>
-          <Button type="submit" variant="primary" disabled={isSubmitting}>
-            {isSubmitting ? 'Wird gespeichert...' : 'Trick speichern'}
-          </Button>
+          <div className="flex gap-3">
+            <Button 
+              type="button" 
+              variant="secondary" 
+              onClick={() => window.history.back()}
+              className="transition-all duration-200 hover:scale-105"
+            >
+              Abbrechen
+            </Button>
+            <Button 
+              type="submit" 
+              variant="primary" 
+              disabled={isSubmitting}
+              className="transition-all duration-200 hover:scale-105 disabled:hover:scale-100"
+            >
+              {isSubmitting ? 'Wird eingereicht...' : 'Trick einreichen'}
+            </Button>
+          </div>
         </div>
       </div>
     </form>

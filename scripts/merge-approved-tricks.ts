@@ -1,23 +1,25 @@
 #!/usr/bin/env node
 
 import { promises as fs } from 'fs'
-import path from 'path'
+import * as path from 'path'
+import { KITrick } from '../src/lib/types/types'
 
-interface KITrick {
-  id: string
-  title: string
-  description: string
-  category: string
-  difficulty: string
-  tools: string[]
-  timeToImplement: string
-  impact: string
-  steps?: string[]
-  examples?: string[]
-  slug: string
-  createdAt: Date
-  updatedAt: Date
-  'Warum es funktioniert': string
+interface PendingKITrick extends Omit<KITrick, 'createdAt' | 'updatedAt'> {
+  createdAt: Date | string
+  updatedAt: Date | string
+  status?: 'pending' | 'approved' | 'rejected'
+}
+
+// Helper function to generate slugs
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[äöüß]/g, (match) => {
+      const map: { [key: string]: string } = { 'ä': 'ae', 'ö': 'oe', 'ü': 'ue', 'ß': 'ss' }
+      return map[match] || match
+    })
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
 }
 
 async function mergeApprovedTricks() {
@@ -27,7 +29,7 @@ async function mergeApprovedTricks() {
     // Read approved tricks
     const approvedTricksPath = path.join(process.cwd(), 'data', 'approved-tricks.json')
     const approvedTricksContent = await fs.readFile(approvedTricksPath, 'utf-8')
-    const approvedTricks: KITrick[] = JSON.parse(approvedTricksContent)
+    const approvedTricks: PendingKITrick[] = JSON.parse(approvedTricksContent)
     
     if (approvedTricks.length === 0) {
       console.log('ℹ️  Keine genehmigten Tricks zum Mergen gefunden.')
@@ -40,32 +42,86 @@ async function mergeApprovedTricks() {
     const mockDataPath = path.join(process.cwd(), 'src', 'lib', 'data', 'mock-data.ts')
     const mockDataContent = await fs.readFile(mockDataPath, 'utf-8')
     
-    // Extract existing tricks from mock-data.ts
+    // Extract existing tricks from mock-data.ts to check for duplicate slugs
     const existingTricksMatch = mockDataContent.match(/export const mockTricks: KITrick\[\] = \[([\s\S]*?)\]/)
     if (!existingTricksMatch) {
       console.error('❌ Konnte bestehende Tricks nicht aus mock-data.ts extrahieren.')
       return
     }
     
+    // Extract existing slugs to avoid duplicates
+    const existingSlugs = new Set<string>()
+    const slugRegex = /slug:\s*(?:generateSlug\([^)]+\)|'([^']+)')/g
+    let match
+    while ((match = slugRegex.exec(mockDataContent)) !== null) {
+      if (match[1]) {
+        existingSlugs.add(match[1])
+      }
+    }
+    
     // Generate TypeScript code for new tricks
-    const newTricksCode = approvedTricks.map(trick => {
-      // Clean up the trick data
+    const newTricksCode = approvedTricks.map((trick, index) => {
+      // Ensure we have all required fields with proper defaults
+      let baseSlug = trick.slug || generateSlug(trick.title || `trick-${Date.now()}`)
+      let finalSlug = baseSlug
+      let counter = 1
+      
+      // Check for duplicate slugs and append number if necessary
+      while (existingSlugs.has(finalSlug)) {
+        finalSlug = `${baseSlug}-${counter}`
+        counter++
+      }
+      existingSlugs.add(finalSlug)
+      
+      // Convert dates to proper format
+      const createdAt = trick.createdAt instanceof Date 
+        ? trick.createdAt.toISOString()
+        : typeof trick.createdAt === 'string' 
+          ? trick.createdAt
+          : new Date().toISOString()
+      
+      const updatedAt = trick.updatedAt instanceof Date 
+        ? trick.updatedAt.toISOString()
+        : typeof trick.updatedAt === 'string' 
+          ? trick.updatedAt
+          : new Date().toISOString()
+      
+      const sanitizedTrick = {
+        id: trick.id?.replace(/^approved-/, '') || `generated-${Date.now()}-${index}`,
+        title: trick.title || 'Unbenannter Trick',
+        description: trick.description || 'Keine Beschreibung verfügbar',
+        category: trick.category || 'productivity',
+        difficulty: trick.difficulty || 'beginner',
+        tools: Array.isArray(trick.tools) ? trick.tools : ['Claude'],
+        timeToImplement: trick.timeToImplement || '10 Minuten',
+        impact: trick.impact || 'medium',
+        steps: Array.isArray(trick.steps) ? trick.steps : [],
+        examples: Array.isArray(trick.examples) ? trick.examples : [],
+        slug: finalSlug,
+        createdAt,
+        updatedAt,
+        'Warum es funktioniert': trick['Warum es funktioniert'] || 
+          'Dieser Trick nutzt bewährte KI-Prinzipien und wurde von der Community erprobt.'
+      }
+
+      // Clean up the trick data for TypeScript code generation
+      const escapeString = (str: string): string => str.replace(/'/g, "\\'").replace(/\n/g, '\\n').replace(/\r/g, '\\r')
+      
       const cleanTrick = {
-        ...trick,
-        id: `'${trick.id.replace('approved-', '')}'`,
-        title: `'${trick.title.replace(/'/g, "\\'")}'`,
-        description: `'${trick.description.replace(/'/g, "\\'")}'`,
-        category: `'${trick.category}'`,
-        difficulty: `'${trick.difficulty}'`,
-        tools: trick.tools.map(tool => `'${tool}'`),
-        timeToImplement: `'${trick.timeToImplement.replace(/'/g, "\\'")}'`,
-        impact: `'${trick.impact}'`,
-        steps: trick.steps?.map(step => `'${step.replace(/'/g, "\\'")}'`) || [],
-        examples: trick.examples?.map(ex => `'${ex.replace(/'/g, "\\'")}'`) || [],
-        slug: `'${trick.slug}'`,
-        createdAt: `new Date('${trick.createdAt}')`,
-        updatedAt: `new Date('${trick.updatedAt}')`,
-        'Warum es funktioniert': `'${trick['Warum es funktioniert'].replace(/'/g, "\\'")}'`
+        id: `'${escapeString(sanitizedTrick.id)}'`,
+        title: `'${escapeString(sanitizedTrick.title)}'`,
+        description: `'${escapeString(sanitizedTrick.description)}'`,
+        category: `'${sanitizedTrick.category}'`,
+        difficulty: `'${sanitizedTrick.difficulty}'`,
+        tools: sanitizedTrick.tools.map(tool => `'${escapeString(String(tool))}'`),
+        timeToImplement: `'${escapeString(sanitizedTrick.timeToImplement)}'`,
+        impact: `'${sanitizedTrick.impact}'`,
+        steps: sanitizedTrick.steps.map(step => `'${escapeString(String(step))}'`),
+        examples: sanitizedTrick.examples.map(ex => `'${escapeString(String(ex))}'`),
+        slug: `generateSlug('${escapeString(sanitizedTrick.title)}')`,
+        createdAt: `new Date('${sanitizedTrick.createdAt}')`,
+        updatedAt: `new Date('${sanitizedTrick.updatedAt}')`,
+        'Warum es funktioniert': `'${escapeString(sanitizedTrick['Warum es funktioniert'])}'`
       }
       
       return `  {

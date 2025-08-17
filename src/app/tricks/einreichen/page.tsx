@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { PageContainer } from '@/components/layout'
 import { TrickForm } from '@/components/organisms/TrickForm'
 import { KITrick } from '@/lib/types/types'
+import { sendNewTrickNotification } from '@/lib/utils/email-notifications'
 import { ArrowLeft, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 
@@ -13,10 +14,13 @@ export default function SubmitTrickPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
+  const [duplicateWarning, setDuplicateWarning] = useState<any>(null)
+  const [lastSubmissionData, setLastSubmissionData] = useState<Partial<KITrick> | null>(null)
 
-  const handleSubmit = async (trickData: Partial<KITrick>) => {
+  const handleSubmit = async (trickData: Partial<KITrick>, forceDuplicate = false) => {
     setIsSubmitting(true)
     setError(null)
+    setDuplicateWarning(null)
     
     try {
       const response = await fetch('/api/tricks', {
@@ -24,13 +28,32 @@ export default function SubmitTrickPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(trickData),
+        body: JSON.stringify({ ...trickData, forceDuplicate }),
       })
       
       const data = await response.json()
       
       if (!response.ok) {
-        throw new Error(data.error || 'Fehler beim Einreichen des Tricks')
+        if (data.error === 'duplicate_detected') {
+          setDuplicateWarning(data)
+          setLastSubmissionData(trickData)
+          setIsSubmitting(false)
+          return
+        }
+        throw new Error(data.message || data.error || 'Fehler beim Einreichen des Tricks')
+      }
+      
+      // Send admin notification (non-blocking)
+      try {
+        await sendNewTrickNotification({
+          title: trickData.title || 'Unbenannter Trick',
+          description: trickData.description || 'Keine Beschreibung',
+          category: trickData.category || 'productivity',
+          difficulty: trickData.difficulty || 'beginner'
+        })
+      } catch (error) {
+        // Log error but don't fail the submission
+        console.error('Failed to send admin notification:', error)
       }
       
       // Show success message
@@ -113,6 +136,59 @@ export default function SubmitTrickPage() {
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
             <p className="text-red-800">{error}</p>
+          </div>
+        )}
+
+        {duplicateWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-6">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3 flex-1">
+                <h3 className="text-sm font-medium text-amber-800">
+                  Mögliches Duplikat erkannt
+                </h3>
+                <div className="mt-2 text-sm text-amber-700">
+                  <p>{duplicateWarning.message}</p>
+                </div>
+
+                {duplicateWarning.similarTricks && duplicateWarning.similarTricks.length > 0 && (
+                  <div className="mt-4">
+                    <h4 className="text-sm font-medium text-amber-800 mb-2">Ähnliche Tricks:</h4>
+                    <div className="space-y-2">
+                      {duplicateWarning.similarTricks.slice(0, 3).map((similar: any, index: number) => (
+                        <div key={index} className="bg-amber-100 rounded p-3">
+                          <p className="font-medium text-sm text-amber-900">{similar.trick.title}</p>
+                          <p className="text-xs text-amber-700 mt-1">{similar.trick.description.substring(0, 100)}...</p>
+                          <p className="text-xs text-amber-600 mt-2">
+                            Ähnlichkeit: {similar.overallSimilarity}%
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-4 flex gap-3">
+                  <button
+                    onClick={() => setDuplicateWarning(null)}
+                    className="text-sm bg-amber-100 text-amber-800 px-3 py-2 rounded hover:bg-amber-200 transition-colors"
+                  >
+                    Überarbeiten
+                  </button>
+                  <button
+                    onClick={() => lastSubmissionData && handleSubmit(lastSubmissionData, true)}
+                    disabled={isSubmitting}
+                    className="text-sm bg-amber-200 text-amber-900 px-3 py-2 rounded hover:bg-amber-300 transition-colors disabled:opacity-50"
+                  >
+                    {isSubmitting ? 'Wird eingereicht...' : 'Trotzdem einreichen'}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
