@@ -55,16 +55,16 @@ export default function NewTrickPage() {
         <div className="mb-8">
           <Link 
             href="/tricks" 
-            className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 mb-4"
+            className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-100 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Zurück zur Übersicht
           </Link>
           
-          <h1 className="text-3xl font-bold text-neutral-900 mb-2">
+          <h1 className="text-3xl font-bold text-neutral-100 mb-2">
             Neuen KI Trick erstellen
           </h1>
-          <p className="text-lg text-neutral-600">
+          <p className="text-lg text-neutral-400">
             Füge einen neuen Trick zur Sammlung hinzu
           </p>
         </div>

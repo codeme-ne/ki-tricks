@@ -105,27 +105,27 @@ export default function SubmitTrickPage() {
         <div className="mb-8">
           <Link 
             href="/tricks" 
-            className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 mb-4 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-100 mb-4 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Zurück zur Übersicht
           </Link>
           
-          <h1 className="text-3xl font-bold text-neutral-900 mb-2">
+          <h1 className="text-3xl font-bold text-neutral-100 mb-2">
             KI-Trick einreichen
           </h1>
-          <p className="text-lg text-neutral-600">
+          <p className="text-lg text-neutral-400">
             Teile deinen besten KI-Trick mit der Community! Deine Einreichung wird 
             geprüft und bei Freigabe auf der Plattform veröffentlicht.
           </p>
         </div>
 
         {/* Info Box */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-          <h3 className="font-semibold text-blue-900 mb-2">
+        <div className="bg-blue-900/20 border border-blue-800 rounded-lg p-4 mb-8">
+          <h3 className="font-semibold text-blue-300 mb-2">
             Tipps für eine erfolgreiche Einreichung:
           </h3>
-          <ul className="text-sm text-blue-800 space-y-1">
+          <ul className="text-sm text-blue-300 space-y-1">
             <li>• Beschreibe deinen Trick klar und verständlich</li>
             <li>• Füge konkrete Schritte hinzu, die andere nachvollziehen können</li>
             <li>• Gib realistische Zeitschätzungen an</li>
@@ -134,13 +134,13 @@ export default function SubmitTrickPage() {
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-            <p className="text-red-800">{error}</p>
+          <div className="bg-red-900/20 border border-red-800 rounded-lg p-4 mb-6">
+            <p className="text-red-300">{error}</p>
           </div>
         )}
 
         {duplicateWarning && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-6">
+          <div className="bg-amber-900/20 border border-amber-800 rounded-lg p-6 mb-6">
             <div className="flex items-start">
               <div className="flex-shrink-0">
                 <svg className="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
@@ -148,22 +148,22 @@ export default function SubmitTrickPage() {
                 </svg>
               </div>
               <div className="ml-3 flex-1">
-                <h3 className="text-sm font-medium text-amber-800">
+                <h3 className="text-sm font-medium text-amber-300">
                   Mögliches Duplikat erkannt
                 </h3>
-                <div className="mt-2 text-sm text-amber-700">
+                <div className="mt-2 text-sm text-amber-300">
                   <p>{duplicateWarning.message}</p>
                 </div>
 
                 {duplicateWarning.similarTricks && duplicateWarning.similarTricks.length > 0 && (
                   <div className="mt-4">
-                    <h4 className="text-sm font-medium text-amber-800 mb-2">Ähnliche Tricks:</h4>
+                    <h4 className="text-sm font-medium text-amber-300 mb-2">Ähnliche Tricks:</h4>
                     <div className="space-y-2">
                       {duplicateWarning.similarTricks.slice(0, 3).map((similar: any, index: number) => (
-                        <div key={index} className="bg-amber-100 rounded p-3">
-                          <p className="font-medium text-sm text-amber-900">{similar.trick.title}</p>
-                          <p className="text-xs text-amber-700 mt-1">{similar.trick.description.substring(0, 100)}...</p>
-                          <p className="text-xs text-amber-600 mt-2">
+                        <div key={index} className="bg-amber-800/30 rounded p-3">
+                          <p className="font-medium text-sm text-amber-200">{similar.trick.title}</p>
+                          <p className="text-xs text-amber-300 mt-1">{similar.trick.description.substring(0, 100)}...</p>
+                          <p className="text-xs text-amber-400 mt-2">
                             Ähnlichkeit: {similar.overallSimilarity}%
                           </p>
                         </div>
@@ -175,14 +175,14 @@ export default function SubmitTrickPage() {
                 <div className="mt-4 flex gap-3">
                   <button
                     onClick={() => setDuplicateWarning(null)}
-                    className="text-sm bg-amber-100 text-amber-800 px-3 py-2 rounded hover:bg-amber-200 transition-colors"
+                    className="text-sm bg-amber-800/30 text-amber-300 px-3 py-2 rounded hover:bg-amber-800/50 transition-colors"
                   >
                     Überarbeiten
                   </button>
                   <button
                     onClick={() => lastSubmissionData && handleSubmit(lastSubmissionData, true)}
                     disabled={isSubmitting}
-                    className="text-sm bg-amber-200 text-amber-900 px-3 py-2 rounded hover:bg-amber-300 transition-colors disabled:opacity-50"
+                    className="text-sm bg-amber-700/30 text-amber-200 px-3 py-2 rounded hover:bg-amber-700/50 transition-colors disabled:opacity-50"
                   >
                     {isSubmitting ? 'Wird eingereicht...' : 'Trotzdem einreichen'}
                   </button>

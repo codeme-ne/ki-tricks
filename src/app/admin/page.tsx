@@ -83,7 +83,7 @@ export default function AdminPage() {
       <PageContainer>
         <div className="text-center py-16">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-neutral-600">Lade Admin-Dashboard...</p>
+          <p className="text-neutral-400">Lade Admin-Dashboard...</p>
         </div>
       </PageContainer>
     )
@@ -94,10 +94,10 @@ export default function AdminPage() {
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-start mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-neutral-900 mb-2">
+            <h1 className="text-3xl font-bold text-neutral-100 mb-2">
               Admin Dashboard
             </h1>
-            <p className="text-lg text-neutral-600">
+            <p className="text-lg text-neutral-400">
               Verwaltung der KI-Tricks Plattform
             </p>
           </div>
@@ -113,45 +113,45 @@ export default function AdminPage() {
         </div>
 
         {error ? (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
-            <p className="text-red-800">{error}</p>
+          <div className="bg-red-900/20 border border-red-800 rounded-lg p-6 mb-8">
+            <p className="text-red-300">{error}</p>
           </div>
         ) : (
           <>
             {/* Quick Stats */}
             {stats && (
               <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white border border-neutral-200 rounded-lg p-6">
+                <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
                   <div className="flex items-center">
-                    <div className="p-2 bg-blue-100 rounded-lg">
-                      <Clock className="w-6 h-6 text-blue-600" />
+                    <div className="p-2 bg-blue-800/50 rounded-lg">
+                      <Clock className="w-6 h-6 text-blue-400" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-neutral-600">Wartende Tricks</p>
-                      <p className="text-2xl font-bold text-neutral-900">{stats.pendingCount}</p>
+                      <p className="text-sm font-medium text-neutral-400">Wartende Tricks</p>
+                      <p className="text-2xl font-bold text-neutral-100">{stats.pendingCount}</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white border border-neutral-200 rounded-lg p-6">
+                <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
                   <div className="flex items-center">
-                    <div className="p-2 bg-green-100 rounded-lg">
-                      <CheckCircle className="w-6 h-6 text-green-600" />
+                    <div className="p-2 bg-green-800/50 rounded-lg">
+                      <CheckCircle className="w-6 h-6 text-green-400" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-neutral-600">Heute freigegeben</p>
-                      <p className="text-2xl font-bold text-neutral-900">{stats.approvedToday}</p>
+                      <p className="text-sm font-medium text-neutral-400">Heute freigegeben</p>
+                      <p className="text-2xl font-bold text-neutral-100">{stats.approvedToday}</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white border border-neutral-200 rounded-lg p-6">
+                <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
                   <div className="flex items-center">
-                    <div className="p-2 bg-purple-100 rounded-lg">
-                      <BarChart3 className="w-6 h-6 text-purple-600" />
+                    <div className="p-2 bg-purple-800/50 rounded-lg">
+                      <BarChart3 className="w-6 h-6 text-purple-400" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-neutral-600">Analytics</p>
+                      <p className="text-sm font-medium text-neutral-400">Analytics</p>
                       <p className="text-sm text-neutral-500">Detaillierte Statistiken</p>
                     </div>
                   </div>
@@ -162,24 +162,24 @@ export default function AdminPage() {
             {/* Main Actions */}
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               {/* Moderation */}
-              <div className="bg-white border border-neutral-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6 hover:shadow-xl hover:shadow-neutral-900/50 transition-shadow">
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold text-neutral-900 mb-2">
+                    <h3 className="text-lg font-semibold text-neutral-100 mb-2">
                       Tricks moderieren
                     </h3>
-                    <p className="text-neutral-600 mb-4">
+                    <p className="text-neutral-400 mb-4">
                       Eingereichte Tricks prüfen, freigeben oder ablehnen
                     </p>
                     {stats && stats.pendingCount > 0 && (
-                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
-                        <p className="text-sm text-blue-800">
+                      <div className="bg-blue-900/20 border border-blue-800 rounded-lg p-3 mb-4">
+                        <p className="text-sm text-blue-300">
                           ⏳ {stats.pendingCount} Tricks warten auf Moderation
                         </p>
                       </div>
                     )}
                   </div>
-                  <Clock className="w-8 h-8 text-blue-600 flex-shrink-0" />
+                  <Clock className="w-8 h-8 text-blue-400 flex-shrink-0" />
                 </div>
                 <Link 
                   href="/admin/tricks/pending"
@@ -191,17 +191,17 @@ export default function AdminPage() {
               </div>
 
               {/* Analytics */}
-              <div className="bg-white border border-neutral-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6 hover:shadow-xl hover:shadow-neutral-900/50 transition-shadow">
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold text-neutral-900 mb-2">
+                    <h3 className="text-lg font-semibold text-neutral-100 mb-2">
                       Analytics & Statistiken
                     </h3>
-                    <p className="text-neutral-600 mb-4">
+                    <p className="text-neutral-400 mb-4">
                       Detaillierte Einblicke in Einreichungen und Performance
                     </p>
                   </div>
-                  <BarChart3 className="w-8 h-8 text-purple-600 flex-shrink-0" />
+                  <BarChart3 className="w-8 h-8 text-purple-400 flex-shrink-0" />
                 </div>
                 <Link 
                   href="/admin/analytics"
@@ -215,12 +215,12 @@ export default function AdminPage() {
 
             {/* Secondary Actions */}
             <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4">
+              <div className="bg-neutral-800/50 border border-neutral-700 rounded-lg p-4">
                 <div className="flex items-center mb-3">
-                  <PlusCircle className="w-5 h-5 text-neutral-600 mr-2" />
-                  <h4 className="font-medium text-neutral-900">Neuer Trick</h4>
+                  <PlusCircle className="w-5 h-5 text-neutral-400 mr-2" />
+                  <h4 className="font-medium text-neutral-100">Neuer Trick</h4>
                 </div>
-                <p className="text-sm text-neutral-600 mb-3">
+                <p className="text-sm text-neutral-400 mb-3">
                   Manuell einen neuen Trick hinzufügen
                 </p>
                 <Link 
@@ -231,12 +231,12 @@ export default function AdminPage() {
                 </Link>
               </div>
 
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4">
+              <div className="bg-neutral-800/50 border border-neutral-700 rounded-lg p-4">
                 <div className="flex items-center mb-3">
-                  <Settings className="w-5 h-5 text-neutral-600 mr-2" />
-                  <h4 className="font-medium text-neutral-900">Einstellungen</h4>
+                  <Settings className="w-5 h-5 text-neutral-400 mr-2" />
+                  <h4 className="font-medium text-neutral-100">Einstellungen</h4>
                 </div>
-                <p className="text-sm text-neutral-600 mb-3">
+                <p className="text-sm text-neutral-400 mb-3">
                   Plattform-Konfiguration verwalten
                 </p>
                 <span className="text-sm text-neutral-400">
@@ -244,12 +244,12 @@ export default function AdminPage() {
                 </span>
               </div>
 
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4">
+              <div className="bg-neutral-800/50 border border-neutral-700 rounded-lg p-4">
                 <div className="flex items-center mb-3">
-                  <CheckCircle className="w-5 h-5 text-neutral-600 mr-2" />
-                  <h4 className="font-medium text-neutral-900">Merge Tricks</h4>
+                  <CheckCircle className="w-5 h-5 text-neutral-400 mr-2" />
+                  <h4 className="font-medium text-neutral-100">Merge Tricks</h4>
                 </div>
-                <p className="text-sm text-neutral-600 mb-3">
+                <p className="text-sm text-neutral-400 mb-3">
                   Freigegebene Tricks in die Hauptdatenbank übernehmen
                 </p>
                 <button 

@@ -250,7 +250,7 @@ export default function PendingTricksPage() {
     return (
       <PageContainer>
         <div className="text-center py-16">
-          <p className="text-neutral-600">Lade eingereichte Tricks...</p>
+          <p className="text-neutral-400">Lade eingereichte Tricks...</p>
         </div>
       </PageContainer>
     )
@@ -274,7 +274,7 @@ export default function PendingTricksPage() {
           <div className="flex justify-between items-start mb-4">
             <Link 
               href="/admin" 
-              className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900"
+              className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-100"
             >
               <ArrowLeft className="w-4 h-4" />
               Zurück zum Admin-Bereich
@@ -290,21 +290,21 @@ export default function PendingTricksPage() {
             </Button>
           </div>
           
-          <h1 className="text-3xl font-bold text-neutral-900 mb-2">
+          <h1 className="text-3xl font-bold text-neutral-100 mb-2">
             Eingereichte Tricks moderieren
           </h1>
-          <p className="text-lg text-neutral-600">
+          <p className="text-lg text-neutral-400">
             {filteredAndSearchedTricks.length} {filteredAndSearchedTricks.length === 1 ? 'Trick' : 'Tricks'} 
             {searchQuery && ` (gefiltert nach "${searchQuery}")`}
           </p>
         </div>
 
         {/* Search and Filter Controls */}
-        <div className="bg-white border border-neutral-200 rounded-lg p-4 mb-6">
+        <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-4 mb-6">
           <div className="grid md:grid-cols-3 gap-4">
             {/* Search */}
             <div>
-              <label htmlFor="search" className="block text-sm font-medium text-neutral-700 mb-1">
+              <label htmlFor="search" className="block text-sm font-medium text-neutral-300 mb-1">
                 Suchen
               </label>
               <input
@@ -312,21 +312,21 @@ export default function PendingTricksPage() {
                 id="search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-3 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
                 placeholder="Titel oder Beschreibung..."
               />
             </div>
 
             {/* Status Filter */}
             <div>
-              <label htmlFor="status" className="block text-sm font-medium text-neutral-700 mb-1">
+              <label htmlFor="status" className="block text-sm font-medium text-neutral-300 mb-1">
                 Status
               </label>
               <select
                 id="status"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value as 'all' | 'pending')}
-                className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-3 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               >
                 <option value="pending">Wartend</option>
                 <option value="all">Alle</option>
@@ -335,7 +335,7 @@ export default function PendingTricksPage() {
 
             {/* Bulk Actions */}
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-1">
+              <label className="block text-sm font-medium text-neutral-300 mb-1">
                 Bulk-Aktionen ({selectedTricks.size} ausgewählt)
               </label>
               <div className="flex gap-2">
@@ -363,9 +363,9 @@ export default function PendingTricksPage() {
         </div>
 
         {filteredAndSearchedTricks.length === 0 ? (
-          <div className="bg-white border border-neutral-200 rounded-lg p-12 text-center">
+          <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-12 text-center">
             <Clock className="w-16 h-16 text-neutral-400 mx-auto mb-4" />
-            <p className="text-neutral-600 text-lg">
+            <p className="text-neutral-400 text-lg">
               {searchQuery ? 'Keine Tricks entsprechen der Suche' : 'Keine Tricks zur Moderation vorhanden'}
             </p>
           </div>
@@ -381,9 +381,9 @@ export default function PendingTricksPage() {
                     id="selectAll"
                     checked={filteredAndSearchedTricks.length > 0 && selectedTricks.size === filteredAndSearchedTricks.length}
                     onChange={(e) => handleSelectAll(e.target.checked)}
-                    className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
+                    className="rounded border-neutral-600 text-primary-400 focus:ring-primary-500"
                   />
-                  <label htmlFor="selectAll" className="text-sm text-neutral-600">
+                  <label htmlFor="selectAll" className="text-sm text-neutral-400">
                     Alle auswählen
                   </label>
                 </div>
@@ -391,10 +391,10 @@ export default function PendingTricksPage() {
               {filteredAndSearchedTricks.map((trick) => (
                 <div
                   key={trick.id}
-                  className={`bg-white border rounded-lg p-4 transition-all ${
+                  className={`bg-neutral-800 border rounded-lg p-4 transition-all ${
                     selectedTrick?.id === trick.id 
                       ? 'border-primary-500 shadow-md' 
-                      : 'border-neutral-200 hover:border-neutral-300'
+                      : 'border-neutral-700 hover:border-neutral-600'
                   } ${selectedTricks.has(trick.id) ? 'ring-2 ring-primary-200' : ''}`}
                 >
                   <div className="flex items-start gap-3">
@@ -406,7 +406,7 @@ export default function PendingTricksPage() {
                         e.stopPropagation()
                         handleSelectTrick(trick.id, e.target.checked)
                       }}
-                      className="mt-1 rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
+                      className="mt-1 rounded border-neutral-600 text-primary-400 focus:ring-primary-500"
                     />
                     
                     {/* Trick Content */}
@@ -415,7 +415,7 @@ export default function PendingTricksPage() {
                       onClick={() => setSelectedTrick(trick)}
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-semibold text-neutral-900 flex-1">
+                        <h3 className="font-semibold text-neutral-100 flex-1">
                           {trick.title}
                         </h3>
                         <div className="flex gap-2">
@@ -445,7 +445,7 @@ export default function PendingTricksPage() {
                           })()}
                         </div>
                       </div>
-                      <p className="text-sm text-neutral-600 line-clamp-2 mb-3">
+                      <p className="text-sm text-neutral-400 line-clamp-2 mb-3">
                         {trick.description}
                       </p>
                       <div className="flex items-center gap-4 text-xs text-neutral-500">
@@ -464,7 +464,7 @@ export default function PendingTricksPage() {
             {/* Trick Detail */}
             <div className="lg:sticky lg:top-4">
               {selectedTrick ? (
-                <div className="bg-white border border-neutral-200 rounded-lg p-6">
+                <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
                   <div className="flex justify-between items-start mb-4">
                     <h2 className="text-xl font-bold">{selectedTrick.title}</h2>
                     {(() => {
@@ -483,11 +483,11 @@ export default function PendingTricksPage() {
                             >
                               {assessment.label}
                             </Badge>
-                            <span className="text-lg font-bold text-neutral-900">
+                            <span className="text-lg font-bold text-neutral-100">
                               {qualityScore.total}/100
                             </span>
                           </div>
-                          <p className="text-xs text-neutral-600">{assessment.description}</p>
+                          <p className="text-xs text-neutral-400">{assessment.description}</p>
                         </div>
                       )
                     })()}
@@ -495,39 +495,39 @@ export default function PendingTricksPage() {
                   
                   <div className="space-y-4 mb-6">
                     <div>
-                      <h3 className="font-semibold text-sm text-neutral-700 mb-1">Beschreibung</h3>
-                      <p className="text-sm text-neutral-600">{selectedTrick.description}</p>
+                      <h3 className="font-semibold text-sm text-neutral-300 mb-1">Beschreibung</h3>
+                      <p className="text-sm text-neutral-400">{selectedTrick.description}</p>
                     </div>
 
                     {selectedTrick['Warum es funktioniert'] && (
                       <div>
-                        <h3 className="font-semibold text-sm text-neutral-700 mb-1">Warum es funktioniert</h3>
-                        <p className="text-sm text-neutral-600">{selectedTrick['Warum es funktioniert']}</p>
+                        <h3 className="font-semibold text-sm text-neutral-300 mb-1">Warum es funktioniert</h3>
+                        <p className="text-sm text-neutral-400">{selectedTrick['Warum es funktioniert']}</p>
                       </div>
                     )}
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <h3 className="font-semibold text-sm text-neutral-700 mb-1">Kategorie</h3>
+                        <h3 className="font-semibold text-sm text-neutral-300 mb-1">Kategorie</h3>
                         <p className="text-sm">{getCategoryLabel(selectedTrick.category)}</p>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-sm text-neutral-700 mb-1">Schwierigkeit</h3>
+                        <h3 className="font-semibold text-sm text-neutral-300 mb-1">Schwierigkeit</h3>
                         <p className="text-sm">{getDifficultyLabel(selectedTrick.difficulty)}</p>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-sm text-neutral-700 mb-1">Umsetzungszeit</h3>
+                        <h3 className="font-semibold text-sm text-neutral-300 mb-1">Umsetzungszeit</h3>
                         <p className="text-sm">{selectedTrick.timeToImplement}</p>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-sm text-neutral-700 mb-1">Impact</h3>
+                        <h3 className="font-semibold text-sm text-neutral-300 mb-1">Impact</h3>
                         <p className="text-sm capitalize">{selectedTrick.impact}</p>
                       </div>
                     </div>
 
                     {selectedTrick.tools && selectedTrick.tools.length > 0 && (
                       <div>
-                        <h3 className="font-semibold text-sm text-neutral-700 mb-1">Tools</h3>
+                        <h3 className="font-semibold text-sm text-neutral-300 mb-1">Tools</h3>
                         <div className="flex flex-wrap gap-2">
                           {selectedTrick.tools.map((tool, idx) => (
                             <Badge key={idx} variant="neutral">{tool}</Badge>
@@ -538,10 +538,10 @@ export default function PendingTricksPage() {
 
                     {selectedTrick.steps && selectedTrick.steps.length > 0 && (
                       <div>
-                        <h3 className="font-semibold text-sm text-neutral-700 mb-2">Schritte</h3>
+                        <h3 className="font-semibold text-sm text-neutral-300 mb-2">Schritte</h3>
                         <ol className="space-y-2">
                           {selectedTrick.steps.map((step, idx) => (
-                            <li key={idx} className="text-sm text-neutral-600">
+                            <li key={idx} className="text-sm text-neutral-400">
                               <span className="font-medium">{idx + 1}.</span> {step}
                             </li>
                           ))}
@@ -551,10 +551,10 @@ export default function PendingTricksPage() {
 
                     {selectedTrick.examples && selectedTrick.examples.length > 0 && (
                       <div>
-                        <h3 className="font-semibold text-sm text-neutral-700 mb-2">Beispiele</h3>
+                        <h3 className="font-semibold text-sm text-neutral-300 mb-2">Beispiele</h3>
                         <ul className="space-y-2">
                           {selectedTrick.examples.map((example, idx) => (
-                            <li key={idx} className="text-sm text-neutral-600">
+                            <li key={idx} className="text-sm text-neutral-400">
                               • {example}
                             </li>
                           ))}
@@ -567,8 +567,8 @@ export default function PendingTricksPage() {
                       const qualityScore = calculateQualityScore(selectedTrick)
                       return (
                         <div>
-                          <h3 className="font-semibold text-sm text-neutral-700 mb-2">Qualitätsbewertung</h3>
-                          <div className="bg-neutral-50 rounded-lg p-3 space-y-2">
+                          <h3 className="font-semibold text-sm text-neutral-300 mb-2">Qualitätsbewertung</h3>
+                          <div className="bg-neutral-800/50 rounded-lg p-3 space-y-2">
                             <div className="grid grid-cols-2 gap-2 text-xs">
                               <div className="flex justify-between">
                                 <span>Textlänge:</span>
@@ -596,9 +596,9 @@ export default function PendingTricksPage() {
                               </div>
                             </div>
                             {qualityScore.suggestions.length > 0 && (
-                              <div className="mt-3 pt-2 border-t border-neutral-200">
-                                <p className="text-xs font-medium text-neutral-700 mb-1">Verbesserungsvorschläge:</p>
-                                <ul className="text-xs text-neutral-600 space-y-1">
+                              <div className="mt-3 pt-2 border-t border-neutral-700">
+                                <p className="text-xs font-medium text-neutral-300 mb-1">Verbesserungsvorschläge:</p>
+                                <ul className="text-xs text-neutral-400 space-y-1">
                                   {qualityScore.suggestions.slice(0, 3).map((suggestion, idx) => (
                                     <li key={idx}>• {suggestion}</li>
                                   ))}
@@ -633,9 +633,9 @@ export default function PendingTricksPage() {
                   </div>
                 </div>
               ) : (
-                <div className="bg-white border border-neutral-200 rounded-lg p-12 text-center">
+                <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-12 text-center">
                   <Eye className="w-16 h-16 text-neutral-400 mx-auto mb-4" />
-                  <p className="text-neutral-600">
+                  <p className="text-neutral-400">
                     Wähle einen Trick aus der Liste, um Details anzuzeigen
                   </p>
                 </div>

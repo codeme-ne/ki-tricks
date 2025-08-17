@@ -137,7 +137,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
         <TrickPreview formData={formData} />
 
         {/* Actions */}
-        <div className="flex justify-between bg-white border border-neutral-200 rounded-lg p-4">
+        <div className="flex justify-between bg-neutral-800 border border-neutral-700 rounded-lg p-4">
           <Button 
             type="button" 
             variant="secondary" 
@@ -164,12 +164,12 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
   return (
     <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in-0 duration-300">
       {/* Basis-Informationen */}
-      <div className="bg-white border border-neutral-200 rounded-lg p-6">
+      <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
         <h2 className="text-lg font-semibold mb-4">Basis-Informationen</h2>
         
         <div className="space-y-4">
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-neutral-700 mb-1">
+            <label htmlFor="title" className="block text-sm font-medium text-neutral-300 mb-1">
               Titel *
             </label>
             <input
@@ -179,13 +179,13 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               required
               value={formData.title}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="z.B. Automatische Meeting-Zusammenfassungen mit ChatGPT"
             />
           </div>
 
           <div>
-            <label htmlFor="description" className="block text-sm font-medium text-neutral-700 mb-1">
+            <label htmlFor="description" className="block text-sm font-medium text-neutral-300 mb-1">
               Beschreibung *
             </label>
             <textarea
@@ -195,13 +195,13 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               rows={3}
               value={formData.description}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="Kurze Beschreibung des Tricks..."
             />
           </div>
 
           <div>
-            <label htmlFor="Warum es funktioniert" className="block text-sm font-medium text-neutral-700 mb-1">
+            <label htmlFor="Warum es funktioniert" className="block text-sm font-medium text-neutral-300 mb-1">
               Warum es funktioniert (optional)
             </label>
             <textarea
@@ -210,14 +210,14 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               rows={2}
               value={formData['Warum es funktioniert']}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="Erkläre kurz das Prinzip hinter diesem Trick..."
             />
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-neutral-700 mb-1">
+              <label htmlFor="category" className="block text-sm font-medium text-neutral-300 mb-1">
                 Kategorie *
               </label>
               <select
@@ -226,7 +226,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                 required
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               >
                 {categories.map(cat => (
                   <option key={cat.value} value={cat.value}>{cat.label}</option>
@@ -235,7 +235,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             </div>
 
             <div>
-              <label htmlFor="difficulty" className="block text-sm font-medium text-neutral-700 mb-1">
+              <label htmlFor="difficulty" className="block text-sm font-medium text-neutral-300 mb-1">
                 Schwierigkeit *
               </label>
               <select
@@ -244,7 +244,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                 required
                 value={formData.difficulty}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               >
                 {difficulties.map(diff => (
                   <option key={diff.value} value={diff.value}>{diff.label}</option>
@@ -255,7 +255,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
 
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="timeToImplement" className="block text-sm font-medium text-neutral-700 mb-1">
+              <label htmlFor="timeToImplement" className="block text-sm font-medium text-neutral-300 mb-1">
                 Umsetzungszeit *
               </label>
               <input
@@ -265,13 +265,13 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                 required
                 value={formData.timeToImplement}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
                 placeholder="z.B. 15 Minuten"
               />
             </div>
 
             <div>
-              <label htmlFor="impact" className="block text-sm font-medium text-neutral-700 mb-1">
+              <label htmlFor="impact" className="block text-sm font-medium text-neutral-300 mb-1">
                 Impact *
               </label>
               <select
@@ -280,7 +280,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                 required
                 value={formData.impact}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               >
                 {impacts.map(imp => (
                   <option key={imp.value} value={imp.value}>{imp.label}</option>
@@ -292,7 +292,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
       </div>
 
       {/* Schritte */}
-      <div className="bg-white border border-neutral-200 rounded-lg p-6">
+      <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
         <h2 className="text-lg font-semibold mb-4">Schritt-für-Schritt Anleitung (optional)</h2>
         
         <div className="space-y-3">
@@ -301,7 +301,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               value={newStep}
               onChange={(e) => setNewStep(e.target.value)}
               rows={2}
-              className="flex-1 px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="flex-1 px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="Schritt hinzufügen..."
             />
             <Button type="button" onClick={addStep} variant="outline">
@@ -313,14 +313,14 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             {formData.steps?.map((step, index) => (
               <div
                 key={index}
-                className="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg"
+                className="flex items-start gap-3 p-3 bg-neutral-800/50 rounded-lg"
               >
                 <span className="text-sm font-medium text-neutral-500">{index + 1}.</span>
                 <p className="flex-1 text-sm">{step}</p>
                 <button
                   type="button"
                   onClick={() => removeStep(index)}
-                  className="text-neutral-400 hover:text-neutral-600"
+                  className="text-neutral-400 hover:text-neutral-200"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -331,7 +331,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
       </div>
 
       {/* Beispiele */}
-      <div className="bg-white border border-neutral-200 rounded-lg p-6">
+      <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
         <h2 className="text-lg font-semibold mb-4">Beispiele (optional)</h2>
         
         <div className="space-y-3">
@@ -340,7 +340,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               value={newExample}
               onChange={(e) => setNewExample(e.target.value)}
               rows={2}
-              className="flex-1 px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="flex-1 px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="Beispiel hinzufügen..."
             />
             <Button type="button" onClick={addExample} variant="outline">
@@ -352,14 +352,14 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             {formData.examples?.map((example, index) => (
               <div
                 key={index}
-                className="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg"
+                className="flex items-start gap-3 p-3 bg-neutral-800/50 rounded-lg"
               >
                 <span className="text-sm">•</span>
                 <p className="flex-1 text-sm">{example}</p>
                 <button
                   type="button"
                   onClick={() => removeExample(index)}
-                  className="text-neutral-400 hover:text-neutral-600"
+                  className="text-neutral-400 hover:text-neutral-200"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -370,7 +370,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
       </div>
 
       {/* Submit Buttons */}
-      <div className="bg-white border border-neutral-200 rounded-lg p-6">
+      <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
         <div className="flex flex-col sm:flex-row justify-between gap-4">
           <Button 
             type="button" 

@@ -66,3 +66,6 @@ performance-analysis.md
 
 # Screenshots (keeping in repo for documentation)
 # screenshots/
+
+# Claude sessions (private development tracking)
+.claude/sessions/

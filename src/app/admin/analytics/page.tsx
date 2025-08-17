@@ -94,7 +94,7 @@ export default function AdminAnalyticsPage() {
       <PageContainer>
         <div className="text-center py-16">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-neutral-600">Lade Analytics...</p>
+          <p className="text-neutral-400">Lade Analytics...</p>
         </div>
       </PageContainer>
     )
@@ -105,7 +105,7 @@ export default function AdminAnalyticsPage() {
       <PageContainer>
         <div className="text-center py-16">
           <X className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <p className="text-red-600">{error}</p>
+          <p className="text-red-400">{error}</p>
         </div>
       </PageContainer>
     )
@@ -117,7 +117,7 @@ export default function AdminAnalyticsPage() {
         <div className="mb-8">
           <Link 
             href="/admin" 
-            className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 mb-4"
+            className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-100 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Zurück zum Admin-Bereich
@@ -125,23 +125,23 @@ export default function AdminAnalyticsPage() {
           
           <div className="flex justify-between items-start">
             <div>
-              <h1 className="text-3xl font-bold text-neutral-900 mb-2">
+              <h1 className="text-3xl font-bold text-neutral-100 mb-2">
                 Analytics Dashboard
               </h1>
-              <p className="text-lg text-neutral-600">
+              <p className="text-lg text-neutral-400">
                 Übersicht über eingereichte Tricks und Moderationsstatistiken
               </p>
             </div>
             
             <div>
-              <label htmlFor="timeRange" className="block text-sm font-medium text-neutral-700 mb-1">
+              <label htmlFor="timeRange" className="block text-sm font-medium text-neutral-300 mb-1">
                 Zeitraum
               </label>
               <select
                 id="timeRange"
                 value={timeRange}
                 onChange={(e) => setTimeRange(e.target.value as '7d' | '30d' | '90d')}
-                className="px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="px-3 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               >
                 <option value="7d">Letzte 7 Tage</option>
                 <option value="30d">Letzte 30 Tage</option>
@@ -155,50 +155,50 @@ export default function AdminAnalyticsPage() {
           <>
             {/* Key Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <div className="bg-white border border-neutral-200 rounded-lg p-6">
+              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
                 <div className="flex items-center">
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <Clock className="w-6 h-6 text-blue-600" />
+                  <div className="p-2 bg-blue-800/50 rounded-lg">
+                    <Clock className="w-6 h-6 text-blue-400" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-neutral-600">Wartend</p>
-                    <p className="text-2xl font-bold text-neutral-900">{analytics.totals.pending}</p>
+                    <p className="text-sm font-medium text-neutral-400">Wartend</p>
+                    <p className="text-2xl font-bold text-neutral-100">{analytics.totals.pending}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white border border-neutral-200 rounded-lg p-6">
+              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
                 <div className="flex items-center">
-                  <div className="p-2 bg-green-100 rounded-lg">
-                    <CheckCircle className="w-6 h-6 text-green-600" />
+                  <div className="p-2 bg-green-800/50 rounded-lg">
+                    <CheckCircle className="w-6 h-6 text-green-400" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-neutral-600">Freigegeben</p>
-                    <p className="text-2xl font-bold text-neutral-900">{analytics.totals.approved}</p>
+                    <p className="text-sm font-medium text-neutral-400">Freigegeben</p>
+                    <p className="text-2xl font-bold text-neutral-100">{analytics.totals.approved}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white border border-neutral-200 rounded-lg p-6">
+              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
                 <div className="flex items-center">
-                  <div className="p-2 bg-red-100 rounded-lg">
-                    <X className="w-6 h-6 text-red-600" />
+                  <div className="p-2 bg-red-800/50 rounded-lg">
+                    <X className="w-6 h-6 text-red-400" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-neutral-600">Abgelehnt</p>
-                    <p className="text-2xl font-bold text-neutral-900">{analytics.totals.rejected}</p>
+                    <p className="text-sm font-medium text-neutral-400">Abgelehnt</p>
+                    <p className="text-2xl font-bold text-neutral-100">{analytics.totals.rejected}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white border border-neutral-200 rounded-lg p-6">
+              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
                 <div className="flex items-center">
-                  <div className="p-2 bg-purple-100 rounded-lg">
-                    <TrendingUp className="w-6 h-6 text-purple-600" />
+                  <div className="p-2 bg-purple-800/50 rounded-lg">
+                    <TrendingUp className="w-6 h-6 text-purple-400" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-neutral-600">Approval Rate</p>
-                    <p className="text-2xl font-bold text-neutral-900">{analytics.approvalRate.toFixed(1)}%</p>
+                    <p className="text-sm font-medium text-neutral-400">Approval Rate</p>
+                    <p className="text-2xl font-bold text-neutral-100">{analytics.approvalRate.toFixed(1)}%</p>
                   </div>
                 </div>
               </div>
@@ -206,7 +206,7 @@ export default function AdminAnalyticsPage() {
 
             <div className="grid lg:grid-cols-2 gap-8 mb-8">
               {/* Top Categories */}
-              <div className="bg-white border border-neutral-200 rounded-lg p-6">
+              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
                 <h3 className="text-lg font-semibold mb-4 flex items-center">
                   <BarChart className="w-5 h-5 mr-2" />
                   Beliebteste Kategorien
@@ -215,21 +215,21 @@ export default function AdminAnalyticsPage() {
                   {analytics.mostActiveCategories.map((item, index) => (
                     <div key={item.category} className="flex items-center justify-between">
                       <div className="flex items-center flex-1">
-                        <span className="text-sm font-medium text-neutral-700 w-4 text-center mr-3">
+                        <span className="text-sm font-medium text-neutral-300 w-4 text-center mr-3">
                           {index + 1}
                         </span>
-                        <span className="text-sm text-neutral-900">
+                        <span className="text-sm text-neutral-100">
                           {getCategoryLabel(item.category)}
                         </span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className="w-32 bg-neutral-200 rounded-full h-2">
+                        <div className="w-32 bg-neutral-700 rounded-full h-2">
                           <div 
                             className="bg-primary-600 h-2 rounded-full" 
                             style={{ width: `${item.percentage}%` }}
                           ></div>
                         </div>
-                        <span className="text-sm font-medium text-neutral-900 w-8 text-right">
+                        <span className="text-sm font-medium text-neutral-100 w-8 text-right">
                           {item.count}
                         </span>
                       </div>
@@ -239,7 +239,7 @@ export default function AdminAnalyticsPage() {
               </div>
 
               {/* Recent Activity */}
-              <div className="bg-white border border-neutral-200 rounded-lg p-6">
+              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
                 <h3 className="text-lg font-semibold mb-4 flex items-center">
                   <TrendingUp className="w-5 h-5 mr-2" />
                   Aktivität der letzten Tage
@@ -247,14 +247,14 @@ export default function AdminAnalyticsPage() {
                 <div className="space-y-3">
                   {analytics.recentSubmissions.map((item) => (
                     <div key={item.date} className="flex justify-between items-center">
-                      <span className="text-sm text-neutral-600">
+                      <span className="text-sm text-neutral-400">
                         {new Date(item.date).toLocaleDateString('de-DE', {
                           day: '2-digit',
                           month: '2-digit'
                         })}
                       </span>
                       <div className="flex items-center gap-3">
-                        <div className="w-24 bg-neutral-200 rounded-full h-2">
+                        <div className="w-24 bg-neutral-700 rounded-full h-2">
                           <div 
                             className="bg-blue-600 h-2 rounded-full" 
                             style={{ 
@@ -262,7 +262,7 @@ export default function AdminAnalyticsPage() {
                             }}
                           ></div>
                         </div>
-                        <span className="text-sm font-medium text-neutral-900 w-6 text-right">
+                        <span className="text-sm font-medium text-neutral-100 w-6 text-right">
                           {item.count}
                         </span>
                       </div>
@@ -280,7 +280,7 @@ export default function AdminAnalyticsPage() {
                   <p className="text-3xl font-bold text-primary-600">
                     {analytics.totals.pending + analytics.totals.approved + analytics.totals.rejected}
                   </p>
-                  <p className="text-sm text-neutral-600 mt-1">
+                  <p className="text-sm text-neutral-400 mt-1">
                     Gesamte Einreichungen ({timeRange === '7d' ? '7 Tage' : timeRange === '30d' ? '30 Tage' : '90 Tage'})
                   </p>
                 </div>
@@ -288,7 +288,7 @@ export default function AdminAnalyticsPage() {
                   <p className="text-3xl font-bold text-green-600">
                     {analytics.avgProcessingTime.toFixed(1)}h
                   </p>
-                  <p className="text-sm text-neutral-600 mt-1">
+                  <p className="text-sm text-neutral-400 mt-1">
                     Ø Bearbeitungszeit
                   </p>
                 </div>
@@ -296,7 +296,7 @@ export default function AdminAnalyticsPage() {
                   <p className="text-3xl font-bold text-blue-600">
                     {analytics.totals.published}
                   </p>
-                  <p className="text-sm text-neutral-600 mt-1">
+                  <p className="text-sm text-neutral-400 mt-1">
                     Veröffentlichte Tricks
                   </p>
                 </div>
