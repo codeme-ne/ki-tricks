@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/atoms'
+import { Button, Badge } from '@/components/atoms'
 import { KITrick, Category, Difficulty, Impact } from '@/lib/types/types'
-import { Plus, X } from 'lucide-react'
+import { Plus, X, Eye, Edit } from 'lucide-react'
 
 interface TrickFormProps {
   onSubmit: (data: Partial<KITrick>) => void
@@ -44,11 +44,13 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
     timeToImplement: initialData.timeToImplement || '',
     impact: initialData.impact || 'medium',
     steps: initialData.steps || [],
-    examples: initialData.examples || []
+    examples: initialData.examples || [],
+    'Warum es funktioniert': initialData['Warum es funktioniert'] || ''
   })
 
   const [newStep, setNewStep] = useState('')
   const [newExample, setNewExample] = useState('')
+  const [previewMode, setPreviewMode] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -94,6 +96,154 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
     }))
   }
 
+  const getDifficultyColor = (difficulty: string) => {
+    const colors: Record<string, 'success' | 'warning' | 'danger'> = {
+      'beginner': 'success',
+      'intermediate': 'warning',
+      'advanced': 'danger'
+    }
+    return colors[difficulty] || 'primary'
+  }
+
+  const getCategoryLabel = (category: string) => {
+    const labels: Record<string, string> = {
+      'productivity': 'Produktivität',
+      'content-creation': 'Content-Erstellung',
+      'programming': 'Programmierung',
+      'design': 'Design',
+      'data-analysis': 'Datenanalyse',
+      'learning': 'Lernen',
+      'business': 'Business',
+      'marketing': 'Marketing'
+    }
+    return labels[category] || category
+  }
+
+  const getDifficultyLabel = (difficulty: string) => {
+    const labels: Record<string, string> = {
+      'beginner': 'Anfänger',
+      'intermediate': 'Fortgeschritten',
+      'advanced': 'Experte'
+    }
+    return labels[difficulty] || difficulty
+  }
+
+  // Preview Mode Component
+  if (previewMode) {
+    return (
+      <div className="space-y-6">
+        {/* Preview Header */}
+        <div className="flex justify-between items-center bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <p className="text-sm text-blue-800 font-medium">
+            Vorschau-Modus: So wird dein Trick auf der Plattform angezeigt
+          </p>
+          <Button
+            type="button"
+            variant="primary"
+            onClick={() => setPreviewMode(false)}
+          >
+            <Edit className="w-4 h-4 mr-2" />
+            Bearbeiten
+          </Button>
+        </div>
+
+        {/* Trick Preview */}
+        <div className="bg-white border border-neutral-200 rounded-lg p-6">
+          <h1 className="text-2xl font-bold text-neutral-900 mb-4">
+            {formData.title || 'Kein Titel angegeben'}
+          </h1>
+
+          <div className="flex flex-wrap gap-2 mb-4">
+            <Badge variant={getDifficultyColor(formData.difficulty || 'beginner')}>
+              {getDifficultyLabel(formData.difficulty || 'beginner')}
+            </Badge>
+            <Badge variant="neutral">
+              {getCategoryLabel(formData.category || 'productivity')}
+            </Badge>
+            <Badge variant="primary">
+              {formData.timeToImplement || 'Zeit nicht angegeben'}
+            </Badge>
+            <Badge variant={formData.impact === 'high' ? 'success' : formData.impact === 'low' ? 'warning' : 'neutral'}>
+              Impact: {formData.impact || 'medium'}
+            </Badge>
+          </div>
+
+          <div className="prose max-w-none space-y-4">
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Beschreibung</h3>
+              <p className="text-neutral-700">
+                {formData.description || 'Keine Beschreibung angegeben'}
+              </p>
+            </div>
+
+            {formData['Warum es funktioniert'] && (
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Warum es funktioniert</h3>
+                <p className="text-neutral-700">
+                  {formData['Warum es funktioniert']}
+                </p>
+              </div>
+            )}
+
+            {formData.tools && formData.tools.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Benötigte Tools</h3>
+                <div className="flex flex-wrap gap-2">
+                  {formData.tools.map((tool, idx) => (
+                    <Badge key={idx} variant="primary">{tool}</Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {formData.steps && formData.steps.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Schritt-für-Schritt Anleitung</h3>
+                <ol className="space-y-2">
+                  {formData.steps.map((step, idx) => (
+                    <li key={idx} className="flex">
+                      <span className="font-semibold mr-2">{idx + 1}.</span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
+            {formData.examples && formData.examples.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Beispiele</h3>
+                <ul className="space-y-2">
+                  {formData.examples.map((example, idx) => (
+                    <li key={idx} className="flex">
+                      <span className="mr-2">•</span>
+                      <span>{example}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex justify-end gap-4">
+          <Button type="button" variant="secondary" onClick={() => setPreviewMode(false)}>
+            Zurück zur Bearbeitung
+          </Button>
+          <Button 
+            type="button" 
+            variant="primary" 
+            onClick={() => onSubmit(formData)}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Wird eingereicht...' : 'Trick einreichen'}
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       {/* Basis-Informationen */}
@@ -130,6 +280,21 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               onChange={handleChange}
               className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               placeholder="Kurze Beschreibung des Tricks..."
+            />
+          </div>
+
+          <div>
+            <label htmlFor="Warum es funktioniert" className="block text-sm font-medium text-neutral-700 mb-1">
+              Warum es funktioniert (optional)
+            </label>
+            <textarea
+              id="Warum es funktioniert"
+              name="Warum es funktioniert"
+              rows={2}
+              value={formData['Warum es funktioniert']}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              placeholder="Erkläre kurz das Prinzip hinter diesem Trick..."
             />
           </div>
 
@@ -287,14 +452,20 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
         </div>
       </div>
 
-      {/* Submit Button */}
-      <div className="flex justify-end gap-4">
-        <Button type="button" variant="outline" onClick={() => window.history.back()}>
-          Abbrechen
+      {/* Submit Buttons */}
+      <div className="flex justify-between">
+        <Button type="button" variant="secondary" onClick={() => setPreviewMode(true)}>
+          <Eye className="w-4 h-4 mr-2" />
+          Vorschau anzeigen
         </Button>
-        <Button type="submit" variant="primary" disabled={isSubmitting}>
-          {isSubmitting ? 'Wird gespeichert...' : 'Trick speichern'}
-        </Button>
+        <div className="flex gap-4">
+          <Button type="button" variant="secondary" onClick={() => window.history.back()}>
+            Abbrechen
+          </Button>
+          <Button type="submit" variant="primary" disabled={isSubmitting}>
+            {isSubmitting ? 'Wird gespeichert...' : 'Trick speichern'}
+          </Button>
+        </div>
       </div>
     </form>
   )
