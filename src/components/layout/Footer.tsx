@@ -27,6 +27,12 @@ export function Footer() {
             >
               Kontakt
             </Link>
+            <Link 
+              href="/tricks/einreichen" 
+              className="text-sm text-primary-400 hover:text-primary-300 font-medium transition-colors"
+            >
+              Community beitragen
+            </Link>
           </div>
         </div>
         <div className="mt-6 pt-6 border-t border-neutral-800 text-center">

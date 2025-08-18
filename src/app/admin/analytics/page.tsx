@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { PageContainer } from '@/components/layout'
 import { Button, Badge } from '@/components/atoms'
 import { AdminAuth } from '@/lib/utils/admin-auth'
@@ -34,7 +34,7 @@ export default function AdminAnalyticsPage() {
   const [error, setError] = useState<string | null>(null)
   const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d'>('30d')
 
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = useCallback(async () => {
     try {
       const authToken = await AdminAuth.authenticateWithPrompt()
       if (!authToken) {
@@ -69,11 +69,11 @@ export default function AdminAnalyticsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [timeRange])
 
   useEffect(() => {
     fetchAnalytics()
-  }, [timeRange])
+  }, [fetchAnalytics])
 
   const getCategoryLabel = (category: string) => {
     const labels: Record<string, string> = {
