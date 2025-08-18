@@ -21,7 +21,7 @@ export class SubmissionsService {
       trick_data: trickData,
       submitter_email: submitterInfo?.email || null,
       submitter_name: submitterInfo?.name || null,
-      quality_score: qualityScore,
+      quality_score: qualityScore.total,
       status: 'pending'
     }
     
