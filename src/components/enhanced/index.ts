@@ -1,6 +1,4 @@
-export { GlowingTrickCard } from './GlowingTrickCard'
 export { GlowingButton } from './GlowingButton'
-export { GlowingSearchBar } from './GlowingSearchBar'
 export { AnimatedStat, AnimatedStatsGrid } from './AnimatedStats'
 export { RefinedTrickCard } from './RefinedTrickCard'
 export { LazyTrickCard } from './LazyTrickCard'

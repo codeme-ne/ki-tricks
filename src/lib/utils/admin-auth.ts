@@ -23,7 +23,6 @@ export class AdminAuth {
     try {
       sessionStorage.setItem(SESSION_KEY, JSON.stringify(session))
     } catch (error) {
-      console.warn('Failed to save admin session:', error)
     }
   }
 
@@ -42,7 +41,6 @@ export class AdminAuth {
 
       return session.token
     } catch (error) {
-      console.warn('Failed to get admin session:', error)
       this.clearSession()
       return null
     }
@@ -52,7 +50,6 @@ export class AdminAuth {
     try {
       sessionStorage.removeItem(SESSION_KEY)
     } catch (error) {
-      console.warn('Failed to clear admin session:', error)
     }
   }
 
@@ -107,7 +104,6 @@ export class AdminAuth {
       
       sessionStorage.setItem(SESSION_KEY, JSON.stringify(session))
     } catch (error) {
-      console.warn('Failed to extend admin session:', error)
     }
   }
 }

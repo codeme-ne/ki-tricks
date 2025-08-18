@@ -2,25 +2,76 @@
 
 import React, { useState, useMemo } from 'react'
 import { FilterSidebar, TrickGrid } from '@/components/organisms'
-import { GlowingSearchBar } from '@/components/enhanced'
+import { SearchBar } from '@/components/molecules'
 import { Button } from '@/components/atoms'
 import { Menu } from 'lucide-react'
 import { useFilters } from '@/hooks/useFilters'
-import { mockTricks, getAllCategories, filterTricks } from '@/lib/data/mock-data'
 import { hasActiveFilters } from '@/lib/utils/utils'
-import { KITrick } from '@/lib/types/types'
+import { KITrick, Category } from '@/lib/types/types'
 
-export default function TricksClient() {
+interface TricksClientProps {
+  serverTricks?: any[]
+  serverCategories?: string[]
+}
+
+export default function TricksClient({ serverTricks = [], serverCategories = [] }: TricksClientProps) {
   const { filters, updateFilters } = useFilters()
   const [searchQuery, setSearchQuery] = useState('')
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
+  // Convert Supabase data to KITrick format
+  const tricks: KITrick[] = useMemo(() => {
+    return serverTricks.map(trick => ({
+      id: trick.id,
+      title: trick.title,
+      description: trick.description,
+      category: trick.category as Category,
+      difficulty: trick.difficulty,
+      tools: trick.tools,
+      timeToImplement: trick.time_to_implement,
+      impact: trick.impact,
+      steps: trick.steps || [],
+      examples: trick.examples || [],
+      slug: trick.slug,
+      createdAt: new Date(trick.created_at),
+      updatedAt: new Date(trick.updated_at),
+      'Warum es funktioniert': trick.why_it_works
+    }))
+  }, [serverTricks])
+
   // Filter tricks based on search and filters
   const filteredTricks = useMemo(() => {
-    return filterTricks(mockTricks, filters, searchQuery)
-  }, [searchQuery, filters])
+    let result = tricks
 
-  const availableCategories = useMemo(() => getAllCategories(), [])
+    // Apply category filter
+    if (filters.categories.length > 0) {
+      result = result.filter(trick => filters.categories.includes(trick.category))
+    }
+
+    // Apply difficulty filter
+    if (filters.difficulty.length > 0) {
+      result = result.filter(trick => filters.difficulty.includes(trick.difficulty))
+    }
+
+    // Apply impact filter
+    if (filters.impact.length > 0) {
+      result = result.filter(trick => filters.impact.includes(trick.impact))
+    }
+
+    // Apply search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase()
+      result = result.filter(trick => 
+        trick.title.toLowerCase().includes(query) ||
+        trick.description.toLowerCase().includes(query) ||
+        trick.tools.some(tool => tool.toLowerCase().includes(query))
+      )
+    }
+
+    return result
+  }, [tricks, searchQuery, filters])
+
+  const availableCategories = useMemo(() => serverCategories as Category[], [serverCategories])
 
   return (
     <>
@@ -50,10 +101,11 @@ export default function TricksClient() {
         <main className="flex-1 min-w-0">
           {/* Search Bar */}
           <div className="mb-6">
-            <GlowingSearchBar
+            <SearchBar
               value={searchQuery}
               onChange={setSearchQuery}
               placeholder="Suche nach KI Tricks..."
+              variant="glowing"
             />
           </div>
 

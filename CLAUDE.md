@@ -2,17 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Recent Updates
-
-### 2025-08-17 - Major Code Cleanup
-- **Removed 28 files** (9,000+ lines of legacy code)
-- **Deleted scraper modules**: All YouTube, Reddit, and content scrapers from `src/lib/ai/`
-- **Removed scraping scripts**: 7 scripts from `scripts/` (kept `fix-build-errors.ts`)
-- **Consolidated documentation**: Removed 7 redundant CLAUDE.md files
-- **Cleaned up**: Deleted 5 scraping-related docs and 5 screenshots
-- **Result**: Clean, focused codebase for KI-Tricks platform
-- **Status**: ✅ Build successful, all tests passing, app running smoothly
-
 ## Project Overview
 
 KI Tricks Platform - A Next.js 15 web application for discovering and implementing practical AI tips and tricks. The UI is in German and follows a minimalistic design inspired by thegrowthlist.co.

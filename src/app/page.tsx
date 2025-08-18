@@ -11,17 +11,18 @@ import {
   getAverageImplementationTime,
   getTrickCountByCategory,
   getAllCategories
-} from '@/lib/data/mock-data'
+} from '@/lib/actions/tricks.actions'
 import { categoryLabels, categoryEmojis } from '@/lib/constants/constants'
 
-export default function HomePage() {
-  // Calculate dynamic statistics
-  const totalTricks = getTotalTricksCount()
-  const totalCategories = getTotalCategoriesCount()
-  const totalTools = getAllTools().length
-  const avgImplementationTime = getAverageImplementationTime()
-  const tricksByCategory = getTrickCountByCategory()
-  const allCategories = getAllCategories()
+export default async function HomePage() {
+  // Calculate dynamic statistics from Supabase
+  const totalTricks = await getTotalTricksCount()
+  const totalCategories = await getTotalCategoriesCount()
+  const allTools = await getAllTools()
+  const totalTools = allTools.length
+  const avgImplementationTime = await getAverageImplementationTime()
+  const tricksByCategory = await getTrickCountByCategory()
+  const allCategories = await getAllCategories()
   
   return (
     <div className="min-h-screen flex flex-col relative bg-[#0A0A0F] overflow-hidden">

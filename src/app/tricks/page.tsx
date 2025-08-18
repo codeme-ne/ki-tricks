@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { Metadata } from 'next'
 import { Header, Footer, PageContainer } from '@/components/layout'
 import { SparklesCore } from '@/components/atoms'
-import TricksClient from './TricksClient'
+import TricksProvider from './TricksProvider'
 
 export const metadata: Metadata = {
   title: 'KI-Workflows für Professionals | Praktische KI-Tricks 2025',
@@ -45,7 +45,7 @@ export default function TricksPage() {
           </div>
 
           <Suspense fallback={<div>Lade...</div>}>
-            <TricksClient />
+            <TricksProvider />
           </Suspense>
         </PageContainer>
         <Footer />

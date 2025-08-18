@@ -15,8 +15,6 @@ export async function POST(request: NextRequest) {
   try {
     const { trickTitle, trickDescription, trickCategory, trickDifficulty }: NotificationData = await request.json()
     
-    // Log the notification request
-    console.log('Admin notification requested for trick:', trickTitle)
     
     // Return success - the actual email sending will be handled on client-side
     return NextResponse.json({

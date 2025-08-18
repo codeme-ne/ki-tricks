@@ -23,12 +23,15 @@ export default function SubmitTrickPage() {
     setDuplicateWarning(null)
     
     try {
-      const response = await fetch('/api/tricks', {
+      const response = await fetch('/api/tricks/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...trickData, forceDuplicate }),
+        body: JSON.stringify({ 
+          trickData: { ...trickData, forceDuplicate },
+          submitterInfo: {} // Can be extended with email/name if needed
+        }),
       })
       
       const data = await response.json()

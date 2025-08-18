@@ -15,19 +15,15 @@ import { glob } from 'glob';
 class BuildErrorFixer {
   
   async fixAll(): Promise<void> {
-    console.log('🔧 === AUTOMATISCHE BUILD-FEHLER BEHEBUNG ===\n');
     
     await this.fixScrapedContentFiles();
     await this.fixImportPaths();
     await this.addMissingDateFields();
     
-    console.log('\n✅ Alle Build-Fehler behoben');
-    console.log('💡 Führe `npm run build` aus um zu testen');
   }
 
   // Fix 1: Scraped Content TypeScript Dateien
   private async fixScrapedContentFiles(): Promise<void> {
-    console.log('🔍 1. Prüfe scraped-content/*.ts Dateien...');
     
     const tsFiles = await glob('scraped-content/*.ts');
     
@@ -40,28 +36,24 @@ class BuildErrorFixer {
         if (content.includes("from '../types'")) {
           content = content.replace("from '../types'", "from '../app/lib/types'");
           modified = true;
-          console.log(`   ✅ Import-Pfad repariert: ${file}`);
         }
 
         // Füge fehlende Felder hinzu
         if (content.includes('"id":') && !content.includes('"createdAt":')) {
           content = this.addDateFieldsToJson(content);
           modified = true;
-          console.log(`   ✅ createdAt/updatedAt hinzugefügt: ${file}`);
         }
 
         if (modified) {
           writeFileSync(file, content);
         }
       } catch (error) {
-        console.warn(`   ⚠️ Konnte ${file} nicht reparieren: ${error}`);
       }
     }
   }
 
   // Fix 2: Import-Pfade korrigieren
   private async fixImportPaths(): Promise<void> {
-    console.log('\n🔍 2. Prüfe Import-Pfade...');
     
     const files = await glob('app/**/*.ts');
     
@@ -85,7 +77,6 @@ class BuildErrorFixer {
 
         if (modified) {
           writeFileSync(file, content);
-          console.log(`   ✅ Import-Pfade repariert: ${file}`);
         }
       } catch (error) {
         // Ignoriere Fehler bei nicht-TypeScript Dateien
@@ -106,7 +97,6 @@ class BuildErrorFixer {
 
   // Fix 4: Füge Date-Felder zu existierenden KITrick Objekten hinzu
   private async addMissingDateFields(): Promise<void> {
-    console.log('\n🔍 3. Prüfe fehlende Date-Felder...');
     
     const jsonFiles = await glob('scraped-content/*.json');
     
@@ -129,18 +119,15 @@ class BuildErrorFixer {
           
           if (modified) {
             writeFileSync(file, JSON.stringify(data, null, 2));
-            console.log(`   ✅ Date-Felder hinzugefügt: ${file}`);
           }
         }
       } catch (error) {
-        console.warn(`   ⚠️ Konnte ${file} nicht verarbeiten: ${error}`);
       }
     }
   }
 
   // Utility: Entferne problematische Dateien
   async removeBrokenFiles(): Promise<void> {
-    console.log('\n🗑️  4. Entferne problematische Dateien...');
     
     const problematicFiles = [
       'scraped-content/kitricks-2025-08-04.ts' // Alte Version ohne Date-Felder
@@ -149,7 +136,6 @@ class BuildErrorFixer {
     for (const file of problematicFiles) {
       if (existsSync(file)) {
         unlinkSync(file);
-        console.log(`   ✅ Entfernt: ${file}`);
       }
     }
   }

@@ -117,6 +117,7 @@ export interface SearchBarProps {
   onChange?: (value: string) => void
   placeholder?: string
   className?: string
+  variant?: 'default' | 'glowing'
 }
 
 // Utilities and Constants

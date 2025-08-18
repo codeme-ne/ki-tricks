@@ -24,7 +24,6 @@ function generateSlug(title: string): string {
 
 async function mergeApprovedTricks() {
   try {
-    console.log('🔄 Starte Merge-Prozess für genehmigte Tricks...')
     
     // Read approved tricks
     const approvedTricksPath = path.join(process.cwd(), 'data', 'approved-tricks.json')
@@ -32,11 +31,9 @@ async function mergeApprovedTricks() {
     const approvedTricks: PendingKITrick[] = JSON.parse(approvedTricksContent)
     
     if (approvedTricks.length === 0) {
-      console.log('ℹ️  Keine genehmigten Tricks zum Mergen gefunden.')
       return
     }
     
-    console.log(`📦 ${approvedTricks.length} genehmigte Tricks gefunden.`)
     
     // Read current mock-data.ts
     const mockDataPath = path.join(process.cwd(), 'src', 'lib', 'data', 'mock-data.ts')
@@ -155,13 +152,10 @@ ${newTricksCode},`
     
     // Write updated mock-data.ts
     await fs.writeFile(mockDataPath, updatedMockData)
-    console.log('✅ Mock-data.ts erfolgreich aktualisiert!')
     
     // Clear approved tricks after successful merge
     await fs.writeFile(approvedTricksPath, '[]')
-    console.log('🧹 Approved-tricks.json wurde geleert.')
     
-    console.log('🎉 Merge-Prozess erfolgreich abgeschlossen!')
     
   } catch (error) {
     console.error('❌ Fehler beim Merge-Prozess:', error)

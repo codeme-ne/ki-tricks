@@ -36,7 +36,6 @@ class EmailNotificationService {
     const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'zangerl.luk@gmail.com'
 
     if (!serviceId || !templateId || !publicKey) {
-      console.warn('EmailJS not configured - missing environment variables')
       return null
     }
 
@@ -53,7 +52,6 @@ class EmailNotificationService {
 
     // Check if we're in a browser environment
     if (typeof window === 'undefined') {
-      console.warn('EmailJS can only be used in browser environment')
       this.isInitialized = true
       return false
     }
@@ -81,14 +79,12 @@ class EmailNotificationService {
   async sendAdminNotification(data: AdminNotificationData): Promise<boolean> {
     const initialized = await this.initialize()
     if (!initialized || !this.config) {
-      console.warn('EmailJS not available - skipping admin notification')
       return false
     }
 
     try {
       const emailjsLib = await getEmailJs()
       if (!emailjsLib) {
-        console.warn('EmailJS library not available')
         return false
       }
 
@@ -104,7 +100,6 @@ class EmailNotificationService {
         }
       )
 
-      console.log('Admin notification sent successfully')
       return true
     } catch (error) {
       console.error('Failed to send admin notification:', error)
