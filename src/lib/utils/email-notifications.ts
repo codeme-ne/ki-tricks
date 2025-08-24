@@ -165,7 +165,6 @@ export async function sendNewTrickNotification(trickData: {
   title: string
   description: string
   category: string
-  difficulty: string
 }): Promise<boolean> {
   const adminUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/admin/tricks/pending`
   
@@ -173,7 +172,6 @@ export async function sendNewTrickNotification(trickData: {
     trickTitle: trickData.title,
     trickDescription: trickData.description,
     trickCategory: trickData.category,
-    trickDifficulty: trickData.difficulty,
     submissionTime: new Date().toLocaleString('de-DE'),
     adminUrl
   })

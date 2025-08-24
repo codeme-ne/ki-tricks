@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { Badge } from '@/components/atoms'
-import { KITrick, categoryMetadata, impactMetadata, difficultyMetadata } from '@/lib/types/types'
-import { Clock, Code2, Brain, Briefcase, BarChart3, PenTool, Palette, TrendingUp, BookOpen, Eye, Sparkles, CheckCircle } from 'lucide-react'
+import { KITrick, categoryMetadata } from '@/lib/types/types'
+import { Code2, Brain, Briefcase, BarChart3, PenTool, Palette, TrendingUp, BookOpen, Eye, Sparkles, CheckCircle } from 'lucide-react'
 import { cn } from '@/lib/utils/utils'
 
 interface TrickPreviewProps {
@@ -12,44 +12,22 @@ interface TrickPreviewProps {
 }
 
 export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
-  const categoryMeta = categoryMetadata[formData.category || 'productivity']
-  const impactMeta = formData.impact ? impactMetadata[formData.impact] : undefined
-  const difficultyMeta = formData.difficulty ? difficultyMetadata[formData.difficulty] : undefined
+  const categoryMeta = categoryMetadata[formData.category || 'vertrieb']
   
   // Get category icon
   const getCategoryIcon = () => {
     const iconClass = "w-6 h-6"
     switch (formData.category) {
-      case 'programming': return <Code2 className={iconClass} />
-      case 'productivity': return <TrendingUp className={iconClass} />
-      case 'content-creation': return <PenTool className={iconClass} />
-      case 'data-analysis': return <BarChart3 className={iconClass} />
-      case 'learning': return <Brain className={iconClass} />
-      case 'business': return <Briefcase className={iconClass} />
+      case 'vertrieb': return <TrendingUp className={iconClass} />
       case 'marketing': return <TrendingUp className={iconClass} />
-      case 'design': return <Palette className={iconClass} />
+      case 'personal': return <Brain className={iconClass} />
+      case 'finanzen': return <BarChart3 className={iconClass} />
+      case 'operations': return <Briefcase className={iconClass} />
+      case 'it-entwicklung': return <Code2 className={iconClass} />
+      case 'kundenservice': return <BookOpen className={iconClass} />
+      case 'produktion': return <Palette className={iconClass} />
       default: return <BookOpen className={iconClass} />
     }
-  }
-
-  // Get difficulty color for badges
-  const getDifficultyColor = (difficulty: string): any => {
-    const colors: Record<string, any> = {
-      'beginner': 'success',
-      'intermediate': 'warning', 
-      'advanced': 'danger'
-    }
-    return colors[difficulty] || 'primary'
-  }
-
-  // Get impact color for badges
-  const getImpactColor = (impact: string): any => {
-    const colors: Record<string, any> = {
-      'low': 'neutral',
-      'medium': 'info',
-      'high': 'success'
-    }
-    return colors[impact] || 'neutral'
   }
 
   return (
@@ -109,25 +87,21 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
             </h1>
           </div>
 
-          {/* Badges Row */}
+          {/* Badges Row - only category and department/industry tags */}
           <div className="flex flex-wrap gap-2">
-            {formData.difficulty && difficultyMeta && (
-              <Badge variant={getDifficultyColor(formData.difficulty)}>
-                {difficultyMeta.label}
-              </Badge>
+            {formData.departmentTags && formData.departmentTags.length > 0 && (
+              formData.departmentTags.map((tag, idx) => (
+                <Badge key={`dept-${idx}`} variant="secondary">
+                  {tag}
+                </Badge>
+              ))
             )}
-            
-            {formData.timeToImplement && (
-              <Badge variant="primary" className="flex items-center gap-1">
-                <Clock className="w-3 h-3" />
-                {formData.timeToImplement}
-              </Badge>
-            )}
-            
-            {formData.impact && impactMeta && (
-              <Badge variant={getImpactColor(formData.impact)}>
-                Impact: {impactMeta.label}
-              </Badge>
+            {formData.industryTags && formData.industryTags.length > 0 && (
+              formData.industryTags.map((tag, idx) => (
+                <Badge key={`ind-${idx}`} variant="info">
+                  {tag}
+                </Badge>
+              ))
             )}
           </div>
         </div>
@@ -239,8 +213,6 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
           <div className="flex items-center justify-between text-sm text-neutral-400">
             <div className="flex items-center gap-4">
               <span>Kategorie: {categoryMeta.label}</span>
-              <span>•</span>
-              {difficultyMeta && <span>Schwierigkeit: {difficultyMeta.label}</span>}
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />

@@ -3,11 +3,11 @@
 import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Clock, TrendingUp, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { KITrick } from '@/lib/types/types'
 import { Badge } from '@/components/atoms/Badge'
 import { GlowingButton } from './GlowingButton'
-import { categoryLabels, categoryEmojis, difficultyLabels } from '@/lib/constants/constants'
+import { categoryLabels, categoryEmojis } from '@/lib/constants/constants'
 
 interface GlowingTrickCardProps {
   trick: KITrick
@@ -15,19 +15,17 @@ interface GlowingTrickCardProps {
 
 export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => {
   const categoryInfo = { label: categoryLabels[trick.category], emoji: categoryEmojis[trick.category] }
-  const difficultyLabel = trick.difficulty ? difficultyLabels[trick.difficulty] : undefined
-  const impactLabel = trick.impact ? ({ low: 'Niedrig', medium: 'Mittel', high: 'Hoch' } as const)[trick.impact] : undefined
   
-  // Dynamic accent colors based on category - more subtle approach
+  // Dynamic accent colors based on category - DACH focused
   const accentColor = {
-    productivity: 'rgb(59, 130, 246)', // blue
-    'content-creation': 'rgb(168, 85, 247)', // purple
-    programming: 'rgb(34, 197, 94)', // green
-    design: 'rgb(236, 72, 153)', // pink
-    'data-analysis': 'rgb(251, 146, 60)', // orange
-    learning: 'rgb(250, 204, 21)', // yellow
-    business: 'rgb(99, 102, 241)', // indigo
-    marketing: 'rgb(239, 68, 68)', // red
+    vertrieb: 'rgb(59, 130, 246)', // blue
+    marketing: 'rgb(168, 85, 247)', // purple
+    personal: 'rgb(34, 197, 94)', // green
+    finanzen: 'rgb(236, 72, 153)', // pink
+    operations: 'rgb(251, 146, 60)', // orange
+    'it-entwicklung': 'rgb(250, 204, 21)', // yellow
+    kundenservice: 'rgb(99, 102, 241)', // indigo
+    produktion: 'rgb(239, 68, 68)', // red
   }[trick.category] || 'rgb(34, 153, 221)' // default blue
 
   return (
@@ -61,14 +59,7 @@ export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => 
           <div className="relative z-10">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
-              {trick.difficulty && (
-                <Badge 
-                  variant={trick.difficulty === 'beginner' ? 'success' : trick.difficulty === 'intermediate' ? 'warning' : 'danger'}
-                  className="group-hover:shadow-md transition-shadow duration-300"
-                >
-                  {difficultyLabel}
-                </Badge>
-              )}
+              <div></div>
               <motion.div
                 initial={{ rotate: 0 }}
                 whileHover={{ rotate: 45 }}
@@ -103,32 +94,22 @@ export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => 
 
           {/* Footer */}
           <div className="relative z-10 pt-4 border-t border-neutral-800/60 group-hover:border-neutral-700/60 transition-colors duration-300">
-            <div className="flex items-center justify-between mb-3 text-sm">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-1.5 text-neutral-500">
-                  <Clock className="w-4 h-4" />
-                  <span>{trick.timeToImplement}</span>
-                </div>
-                {trick.impact && (
-                  <div className="flex items-center gap-1.5">
-                    <TrendingUp 
-                      className={`w-4 h-4 ${
-                        trick.impact === 'high' ? 'text-green-400' : 
-                        trick.impact === 'medium' ? 'text-yellow-400' : 
-                        'text-neutral-500'
-                      }`} 
-                    />
-                    <span className={`${
-                      trick.impact === 'high' ? 'text-green-400' : 
-                      trick.impact === 'medium' ? 'text-yellow-400' : 
-                      'text-neutral-500'
-                    }`}>
-                      {impactLabel}
-                    </span>
-                  </div>
-                )}
+            {/* Tags if available */}
+            {((trick.departmentTags && trick.departmentTags.length > 0) || 
+              (trick.industryTags && trick.industryTags.length > 0)) && (
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {trick.departmentTags?.slice(0, 2).map((tag, idx) => (
+                  <Badge key={`dept-${idx}`} variant="secondary" className="text-xs">
+                    {tag}
+                  </Badge>
+                ))}
+                {trick.industryTags?.slice(0, 1).map((tag, idx) => (
+                  <Badge key={`ind-${idx}`} variant="info" className="text-xs">
+                    {tag}
+                  </Badge>
+                ))}
               </div>
-            </div>
+            )}
             
             {/* CTA Button */}
             <GlowingButton

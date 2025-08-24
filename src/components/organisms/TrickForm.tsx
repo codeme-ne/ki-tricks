@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { Button, Badge } from '@/components/atoms'
 import { TrickPreview } from '@/components/organisms/TrickPreview'
-import { KITrick, Category, Difficulty, Impact } from '@/lib/types/types'
+import { KITrick, Category } from '@/lib/types/types'
+import { categoryLabels, departmentTags, industryTags } from '@/lib/constants/constants'
 import { Plus, X, Eye, Edit } from 'lucide-react'
 
 interface TrickFormProps {
@@ -13,37 +14,24 @@ interface TrickFormProps {
 }
 
 const categories: { value: Category; label: string }[] = [
-  { value: 'productivity', label: 'Produktivität' },
-  { value: 'content-creation', label: 'Content-Erstellung' },
-  { value: 'programming', label: 'Programmierung' },
-  { value: 'design', label: 'Design' },
-  { value: 'data-analysis', label: 'Datenanalyse' },
-  { value: 'learning', label: 'Lernen' },
-  { value: 'business', label: 'Business' },
-  { value: 'marketing', label: 'Marketing' }
-]
-
-const difficulties: { value: Difficulty; label: string }[] = [
-  { value: 'beginner', label: 'Anfänger' },
-  { value: 'intermediate', label: 'Fortgeschritten' },
-  { value: 'advanced', label: 'Experte' }
-]
-
-const impacts: { value: Impact; label: string }[] = [
-  { value: 'low', label: 'Niedrig' },
-  { value: 'medium', label: 'Mittel' },
-  { value: 'high', label: 'Hoch' }
+  { value: 'vertrieb', label: categoryLabels['vertrieb'] },
+  { value: 'marketing', label: categoryLabels['marketing'] },
+  { value: 'personal', label: categoryLabels['personal'] },
+  { value: 'finanzen', label: categoryLabels['finanzen'] },
+  { value: 'operations', label: categoryLabels['operations'] },
+  { value: 'it-entwicklung', label: categoryLabels['it-entwicklung'] },
+  { value: 'kundenservice', label: categoryLabels['kundenservice'] },
+  { value: 'produktion', label: categoryLabels['produktion'] }
 ]
 
 export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: TrickFormProps) => {
   const [formData, setFormData] = useState<Partial<KITrick>>({
     title: initialData.title || '',
     description: initialData.description || '',
-    category: initialData.category || 'productivity',
-    difficulty: initialData.difficulty || 'beginner',
-    tools: ['Claude', 'Claude Code'],
-    timeToImplement: initialData.timeToImplement || '',
-    impact: initialData.impact || 'medium',
+    category: initialData.category || 'vertrieb',
+    tools: initialData.tools || ['Claude', 'Claude Code'],
+    departmentTags: initialData.departmentTags || [],
+    industryTags: initialData.industryTags || [],
     steps: initialData.steps || [],
     examples: initialData.examples || [],
     'Warum es funktioniert': initialData['Warum es funktioniert'] || ''
@@ -51,6 +39,8 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
 
   const [newStep, setNewStep] = useState('')
   const [newExample, setNewExample] = useState('')
+  const [selectedDepartments, setSelectedDepartments] = useState<string[]>(initialData.departmentTags || [])
+  const [selectedIndustries, setSelectedIndustries] = useState<string[]>(initialData.industryTags || [])
   const [previewMode, setPreviewMode] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -97,36 +87,25 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
     }))
   }
 
-  const getDifficultyColor = (difficulty: string) => {
-    const colors: Record<string, 'success' | 'warning' | 'danger'> = {
-      'beginner': 'success',
-      'intermediate': 'warning',
-      'advanced': 'danger'
-    }
-    return colors[difficulty] || 'primary'
+
+  const toggleDepartment = (dept: string) => {
+    setSelectedDepartments(prev => {
+      const newDepts = prev.includes(dept) 
+        ? prev.filter(d => d !== dept)
+        : [...prev, dept]
+      setFormData(current => ({ ...current, departmentTags: newDepts }))
+      return newDepts
+    })
   }
 
-  const getCategoryLabel = (category: string) => {
-    const labels: Record<string, string> = {
-      'productivity': 'Produktivität',
-      'content-creation': 'Content-Erstellung',
-      'programming': 'Programmierung',
-      'design': 'Design',
-      'data-analysis': 'Datenanalyse',
-      'learning': 'Lernen',
-      'business': 'Business',
-      'marketing': 'Marketing'
-    }
-    return labels[category] || category
-  }
-
-  const getDifficultyLabel = (difficulty: string) => {
-    const labels: Record<string, string> = {
-      'beginner': 'Anfänger',
-      'intermediate': 'Fortgeschritten',
-      'advanced': 'Experte'
-    }
-    return labels[difficulty] || difficulty
+  const toggleIndustry = (ind: string) => {
+    setSelectedIndustries(prev => {
+      const newInds = prev.includes(ind)
+        ? prev.filter(i => i !== ind)
+        : [...prev, ind]
+      setFormData(current => ({ ...current, industryTags: newInds }))
+      return newInds
+    })
   }
 
   // Preview Mode Component
@@ -215,77 +194,67 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="category" className="block text-sm font-medium text-neutral-300 mb-1">
-                Kategorie *
-              </label>
-              <select
-                id="category"
-                name="category"
-                required
-                value={formData.category}
-                onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-              >
-                {categories.map(cat => (
-                  <option key={cat.value} value={cat.value}>{cat.label}</option>
-                ))}
-              </select>
-            </div>
+          <div>
+            <label htmlFor="category" className="block text-sm font-medium text-neutral-300 mb-1">
+              Kategorie *
+            </label>
+            <select
+              id="category"
+              name="category"
+              required
+              value={formData.category}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
+            >
+              {categories.map(cat => (
+                <option key={cat.value} value={cat.value}>{cat.label}</option>
+              ))}
+            </select>
+          </div>
 
-            <div>
-              <label htmlFor="difficulty" className="block text-sm font-medium text-neutral-300 mb-1">
-                Schwierigkeit *
-              </label>
-              <select
-                id="difficulty"
-                name="difficulty"
-                required
-                value={formData.difficulty}
-                onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-              >
-                {difficulties.map(diff => (
-                  <option key={diff.value} value={diff.value}>{diff.label}</option>
-                ))}
-              </select>
+          {/* Department Tags */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-300 mb-2">
+              Abteilungen (optional)
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {departmentTags.map(dept => (
+                <button
+                  key={dept}
+                  type="button"
+                  onClick={() => toggleDepartment(dept)}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                    selectedDepartments.includes(dept)
+                      ? 'bg-primary-600 text-white border border-primary-500'
+                      : 'bg-neutral-700 text-neutral-300 border border-neutral-600 hover:bg-neutral-600'
+                  }`}
+                >
+                  {dept}
+                </button>
+              ))}
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="timeToImplement" className="block text-sm font-medium text-neutral-300 mb-1">
-                Umsetzungszeit *
-              </label>
-              <input
-                type="text"
-                id="timeToImplement"
-                name="timeToImplement"
-                required
-                value={formData.timeToImplement}
-                onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-                placeholder="z.B. 15 Minuten"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="impact" className="block text-sm font-medium text-neutral-300 mb-1">
-                Impact *
-              </label>
-              <select
-                id="impact"
-                name="impact"
-                required
-                value={formData.impact}
-                onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-              >
-                {impacts.map(imp => (
-                  <option key={imp.value} value={imp.value}>{imp.label}</option>
-                ))}
-              </select>
+          {/* Industry Tags */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-300 mb-2">
+              Branchen (optional)
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {industryTags.map(ind => (
+                <button
+                  key={ind}
+                  type="button"
+                  onClick={() => toggleIndustry(ind)}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                    selectedIndustries.includes(ind)
+                      ? 'bg-primary-600 text-white border border-primary-500'
+                      : 'bg-neutral-700 text-neutral-300 border border-neutral-600 hover:bg-neutral-600'
+                  }`}
+                >
+                  {ind}
+                </button>
+              ))}
             </div>
           </div>
         </div>

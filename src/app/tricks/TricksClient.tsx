@@ -29,11 +29,8 @@ export default function TricksClient({ serverTricks = [], serverCategories = [],
       description: trick.description,
       category: trick.category as Category,
       tools: trick.tools,
-  timeToImplement: trick.time_to_implement,
-  difficulty: trick.difficulty,
-  impact: trick.impact,
-  departmentTags: trick.department_tags || [],
-  industryTags: trick.industry_tags || [],
+      departmentTags: trick.department_tags || [],
+      industryTags: trick.industry_tags || [],
       steps: trick.steps || [],
       examples: trick.examples || [],
       slug: trick.slug,
@@ -52,15 +49,6 @@ export default function TricksClient({ serverTricks = [], serverCategories = [],
       result = result.filter(trick => filters.categories.includes(trick.category))
     }
 
-    // Apply difficulty filter
-    if (filters.difficulty.length > 0) {
-      result = result.filter(trick => trick.difficulty && filters.difficulty.includes(trick.difficulty))
-    }
-
-    // Apply impact filter
-    if (filters.impact.length > 0) {
-      result = result.filter(trick => trick.impact && filters.impact.includes(trick.impact))
-    }
     // Departments
     if (filters.departments && filters.departments.length > 0) {
       result = result.filter(trick => (trick.departmentTags || []).some(t => filters.departments!.includes(t)))
@@ -95,7 +83,7 @@ export default function TricksClient({ serverTricks = [], serverCategories = [],
           className="w-full"
         >
           <Menu className="h-4 w-4" />
-          Filter ({hasActiveFilters(filters) ? filters.categories.length + filters.difficulty.length + filters.impact.length + (filters.departments?.length || 0) + (filters.industries?.length || 0) : 0})
+          Filter ({hasActiveFilters(filters) ? filters.categories.length + (filters.departments?.length || 0) + (filters.industries?.length || 0) : 0})
         </Button>
       </div>
 

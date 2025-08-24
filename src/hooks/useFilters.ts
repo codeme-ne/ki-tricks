@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { FilterState, Category, Difficulty, Impact, EMPTY_FILTER_STATE } from '@/lib/types/types'
+import { FilterState, Category, EMPTY_FILTER_STATE } from '@/lib/types/types'
 import { 
   parseArrayParam, 
   serializeArrayParam, 
@@ -20,8 +20,6 @@ export const useFilters = () => {
   useEffect(() => {
     const urlFilters: FilterState = {
       categories: parseArrayParam(searchParams.get('categories')) as Category[],
-      difficulty: parseArrayParam(searchParams.get('difficulty')) as Difficulty[],
-      impact: parseArrayParam(searchParams.get('impact')) as Impact[],
       departments: parseArrayParam(searchParams.get('departments')),
       industries: parseArrayParam(searchParams.get('industries')),
       search: searchParams.get('search') || ''
@@ -39,14 +37,6 @@ export const useFilters = () => {
     
     if (newFilters.categories.length > 0) {
       params.set('categories', serializeArrayParam(newFilters.categories))
-    }
-    
-    if (newFilters.difficulty.length > 0) {
-      params.set('difficulty', serializeArrayParam(newFilters.difficulty))
-    }
-    
-    if (newFilters.impact.length > 0) {
-      params.set('impact', serializeArrayParam(newFilters.impact))
     }
     
     if (newFilters.departments && newFilters.departments.length > 0) {
