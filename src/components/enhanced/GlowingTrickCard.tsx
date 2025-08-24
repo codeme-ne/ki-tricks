@@ -15,8 +15,8 @@ interface GlowingTrickCardProps {
 
 export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => {
   const categoryInfo = { label: categoryLabels[trick.category], emoji: categoryEmojis[trick.category] }
-  const difficultyLabel = difficultyLabels[trick.difficulty]
-  const impactLabel = { low: 'Niedrig', medium: 'Mittel', high: 'Hoch' }[trick.impact]
+  const difficultyLabel = trick.difficulty ? difficultyLabels[trick.difficulty] : undefined
+  const impactLabel = trick.impact ? ({ low: 'Niedrig', medium: 'Mittel', high: 'Hoch' } as const)[trick.impact] : undefined
   
   // Dynamic accent colors based on category - more subtle approach
   const accentColor = {
@@ -61,12 +61,14 @@ export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => 
           <div className="relative z-10">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
-              <Badge 
-                variant={trick.difficulty === 'beginner' ? 'success' : trick.difficulty === 'intermediate' ? 'warning' : 'danger'}
-                className="group-hover:shadow-md transition-shadow duration-300"
-              >
-                {difficultyLabel}
-              </Badge>
+              {trick.difficulty && (
+                <Badge 
+                  variant={trick.difficulty === 'beginner' ? 'success' : trick.difficulty === 'intermediate' ? 'warning' : 'danger'}
+                  className="group-hover:shadow-md transition-shadow duration-300"
+                >
+                  {difficultyLabel}
+                </Badge>
+              )}
               <motion.div
                 initial={{ rotate: 0 }}
                 whileHover={{ rotate: 45 }}
@@ -107,22 +109,24 @@ export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => 
                   <Clock className="w-4 h-4" />
                   <span>{trick.timeToImplement}</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <TrendingUp 
-                    className={`w-4 h-4 ${
+                {trick.impact && (
+                  <div className="flex items-center gap-1.5">
+                    <TrendingUp 
+                      className={`w-4 h-4 ${
+                        trick.impact === 'high' ? 'text-green-400' : 
+                        trick.impact === 'medium' ? 'text-yellow-400' : 
+                        'text-neutral-500'
+                      }`} 
+                    />
+                    <span className={`${
                       trick.impact === 'high' ? 'text-green-400' : 
                       trick.impact === 'medium' ? 'text-yellow-400' : 
                       'text-neutral-500'
-                    }`} 
-                  />
-                  <span className={`${
-                    trick.impact === 'high' ? 'text-green-400' : 
-                    trick.impact === 'medium' ? 'text-yellow-400' : 
-                    'text-neutral-500'
-                  }`}>
-                    {impactLabel}
-                  </span>
-                </div>
+                    }`}>
+                      {impactLabel}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
             

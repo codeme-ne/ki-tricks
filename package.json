@@ -10,7 +10,9 @@
     "lint": "next lint",
     "fix-build": "tsx scripts/fix-build-errors.ts",
     "fix-build-clean": "tsx scripts/fix-build-errors.ts --remove-broken",
-    "migrate-to-supabase": "tsx scripts/migrate-to-supabase.ts"
+  "migrate-to-supabase": "tsx scripts/migrate-to-supabase.ts",
+  "import-generated-tips": "tsx scripts/import-generated-tips.ts",
+  "import-tricks": "tsx scripts/bulk-import-tricks.ts"
   },
   "keywords": [],
   "author": "",

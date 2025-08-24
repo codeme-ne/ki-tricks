@@ -13,8 +13,8 @@ interface TrickPreviewProps {
 
 export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
   const categoryMeta = categoryMetadata[formData.category || 'productivity']
-  const impactMeta = impactMetadata[formData.impact || 'medium']
-  const difficultyMeta = difficultyMetadata[formData.difficulty || 'beginner']
+  const impactMeta = formData.impact ? impactMetadata[formData.impact] : undefined
+  const difficultyMeta = formData.difficulty ? difficultyMetadata[formData.difficulty] : undefined
   
   // Get category icon
   const getCategoryIcon = () => {
@@ -111,9 +111,11 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
 
           {/* Badges Row */}
           <div className="flex flex-wrap gap-2">
-            <Badge variant={getDifficultyColor(formData.difficulty || 'beginner')}>
-              {difficultyMeta.label}
-            </Badge>
+            {formData.difficulty && difficultyMeta && (
+              <Badge variant={getDifficultyColor(formData.difficulty)}>
+                {difficultyMeta.label}
+              </Badge>
+            )}
             
             {formData.timeToImplement && (
               <Badge variant="primary" className="flex items-center gap-1">
@@ -122,9 +124,11 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
               </Badge>
             )}
             
-            <Badge variant={getImpactColor(formData.impact || 'medium')}>
-              Impact: {impactMeta.label}
-            </Badge>
+            {formData.impact && impactMeta && (
+              <Badge variant={getImpactColor(formData.impact)}>
+                Impact: {impactMeta.label}
+              </Badge>
+            )}
           </div>
         </div>
 
@@ -236,7 +240,7 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
             <div className="flex items-center gap-4">
               <span>Kategorie: {categoryMeta.label}</span>
               <span>•</span>
-              <span>Schwierigkeit: {difficultyMeta.label}</span>
+              {difficultyMeta && <span>Schwierigkeit: {difficultyMeta.label}</span>}
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />

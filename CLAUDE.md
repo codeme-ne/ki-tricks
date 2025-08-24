@@ -4,23 +4,30 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-KI Tricks Platform - A Next.js 15 web application for discovering and implementing practical AI tips and tricks. The UI is in German and follows a minimalistic design inspired by thegrowthlist.co.
+KI Tricks Platform - A Next.js 15 web application for discovering and implementing practical AI tips and tricks. The UI is in German and follows a minimalistic design inspired by thegrowthlist.co. Now fully integrated with Supabase for real-time database operations.
 
 ## Essential Commands
 
 ```bash
 # Development
-npm run dev           # Start dev server (port 3000, fallback 3001)
+npm run dev              # Start dev server (port 3000)
+npm run dev:mobile       # Start dev server accessible on network
 
 # Production  
-npm run build         # Build with TypeScript checking
-npm start            # Start production server
+npm run build           # Build with TypeScript checking
+npm start              # Start production server
 
 # Quality checks
-npm run lint         # Run ESLint
+npm run lint           # Run ESLint
 
-# Content generation
-npm run convert-youtube  # Convert YouTube transcripts to KI tricks
+# Utilities
+npm run fix-build       # Fix build errors automatically
+npm run fix-build-clean # Fix build errors and remove broken imports
+
+# Data management
+npm run migrate-to-supabase     # Initial migration of mock data to Supabase
+npm run import-tricks           # Bulk import tricks from CSV or JSON files
+npm run import-generated-tips   # Import AI-generated tips with upsert by slug
 ```
 
 ## Critical Architecture Patterns
@@ -77,6 +84,9 @@ interface KITrick {
   steps?: string[]    // 4 concrete steps
   examples?: string[] // 2 real-world examples
   slug: string
+  departmentTags?: string[]  // DACH business focus
+  industryTags?: string[]    // Industry categorization
+  qualityScore?: number      // Quality rating
 }
 ```
 
@@ -85,6 +95,11 @@ interface KITrick {
 ### Required Environment Variables
 
 ```bash
+# Supabase (REQUIRED)
+NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key  # For admin operations
+
 # Admin authentication
 ADMIN_PASSWORD=your-secure-password
 
@@ -96,15 +111,72 @@ NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=xxx
 
 Admin routes (`/admin/*`) are protected via Basic Auth in `middleware.ts`.
 
-## Content Management
+## Supabase Integration
 
-### Mock Data
-- 40+ high-quality KI tricks in `app/lib/mock-data.ts`
-- Categories: programming (11), productivity (10), learning (7), business (5), content-creation (3), data-analysis (2), marketing (2), design (1)
+### Database Schema
+- **ki_tricks**: Main tricks table with full content, metadata, and analytics
+- **trick_submissions**: User submissions pending review  
+- **trick_analytics**: Event tracking (views, likes, shares, implements)
 
-### Admin Interface
-- `/admin/tricks/new` - Add new tricks (saves to localStorage)
-- Protected by Basic Auth using ADMIN_PASSWORD env variable
+### Data Services (`src/lib/services/tricks.service.ts`)
+- **Public methods**: `getPublishedTricks()`, `getTrickBySlug()`, `searchTricks()`
+- **Admin methods**: `createTrick()`, `updateTrick()`, `publishTrick()`
+- **Analytics**: `incrementViewCount()`, `trackEvent()`
+
+### Bulk Import Options
+
+#### 1. CSV Import (`npm run import-tricks data/file.csv`)
+```csv
+title,description,category,difficulty,timeToImplement,impact,tools,departmentTags,industryTags,steps,examples,slug
+"Titel","Beschreibung mit **Warum es funktioniert:** Abschnitt","productivity","beginner","10-30 Minuten","medium","ChatGPT;Claude","Vertrieb;Marketing","E-Commerce;SaaS","Schritt 1;Schritt 2","Beispiel 1;Beispiel 2","optional-slug"
+```
+- Arrays use semicolon (;) as separator
+- Auto-extracts "Warum es funktioniert" from description
+- Validates all fields before import
+- Skips duplicates by slug
+
+#### 2. JSON Import (`npm run import-tricks data/file.json`)
+```json
+[{
+  "title": "Trick Title",
+  "description": "Description",
+  "category": "productivity",
+  "difficulty": "beginner",
+  "tools": ["ChatGPT", "Claude"],
+  "timeToImplement": "10-30 Minuten",
+  "impact": "medium",
+  "departmentTags": ["Vertrieb"],
+  "industryTags": ["E-Commerce"],
+  "steps": ["Step 1", "Step 2"],
+  "examples": ["Example 1"],
+  "slug": "optional-slug-or-auto-generated"
+}]
+```
+
+#### 3. Generated Tips Import (`npm run import-generated-tips`)
+- Upserts by slug (updates existing or creates new)
+- Auto-sanitizes categories and values
+- Extracts "Warum es funktioniert" automatically
+
+### Supabase MCP Server Setup
+
+Add to your `.mcp.json` in VS Code settings:
+```json
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server-supabase@latest"],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "your-access-token-here"
+      }
+    }
+  }
+}
+```
+
+Note for WSL users: Use `"command": "wsl"` and adjust args accordingly.
+
 
 ## Key Implementation Notes
 
@@ -157,42 +229,3 @@ The app auto-deploys to Vercel on push to main branch. Ensure:
 1. All environment variables are set in Vercel dashboard
 2. Build passes locally with `npm run build`
 3. No sensitive data in commits (use .env.local)
-```
-
-## AI Development Strategies
-
-- **Verification Principle**: Always verify changes with current documents. For example, when unsure about parameters for Apify actors, check the specific actor's documentation.
-  - Example: Reddit Lite Scraper input JSON verification
-    ```json
-    {
-        "debugMode": false,
-        "ignoreStartUrls": false,
-        "includeNSFW": true,
-        "maxComments": 10,
-        "maxCommunitiesCount": 2,
-        "maxItems": 10,
-        "maxPostCount": 10,
-        "maxUserCount": 2,
-        "proxy": {
-            "useApifyProxy": true,
-            "apifyProxyGroups": [
-                "RESIDENTIAL"
-            ]
-        },
-        "scrollTimeout": 40,
-        "searchComments": false,
-        "searchCommunities": false,
-        "searchPosts": true,
-        "searchUsers": false,
-        "skipComments": false,
-        "skipCommunity": false,
-        "skipUserPosts": false,
-        "sort": "new",
-        "startUrls": [
-            {
-                "url": "https://www.reddit.com/r/pasta/comments/vwi6jx/pasta_peperoni_and_ricotta_cheese_how_to_make/",
-                "method": "GET"
-            }
-        ]
-    }
-    ```

@@ -14,11 +14,10 @@ export interface Database {
           id: string
           title: string
           description: string
-          category: 'productivity' | 'content-creation' | 'programming' | 'design' | 'data-analysis' | 'learning' | 'business' | 'marketing'
-          difficulty: 'beginner' | 'intermediate' | 'advanced'
+          category: 'vertrieb' | 'marketing' | 'personal' | 'finanzen' | 'operations' | 'it-entwicklung' | 'kundenservice' | 'produktion'
           tools: string[]
-          time_to_implement: string
-          impact: 'low' | 'medium' | 'high'
+          department_tags: string[]
+          industry_tags: string[]
           steps: string[] | null
           examples: string[] | null
           slug: string
@@ -38,11 +37,10 @@ export interface Database {
           id?: string
           title: string
           description: string
-          category: 'productivity' | 'content-creation' | 'programming' | 'design' | 'data-analysis' | 'learning' | 'business' | 'marketing'
-          difficulty: 'beginner' | 'intermediate' | 'advanced'
+          category: 'vertrieb' | 'marketing' | 'personal' | 'finanzen' | 'operations' | 'it-entwicklung' | 'kundenservice' | 'produktion'
           tools: string[]
-          time_to_implement: string
-          impact: 'low' | 'medium' | 'high'
+          department_tags?: string[]
+          industry_tags?: string[]
           steps?: string[] | null
           examples?: string[] | null
           slug: string
@@ -62,11 +60,10 @@ export interface Database {
           id?: string
           title?: string
           description?: string
-          category?: 'productivity' | 'content-creation' | 'programming' | 'design' | 'data-analysis' | 'learning' | 'business' | 'marketing'
-          difficulty?: 'beginner' | 'intermediate' | 'advanced'
+          category?: 'vertrieb' | 'marketing' | 'personal' | 'finanzen' | 'operations' | 'it-entwicklung' | 'kundenservice' | 'produktion'
           tools?: string[]
-          time_to_implement?: string
-          impact?: 'low' | 'medium' | 'high'
+          department_tags?: string[]
+          industry_tags?: string[]
           steps?: string[] | null
           examples?: string[] | null
           slug?: string

@@ -14,7 +14,7 @@ export class TricksService {
     
     const { data, error } = await supabase
       .from('ki_tricks')
-      .select('*')
+  .select('*')
       .eq('status', 'published')
       .order('published_at', { ascending: false })
 
@@ -28,7 +28,7 @@ export class TricksService {
     
     const { data, error } = await supabase
       .from('ki_tricks')
-      .select('*')
+  .select('*')
       .eq('slug', slug)
       .eq('status', 'published')
       .single()
@@ -43,7 +43,7 @@ export class TricksService {
     
     const { data, error } = await supabase
       .from('ki_tricks')
-      .select('*')
+  .select('*')
       .eq('category', category)
       .eq('status', 'published')
       .order('published_at', { ascending: false })
@@ -72,13 +72,15 @@ export class TricksService {
     categories?: Category[]
     difficulty?: Difficulty[]
     impact?: Impact[]
+  departments?: string[]
+  industries?: string[]
     search?: string
   }) {
     const supabase = await createClient()
     
     let query = supabase
       .from('ki_tricks')
-      .select('*')
+  .select('*')
       .eq('status', 'published')
 
     if (filters.categories && filters.categories.length > 0) {
@@ -93,11 +95,12 @@ export class TricksService {
       query = query.in('impact', filters.impact)
     }
 
-    if (filters.search) {
+  if (filters.search) {
       query = query.or(
         `title.ilike.%${filters.search}%,description.ilike.%${filters.search}%`
       )
     }
+  // Note: department/industry tag filtering is applied client-side for now
 
     const { data, error } = await query.order('published_at', { ascending: false })
 

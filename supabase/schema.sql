@@ -26,6 +26,9 @@ CREATE TABLE ki_tricks (
   impact TEXT NOT NULL CHECK (
     impact IN ('low', 'medium', 'high')
   ),
+  -- New tags for DACH-focused business usage
+  department_tags TEXT[] DEFAULT ARRAY[]::TEXT[],
+  industry_tags TEXT[] DEFAULT ARRAY[]::TEXT[],
   steps TEXT[],
   examples TEXT[],
   slug TEXT UNIQUE NOT NULL,
@@ -86,6 +89,9 @@ CREATE INDEX idx_tricks_slug ON ki_tricks(slug);
 CREATE INDEX idx_tricks_category ON ki_tricks(category);
 CREATE INDEX idx_tricks_status ON ki_tricks(status);
 CREATE INDEX idx_tricks_published_at ON ki_tricks(published_at DESC);
+-- Indexes for array tag filtering
+CREATE INDEX IF NOT EXISTS idx_tricks_department_tags ON ki_tricks USING GIN (department_tags);
+CREATE INDEX IF NOT EXISTS idx_tricks_industry_tags ON ki_tricks USING GIN (industry_tags);
 CREATE INDEX idx_analytics_trick ON trick_analytics(trick_id);
 CREATE INDEX idx_analytics_event ON trick_analytics(event_type);
 CREATE INDEX idx_submissions_status ON trick_submissions(status);

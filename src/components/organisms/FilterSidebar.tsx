@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 import { X, Filter, RotateCcw } from 'lucide-react'
-import { FilterSidebarProps, Category, Difficulty, Impact, EMPTY_FILTER_STATE } from '@/lib/types/types'
-import { categoryMetadata, difficultyMetadata, impactMetadata } from '@/lib/types/types'
+import { FilterSidebarProps, Category, EMPTY_FILTER_STATE } from '@/lib/types/types'
+import { categoryMetadata } from '@/lib/types/types'
 import { createFilterHandler, countActiveFilters } from '@/lib/utils/utils'
 import { Button, Checkbox, FilterSection } from '@/components/atoms'
 
@@ -13,7 +13,9 @@ export function FilterSidebar({
   onFilterChange,
   isOpen = false,
   onClose,
-  className = ''
+  className = '',
+  departments = [],
+  industries = []
 }: FilterSidebarProps) {
   // Handle escape key press
   useEffect(() => {
@@ -42,15 +44,15 @@ export function FilterSidebar({
     onFilterChange
   )
   
-  const handleDifficultyChange = createFilterHandler<Difficulty>(
-    selectedFilters, 
-    'difficulty', 
+  // Departments/Industries handlers
+  const handleDepartmentChange = createFilterHandler<string>(
+    selectedFilters,
+    'departments',
     onFilterChange
   )
-  
-  const handleImpactChange = createFilterHandler<Impact>(
-    selectedFilters, 
-    'impact', 
+  const handleIndustryChange = createFilterHandler<string>(
+    selectedFilters,
+    'industries',
     onFilterChange
   )
   
@@ -104,40 +106,44 @@ export function FilterSidebar({
               key={category}
               label={categoryMetadata[category].label}
               checked={selectedFilters.categories.includes(category)}
-              onChange={(checked) => handleCategoryChange(category, checked)}
+              onChange={(checked: boolean) => handleCategoryChange(category, checked)}
             />
           ))}
         </FilterSection>
 
-        {/* Difficulty */}
-        <FilterSection 
-          title="Schwierigkeit" 
-          count={selectedFilters.difficulty.length}
-        >
-          {Object.entries(difficultyMetadata).map(([difficulty, meta]) => (
-            <Checkbox
-              key={difficulty}
-              label={meta.label}
-              checked={selectedFilters.difficulty.includes(difficulty as Difficulty)}
-              onChange={(checked) => handleDifficultyChange(difficulty as Difficulty, checked)}
-            />
-          ))}
-        </FilterSection>
+        {/* Departments (optional) */}
+        {departments.length > 0 && (
+          <FilterSection 
+            title="Abteilungen" 
+            count={selectedFilters.departments?.length || 0}
+          >
+            {departments.map((dep) => (
+              <Checkbox
+                key={dep}
+                label={dep}
+                checked={selectedFilters.departments?.includes(dep) || false}
+                onChange={(checked: boolean) => handleDepartmentChange(dep, checked)}
+              />
+            ))}
+          </FilterSection>
+        )}
 
-        {/* Impact */}
-        <FilterSection 
-          title="Impact" 
-          count={selectedFilters.impact.length}
-        >
-          {Object.entries(impactMetadata).map(([impact, meta]) => (
-            <Checkbox
-              key={impact}
-              label={meta.label}
-              checked={selectedFilters.impact.includes(impact as Impact)}
-              onChange={(checked) => handleImpactChange(impact as Impact, checked)}
-            />
-          ))}
-        </FilterSection>
+        {/* Industries (optional) */}
+        {industries.length > 0 && (
+          <FilterSection 
+            title="Branchen" 
+            count={selectedFilters.industries?.length || 0}
+          >
+            {industries.map((ind) => (
+              <Checkbox
+                key={ind}
+                label={ind}
+                checked={selectedFilters.industries?.includes(ind) || false}
+                onChange={(checked: boolean) => handleIndustryChange(ind, checked)}
+              />
+            ))}
+          </FilterSection>
+        )}
 
       </div>
 

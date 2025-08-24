@@ -12,9 +12,11 @@ import { KITrick, Category } from '@/lib/types/types'
 interface TricksClientProps {
   serverTricks?: any[]
   serverCategories?: string[]
+  departments?: string[]
+  industries?: string[]
 }
 
-export default function TricksClient({ serverTricks = [], serverCategories = [] }: TricksClientProps) {
+export default function TricksClient({ serverTricks = [], serverCategories = [], departments = [], industries = [] }: TricksClientProps) {
   const { filters, updateFilters } = useFilters()
   const [searchQuery, setSearchQuery] = useState('')
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -26,10 +28,12 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
       title: trick.title,
       description: trick.description,
       category: trick.category as Category,
-      difficulty: trick.difficulty,
       tools: trick.tools,
-      timeToImplement: trick.time_to_implement,
-      impact: trick.impact,
+  timeToImplement: trick.time_to_implement,
+  difficulty: trick.difficulty,
+  impact: trick.impact,
+  departmentTags: trick.department_tags || [],
+  industryTags: trick.industry_tags || [],
       steps: trick.steps || [],
       examples: trick.examples || [],
       slug: trick.slug,
@@ -50,12 +54,20 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
 
     // Apply difficulty filter
     if (filters.difficulty.length > 0) {
-      result = result.filter(trick => filters.difficulty.includes(trick.difficulty))
+      result = result.filter(trick => trick.difficulty && filters.difficulty.includes(trick.difficulty))
     }
 
     // Apply impact filter
     if (filters.impact.length > 0) {
-      result = result.filter(trick => filters.impact.includes(trick.impact))
+      result = result.filter(trick => trick.impact && filters.impact.includes(trick.impact))
+    }
+    // Departments
+    if (filters.departments && filters.departments.length > 0) {
+      result = result.filter(trick => (trick.departmentTags || []).some(t => filters.departments!.includes(t)))
+    }
+    // Industries
+    if (filters.industries && filters.industries.length > 0) {
+      result = result.filter(trick => (trick.industryTags || []).some(t => filters.industries!.includes(t)))
     }
 
     // Apply search filter
@@ -83,7 +95,7 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
           className="w-full"
         >
           <Menu className="h-4 w-4" />
-          Filter ({hasActiveFilters(filters) ? filters.categories.length + filters.difficulty.length + filters.impact.length : 0})
+          Filter ({hasActiveFilters(filters) ? filters.categories.length + filters.difficulty.length + filters.impact.length + (filters.departments?.length || 0) + (filters.industries?.length || 0) : 0})
         </Button>
       </div>
 
@@ -95,6 +107,8 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
           onFilterChange={updateFilters}
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
+          departments={departments}
+          industries={industries}
         />
 
         {/* Main Content */}

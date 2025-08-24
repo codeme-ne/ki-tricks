@@ -7,7 +7,6 @@ export async function GET() {
   const staticPages = [
     '',
     '/tricks',
-    '/claude-code',
     '/about',
     '/kontakt',
     '/impressum',

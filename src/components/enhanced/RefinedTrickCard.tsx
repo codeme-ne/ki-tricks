@@ -30,8 +30,8 @@ export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => 
     emoji: categoryEmojis[trick.category]
   }), [trick.category])
   
-  const difficultyLabel = useMemo(() => difficultyLabels[trick.difficulty], [trick.difficulty])
-  const impactLabel = useMemo(() => ({ low: 'Niedrig', medium: 'Mittel', high: 'Hoch' }[trick.impact]), [trick.impact])
+  const difficultyLabel = useMemo(() => trick.difficulty ? difficultyLabels[trick.difficulty] : undefined, [trick.difficulty])
+  const impactLabel = useMemo(() => trick.impact ? ({ low: 'Niedrig', medium: 'Mittel', high: 'Hoch' }[trick.impact]) : undefined, [trick.impact])
   
   // Memoize accent color calculation
   const accentColor = useMemo(() => ({
@@ -77,11 +77,13 @@ export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => 
           {/* Header */}
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Badge 
-                variant={trick.difficulty === 'beginner' ? 'success' : trick.difficulty === 'intermediate' ? 'warning' : 'danger'}
-              >
-                {difficultyLabel}
-              </Badge>
+              {trick.difficulty && (
+                <Badge 
+                  variant={trick.difficulty === 'beginner' ? 'success' : trick.difficulty === 'intermediate' ? 'warning' : 'danger'}
+                >
+                  {difficultyLabel}
+                </Badge>
+              )}
               {isNew && (
                 <Badge variant="info">
                   Neu
@@ -121,22 +123,24 @@ export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => 
                 <Clock className="w-4 h-4" />
                 <span>{trick.timeToImplement}</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <TrendingUp 
-                  className={`w-4 h-4 ${
+              {trick.impact && (
+                <div className="flex items-center gap-1.5">
+                  <TrendingUp 
+                    className={`w-4 h-4 ${
+                      trick.impact === 'high' ? 'text-green-400' : 
+                      trick.impact === 'medium' ? 'text-yellow-400' : 
+                      'text-neutral-500'
+                    }`} 
+                  />
+                  <span className={`${
                     trick.impact === 'high' ? 'text-green-400' : 
                     trick.impact === 'medium' ? 'text-yellow-400' : 
                     'text-neutral-500'
-                  }`} 
-                />
-                <span className={`${
-                  trick.impact === 'high' ? 'text-green-400' : 
-                  trick.impact === 'medium' ? 'text-yellow-400' : 
-                  'text-neutral-500'
-                }`}>
-                  {impactLabel}
-                </span>
-              </div>
+                  }`}>
+                    {impactLabel}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
           

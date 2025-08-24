@@ -23,6 +23,8 @@ export const countActiveFilters = (filters: FilterState): number => {
   if (filters.categories.length > 0) count += filters.categories.length
   if (filters.difficulty.length > 0) count += filters.difficulty.length
   if (filters.impact.length > 0) count += filters.impact.length
+  if (filters.departments && filters.departments.length > 0) count += filters.departments.length
+  if (filters.industries && filters.industries.length > 0) count += filters.industries.length
   if (filters.search.trim() !== '') count += 1
   return count
 }

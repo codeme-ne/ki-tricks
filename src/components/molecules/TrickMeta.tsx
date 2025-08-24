@@ -32,13 +32,15 @@ export const TrickMeta = ({ trick }: TrickMetaProps) => {
         <span className="text-neutral-100 font-medium">{trick.timeToImplement}</span>
       </div>
       
-      <div className="flex items-center gap-2 text-sm">
-        <Zap className={`h-4 w-4 ${impactColors[trick.impact]}`} />
-        <span className="text-neutral-400">Impact:</span>
-        <span className={`font-medium ${impactColors[trick.impact]}`}>
-          {impactLabels[trick.impact]}
-        </span>
-      </div>
+      {trick.impact && (
+        <div className="flex items-center gap-2 text-sm">
+          <Zap className={`h-4 w-4 ${impactColors[trick.impact]}`} />
+          <span className="text-neutral-400">Impact:</span>
+          <span className={`font-medium ${impactColors[trick.impact]}`}>
+            {impactLabels[trick.impact]}
+          </span>
+        </div>
+      )}
       
       <div className="flex items-center gap-2 text-sm">
         <Wrench className="h-4 w-4 text-primary-400" />
@@ -47,6 +49,16 @@ export const TrickMeta = ({ trick }: TrickMetaProps) => {
           {trick.tools.join(', ')}
         </span>
       </div>
+      {/* Optional business tags */}
+      {(trick.departmentTags && trick.departmentTags.length > 0) || (trick.industryTags && trick.industryTags.length > 0) ? (
+        <div className="flex items-center gap-2 text-sm">
+          <span className="h-4 w-4 text-primary-400">🏷️</span>
+          <span className="text-neutral-400">Tags:</span>
+          <span className="text-neutral-100 font-medium">
+            {[...(trick.departmentTags || []), ...(trick.industryTags || [])].join(', ')}
+          </span>
+        </div>
+      ) : null}
       
       <div className="flex items-center gap-2 text-sm">
         <Calendar className="h-4 w-4 text-primary-400" />

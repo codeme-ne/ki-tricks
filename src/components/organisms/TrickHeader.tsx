@@ -42,11 +42,13 @@ export const TrickHeader = ({ trick }: TrickHeaderProps) => {
                 {categoryLabels[trick.category]}
               </Badge>
             </div>
-            <div className="inline-flex shadow-lg shadow-neutral-500/20">
-              <Badge variant={difficultyVariants[trick.difficulty]}>
-                {difficultyLabels[trick.difficulty]}
-              </Badge>
-            </div>
+            {trick.difficulty && (
+              <div className="inline-flex shadow-lg shadow-neutral-500/20">
+                <Badge variant={difficultyVariants[trick.difficulty]}>
+                  {difficultyLabels[trick.difficulty]}
+                </Badge>
+              </div>
+            )}
           </div>
           
           {/* Title with gradient option */}

@@ -2,38 +2,52 @@ import { Category } from '../types/types'
 
 // Category labels for German translation
 export const categoryLabels: Record<Category, string> = {
-  'productivity': 'Produktivität',
-  'content-creation': 'Content-Erstellung',
-  'programming': 'Programmierung',
-  'design': 'Design',
-  'data-analysis': 'Datenanalyse',
-  'learning': 'Lernen',
-  'business': 'Business',
-  'marketing': 'Marketing'
+  'vertrieb': 'Vertrieb',
+  'marketing': 'Marketing',
+  'personal': 'Personal',
+  'finanzen': 'Finanzen',
+  'operations': 'Operations',
+  'it-entwicklung': 'IT & Entwicklung',
+  'kundenservice': 'Kundenservice',
+  'produktion': 'Produktion'
 }
 
 // Category emojis for visual representation
 export const categoryEmojis: Record<Category, string> = {
-  'productivity': '🚀',
-  'content-creation': '✍️',
-  'programming': '💻',
-  'design': '🎨',
-  'data-analysis': '📊',
-  'learning': '🎓',
-  'business': '💼',
-  'marketing': '📢'
+  'vertrieb': '💰',
+  'marketing': '📢',
+  'personal': '👥',
+  'finanzen': '💶',
+  'operations': '⚙️',
+  'it-entwicklung': '💻',
+  'kundenservice': '🎧',
+  'produktion': '🏭'
 }
 
-// Difficulty labels for German translation
-export const difficultyLabels = {
-  'beginner': 'Anfänger',
-  'intermediate': 'Fortgeschritten',
-  'advanced': 'Experte'
-}
+// Department tags for DACH companies
+export const departmentTags = [
+  'Vertrieb',
+  'Marketing',
+  'HR',
+  'Finanzen',
+  'IT',
+  'Kundenservice',
+  'Produktion',
+  'Einkauf',
+  'Logistik',
+  'Qualitätssicherung'
+]
 
-// Difficulty variants for Badge component
-export const difficultyVariants = {
-  'beginner': 'success' as const,
-  'intermediate': 'warning' as const,
-  'advanced': 'danger' as const
-}
+// Industry tags for DACH companies
+export const industryTags = [
+  'Automotive',
+  'Maschinenbau',
+  'Finanzdienstleistungen',
+  'E-Commerce',
+  'SaaS',
+  'Gesundheitswesen',
+  'Einzelhandel',
+  'Beratung',
+  'Logistik',
+  'Fertigung'
+]
