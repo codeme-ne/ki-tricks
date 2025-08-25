@@ -58,13 +58,8 @@ export const AnimatedHeroTitle: FC<AnimatedHeroTitleProps> = ({
 
   return (
     <div ref={containerRef} className={cn("relative", className)}>
-      {/* Subtle background glow that works with starfield */}
-      <div className="absolute inset-0 -m-8 opacity-30">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 via-primary-400/5 to-primary-500/10 rounded-3xl blur-3xl" />
-      </div>
-      
       <motion.div
-        className="relative z-10"
+        className="relative"
         variants={containerVariants}
         initial="hidden"
         animate={controls}
@@ -74,16 +69,9 @@ export const AnimatedHeroTitle: FC<AnimatedHeroTitleProps> = ({
             <motion.span
               key={i}
               variants={wordVariants}
-              className="relative inline-block"
+              className="relative inline-block text-neutral-900"
             >
-              {/* Subtle text shadow for depth */}
-              <span className="absolute inset-0 text-primary-400/20 blur-sm">
-                {word}
-              </span>
-              {/* Main text with gradient */}
-              <span className="relative bg-gradient-to-b from-neutral-100 via-neutral-200 to-neutral-400 bg-clip-text text-transparent">
-                {word}
-              </span>
+              {word}
             </motion.span>
           ))}
         </h1>
