@@ -1,4 +1,4 @@
-import { FilterState, KITrick, Category, Difficulty, Impact } from '../types/types'
+import { FilterState } from '../types/types'
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -21,8 +21,6 @@ export const toggleArrayItem = <T>(array: T[], item: T): T[] => {
 export const countActiveFilters = (filters: FilterState): number => {
   let count = 0
   if (filters.categories.length > 0) count += filters.categories.length
-  if (filters.departments && filters.departments.length > 0) count += filters.departments.length
-  if (filters.industries && filters.industries.length > 0) count += filters.industries.length
   if (filters.search.trim() !== '') count += 1
   return count
 }

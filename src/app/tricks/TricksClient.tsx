@@ -12,11 +12,9 @@ import { KITrick, Category } from '@/lib/types/types'
 interface TricksClientProps {
   serverTricks?: any[]
   serverCategories?: string[]
-  departments?: string[]
-  industries?: string[]
 }
 
-export default function TricksClient({ serverTricks = [], serverCategories = [], departments = [], industries = [] }: TricksClientProps) {
+export default function TricksClient({ serverTricks = [], serverCategories = [] }: TricksClientProps) {
   const { filters, updateFilters } = useFilters()
   const [searchQuery, setSearchQuery] = useState('')
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -29,8 +27,6 @@ export default function TricksClient({ serverTricks = [], serverCategories = [],
       description: trick.description,
       category: trick.category as Category,
       tools: trick.tools,
-      departmentTags: trick.department_tags || [],
-      industryTags: trick.industry_tags || [],
       steps: trick.steps || [],
       examples: trick.examples || [],
       slug: trick.slug,
@@ -49,14 +45,7 @@ export default function TricksClient({ serverTricks = [], serverCategories = [],
       result = result.filter(trick => filters.categories.includes(trick.category))
     }
 
-    // Departments
-    if (filters.departments && filters.departments.length > 0) {
-      result = result.filter(trick => (trick.departmentTags || []).some(t => filters.departments!.includes(t)))
-    }
-    // Industries
-    if (filters.industries && filters.industries.length > 0) {
-      result = result.filter(trick => (trick.industryTags || []).some(t => filters.industries!.includes(t)))
-    }
+  // Only category and search filters remain
 
     // Apply search filter
     if (searchQuery) {
@@ -83,7 +72,7 @@ export default function TricksClient({ serverTricks = [], serverCategories = [],
           className="w-full"
         >
           <Menu className="h-4 w-4" />
-          Filter ({hasActiveFilters(filters) ? filters.categories.length + (filters.departments?.length || 0) + (filters.industries?.length || 0) : 0})
+          Filter ({hasActiveFilters(filters) ? filters.categories.length : 0})
         </Button>
       </div>
 
@@ -95,8 +84,6 @@ export default function TricksClient({ serverTricks = [], serverCategories = [],
           onFilterChange={updateFilters}
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
-          departments={departments}
-          industries={industries}
         />
 
         {/* Main Content */}

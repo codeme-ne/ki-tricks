@@ -1,53 +1,25 @@
 import { Category } from '../types/types'
 
-// Category labels for German translation
+// Category labels (German) for Category union
 export const categoryLabels: Record<Category, string> = {
-  'vertrieb': 'Vertrieb',
-  'marketing': 'Marketing',
-  'personal': 'Personal',
-  'finanzen': 'Finanzen',
-  'operations': 'Operations',
-  'it-entwicklung': 'IT & Entwicklung',
-  'kundenservice': 'Kundenservice',
-  'produktion': 'Produktion'
+  'productivity': 'Produktivität',
+  'content-creation': 'Content-Erstellung',
+  'programming': 'Programmierung',
+  'design': 'Design',
+  'data-analysis': 'Datenanalyse',
+  'learning': 'Lernen',
+  'business': 'Business',
+  'marketing': 'Marketing'
 }
 
 // Category emojis for visual representation
 export const categoryEmojis: Record<Category, string> = {
-  'vertrieb': '💰',
-  'marketing': '📢',
-  'personal': '👥',
-  'finanzen': '💶',
-  'operations': '⚙️',
-  'it-entwicklung': '💻',
-  'kundenservice': '🎧',
-  'produktion': '🏭'
+  'productivity': '�',
+  'content-creation': '✍️',
+  'programming': '�',
+  'design': '🎨',
+  'data-analysis': '📊',
+  'learning': '�',
+  'business': '💼',
+  'marketing': '📈'
 }
-
-// Department tags for DACH companies
-export const departmentTags = [
-  'Vertrieb',
-  'Marketing',
-  'HR',
-  'Finanzen',
-  'IT',
-  'Kundenservice',
-  'Produktion',
-  'Einkauf',
-  'Logistik',
-  'Qualitätssicherung'
-]
-
-// Industry tags for DACH companies
-export const industryTags = [
-  'Automotive',
-  'Maschinenbau',
-  'Finanzdienstleistungen',
-  'E-Commerce',
-  'SaaS',
-  'Gesundheitswesen',
-  'Einzelhandel',
-  'Beratung',
-  'Logistik',
-  'Fertigung'
-]

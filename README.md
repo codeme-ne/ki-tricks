@@ -13,7 +13,7 @@ Die KI-Tricks Platform ist eine intuitive Webplattform, die praktische Tipps und
 
 ## ✨ Features
 
-- **📚 Umfangreiche Sammlung**: Über 40 hochwertige KI-Tricks in verschiedenen Kategorien
+- **📚 Umfangreiche Sammlung**
 - **🔍 Intelligente Filterung**: URL-basiertes Filtersystem für teilbare Ansichten
 - **🎨 Modernes Design**: Glassmorphismus und Glow-Effekte für eine ansprechende UI
 - **📱 Responsive**: Optimiert für Mobile, Tablet und Desktop
@@ -31,7 +31,7 @@ Die KI-Tricks Platform ist eine intuitive Webplattform, die praktische Tipps und
 - **Icons**: Lucide React
 
 ### Backend & Services
-- **Datenbank**: Supabase (optional)
+- **Datenbank**: Supabase
 - **Analytics**: Vercel Analytics
 - **Email**: EmailJS für Kontaktformulare
 - **Deployment**: Vercel
@@ -63,6 +63,11 @@ cp .env.example .env.local
 
 Fügen Sie folgende Variablen in `.env.local` ein:
 ```
+# Supabase (erforderlich)
+NEXT_PUBLIC_SUPABASE_URL=ihre-projekt-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=ihr-anon-key
+SUPABASE_SERVICE_ROLE_KEY=ihr-service-role-key
+
 # Admin-Authentifizierung
 ADMIN_PASSWORD=ihr-sicheres-passwort
 
@@ -115,7 +120,9 @@ npm run lint           # ESLint ausführen
 
 # Utilities
 npm run fix-build      # Build-Fehler beheben
-npm run migrate-to-supabase  # Daten zu Supabase migrieren
+npm run clean:data     # Generierte KI-Tipps bereinigen
+npm run migrate-to-supabase  # Initiale Datenmigration zu Supabase
+npm run import-tricks  # Bulk-Import aus CSV/JSON
 ```
 
 ## 🎨 Komponenten-Architektur

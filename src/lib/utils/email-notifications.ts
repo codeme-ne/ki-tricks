@@ -13,7 +13,6 @@ interface AdminNotificationData {
   trickTitle: string
   trickDescription: string
   trickCategory: string
-  trickDifficulty: string
   submissionTime: string
   adminUrl: string
 }
@@ -117,7 +116,6 @@ Ein neuer KI-Trick wurde zur Moderation eingereicht:
 ${data.trickDescription}
 
 🏷️ Kategorie: ${data.trickCategory}
-📊 Schwierigkeit: ${data.trickDifficulty}
 ⏰ Eingereicht am: ${data.submissionTime}
 
 👉 Zur Moderation: ${data.adminUrl}

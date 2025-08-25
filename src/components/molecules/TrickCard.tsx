@@ -17,6 +17,7 @@ export const TrickCard = React.memo(function TrickCard({
   compact?: boolean 
 }) {
   const categoryMeta = categoryMetadata[trick.category]
+  // Impact removed
   
   // Prüfe ob Trick neu ist (innerhalb der letzten 7 Tage)
   const isNewTrick = () => {
@@ -30,14 +31,14 @@ export const TrickCard = React.memo(function TrickCard({
   const getCategoryIcon = () => {
     const iconClass = "w-5 h-5"
     switch (trick.category) {
-      case 'vertrieb': return <Briefcase className={iconClass} />
+      case 'programming': return <Code2 className={iconClass} />
+      case 'productivity': return <TrendingUp className={iconClass} />
+      case 'content-creation': return <PenTool className={iconClass} />
+      case 'data-analysis': return <BarChart3 className={iconClass} />
+      case 'learning': return <Brain className={iconClass} />
+      case 'business': return <Briefcase className={iconClass} />
       case 'marketing': return <TrendingUp className={iconClass} />
-      case 'personal': return <Brain className={iconClass} />
-      case 'finanzen': return <BarChart3 className={iconClass} />
-      case 'operations': return <BookOpen className={iconClass} />
-      case 'it-entwicklung': return <Code2 className={iconClass} />
-      case 'kundenservice': return <PenTool className={iconClass} />
-      case 'produktion': return <Palette className={iconClass} />
+      case 'design': return <Palette className={iconClass} />
       default: return <BookOpen className={iconClass} />
     }
   }
@@ -95,13 +96,8 @@ export const TrickCard = React.memo(function TrickCard({
         
         {/* Meta Information */}
         <div className="mt-auto pt-4 border-t border-neutral-100 dark:border-neutral-800 px-4">
-          {/* Tools */}
-          <div className="flex flex-wrap gap-2 mb-3">
-            {trick.tools.slice(0, 3).map((tool) => (
-              <Badge key={tool} variant="neutral" className="text-xs">
-                {tool}
-              </Badge>
-            ))}
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-4 text-xs" />
           </div>
           
           {/* Action Link */}

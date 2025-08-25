@@ -1,13 +1,13 @@
 // Core Data Types
 export type Category = 
-  | 'vertrieb'
+  | 'productivity'
+  | 'content-creation'
+  | 'programming'
+  | 'design'
+  | 'data-analysis'
+  | 'learning'
+  | 'business'
   | 'marketing'
-  | 'personal'
-  | 'finanzen'
-  | 'operations'
-  | 'it-entwicklung'
-  | 'kundenservice'
-  | 'produktion'
 
 export interface KITrick {
   id: string
@@ -15,9 +15,6 @@ export interface KITrick {
   description: string
   category: Category
   tools: string[]
-  // DACH-focused tags
-  departmentTags?: string[]
-  industryTags?: string[]
   steps?: string[]
   examples?: string[]
   slug: string
@@ -29,8 +26,6 @@ export interface KITrick {
 // Filter Types
 export interface FilterState {
   categories: Category[]
-  departments?: string[]
-  industries?: string[]
   search: string
 }
 
@@ -68,6 +63,14 @@ export interface InputProps {
   disabled?: boolean
 }
 
+export interface CheckboxProps {
+  label: string
+  checked?: boolean
+  onChange?: (checked: boolean) => void
+  disabled?: boolean
+  className?: string
+}
+
 export interface TrickCardProps {
   trick: KITrick
   variant?: 'default' | 'compact'
@@ -91,8 +94,6 @@ export interface FilterSidebarProps {
   isOpen?: boolean
   onClose?: () => void
   className?: string
-  departments?: string[]
-  industries?: string[]
 }
 
 export interface TrickGridProps {
@@ -113,8 +114,6 @@ export interface SearchBarProps {
 // Utilities and Constants
 export const EMPTY_FILTER_STATE: FilterState = {
   categories: [],
-  departments: [],
-  industries: [],
   search: ''
 }
 
@@ -131,44 +130,44 @@ export interface ResultsHeaderProps {
 
 // Category Metadata
 export const categoryMetadata: Record<Category, { label: string; icon: string; color: string }> = {
-  'vertrieb': { 
-    label: 'Vertrieb', 
-    icon: '💰', 
+  'productivity': { 
+    label: 'Produktivität', 
+    icon: '🚀', 
     color: 'bg-blue-100 text-blue-700' 
+  },
+  'content-creation': { 
+    label: 'Content-Erstellung', 
+    icon: '✍️', 
+    color: 'bg-purple-100 text-purple-700' 
+  },
+  'programming': { 
+    label: 'Programmierung', 
+    icon: '💻', 
+    color: 'bg-green-100 text-green-700' 
+  },
+  'design': { 
+    label: 'Design', 
+    icon: '🎨', 
+    color: 'bg-pink-100 text-pink-700' 
+  },
+  'data-analysis': { 
+    label: 'Datenanalyse', 
+    icon: '📊', 
+    color: 'bg-orange-100 text-orange-700' 
+  },
+  'learning': { 
+    label: 'Lernen', 
+    icon: '📚', 
+    color: 'bg-indigo-100 text-indigo-700' 
+  },
+  'business': { 
+    label: 'Business', 
+    icon: '💼', 
+    color: 'bg-gray-100 text-gray-700' 
   },
   'marketing': { 
     label: 'Marketing', 
-    icon: '📢', 
-    color: 'bg-purple-100 text-purple-700' 
-  },
-  'personal': { 
-    label: 'Personal', 
-    icon: '👥', 
-    color: 'bg-green-100 text-green-700' 
-  },
-  'finanzen': { 
-    label: 'Finanzen', 
-    icon: '💶', 
-    color: 'bg-yellow-100 text-yellow-700' 
-  },
-  'operations': { 
-    label: 'Operations', 
-    icon: '⚙️', 
-    color: 'bg-orange-100 text-orange-700' 
-  },
-  'it-entwicklung': { 
-    label: 'IT & Entwicklung', 
-    icon: '💻', 
-    color: 'bg-indigo-100 text-indigo-700' 
-  },
-  'kundenservice': { 
-    label: 'Kundenservice', 
-    icon: '🎧', 
-    color: 'bg-pink-100 text-pink-700' 
-  },
-  'produktion': { 
-    label: 'Produktion', 
-    icon: '🏭', 
-    color: 'bg-gray-100 text-gray-700' 
+    icon: '📈', 
+    color: 'bg-red-100 text-red-700' 
   }
 }

@@ -67,13 +67,6 @@ export default async function TrickDetailPage({ params }: PageProps) {
     description: trickData.description,
     category: trickData.category as Category,
     tools: trickData.tools,
-    timeToImplement: trickData.time_to_implement,
-    // keep legacy if present
-    difficulty: trickData.difficulty,
-    impact: trickData.impact,
-    // new tags
-    departmentTags: (trickData as any).department_tags || [],
-    industryTags: (trickData as any).industry_tags || [],
     steps: trickData.steps || [],
     examples: trickData.examples || [],
     slug: trickData.slug,

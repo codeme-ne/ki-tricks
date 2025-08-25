@@ -1,5 +1,4 @@
-import { mockTricks } from '@/lib/data/mock-data'
-
+// Sitemap generation without mock data
 export async function GET() {
   const baseUrl = 'https://ai-tricks-platform.vercel.app'
   
@@ -13,8 +12,8 @@ export async function GET() {
     '/datenschutz'
   ]
   
-  // Dynamische Trick-Seiten
-  const trickPages = mockTricks.map(trick => `/trick/${trick.slug}`)
+  // TODO: Fetch trick pages from Supabase instead of mock data
+  const trickPages: string[] = []
   
   // Alle Seiten kombinieren
   const allPages = [...staticPages, ...trickPages]

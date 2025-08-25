@@ -30,16 +30,18 @@ export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => 
     emoji: categoryEmojis[trick.category]
   }), [trick.category])
   
+  // Difficulty and impact labels removed
+  
   // Memoize accent color calculation
   const accentColor = useMemo(() => ({
-    vertrieb: '#3B82F6',
-    marketing: '#A855F7', 
-    personal: '#22C55E',
-    finanzen: '#EC4899',
-    operations: '#FB923C',
-    'it-entwicklung': '#FACC15',
-    kundenservice: '#6366F1',
-    produktion: '#EF4444',
+    productivity: '#3B82F6',
+    'content-creation': '#A855F7',
+    programming: '#22C55E',
+    design: '#EC4899',
+    'data-analysis': '#FB923C',
+    learning: '#FACC15',
+    business: '#6366F1',
+    marketing: '#EF4444',
   }[trick.category] || '#2299DD'), [trick.category])
 
   // Memoize date calculation
@@ -74,6 +76,7 @@ export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => 
           {/* Header */}
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-2">
+              {/* Difficulty badge removed */}
               {isNew && (
                 <Badge variant="info">
                   Neu
@@ -106,23 +109,7 @@ export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => 
         </div>
 
         {/* Footer */}
-        <div className="pt-4 border-t border-neutral-800">
-          {/* Tags if available */}
-          {((trick.departmentTags && trick.departmentTags.length > 0) || 
-            (trick.industryTags && trick.industryTags.length > 0)) && (
-            <div className="flex flex-wrap gap-1.5 mb-4">
-              {trick.departmentTags?.slice(0, 2).map((tag, idx) => (
-                <Badge key={`dept-${idx}`} variant="secondary" className="text-xs">
-                  {tag}
-                </Badge>
-              ))}
-              {trick.industryTags?.slice(0, 2).map((tag, idx) => (
-                <Badge key={`ind-${idx}`} variant="info" className="text-xs">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          )}
+  <div className="pt-4 border-t border-neutral-800">
           
           {/* CTA Button */}
           <button className={`w-full py-2.5 px-4 bg-neutral-800 text-neutral-200 rounded-lg flex items-center justify-center gap-2 text-sm font-medium border border-neutral-700 ${

@@ -20,8 +20,6 @@ export const useFilters = () => {
   useEffect(() => {
     const urlFilters: FilterState = {
       categories: parseArrayParam(searchParams.get('categories')) as Category[],
-      departments: parseArrayParam(searchParams.get('departments')),
-      industries: parseArrayParam(searchParams.get('industries')),
       search: searchParams.get('search') || ''
     }
     
@@ -39,12 +37,6 @@ export const useFilters = () => {
       params.set('categories', serializeArrayParam(newFilters.categories))
     }
     
-    if (newFilters.departments && newFilters.departments.length > 0) {
-      params.set('departments', serializeArrayParam(newFilters.departments))
-    }
-    if (newFilters.industries && newFilters.industries.length > 0) {
-      params.set('industries', serializeArrayParam(newFilters.industries))
-    }
     if (newFilters.search.trim() !== '') {
       params.set('search', newFilters.search)
     }

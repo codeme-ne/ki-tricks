@@ -228,33 +228,7 @@ export default function PendingTricksPage() {
     return labels[category] || category
   }
 
-  const getDifficultyLabel = (difficulty: string) => {
-    const labels: Record<string, string> = {
-      'beginner': 'Anfänger',
-      'intermediate': 'Fortgeschritten',
-      'advanced': 'Experte'
-    }
-    return labels[difficulty] || difficulty
-  }
-
-  const getDifficultyColor = (difficulty: string) => {
-    const colors: Record<string, 'success' | 'warning' | 'danger'> = {
-      'beginner': 'success',
-      'intermediate': 'warning',
-      'advanced': 'danger'
-    }
-    return colors[difficulty] || 'primary'
-  }
-
-  if (loading) {
-    return (
-      <PageContainer>
-        <div className="text-center py-16">
-          <p className="text-neutral-400">Lade eingereichte Tricks...</p>
-        </div>
-      </PageContainer>
-    )
-  }
+  // Difficulty helpers removed
 
   if (error) {
     return (
@@ -422,9 +396,7 @@ export default function PendingTricksPage() {
                           {trick.status === 'rejected' && (
                             <Badge variant="danger">Abgelehnt</Badge>
                           )}
-                          <Badge variant={getDifficultyColor(trick.difficulty)}>
-                            {getDifficultyLabel(trick.difficulty)}
-                          </Badge>
+                          {/* Difficulty badge removed */}
                           {(() => {
                             const qualityScore = calculateQualityScore(trick)
                             const assessment = getQualityAssessment(qualityScore)
@@ -450,7 +422,7 @@ export default function PendingTricksPage() {
                       </p>
                       <div className="flex items-center gap-4 text-xs text-neutral-500">
                         <span>{getCategoryLabel(trick.category)}</span>
-                        <span>{trick.timeToImplement}</span>
+                        {/* timeToImplement removed */}
                         <span className="ml-auto">
                           {new Date(trick.createdAt).toLocaleDateString('de-DE')}
                         </span>
@@ -511,18 +483,7 @@ export default function PendingTricksPage() {
                         <h3 className="font-semibold text-sm text-neutral-300 mb-1">Kategorie</h3>
                         <p className="text-sm">{getCategoryLabel(selectedTrick.category)}</p>
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-sm text-neutral-300 mb-1">Schwierigkeit</h3>
-                        <p className="text-sm">{getDifficultyLabel(selectedTrick.difficulty)}</p>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-sm text-neutral-300 mb-1">Umsetzungszeit</h3>
-                        <p className="text-sm">{selectedTrick.timeToImplement}</p>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-sm text-neutral-300 mb-1">Impact</h3>
-                        <p className="text-sm capitalize">{selectedTrick.impact}</p>
-                      </div>
+                      {/* Removed difficulty, timeToImplement, impact */}
                     </div>
 
                     {selectedTrick.tools && selectedTrick.tools.length > 0 && (

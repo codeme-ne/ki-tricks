@@ -13,9 +13,7 @@ export function FilterSidebar({
   onFilterChange,
   isOpen = false,
   onClose,
-  className = '',
-  departments = [],
-  industries = []
+  className = ''
 }: FilterSidebarProps) {
   // Handle escape key press
   useEffect(() => {
@@ -44,18 +42,7 @@ export function FilterSidebar({
     onFilterChange
   )
   
-  // Departments/Industries handlers
-  const handleDepartmentChange = createFilterHandler<string>(
-    selectedFilters,
-    'departments',
-    onFilterChange
-  )
-  const handleIndustryChange = createFilterHandler<string>(
-    selectedFilters,
-    'industries',
-    onFilterChange
-  )
-  
+
 
   // Reset all filters
   const handleReset = () => {
@@ -106,44 +93,12 @@ export function FilterSidebar({
               key={category}
               label={categoryMetadata[category].label}
               checked={selectedFilters.categories.includes(category)}
-              onChange={(checked: boolean) => handleCategoryChange(category, checked)}
+              onChange={(checked) => handleCategoryChange(category, checked)}
             />
           ))}
         </FilterSection>
 
-        {/* Departments (optional) */}
-        {departments.length > 0 && (
-          <FilterSection 
-            title="Abteilungen" 
-            count={selectedFilters.departments?.length || 0}
-          >
-            {departments.map((dep) => (
-              <Checkbox
-                key={dep}
-                label={dep}
-                checked={selectedFilters.departments?.includes(dep) || false}
-                onChange={(checked: boolean) => handleDepartmentChange(dep, checked)}
-              />
-            ))}
-          </FilterSection>
-        )}
-
-        {/* Industries (optional) */}
-        {industries.length > 0 && (
-          <FilterSection 
-            title="Branchen" 
-            count={selectedFilters.industries?.length || 0}
-          >
-            {industries.map((ind) => (
-              <Checkbox
-                key={ind}
-                label={ind}
-                checked={selectedFilters.industries?.includes(ind) || false}
-                onChange={(checked: boolean) => handleIndustryChange(ind, checked)}
-              />
-            ))}
-          </FilterSection>
-        )}
+  {/* Only categories remain as filters */}
 
       </div>
 

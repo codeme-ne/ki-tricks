@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button, Badge } from '@/components/atoms'
 import { TrickPreview } from '@/components/organisms/TrickPreview'
 import { KITrick, Category } from '@/lib/types/types'
-import { categoryLabels, departmentTags, industryTags } from '@/lib/constants/constants'
+import { categoryLabels } from '@/lib/constants/constants'
 import { Plus, X, Eye, Edit } from 'lucide-react'
 
 interface TrickFormProps {
@@ -14,24 +14,22 @@ interface TrickFormProps {
 }
 
 const categories: { value: Category; label: string }[] = [
-  { value: 'vertrieb', label: categoryLabels['vertrieb'] },
-  { value: 'marketing', label: categoryLabels['marketing'] },
-  { value: 'personal', label: categoryLabels['personal'] },
-  { value: 'finanzen', label: categoryLabels['finanzen'] },
-  { value: 'operations', label: categoryLabels['operations'] },
-  { value: 'it-entwicklung', label: categoryLabels['it-entwicklung'] },
-  { value: 'kundenservice', label: categoryLabels['kundenservice'] },
-  { value: 'produktion', label: categoryLabels['produktion'] }
+  { value: 'productivity', label: categoryLabels['productivity'] },
+  { value: 'content-creation', label: categoryLabels['content-creation'] },
+  { value: 'programming', label: categoryLabels['programming'] },
+  { value: 'design', label: categoryLabels['design'] },
+  { value: 'data-analysis', label: categoryLabels['data-analysis'] },
+  { value: 'learning', label: categoryLabels['learning'] },
+  { value: 'business', label: categoryLabels['business'] },
+  { value: 'marketing', label: categoryLabels['marketing'] }
 ]
 
 export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: TrickFormProps) => {
   const [formData, setFormData] = useState<Partial<KITrick>>({
     title: initialData.title || '',
     description: initialData.description || '',
-    category: initialData.category || 'vertrieb',
-    tools: initialData.tools || ['Claude', 'Claude Code'],
-    departmentTags: initialData.departmentTags || [],
-    industryTags: initialData.industryTags || [],
+  category: (initialData.category as Category) || 'productivity',
+  tools: initialData.tools || ['Claude', 'Claude Code'],
     steps: initialData.steps || [],
     examples: initialData.examples || [],
     'Warum es funktioniert': initialData['Warum es funktioniert'] || ''
@@ -39,8 +37,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
 
   const [newStep, setNewStep] = useState('')
   const [newExample, setNewExample] = useState('')
-  const [selectedDepartments, setSelectedDepartments] = useState<string[]>(initialData.departmentTags || [])
-  const [selectedIndustries, setSelectedIndustries] = useState<string[]>(initialData.industryTags || [])
+  // Department/Industry tags removed
   const [previewMode, setPreviewMode] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -88,25 +85,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
   }
 
 
-  const toggleDepartment = (dept: string) => {
-    setSelectedDepartments(prev => {
-      const newDepts = prev.includes(dept) 
-        ? prev.filter(d => d !== dept)
-        : [...prev, dept]
-      setFormData(current => ({ ...current, departmentTags: newDepts }))
-      return newDepts
-    })
-  }
-
-  const toggleIndustry = (ind: string) => {
-    setSelectedIndustries(prev => {
-      const newInds = prev.includes(ind)
-        ? prev.filter(i => i !== ind)
-        : [...prev, ind]
-      setFormData(current => ({ ...current, industryTags: newInds }))
-      return newInds
-    })
-  }
+  // Tag toggles removed
 
   // Preview Mode Component
   if (previewMode) {
@@ -212,51 +191,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             </select>
           </div>
 
-          {/* Department Tags */}
-          <div>
-            <label className="block text-sm font-medium text-neutral-300 mb-2">
-              Abteilungen (optional)
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {departmentTags.map(dept => (
-                <button
-                  key={dept}
-                  type="button"
-                  onClick={() => toggleDepartment(dept)}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                    selectedDepartments.includes(dept)
-                      ? 'bg-primary-600 text-white border border-primary-500'
-                      : 'bg-neutral-700 text-neutral-300 border border-neutral-600 hover:bg-neutral-600'
-                  }`}
-                >
-                  {dept}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Industry Tags */}
-          <div>
-            <label className="block text-sm font-medium text-neutral-300 mb-2">
-              Branchen (optional)
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {industryTags.map(ind => (
-                <button
-                  key={ind}
-                  type="button"
-                  onClick={() => toggleIndustry(ind)}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                    selectedIndustries.includes(ind)
-                      ? 'bg-primary-600 text-white border border-primary-500'
-                      : 'bg-neutral-700 text-neutral-300 border border-neutral-600 hover:bg-neutral-600'
-                  }`}
-                >
-                  {ind}
-                </button>
-              ))}
-            </div>
-          </div>
+          {/* Department/Industry tags removed */}
         </div>
       </div>
 

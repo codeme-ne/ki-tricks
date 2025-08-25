@@ -15,7 +15,7 @@ const config: Config = {
           200: '#bae6fd',
           300: '#7dd3fc',
           400: '#38bdf8',
-          500: '#2299dd', // Main accent color from thegrowthlist.co
+          500: '#2299dd', 
           600: '#0284c7',
           700: '#0369a1',
           800: '#075985',

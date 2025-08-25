@@ -14,10 +14,8 @@ export interface Database {
           id: string
           title: string
           description: string
-          category: 'vertrieb' | 'marketing' | 'personal' | 'finanzen' | 'operations' | 'it-entwicklung' | 'kundenservice' | 'produktion'
+          category: 'productivity' | 'content-creation' | 'programming' | 'design' | 'data-analysis' | 'learning' | 'business' | 'marketing'
           tools: string[]
-          department_tags: string[]
-          industry_tags: string[]
           steps: string[] | null
           examples: string[] | null
           slug: string
@@ -37,10 +35,8 @@ export interface Database {
           id?: string
           title: string
           description: string
-          category: 'vertrieb' | 'marketing' | 'personal' | 'finanzen' | 'operations' | 'it-entwicklung' | 'kundenservice' | 'produktion'
+          category: 'productivity' | 'content-creation' | 'programming' | 'design' | 'data-analysis' | 'learning' | 'business' | 'marketing'
           tools: string[]
-          department_tags?: string[]
-          industry_tags?: string[]
           steps?: string[] | null
           examples?: string[] | null
           slug: string
@@ -60,10 +56,8 @@ export interface Database {
           id?: string
           title?: string
           description?: string
-          category?: 'vertrieb' | 'marketing' | 'personal' | 'finanzen' | 'operations' | 'it-entwicklung' | 'kundenservice' | 'produktion'
+          category?: 'productivity' | 'content-creation' | 'programming' | 'design' | 'data-analysis' | 'learning' | 'business' | 'marketing'
           tools?: string[]
-          department_tags?: string[]
-          industry_tags?: string[]
           steps?: string[] | null
           examples?: string[] | null
           slug?: string

@@ -51,8 +51,7 @@ export default function SubmitTrickPage() {
         await sendNewTrickNotification({
           title: trickData.title || 'Unbenannter Trick',
           description: trickData.description || 'Keine Beschreibung',
-          category: trickData.category || 'productivity',
-          difficulty: trickData.difficulty || 'beginner'
+          category: trickData.category || 'productivity'
         })
       } catch (error) {
         // Log error but don't fail the submission

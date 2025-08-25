@@ -3,7 +3,6 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import type { Database } from '@/lib/supabase/types'
 import { Category } from '@/lib/types/types'
 
-type KITrickRow = Database['public']['Tables']['ki_tricks']['Row']
 type KITrickInsert = Database['public']['Tables']['ki_tricks']['Insert']
 type KITrickUpdate = Database['public']['Tables']['ki_tricks']['Update']
 
@@ -14,7 +13,7 @@ export class TricksService {
     
     const { data, error } = await supabase
       .from('ki_tricks')
-  .select('*')
+      .select('*')
       .eq('status', 'published')
       .order('published_at', { ascending: false })
 
@@ -28,7 +27,7 @@ export class TricksService {
     
     const { data, error } = await supabase
       .from('ki_tricks')
-  .select('*')
+      .select('*')
       .eq('slug', slug)
       .eq('status', 'published')
       .single()
@@ -43,7 +42,7 @@ export class TricksService {
     
     const { data, error } = await supabase
       .from('ki_tricks')
-  .select('*')
+      .select('*')
       .eq('category', category)
       .eq('status', 'published')
       .order('published_at', { ascending: false })
@@ -70,8 +69,6 @@ export class TricksService {
   // Get filtered tricks
   static async getFilteredTricks(filters: {
     categories?: Category[]
-    departments?: string[]
-    industries?: string[]
     search?: string
   }) {
     const supabase = await createClient()
@@ -85,12 +82,11 @@ export class TricksService {
       query = query.in('category', filters.categories)
     }
 
-  if (filters.search) {
+    if (filters.search) {
       query = query.or(
         `title.ilike.%${filters.search}%,description.ilike.%${filters.search}%`
       )
     }
-  // Note: department/industry tag filtering is applied client-side for now
 
     const { data, error } = await query.order('published_at', { ascending: false })
 

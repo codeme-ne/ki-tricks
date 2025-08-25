@@ -12,23 +12,24 @@ interface TrickPreviewProps {
 }
 
 export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
-  const categoryMeta = categoryMetadata[formData.category || 'vertrieb']
+  const categoryMeta = categoryMetadata[formData.category || 'productivity']
   
   // Get category icon
   const getCategoryIcon = () => {
     const iconClass = "w-6 h-6"
     switch (formData.category) {
-      case 'vertrieb': return <TrendingUp className={iconClass} />
+      case 'programming': return <Code2 className={iconClass} />
+      case 'productivity': return <TrendingUp className={iconClass} />
+      case 'content-creation': return <PenTool className={iconClass} />
+      case 'data-analysis': return <BarChart3 className={iconClass} />
+      case 'learning': return <Brain className={iconClass} />
+      case 'business': return <Briefcase className={iconClass} />
       case 'marketing': return <TrendingUp className={iconClass} />
-      case 'personal': return <Brain className={iconClass} />
-      case 'finanzen': return <BarChart3 className={iconClass} />
-      case 'operations': return <Briefcase className={iconClass} />
-      case 'it-entwicklung': return <Code2 className={iconClass} />
-      case 'kundenservice': return <BookOpen className={iconClass} />
-      case 'produktion': return <Palette className={iconClass} />
+      case 'design': return <Palette className={iconClass} />
       default: return <BookOpen className={iconClass} />
     }
   }
+
 
   return (
     <div className={cn("space-y-6", className)}>
@@ -87,23 +88,7 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
             </h1>
           </div>
 
-          {/* Badges Row - only category and department/industry tags */}
-          <div className="flex flex-wrap gap-2">
-            {formData.departmentTags && formData.departmentTags.length > 0 && (
-              formData.departmentTags.map((tag, idx) => (
-                <Badge key={`dept-${idx}`} variant="secondary">
-                  {tag}
-                </Badge>
-              ))
-            )}
-            {formData.industryTags && formData.industryTags.length > 0 && (
-              formData.industryTags.map((tag, idx) => (
-                <Badge key={`ind-${idx}`} variant="info">
-                  {tag}
-                </Badge>
-              ))
-            )}
-          </div>
+          {/* Badges Row - removed difficulty, time, and impact */}
         </div>
 
         {/* Card Content */}

@@ -42,6 +42,7 @@ export const TrickHeader = ({ trick }: TrickHeaderProps) => {
                 {categoryLabels[trick.category]}
               </Badge>
             </div>
+            {/* Difficulty removed */}
           </div>
           
           {/* Title with gradient option */}
