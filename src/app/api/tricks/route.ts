@@ -106,9 +106,9 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    if (!body.category) {
+  if (!body.category) {
       return NextResponse.json(
-        { error: 'Kategorie ist ein Pflichtfeld.' },
+    { error: 'Kategorie ist ein Pflichtfeld.' },
         { status: 400 }
       )
     }
@@ -120,7 +120,6 @@ export async function POST(request: NextRequest) {
       description: body.description,
   category: body.category as Category,
       tools: body.tools || ['Claude'],
-      
       steps: body.steps || [],
       examples: body.examples || [],
       slug: generateSlug(body.title),

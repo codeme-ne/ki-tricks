@@ -30,7 +30,7 @@ export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => 
     emoji: categoryEmojis[trick.category]
   }), [trick.category])
   
-  // Difficulty and impact labels removed
+  // difficulty/impact removed
   
   // Memoize accent color calculation
   const accentColor = useMemo(() => ({
@@ -44,19 +44,13 @@ export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => 
     marketing: '#EF4444',
   }[trick.category] || '#2299DD'), [trick.category])
 
-  // Memoize date calculation
-  const isNew = useMemo(() => {
-    if (!trick.createdAt) return false
-    return (Date.now() - new Date(trick.createdAt).getTime()) < 7 * 24 * 60 * 60 * 1000
-  }, [trick.createdAt])
-
   return (
     <Link href={`/trick/${trick.slug}`} className="block h-full group">
       <div 
-        className={`relative bg-neutral-900 border border-neutral-800 rounded-2xl p-6 h-full flex flex-col justify-between transition-all ${
+        className={`relative bg-card border border-border rounded-xl p-6 h-full flex flex-col justify-between transition-all ${
           isMobile 
             ? 'duration-150' 
-            : 'duration-300 hover:border-neutral-700 hover:shadow-lg hover:shadow-black/20 hover:-translate-y-1'
+            : 'duration-300 hover:border-muted-foreground/30 hover:shadow-md hover:-translate-y-1'
         }`}
         style={{ 
           contain: 'layout style paint',
@@ -64,62 +58,31 @@ export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => 
           willChange: isMobile ? 'auto' : 'transform'
         }}
       >
-        {!isMobile && (
-          <div 
-            className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-            style={{ background: `radial-gradient(400px at 50% 0%, ${accentColor}10, transparent 80%)` }}
-          />
-        )}
-        
         {/* Content */}
         <div>
-          {/* Header */}
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center gap-2">
-              {/* Difficulty badge removed */}
-              {isNew && (
-                <Badge variant="info">
-                  Neu
-                </Badge>
-              )}
-            </div>
-            <ArrowRight className={`w-5 h-5 text-neutral-600 ${isMobile ? '' : 'group-hover:text-neutral-400 transition-colors duration-300'}`} />
-          </div>
-
           {/* Title */}
-          <h3 className={`text-xl font-semibold text-neutral-100 mb-3 ${isMobile ? '' : 'group-hover:text-white transition-colors duration-300'}`}>
+          <h3 className={`text-lg font-semibold text-foreground mb-3 ${isMobile ? '' : 'group-hover:text-primary transition-colors duration-300'}`}>
             {trick.title}
           </h3>
 
           {/* Description */}
-          <p className="text-neutral-400 line-clamp-3 mb-4 text-sm leading-relaxed">
+          <p className="text-muted-foreground line-clamp-3 mb-4 text-sm leading-relaxed">
             {trick.description.split('\n')[0]}
           </p>
+        </div>
 
+        {/* Footer */}
+        <div className="mt-auto">
           {/* Category Badge */}
           <div className="mb-4">
             <span 
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 text-neutral-300 rounded-lg text-sm border border-neutral-700"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-muted text-foreground rounded-md text-sm border border-border"
               style={{ borderColor: `${accentColor}20` }}
             >
               <span>{categoryInfo.emoji}</span>
               <span>{categoryInfo.label}</span>
             </span>
           </div>
-        </div>
-
-        {/* Footer */}
-  <div className="pt-4 border-t border-neutral-800">
-          
-          {/* CTA Button */}
-          <button className={`w-full py-2.5 px-4 bg-neutral-800 text-neutral-200 rounded-lg flex items-center justify-center gap-2 text-sm font-medium border border-neutral-700 ${
-            isMobile 
-              ? 'transition-colors duration-150 active:bg-neutral-700' 
-              : 'hover:bg-neutral-700 hover:text-white transition-all duration-300 hover:border-neutral-600'
-          }`}>
-            Jetzt ausprobieren
-            <ArrowRight className="w-4 h-4" />
-          </button>
         </div>
 
       </div>

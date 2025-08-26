@@ -40,18 +40,16 @@ export const serializeArrayParam = (arr: string[]): string => {
 }
 
 // Generic filter handler creator
-export const createFilterHandler = <T extends string>(
+export const createFilterHandler = (
   filters: FilterState,
-  filterKey: keyof FilterState,
   onFilterChange: (filters: FilterState) => void
 ) => {
-  return (value: T, checked: boolean) => {
-    const currentValues = filters[filterKey] as T[]
-    const newValues = toggleArrayItem(currentValues, value)
-    
+  return (value: string, checked: boolean) => {
+  const currentValues = filters.categories as string[]
+  const next = toggleArrayItem(currentValues, value) as unknown as typeof filters.categories
     onFilterChange({
       ...filters,
-      [filterKey]: newValues
+      categories: next
     })
   }
 }

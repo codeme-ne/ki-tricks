@@ -45,8 +45,6 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
       result = result.filter(trick => filters.categories.includes(trick.category))
     }
 
-  // Only category and search filters remain
-
     // Apply search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase()
@@ -63,56 +61,53 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
   const availableCategories = useMemo(() => serverCategories as Category[], [serverCategories])
 
   return (
-    <>
-      {/* Mobile Filter Button */}
-      <div className="lg:hidden mb-4">
+    <div className="space-y-8">
+      {/* Search Bar */}
+  <div className="relative max-w-xl sm:max-w-2xl">
+        <SearchBar
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Suche nach KI-Tricks, Tools, Themen..."
+          variant="default"
+        />
+      </div>
+
+      {/* Filter Button and Results Count */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        {/* Filter Button */}
         <Button
           variant="outline"
           onClick={() => setIsSidebarOpen(true)}
-          className="w-full"
+          className="flex items-center gap-2 w-full sm:w-auto"
         >
           <Menu className="h-4 w-4" />
-          Filter ({hasActiveFilters(filters) ? filters.categories.length : 0})
+          Kategorien ({hasActiveFilters(filters) ? filters.categories.length : 0})
         </Button>
+
+        {/* Results Header */}
+        <div className="flex items-center gap-2 text-muted-foreground">
+          <span className="text-xl sm:text-2xl">✨</span>
+          <span className="text-base sm:text-lg font-medium">
+            {filteredTricks.length} {filteredTricks.length === 1 ? 'Trick' : 'Tricks'}
+          </span>
+        </div>
       </div>
 
-      <div className="flex gap-8">
-        {/* Sidebar - handles both desktop and mobile internally */}
-        <FilterSidebar
-          categories={availableCategories}
-          selectedFilters={filters}
-          onFilterChange={updateFilters}
-          isOpen={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
-        />
+      {/* Mobile/Desktop Filter Sidebar */}
+      <FilterSidebar
+        categories={availableCategories}
+        selectedFilters={filters}
+        onFilterChange={updateFilters}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
 
-        {/* Main Content */}
-        <main className="flex-1 min-w-0">
-          {/* Search Bar */}
-          <div className="mb-6">
-            <SearchBar
-              value={searchQuery}
-              onChange={setSearchQuery}
-              placeholder="Suche nach KI Tricks..."
-              variant="glowing"
-            />
-          </div>
-
-          {/* Results Header */}
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-white">
-              {filteredTricks.length} {filteredTricks.length === 1 ? 'Trick' : 'Tricks'} gefunden
-            </h2>
-          </div>
-
-          {/* Tricks Grid */}
-          <TrickGrid
-            tricks={filteredTricks}
-            isLoading={false}
-            emptyStateMessage="Keine Tricks gefunden. Versuche deine Filter anzupassen."
-          />
-        </main>
-      </div>
-    </>
+      {/* Tricks Grid - Full Width */}
+      <TrickGrid
+        tricks={filteredTricks}
+        isLoading={false}
+        emptyStateMessage="Keine Tricks gefunden. Versuche deine Filter anzupassen."
+      />
+    </div>
   );
 }

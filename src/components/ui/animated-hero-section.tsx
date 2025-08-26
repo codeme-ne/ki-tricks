@@ -20,7 +20,7 @@ export const AnimatedHeroSection = () => {
       
       {/* Animated Subtitle */}
       <motion.p 
-        className="text-lg md:text-xl text-neutral-600 mb-10 max-w-2xl mx-auto leading-relaxed"
+        className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto text-readable"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
@@ -65,7 +65,7 @@ export const AnimatedHeroSection = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.5 }}
       >
-        <Link href="#categories" className="text-sm text-neutral-500 hover:text-neutral-700 transition-colors">
+        <Link href="#categories" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
           Oder nach Kategorien stöbern →
         </Link>
       </motion.div>

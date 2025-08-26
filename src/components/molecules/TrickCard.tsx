@@ -17,19 +17,11 @@ export const TrickCard = React.memo(function TrickCard({
   compact?: boolean 
 }) {
   const categoryMeta = categoryMetadata[trick.category]
-  // Impact removed
-  
-  // Prüfe ob Trick neu ist (innerhalb der letzten 7 Tage)
-  const isNewTrick = () => {
-    if (!trick.createdAt) return false
-    const weekAgo = new Date()
-    weekAgo.setDate(weekAgo.getDate() - 7)
-    return new Date(trick.createdAt) > weekAgo
-  }
+  // impact/time removed
   
   // KI/Tech-thematische Icons für verschiedene Kategorien
   const getCategoryIcon = () => {
-    const iconClass = "w-5 h-5"
+    const iconClass = "w-4 h-4 text-neutral-400"
     switch (trick.category) {
       case 'programming': return <Code2 className={iconClass} />
       case 'productivity': return <TrendingUp className={iconClass} />
@@ -44,67 +36,45 @@ export const TrickCard = React.memo(function TrickCard({
   }
   
   const cardContent = (
-    <div className="relative group/card h-full">
-      {/* NEU Badge - Harmonisch positioniert und sichtbar */}
-      {isNewTrick() && (
-        <div className="absolute -top-2 -right-2 z-20">
-          <Badge variant="new">
-            NEU
+    <div className="h-full">
+      <div
+        className={cn(
+          "bg-white border border-neutral-200 rounded-lg p-4 md:p-6 flex flex-col h-full transition-colors hover:border-neutral-300 hover:shadow-sm",
+          compact ? "min-h-[240px]" : "min-h-[280px]"
+        )}
+      >
+        {/* Header: Icon + Category */}
+        <div className="flex items-center gap-2 mb-3">
+          {getCategoryIcon()}
+          <Badge className="bg-white border-neutral-200 text-neutral-600 text-[11px] py-0.5 px-2">
+            {categoryMeta.label}
           </Badge>
         </div>
-      )}
-      {/* Hover Gradient Overlay */}
-      <div className="opacity-0 group-hover/card:opacity-100 transition duration-300 absolute inset-0 h-full w-full bg-gradient-to-t from-neutral-100 dark:from-neutral-800/20 to-transparent pointer-events-none rounded-lg" />
-      
-      <div className={cn(
-        "bg-white dark:bg-neutral-900 p-6 flex flex-col transition-all duration-300",
-        compact ? "min-h-[280px]" : "h-[320px]"
-      )}>
-        {/* Icon & Category Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="text-neutral-600 dark:text-neutral-400 group-hover/card:text-primary-600 transition-colors">
-              {getCategoryIcon()}
-            </div>
-            <Badge className={cn(
-              "text-xs",
-              categoryMeta.color
-            )}>
-              {categoryMeta.label}
-            </Badge>
-          </div>
-        </div>
-        
-        {/* Title with side accent */}
-        <div className="relative mb-3">
-          <div className="absolute left-0 inset-y-0 h-6 group-hover/card:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-300 dark:bg-neutral-700 group-hover/card:bg-primary-600 transition-all duration-300 origin-center" />
-          <h3 className={cn(
-          "text-lg font-bold text-neutral-800 dark:text-neutral-100 leading-tight pl-4 group-hover/card:translate-x-1 transition-transform duration-300",
-          compact ? "line-clamp-3" : "line-clamp-2"
-        )}>
-            {trick.title}
-          </h3>
-        </div>
-        
+
+        {/* Title */}
+        <h3
+          className={cn(
+            "text-neutral-900 font-semibold leading-tight",
+            compact ? "text-base" : "text-lg"
+          )}
+        >
+          {trick.title}
+        </h3>
+
         {/* Description */}
-        <p className={cn(
-          "text-neutral-600 dark:text-neutral-300 text-sm mb-6 leading-relaxed flex-1 px-4",
-          compact ? "line-clamp-4" : "line-clamp-3"
-        )}>
+        <p
+          className={cn(
+            "text-neutral-600 text-sm leading-relaxed mt-2 flex-1",
+            compact ? "line-clamp-4" : "line-clamp-3"
+          )}
+        >
           {trick.description.split('\n')[0]}
         </p>
-        
-        {/* Meta Information */}
-        <div className="mt-auto pt-4 border-t border-neutral-100 dark:border-neutral-800 px-4">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-4 text-xs" />
-          </div>
-          
-          {/* Action Link */}
-          <div className="flex items-center text-primary-600 dark:text-primary-400 text-sm font-semibold group-hover/card:text-primary-700 dark:group-hover/card:text-primary-300">
-            Jetzt ausprobieren
-            <ArrowRight className="w-4 h-4 ml-1.5 transition-transform group-hover/card:translate-x-1.5" />
-          </div>
+
+        {/* Action */}
+        <div className="mt-4 text-neutral-900 text-sm font-medium inline-flex items-center">
+          <span>Jetzt ausprobieren</span>
+          <ArrowRight className="w-4 h-4 ml-1.5" />
         </div>
       </div>
     </div>

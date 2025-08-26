@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server'
 
-// Legacy tags API removed; return empty arrays
 export async function GET() {
-  return NextResponse.json({ departments: [], industries: [], success: true })
+  // Tags removed - department and industry tags no longer used
+  return NextResponse.json({
+    success: true,
+    message: 'Tags endpoint deprecated - department and industry tags removed'
+  })
 }

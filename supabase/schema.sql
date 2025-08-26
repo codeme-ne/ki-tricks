@@ -24,7 +24,6 @@ CREATE TABLE ki_tricks (
   slug TEXT UNIQUE NOT NULL,
   why_it_works TEXT NOT NULL,
   
-  
   -- Status management
   status TEXT DEFAULT 'published' CHECK (
     status IN ('draft', 'pending', 'published', 'rejected')
@@ -66,7 +65,7 @@ CREATE TABLE trick_analytics (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   trick_id UUID REFERENCES ki_tricks(id) ON DELETE CASCADE,
   event_type TEXT NOT NULL CHECK (
-  event_type IN ('view', 'like', 'share', 'implement')
+    event_type IN ('view', 'share', 'implement')
   ),
   user_id UUID REFERENCES auth.users(id),
   session_id TEXT,

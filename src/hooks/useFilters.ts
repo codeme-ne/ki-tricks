@@ -37,6 +37,8 @@ export const useFilters = () => {
       params.set('categories', serializeArrayParam(newFilters.categories))
     }
     
+  // difficulty/impact removed
+    
     if (newFilters.search.trim() !== '') {
       params.set('search', newFilters.search)
     }

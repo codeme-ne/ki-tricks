@@ -18,15 +18,15 @@ export const FilterSection: React.FC<FilterSectionProps> = ({
   const [isOpen, setIsOpen] = useState(true)
 
   return (
-    <div className="border-b border-neutral-200 dark:border-neutral-700/60 pb-6 last:border-b-0">
+  <div className="border-b border-border pb-6 last:border-b-0">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between w-full mb-4 text-left"
       >
-        <h3 className="font-medium text-neutral-900 dark:text-neutral-100">{title}</h3>
+  <h3 className="font-medium text-foreground">{title}</h3>
         <div className="flex items-center gap-2">
           {count !== undefined && count > 0 && (
-            <span className="text-xs bg-primary-100 dark:bg-primary-600/50 text-primary-700 dark:text-primary-300 px-2.5 py-1.5 rounded-full font-medium border border-primary-200 dark:border-primary-500/50">
+            <span className="text-xs bg-primary/10 text-primary px-2.5 py-1.5 rounded-full font-medium border border-primary/20">
               {count}
             </span>
           )}

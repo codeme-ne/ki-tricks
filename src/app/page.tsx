@@ -82,7 +82,7 @@ export default async function HomePage() {
         {/* Categories Preview */}
         <section id="categories" className="py-16 bg-neutral-50">
           <div className="container">
-            <h3 className="text-2xl font-bold text-neutral-900 mb-8 text-center">
+            <h3 className="text-2xl font-bold text-foreground mb-8 text-center text-subheading">
               Tricks nach Kategorien
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
@@ -114,8 +114,8 @@ export default async function HomePage() {
                         </div>
                       )}
                     </div>
-                    <h4 className="font-semibold mb-1 text-neutral-900 text-sm md:text-base group-hover:text-neutral-800 transition-colors">{categoryLabels[category as keyof typeof categoryLabels]}</h4>
-                    <p className="text-xs md:text-sm text-neutral-500 group-hover:text-neutral-600 transition-colors">
+                    <h4 className="font-semibold mb-1 text-foreground text-sm md:text-base group-hover:text-primary transition-colors text-subheading">{categoryLabels[category as keyof typeof categoryLabels]}</h4>
+                    <p className="text-xs md:text-sm text-muted-foreground group-hover:text-foreground transition-colors text-readable">
                       {tricksByCategory[category] || 0} {(tricksByCategory[category] || 0) === 1 ? 'Trick' : 'Tricks'}
                     </p>
                   </Link>

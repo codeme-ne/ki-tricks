@@ -1,6 +1,6 @@
 import { Category } from '../types/types'
 
-// Category labels (German) for Category union
+// Category labels for German translation (aligned with Category union)
 export const categoryLabels: Record<Category, string> = {
   'productivity': 'Produktivität',
   'content-creation': 'Content-Erstellung',

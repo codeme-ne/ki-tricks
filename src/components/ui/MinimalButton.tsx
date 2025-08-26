@@ -22,7 +22,7 @@ export const MinimalButton: React.FC<MinimalButtonProps> = ({
   ...props
 }) => {
   const variantClasses = {
-    primary: 'bg-neutral-900 text-white hover:bg-neutral-800 border border-neutral-800',
+  primary: 'bg-primary text-primary-foreground hover:bg-primary/90 border border-primary/20',
     secondary: 'bg-white text-neutral-900 hover:bg-neutral-50 border border-neutral-200',
     ghost: 'bg-transparent text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
   }

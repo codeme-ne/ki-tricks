@@ -80,19 +80,19 @@ export default function SubmitTrickPage() {
         <div className="max-w-2xl mx-auto text-center py-16">
           <div className="mb-8">
             <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-4" />
-            <h1 className="text-3xl font-bold text-neutral-900 mb-4">
+            <h1 className="text-3xl font-bold text-foreground mb-4">
               Vielen Dank für deine Einreichung!
             </h1>
-            <p className="text-lg text-neutral-600 mb-2">
+            <p className="text-lg text-muted-foreground mb-2">
               Dein KI-Trick wurde erfolgreich eingereicht und wird in Kürze geprüft.
             </p>
-            <p className="text-sm text-neutral-500">
+            <p className="text-sm text-muted-foreground">
               Du wirst in 3 Sekunden zur Übersicht weitergeleitet...
             </p>
           </div>
           <Link 
             href="/tricks"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
           >
             Zur Trick-Übersicht
           </Link>
@@ -107,27 +107,27 @@ export default function SubmitTrickPage() {
         <div className="mb-8">
           <Link 
             href="/tricks" 
-            className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-100 mb-4 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Zurück zur Übersicht
           </Link>
           
-          <h1 className="text-3xl font-bold text-neutral-100 mb-2">
+          <h1 className="text-3xl font-bold text-foreground mb-2">
             KI-Trick einreichen
           </h1>
-          <p className="text-lg text-neutral-400">
+          <p className="text-lg text-muted-foreground">
             Teile deinen besten KI-Trick mit der Community! Deine Einreichung wird 
             geprüft und bei Freigabe auf der Plattform veröffentlicht.
           </p>
         </div>
 
         {/* Info Box */}
-        <div className="bg-blue-900/20 border border-blue-800 rounded-lg p-4 mb-8">
-          <h3 className="font-semibold text-blue-300 mb-2">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+          <h3 className="font-semibold text-blue-800 mb-2">
             Tipps für eine erfolgreiche Einreichung:
           </h3>
-          <ul className="text-sm text-blue-300 space-y-1">
+          <ul className="text-sm text-blue-700 space-y-1">
             <li>• Beschreibe deinen Trick klar und verständlich</li>
             <li>• Füge konkrete Schritte hinzu, die andere nachvollziehen können</li>
             <li>• Gib realistische Zeitschätzungen an</li>
@@ -136,13 +136,13 @@ export default function SubmitTrickPage() {
         </div>
 
         {error && (
-          <div className="bg-red-900/20 border border-red-800 rounded-lg p-4 mb-6">
-            <p className="text-red-300">{error}</p>
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+            <p className="text-red-700">{error}</p>
           </div>
         )}
 
         {duplicateWarning && (
-          <div className="bg-amber-900/20 border border-amber-800 rounded-lg p-6 mb-6">
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-6">
             <div className="flex items-start">
               <div className="flex-shrink-0">
                 <svg className="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
@@ -150,22 +150,22 @@ export default function SubmitTrickPage() {
                 </svg>
               </div>
               <div className="ml-3 flex-1">
-                <h3 className="text-sm font-medium text-amber-300">
+                <h3 className="text-sm font-medium text-amber-800">
                   Mögliches Duplikat erkannt
                 </h3>
-                <div className="mt-2 text-sm text-amber-300">
+                <div className="mt-2 text-sm text-amber-800">
                   <p>{duplicateWarning.message}</p>
                 </div>
 
                 {duplicateWarning.similarTricks && duplicateWarning.similarTricks.length > 0 && (
                   <div className="mt-4">
-                    <h4 className="text-sm font-medium text-amber-300 mb-2">Ähnliche Tricks:</h4>
+                    <h4 className="text-sm font-medium text-amber-800 mb-2">Ähnliche Tricks:</h4>
                     <div className="space-y-2">
                       {duplicateWarning.similarTricks.slice(0, 3).map((similar: any, index: number) => (
-                        <div key={index} className="bg-amber-800/30 rounded p-3">
-                          <p className="font-medium text-sm text-amber-200">{similar.trick.title}</p>
-                          <p className="text-xs text-amber-300 mt-1">{similar.trick.description.substring(0, 100)}...</p>
-                          <p className="text-xs text-amber-400 mt-2">
+                        <div key={index} className="bg-amber-100 rounded p-3">
+                          <p className="font-medium text-sm text-amber-800">{similar.trick.title}</p>
+                          <p className="text-xs text-amber-700 mt-1">{similar.trick.description.substring(0, 100)}...</p>
+                          <p className="text-xs text-amber-700 mt-2">
                             Ähnlichkeit: {similar.overallSimilarity}%
                           </p>
                         </div>
@@ -177,14 +177,14 @@ export default function SubmitTrickPage() {
                 <div className="mt-4 flex gap-3">
                   <button
                     onClick={() => setDuplicateWarning(null)}
-                    className="text-sm bg-amber-800/30 text-amber-300 px-3 py-2 rounded hover:bg-amber-800/50 transition-colors"
+                    className="text-sm bg-amber-100 text-amber-800 px-3 py-2 rounded hover:bg-amber-200 transition-colors"
                   >
                     Überarbeiten
                   </button>
                   <button
                     onClick={() => lastSubmissionData && handleSubmit(lastSubmissionData, true)}
                     disabled={isSubmitting}
-                    className="text-sm bg-amber-700/30 text-amber-200 px-3 py-2 rounded hover:bg-amber-700/50 transition-colors disabled:opacity-50"
+                    className="text-sm bg-amber-600 text-white px-3 py-2 rounded hover:bg-amber-700 transition-colors disabled:opacity-50"
                   >
                     {isSubmitting ? 'Wird eingereicht...' : 'Trotzdem einreichen'}
                   </button>

@@ -16,9 +16,9 @@ export function Badge({
     danger: 'bg-red-600/20 border-red-500/30 text-red-300',
     info: 'bg-blue-600/20 border-blue-500/30 text-blue-300',
     // Harmonische NEU-Badge: Blau-Gradient mit subtilen Effekten
-    new: 'relative bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 border-primary-300/40 text-white font-bold px-3 py-1.5 text-sm hover:rotate-0 transition-all duration-300 new-badge-glow new-badge-minimal',
+  new: 'relative bg-gradient-to-r from-primary/80 via-primary to-primary/90 border-primary/30 text-primary-foreground font-bold px-3 py-1.5 text-sm hover:rotate-0 transition-all duration-300 new-badge-glow new-badge-minimal',
     // Alternative: Dezentere NEU-Badge ohne starke Effekte
-    'new-subtle': 'bg-primary-500/90 border-primary-400/50 text-white font-semibold px-3 py-1.5 text-sm backdrop-blur-sm shadow-md shadow-primary-500/20',
+  'new-subtle': 'bg-primary border-primary/20 text-primary-foreground font-semibold px-3 py-1.5 text-sm backdrop-blur-sm shadow-md shadow-primary/20',
   };
   
   return (

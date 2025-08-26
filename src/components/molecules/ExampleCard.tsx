@@ -8,7 +8,7 @@ export const ExampleCard = ({ example }: ExampleCardProps) => {
   return (
     <div className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:transform hover:-translate-y-1">
       {/* Base Background for better visibility */}
-      <div className="absolute inset-0 bg-neutral-800/40 backdrop-blur-sm" />
+  <div className="absolute inset-0 bg-foreground/5 backdrop-blur-sm" />
       
       {/* Glassmorphism Background with Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-primary-600/15 backdrop-blur-sm" />

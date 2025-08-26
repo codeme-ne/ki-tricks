@@ -5,7 +5,7 @@ interface TrickMetaProps {
   trick: KITrick
 }
 
-// Impact removed from meta
+// impact/time removed
 
 export const TrickMeta = ({ trick }: TrickMetaProps) => {
   const formattedDate = new Date(trick.updatedAt).toLocaleDateString('de-DE', {
@@ -16,7 +16,7 @@ export const TrickMeta = ({ trick }: TrickMetaProps) => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
-  {/* Time and Impact removed */}
+  {/* time and impact removed */}
       
       <div className="flex items-center gap-2 text-sm">
         <Wrench className="h-4 w-4 text-primary-400" />

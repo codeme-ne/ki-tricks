@@ -36,13 +36,8 @@ export function FilterSidebar({
   }, [isOpen, onClose])
 
   // Create filter handlers using the utility function
-  const handleCategoryChange = createFilterHandler<Category>(
-    selectedFilters, 
-    'categories', 
-    onFilterChange
-  )
+  const handleCategoryChange = createFilterHandler(selectedFilters, onFilterChange)
   
-
 
   // Reset all filters
   const handleReset = () => {
@@ -55,61 +50,58 @@ export function FilterSidebar({
   // FilterSection is now imported as a separate component
 
   const sidebarContent = (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-background">
       {/* Header */}
-      <div className="flex items-center justify-between p-6 border-b border-neutral-700/60">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary-600/20 rounded-lg">
-            <Filter className="w-4 h-4 text-primary-400" />
-          </div>
-          <h2 className="text-lg font-semibold text-neutral-100">Filter</h2>
+      <div className="flex items-center justify-between p-4 border-b border-border">
+        <div className="flex items-center gap-2">
+          <Filter className="w-4 h-4 text-foreground" />
+          <h2 className="text-base font-medium text-foreground">Kategorien</h2>
           {activeFilterCount > 0 && (
-            <span className="bg-primary-600 text-white text-xs px-2.5 py-1.5 rounded-full font-medium border border-primary-500">
+            <span className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded font-medium">
               {activeFilterCount}
             </span>
           )}
         </div>
-        {/* Close button - only visible on mobile */}
+        {/* Close button */}
         {onClose && (
           <button
             onClick={onClose}
-            className="lg:hidden p-2 hover:bg-neutral-700/60 rounded-lg transition-colors"
+            className="p-2 hover:bg-muted rounded-lg transition-colors"
             aria-label="Filter schließen"
           >
-            <X className="w-5 h-5 text-neutral-400" />
+            <X className="w-5 h-5 text-muted-foreground" />
           </button>
         )}
       </div>
 
       {/* Filter Content */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6">
+      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-1">
         {/* Categories */}
-        <FilterSection 
-          title="Kategorien" 
-          count={selectedFilters.categories.length}
-        >
-          {categories.map((category) => (
-            <Checkbox
-              key={category}
-              label={categoryMetadata[category].label}
-              checked={selectedFilters.categories.includes(category)}
-              onChange={(checked) => handleCategoryChange(category, checked)}
-            />
-          ))}
-        </FilterSection>
-
-  {/* Only categories remain as filters */}
-
+        <div className="space-y-3">
+          <h3 className="text-sm font-medium text-foreground">Kategorien wählen</h3>
+          <div className="space-y-2">
+            {categories.map((category) => (
+              <div key={category} className="flex items-center space-x-3 cursor-pointer hover:bg-muted/50 rounded-md p-2 transition-colors">
+                <Checkbox
+                  label={categoryMetadata[category].label}
+                  checked={selectedFilters.categories.includes(category)}
+                  onChange={(checked) => handleCategoryChange(category, checked)}
+                  className="shrink-0"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Footer */}
       {activeFilterCount > 0 && (
-        <div className="border-t border-neutral-700/60 p-6">
+        <div className="border-t border-border p-4">
           <Button
-            variant="secondary"
-            size="md"
+            variant="outline"
+            size="sm"
             onClick={handleReset}
-            className="w-full flex items-center justify-center gap-2 bg-neutral-800/60 hover:bg-neutral-700/60 text-neutral-300 hover:text-neutral-100 border-neutral-700/60 hover:border-neutral-600/60 transition-all duration-300"
+            className="w-full flex items-center justify-center gap-2"
           >
             <RotateCcw className="w-4 h-4" />
             Filter zurücksetzen
@@ -121,25 +113,18 @@ export function FilterSidebar({
 
   return (
     <>
-      {/* Mobile: Overlay */}
+      {/* Overlay */}
       {isOpen && (
         <>
           <div 
-            className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+            className="fixed inset-0 bg-foreground/5 backdrop-blur-[1px] z-40"
             onClick={onClose}
           />
-          <div className="lg:hidden fixed inset-y-0 left-0 w-full max-w-sm bg-neutral-900/95 backdrop-blur-xl z-50 shadow-2xl">
+          <div className="fixed inset-y-0 left-0 w-full max-w-sm bg-background z-50 shadow-2xl border-r border-border">
             {sidebarContent}
           </div>
         </>
       )}
-
-      {/* Desktop: Sticky Sidebar */}
-      <div className={`hidden lg:block lg:sticky lg:top-6 lg:h-fit w-64 flex-shrink-0 ${className}`}>
-        <div className="bg-neutral-900/60 backdrop-blur-xl border border-neutral-700/60 rounded-2xl shadow-2xl shadow-black/20">
-          {sidebarContent}
-        </div>
-      </div>
     </>
   )
 }

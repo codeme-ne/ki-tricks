@@ -155,7 +155,7 @@ export default function AdminAnalyticsPage() {
           <>
             {/* Key Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+              <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
                 <div className="flex items-center">
                   <div className="p-2 bg-blue-800/50 rounded-lg">
                     <Clock className="w-6 h-6 text-blue-400" />
@@ -167,7 +167,7 @@ export default function AdminAnalyticsPage() {
                 </div>
               </div>
 
-              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+              <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
                 <div className="flex items-center">
                   <div className="p-2 bg-green-800/50 rounded-lg">
                     <CheckCircle className="w-6 h-6 text-green-400" />
@@ -179,7 +179,7 @@ export default function AdminAnalyticsPage() {
                 </div>
               </div>
 
-              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+              <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
                 <div className="flex items-center">
                   <div className="p-2 bg-red-800/50 rounded-lg">
                     <X className="w-6 h-6 text-red-400" />
@@ -191,7 +191,7 @@ export default function AdminAnalyticsPage() {
                 </div>
               </div>
 
-              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+              <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
                 <div className="flex items-center">
                   <div className="p-2 bg-purple-800/50 rounded-lg">
                     <TrendingUp className="w-6 h-6 text-purple-400" />
@@ -206,7 +206,7 @@ export default function AdminAnalyticsPage() {
 
             <div className="grid lg:grid-cols-2 gap-8 mb-8">
               {/* Top Categories */}
-              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+              <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
                 <h3 className="text-lg font-semibold mb-4 flex items-center">
                   <BarChart className="w-5 h-5 mr-2" />
                   Beliebteste Kategorien
@@ -239,7 +239,7 @@ export default function AdminAnalyticsPage() {
               </div>
 
               {/* Recent Activity */}
-              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+              <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
                 <h3 className="text-lg font-semibold mb-4 flex items-center">
                   <TrendingUp className="w-5 h-5 mr-2" />
                   Aktivität der letzten Tage

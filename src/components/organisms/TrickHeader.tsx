@@ -42,7 +42,7 @@ export const TrickHeader = ({ trick }: TrickHeaderProps) => {
                 {categoryLabels[trick.category]}
               </Badge>
             </div>
-            {/* Difficulty removed */}
+            {/* difficulty removed */}
           </div>
           
           {/* Title with gradient option */}
@@ -57,7 +57,7 @@ export const TrickHeader = ({ trick }: TrickHeaderProps) => {
           
           {/* Meta information with glassmorphism */}
           <div className="relative">
-            <div className="absolute inset-0 bg-neutral-800/30 backdrop-blur-sm rounded-xl" />
+            <div className="absolute inset-0 bg-foreground/5 backdrop-blur-sm rounded-xl" />
             <div className="relative">
               <TrickMeta trick={trick} />
             </div>

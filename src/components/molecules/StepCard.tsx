@@ -7,7 +7,7 @@ export const StepCard = ({ step, number }: StepCardProps) => {
   return (
     <div className="group relative flex gap-3 sm:gap-4 p-4 sm:p-5 rounded-xl transition-all duration-300 hover:transform hover:-translate-y-1 overflow-hidden">
       {/* Glassmorphism Background */}
-      <div className="absolute inset-0 bg-neutral-800/50 backdrop-blur-sm rounded-xl border border-neutral-700/50 group-hover:border-primary-500/30 transition-all duration-300" />
+  <div className="absolute inset-0 bg-foreground/5 backdrop-blur-sm rounded-xl border border-border group-hover:border-primary/40 transition-all duration-300" />
       
       {/* Subtle Glow Effect on Hover */}
       <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -23,7 +23,7 @@ export const StepCard = ({ step, number }: StepCardProps) => {
           <div className="relative">
             {/* Glow behind number */}
             <div className="absolute inset-0 bg-primary-500/20 rounded-full blur-md group-hover:bg-primary-500/30 transition-colors duration-300" />
-            <div className="relative w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-primary-400 to-primary-600 text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-bold shadow-lg">
+            <div className="relative w-7 h-7 sm:w-8 sm:h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs sm:text-sm font-bold shadow-sm">
               {number}
             </div>
           </div>

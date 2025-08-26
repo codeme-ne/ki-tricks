@@ -64,7 +64,7 @@ export const AnimatedHeroTitle: FC<AnimatedHeroTitleProps> = ({
         initial="hidden"
         animate={controls}
       >
-        <h1 className="flex flex-wrap justify-center items-center gap-x-3 gap-y-2 text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center">
+        <h1 className="flex flex-wrap justify-center items-center gap-x-3 gap-y-2 text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-center text-heading">
           {words.map((word, i) => (
             <motion.span
               key={i}

@@ -7,13 +7,12 @@ interface NotificationData {
   trickTitle: string
   trickDescription: string
   trickCategory: string
-  trickDifficulty: string
   submissionTime: string
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const { trickTitle, trickDescription, trickCategory, trickDifficulty }: NotificationData = await request.json()
+  const { trickTitle, trickDescription, trickCategory }: NotificationData = await request.json()
     
     
     // Return success - the actual email sending will be handled on client-side
@@ -24,7 +23,6 @@ export async function POST(request: NextRequest) {
         trickTitle,
         trickDescription,
         trickCategory,
-        trickDifficulty,
         submissionTime: new Date().toISOString()
       }
     })
