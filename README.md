@@ -177,6 +177,7 @@ Bei Fragen oder Problemen:
 - Öffnen Sie ein [Issue](https://github.com/codeme-ne/ai-platform/issues)
 - Nutzen Sie das Kontaktformular auf der Webseite
 - Schauen Sie in die [Dokumentation](./docs)
+	- Import-Guide: [IMPORT_TRICKS.md](./docs/IMPORT_TRICKS.md)
 
 ## 🚀 Deployment
 
@@ -195,4 +196,4 @@ Optimierungsziele:
 
 ---
 
-**Entwickelt mit ❤️ für die KI-Community**
+Entwickelt mit ❤️ für die KI-Community

@@ -8,11 +8,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "fix-build": "tsx scripts/fix-build-errors.ts",
-    "fix-build-clean": "tsx scripts/fix-build-errors.ts --remove-broken",
-    "clean:data": "node scripts/clean-generated-ki-tips.js",
-    "import-tricks": "tsx scripts/bulk-import-tricks.ts",
-    "migrate-to-supabase": "tsx scripts/migrate-to-supabase.ts"
+  
+  "transform-tricks": "tsx scripts/transform-tricks-to-supabase.ts data/generated-ki-tips.json",
+  "transform-tricks:inplace": "tsx scripts/transform-tricks-to-supabase.ts data/generated-ki-tips.json --in-place",
+  "import-tricks:validate": "tsx scripts/import-tricks-supabase-lite.ts data/generated-ki-tips.json --validate",
+  "import-tricks:simple": "tsx scripts/import-tricks-supabase-lite.ts data/generated-ki-tips.json",
+  "import-tricks:file": "tsx scripts/import-tricks-supabase-lite.ts",
+  "import-tricks:validate-file": "tsx scripts/import-tricks-supabase-lite.ts --validate",
+  "import-tricks": "tsx scripts/bulk-import-tricks.ts"
   },
   "keywords": [],
   "author": "",

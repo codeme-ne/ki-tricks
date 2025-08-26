@@ -1,40 +1,60 @@
-'use client'
+"use client";
 
-import React from 'react'
-import Link from 'next/link'
-import { Badge } from '@/components/atoms'
-import { KITrick, TrickCardProps, categoryMetadata } from '@/lib/types/types'
-import { ArrowRight, Clock, Code2, Brain, Briefcase, BarChart3, PenTool, Palette, TrendingUp, BookOpen } from 'lucide-react'
-import { cn } from '@/lib/utils/utils'
+import React from "react";
+import Link from "next/link";
+import { Badge } from "@/components/atoms";
+import { KITrick, TrickCardProps, categoryMetadata } from "@/lib/types/types";
+import {
+  ArrowRight,
+  Clock,
+  Code2,
+  Brain,
+  Briefcase,
+  BarChart3,
+  PenTool,
+  Palette,
+  TrendingUp,
+  BookOpen,
+} from "lucide-react";
+import { cn } from "@/lib/utils/utils";
 
-export const TrickCard = React.memo(function TrickCard({ 
-  trick, 
-  onClick, 
-  index = 0, 
-  compact = false 
-}: TrickCardProps & { 
-  index?: number
-  compact?: boolean 
+export const TrickCard = React.memo(function TrickCard({
+  trick,
+  onClick,
+  index = 0,
+  compact = false,
+}: TrickCardProps & {
+  index?: number;
+  compact?: boolean;
 }) {
-  const categoryMeta = categoryMetadata[trick.category]
+  const categoryMeta = categoryMetadata[trick.category];
   // impact/time removed
-  
+
   // KI/Tech-thematische Icons für verschiedene Kategorien
   const getCategoryIcon = () => {
-    const iconClass = "w-4 h-4 text-neutral-400"
+    const iconClass = "w-4 h-4 text-neutral-400";
     switch (trick.category) {
-      case 'programming': return <Code2 className={iconClass} />
-      case 'productivity': return <TrendingUp className={iconClass} />
-      case 'content-creation': return <PenTool className={iconClass} />
-      case 'data-analysis': return <BarChart3 className={iconClass} />
-      case 'learning': return <Brain className={iconClass} />
-      case 'business': return <Briefcase className={iconClass} />
-      case 'marketing': return <TrendingUp className={iconClass} />
-      case 'design': return <Palette className={iconClass} />
-      default: return <BookOpen className={iconClass} />
+      case "programming":
+        return <Code2 className={iconClass} />;
+      case "productivity":
+        return <TrendingUp className={iconClass} />;
+      case "content-creation":
+        return <PenTool className={iconClass} />;
+      case "data-analysis":
+        return <BarChart3 className={iconClass} />;
+      case "learning":
+        return <Brain className={iconClass} />;
+      case "business":
+        return <Briefcase className={iconClass} />;
+      case "marketing":
+        return <TrendingUp className={iconClass} />;
+      case "design":
+        return <Palette className={iconClass} />;
+      default:
+        return <BookOpen className={iconClass} />;
     }
-  }
-  
+  };
+
   const cardContent = (
     <div className="h-full">
       <div
@@ -68,7 +88,7 @@ export const TrickCard = React.memo(function TrickCard({
             compact ? "line-clamp-4" : "line-clamp-3"
           )}
         >
-          {trick.description.split('\n')[0]}
+          {trick.description.split("\n")[0]}
         </p>
 
         {/* Action */}
@@ -78,19 +98,11 @@ export const TrickCard = React.memo(function TrickCard({
         </div>
       </div>
     </div>
-  )
-  
+  );
+
   if (onClick) {
-    return (
-      <div onClick={onClick}>
-        {cardContent}
-      </div>
-    )
+    return <div onClick={onClick}>{cardContent}</div>;
   }
-  
-  return (
-    <Link href={`/trick/${trick.slug}`}>
-      {cardContent}
-    </Link>
-  )
-})
+
+  return <Link href={`/trick/${trick.slug}`}>{cardContent}</Link>;
+});

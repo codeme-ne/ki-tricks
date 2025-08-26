@@ -1,5 +1,5 @@
-import { BadgeProps } from '@/lib/types/types'
-import { cn } from '@/lib/utils/utils'
+import { BadgeProps } from '@/lib/types/types';
+import { cn } from '@/lib/utils/utils';
 
 export function Badge({
   variant = 'neutral',

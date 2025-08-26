@@ -1,8 +1,8 @@
 'use client'
 
-import Link from 'next/link'
 import { ButtonProps } from '@/lib/types/types'
 import { cn } from '@/lib/utils/utils'
+import Link from 'next/link'
 
 export function Button({
   variant = 'primary',

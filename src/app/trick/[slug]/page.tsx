@@ -162,20 +162,19 @@ export default async function TrickDetailPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* Examples */}
+        {/* Examples - match Schritt-für-Schritt layout for consistency */}
         <section className="py-12 md:py-16 border-t border-border">
           <div id="beispiele" className="scroll-mt-24 sm:scroll-mt-32">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8">Praktische Beispiele</h2>
             {trick.examples && trick.examples.length > 0 ? (
-              <ul className="space-y-4 sm:space-y-6">
-                {trick.examples.map((example, index) => (
-                  <li key={index} className="">
-                    <div className="rounded-lg border border-border p-4 sm:p-5">
-                      <span className="font-semibold">Beispiel {index + 1}:</span> {example}
-                    </div>
-                  </li>
+              <div className="space-y-5 sm:space-y-6">
+                {trick.examples.map((example, idx) => (
+                  <div key={idx}>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Beispiel {idx + 1}</h3>
+                    <p className="text-muted-foreground leading-relaxed text-base">{example}</p>
+                  </div>
                 ))}
-              </ul>
+              </div>
             ) : (
               <p className="text-muted-foreground">Keine Beispiele vorhanden.</p>
             )}
