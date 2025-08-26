@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { promises as fs } from 'fs'
 import path from 'path'
-import { KITrick, Category, Difficulty, Impact } from '@/lib/types/types'
-import { checkForDuplicates, checkPendingDuplicates } from '@/lib/utils/duplicate-detection'
+import { KITrick, Category } from '@/lib/types/types'
+import { checkPendingDuplicates } from '@/lib/utils/duplicate-detection'
 import { calculateQualityScore } from '@/lib/utils/quality-scoring'
-import { mockTricks } from '@/lib/data/mock-data'
 
 // Helper function to generate slugs
 const generateSlug = (title: string): string => {
@@ -107,16 +106,9 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    if (!body.category || !body.difficulty || !body.impact) {
+  if (!body.category) {
       return NextResponse.json(
-        { error: 'Kategorie, Schwierigkeit und Impact sind Pflichtfelder.' },
-        { status: 400 }
-      )
-    }
-    
-    if (!body.timeToImplement) {
-      return NextResponse.json(
-        { error: 'Umsetzungszeit ist ein Pflichtfeld.' },
+    { error: 'Kategorie ist ein Pflichtfeld.' },
         { status: 400 }
       )
     }
@@ -126,11 +118,8 @@ export async function POST(request: NextRequest) {
       id: `pending-${Date.now()}`,
       title: body.title,
       description: body.description,
-      category: body.category as Category,
-      difficulty: body.difficulty as Difficulty,
+  category: body.category as Category,
       tools: body.tools || ['Claude'],
-      timeToImplement: body.timeToImplement,
-      impact: body.impact as Impact,
       steps: body.steps || [],
       examples: body.examples || [],
       slug: generateSlug(body.title),
@@ -149,8 +138,13 @@ export async function POST(request: NextRequest) {
     // Read existing pending tricks
     const pendingTricks = await readJsonFile(PENDING_TRICKS_PATH)
     
-    // Check for duplicates in existing tricks
-    const existingDuplicates = checkForDuplicates(newTrick, mockTricks)
+    // Check for duplicates in existing tricks - disabled for now since mock data removed
+    const existingDuplicates = { 
+      isDuplicate: false, 
+      duplicates: [], 
+      highestSimilarity: 0,
+      similarTricks: [] as Array<{trick: any, similarity: number}>
+    }
     
     // Check for duplicates in pending tricks
     const pendingDuplicates = checkPendingDuplicates(newTrick, pendingTricks)

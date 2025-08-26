@@ -121,7 +121,7 @@ export default function AdminPage() {
             {/* Quick Stats */}
             {stats && (
               <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+                <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
                   <div className="flex items-center">
                     <div className="p-2 bg-blue-800/50 rounded-lg">
                       <Clock className="w-6 h-6 text-blue-400" />
@@ -133,7 +133,7 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+                <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
                   <div className="flex items-center">
                     <div className="p-2 bg-green-800/50 rounded-lg">
                       <CheckCircle className="w-6 h-6 text-green-400" />
@@ -145,7 +145,7 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+                <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
                   <div className="flex items-center">
                     <div className="p-2 bg-purple-800/50 rounded-lg">
                       <BarChart3 className="w-6 h-6 text-purple-400" />
@@ -162,7 +162,7 @@ export default function AdminPage() {
             {/* Main Actions */}
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               {/* Moderation */}
-              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6 hover:shadow-xl hover:shadow-neutral-900/50 transition-shadow">
+              <div className="bg-card border border-border rounded-lg p-6 transition-shadow hover:shadow-lg hover:shadow-black/10">
                 <div className="flex items-start justify-between">
                   <div>
                     <h3 className="text-lg font-semibold text-neutral-100 mb-2">
@@ -191,7 +191,7 @@ export default function AdminPage() {
               </div>
 
               {/* Analytics */}
-              <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6 hover:shadow-xl hover:shadow-neutral-900/50 transition-shadow">
+              <div className="bg-card border border-border rounded-lg p-6 transition-shadow hover:shadow-lg hover:shadow-black/10">
                 <div className="flex items-start justify-between">
                   <div>
                     <h3 className="text-lg font-semibold text-neutral-100 mb-2">
@@ -215,7 +215,7 @@ export default function AdminPage() {
 
             {/* Secondary Actions */}
             <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-neutral-800/50 border border-neutral-700 rounded-lg p-4">
+              <div className="bg-muted/50 border border-border rounded-lg p-4">
                 <div className="flex items-center mb-3">
                   <PlusCircle className="w-5 h-5 text-neutral-400 mr-2" />
                   <h4 className="font-medium text-neutral-100">Neuer Trick</h4>
@@ -231,7 +231,7 @@ export default function AdminPage() {
                 </Link>
               </div>
 
-              <div className="bg-neutral-800/50 border border-neutral-700 rounded-lg p-4">
+              <div className="bg-muted/50 border border-border rounded-lg p-4">
                 <div className="flex items-center mb-3">
                   <Settings className="w-5 h-5 text-neutral-400 mr-2" />
                   <h4 className="font-medium text-neutral-100">Einstellungen</h4>
@@ -244,7 +244,7 @@ export default function AdminPage() {
                 </span>
               </div>
 
-              <div className="bg-neutral-800/50 border border-neutral-700 rounded-lg p-4">
+              <div className="bg-muted/50 border border-border rounded-lg p-4">
                 <div className="flex items-center mb-3">
                   <CheckCircle className="w-5 h-5 text-neutral-400 mr-2" />
                   <h4 className="font-medium text-neutral-100">Merge Tricks</h4>

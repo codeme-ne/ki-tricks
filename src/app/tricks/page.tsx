@@ -1,8 +1,7 @@
 import { Suspense } from 'react'
 import { Metadata } from 'next'
-import { Header, Footer, PageContainer } from '@/components/layout'
-import { SparklesCore } from '@/components/atoms'
 import TricksProvider from './TricksProvider'
+import { Header, Footer } from '@/components/layout'
 
 export const metadata: Metadata = {
   title: 'KI-Workflows für Professionals | Praktische KI-Tricks 2025',
@@ -16,40 +15,22 @@ export const metadata: Metadata = {
 
 export default function TricksPage() {
   return (
-    <div className="min-h-screen flex flex-col relative">
-      {/* Background Sparkles */}
-      <div className="fixed inset-0 h-full w-full">
-        <SparklesCore
-          id="tsparticlesfullpage"
-          background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={100}
-          className="w-full h-full"
-          particleColor="#2299dd"
-          speed={1}
-        />
-      </div>
-      
-      {/* Content */}
-      <div className="relative z-10">
-        <Header />
-        <PageContainer>
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-neutral-100 mb-2">
-              Entdecke KI Tricks
-            </h1>
-            <p className="text-lg text-neutral-300">
-              Finde praktische KI-Tipps und Tricks für deinen Arbeitsalltag
-            </p>
-          </div>
+    <div className="min-h-screen bg-background">
+  <Header />
 
-          <Suspense fallback={<div>Lade...</div>}>
-            <TricksProvider />
-          </Suspense>
-        </PageContainer>
-        <Footer />
-      </div>
+  <main className="container py-8">
+        {/* Page Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4 leading-tight tracking-tight">Entdecke KI Tricks</h1>
+          <p className="text-muted-foreground text-base sm:text-lg">Finde praktische KI-Tipps und Tricks für deinen Arbeitsalltag</p>
+        </div>
+
+        <Suspense fallback={<div className="text-muted-foreground">Lade...</div>}>
+          <TricksProvider />
+        </Suspense>
+      </main>
+
+  <Footer />
     </div>
   )
 }

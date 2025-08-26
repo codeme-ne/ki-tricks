@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { promises as fs } from 'fs'
 import path from 'path'
-import { mockTricks } from '@/lib/data/mock-data'
 
 // File paths
 const PENDING_TRICKS_PATH = path.join(process.cwd(), 'data', 'pending-tricks.json')
@@ -82,7 +81,7 @@ export async function GET(request: NextRequest) {
       pending: filteredPending.filter(t => t.status !== 'rejected').length,
       approved: filteredApproved.length,
       rejected: filteredPending.filter(t => t.status === 'rejected').length,
-      published: mockTricks.length // Published tricks from mock data
+      published: 0 // TODO: Fetch from Supabase
     }
 
     // Category distribution

@@ -1,1 +1,1 @@
-export { InteractiveStarfield } from './InteractiveStarfield'
+// Empty for white theme

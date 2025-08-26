@@ -1,9 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import type { Database } from '@/lib/supabase/types'
-import { Category, Difficulty, Impact } from '@/lib/types/types'
+import { Category } from '@/lib/types/types'
 
-type KITrickRow = Database['public']['Tables']['ki_tricks']['Row']
 type KITrickInsert = Database['public']['Tables']['ki_tricks']['Insert']
 type KITrickUpdate = Database['public']['Tables']['ki_tricks']['Update']
 
@@ -70,8 +69,6 @@ export class TricksService {
   // Get filtered tricks
   static async getFilteredTricks(filters: {
     categories?: Category[]
-    difficulty?: Difficulty[]
-    impact?: Impact[]
     search?: string
   }) {
     const supabase = await createClient()
@@ -83,14 +80,6 @@ export class TricksService {
 
     if (filters.categories && filters.categories.length > 0) {
       query = query.in('category', filters.categories)
-    }
-
-    if (filters.difficulty && filters.difficulty.length > 0) {
-      query = query.in('difficulty', filters.difficulty)
-    }
-
-    if (filters.impact && filters.impact.length > 0) {
-      query = query.in('impact', filters.impact)
     }
 
     if (filters.search) {

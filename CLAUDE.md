@@ -4,195 +4,180 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-KI Tricks Platform - A Next.js 15 web application for discovering and implementing practical AI tips and tricks. The UI is in German and follows a minimalistic design inspired by thegrowthlist.co.
+KI Tricks Platform - A Next.js 15 application for discovering and implementing practical AI tips and tricks. German UI, Supabase-powered backend, minimalistic design inspired by thegrowthlist.co.
 
 ## Essential Commands
 
 ```bash
 # Development
-npm run dev           # Start dev server (port 3000, fallback 3001)
+npm run dev                      # Start dev server (port 3000)
+npm run dev:mobile              # Start dev server accessible on network
+npm run build                   # TypeScript build
+npm start                       # Production server
+npm run lint                    # ESLint
 
-# Production  
-npm run build         # Build with TypeScript checking
-npm start            # Start production server
+# Data Management
+npm run clean:data              # Clean generated AI tips data
+npm run migrate-to-supabase     # Initial data migration to Supabase
+npm run import-tricks           # Bulk import from CSV/JSON files
 
-# Quality checks
-npm run lint         # Run ESLint
-
-# Content generation
-npm run convert-youtube  # Convert YouTube transcripts to KI tricks
+# Build Utilities
+npm run fix-build               # Auto-fix build errors
+npm run fix-build-clean         # Fix build errors and remove broken imports
 ```
 
 ## Critical Architecture Patterns
 
-### Next.js 15 Compatibility Requirements
+### Next.js 15 Requirements
 
-1. **useSearchParams with Suspense**: Split into server component with Suspense wrapper + client component
-   ```typescript
-   // page.tsx (server component)
-   <Suspense fallback={<Loading />}>
-     <ClientComponent />
-   </Suspense>
-   ```
-
-2. **Dynamic Routes**: Use Promise pattern
-   ```typescript
-   params: Promise<{slug: string}>
-   ```
-
-3. **No styled-jsx**: Removed all `<style jsx>` tags (incompatible with Next.js 15). Use Tailwind CSS or globals.css
-
-### URL-Based Filter System
-
-The `useFilters` hook syncs filter state with URL query parameters for shareable views:
-- Categories: `?categories=programming,productivity`  
-- Difficulty: `?difficulty=beginner,intermediate`
-- Search: `?search=claude+code`
-
-This enables browser navigation and link sharing while maintaining filter state.
-
-### Component Architecture
-
-```
-components/
-├── atoms/       # Basic UI (Button, Badge, Checkbox)
-├── molecules/   # Composite (TrickCard, SearchBar)
-├── organisms/  # Complex (FilterSidebar, TrickGrid)
-├── enhanced/   # Glowing UI components
-└── layout/     # Header, Footer, PageContainer
-```
-
-### Data Structure
-
+1. **useSearchParams requires Suspense boundary**:
 ```typescript
-interface KITrick {
-  id: string
-  title: string
-  description: string  // Includes "**Warum es funktioniert:**" hook
-  category: Category
-  difficulty: 'beginner' | 'intermediate' | 'advanced'
-  tools: string[]     // ['Claude', 'ChatGPT', etc]
-  timeToImplement: string
-  impact: 'low' | 'medium' | 'high'
-  steps?: string[]    // 4 concrete steps
-  examples?: string[] // 2 real-world examples
-  slug: string
+// Server component wraps client component with Suspense
+<Suspense fallback={<Loading />}>
+  <TricksClient />
+</Suspense>
+```
+
+2. **Dynamic route params use Promise pattern**:
+```typescript
+export default async function Page({ params }: { params: Promise<{slug: string}> }) {
+  const { slug } = await params
 }
 ```
 
-## Environment Configuration
+3. **No styled-jsx** - Use Tailwind CSS exclusively
 
-### Required Environment Variables
+### URL-Based Filter System
 
+The `useFilters` hook (`src/hooks/useFilters.ts`) syncs filters with URL for shareable views:
+- Categories: `?categories=programming,productivity`
+- Search: `?search=prompt+engineering`
+- Enables browser back/forward navigation
+- State persists across page refreshes
+
+### Supabase Database Architecture
+
+```sql
+-- Main tables (from supabase/schema.sql)
+ki_tricks          -- Published tricks with metadata
+trick_submissions  -- User submissions pending review  
+trick_analytics    -- Event tracking (views, likes, shares)
+```
+
+Key fields:
+- `slug`: Unique URL identifier
+- `why_it_works`: Extracted from description's "**Warum es funktioniert:**" section
+- `category`: Enum of valid categories
+- `status`: draft/pending/published/rejected
+- `quality_score`: Integer rating
+
+### Bulk Import System
+
+**CSV Import** (`npm run import-tricks data/file.csv`):
+```csv
+title,description,category,tools,steps,examples,slug
+"Title","Description with **Warum es funktioniert:** section","productivity","ChatGPT;Claude","Step 1;Step 2","Example 1","slug"
+```
+- Semicolon (;) separates array values
+- Auto-generates slug if not provided
+- Validates categories against enum
+- Skips duplicates by slug
+
+**JSON Import**:
+```json
+[{
+  "title": "Title",
+  "description": "Description",
+  "category": "productivity",
+  "tools": ["ChatGPT", "Claude"],
+  "steps": ["Step 1"],
+  "examples": ["Example 1"]
+}]
+```
+
+## Authentication & Security
+
+- Admin routes (`/admin/*`) protected via Basic Auth in `middleware.ts`
+- Username: `admin`, Password: `ADMIN_PASSWORD` env var
+- Returns 401 with WWW-Authenticate header if invalid
+
+## Component Architecture
+
+```
+src/components/
+├── atoms/       # Button, Badge, Checkbox, Input
+├── molecules/   # TrickCard, SearchBar, TrickMeta
+├── organisms/   # FilterSidebar, TrickGrid, TrickForm
+├── enhanced/    # GlowingTrickCard, RefinedTrickCard (glassmorphism effects)
+└── layout/      # Header, Footer, PageContainer
+```
+
+### Type System
+
+Core types in `src/lib/types/types.ts`:
+```typescript
+type Category = 'productivity' | 'content-creation' | 'programming' | 'design' | 'data-analysis' | 'learning' | 'business' | 'marketing'
+
+interface KITrick {
+  id: string
+  title: string
+  description: string
+  category: Category
+  tools: string[]
+  steps?: string[]
+  examples?: string[]
+  slug: string
+  'Warum es funktioniert': string  // Note: German property name
+}
+```
+
+## Key Implementation Details
+
+### State Management Pattern
+- URL params for shareable filter state via `useFilters` hook
+- React state for UI-only concerns (modals, dropdowns)
+- No global state management library
+
+### Performance Optimizations
+- `React.memo` on heavy components
+- `useMemo` for filtered/sorted lists
+- 300ms debounce on search input
+- Lazy loading for below-fold content
+
+### German UI Conventions
+All user-facing text in German:
+- "Suchen" not "Search"
+- "Filter" stays "Filter"
+- "Kategorie" not "Category"
+- Keep "Tricks" as English
+
+### Import Patterns
+- Always use `@/` path alias (configured in tsconfig.json)
+- Centralized exports via index.ts files
+- Example: `import { Button, Badge } from '@/components/atoms'`
+
+## Environment Variables
+
+Required in `.env.local`:
 ```bash
-# Admin authentication
-ADMIN_PASSWORD=your-secure-password
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=      # Admin operations only
 
-# EmailJS (contact form)
-NEXT_PUBLIC_EMAILJS_SERVICE_ID=xxx
-NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=xxx  
-NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=xxx
+# Admin Auth
+ADMIN_PASSWORD=                 # For /admin routes
+
+# EmailJS (optional)
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=
 ```
 
-Admin routes (`/admin/*`) are protected via Basic Auth in `middleware.ts`.
+## Common Gotchas
 
-## Content Management
-
-### Mock Data
-- 40+ high-quality KI tricks in `app/lib/mock-data.ts`
-- Categories: programming (11), productivity (10), learning (7), business (5), content-creation (3), data-analysis (2), marketing (2), design (1)
-
-### Admin Interface
-- `/admin/tricks/new` - Add new tricks (saves to localStorage)
-- Protected by Basic Auth using ADMIN_PASSWORD env variable
-
-## Key Implementation Notes
-
-### Component Props
-- TrickGrid: `isLoading` (not `loading`)
-- Badge: supports `'danger'` variant
-- SearchBar: optional `onChange`
-
-### Function Signatures
-- `getAllCategories()` - no parameters
-- `getAllTools()` - no parameters
-- Use centralized imports via index.ts files
-
-### German UI Text
-All user-facing text must be in German. Key translations:
-- Tricks → Tricks (kept English)
-- Search → Suchen
-- Filter → Filter
-- Category → Kategorie
-- Difficulty → Schwierigkeit
-
-## Development Guidelines
-
-1. **TypeScript**: Strict mode enabled - no `any` types
-2. **Imports**: Always use `@/` path alias
-3. **State Management**: URL for filter state, React state for UI-only
-4. **Performance**: Use React.memo, useMemo for expensive operations
-5. **Responsive**: Mobile (<640px), Tablet (640-1024px), Desktop (>1024px)
-
-## Common Issues & Solutions
-
-### Build Errors
-- **"Unterminated string constant"**: Keep className strings on single line
-- **Import errors**: Check all imports exist and paths are correct
-- **TypeScript errors**: Ensure all refs have initial values
-
-### Filter Not Working
-- Check component has `'use client'` directive
-- Verify useFilters is within Suspense boundary
-- Ensure updateFilters (not setFilters) is used
-
-### Performance Issues
-- Use useMemo for filtered results
-- Implement debouncing for search (300ms)
-- Lazy load heavy components
-
-## Deployment
-
-The app auto-deploys to Vercel on push to main branch. Ensure:
-1. All environment variables are set in Vercel dashboard
-2. Build passes locally with `npm run build`
-3. No sensitive data in commits (use .env.local)
-```
-
-## AI Development Strategies
-
-- **Verification Principle**: Always verify changes with current documents. For example, when unsure about parameters for Apify actors, check the specific actor's documentation.
-  - Example: Reddit Lite Scraper input JSON verification
-    ```json
-    {
-        "debugMode": false,
-        "ignoreStartUrls": false,
-        "includeNSFW": true,
-        "maxComments": 10,
-        "maxCommunitiesCount": 2,
-        "maxItems": 10,
-        "maxPostCount": 10,
-        "maxUserCount": 2,
-        "proxy": {
-            "useApifyProxy": true,
-            "apifyProxyGroups": [
-                "RESIDENTIAL"
-            ]
-        },
-        "scrollTimeout": 40,
-        "searchComments": false,
-        "searchCommunities": false,
-        "searchPosts": true,
-        "searchUsers": false,
-        "skipComments": false,
-        "skipCommunity": false,
-        "skipUserPosts": false,
-        "sort": "new",
-        "startUrls": [
-            {
-                "url": "https://www.reddit.com/r/pasta/comments/vwi6jx/pasta_peperoni_and_ricotta_cheese_how_to_make/",
-                "method": "GET"
-            }
-        ]
-    }
-    ```
+1. **Build fails with "Unterminated string constant"**: Keep className strings on single line
+2. **useSearchParams error**: Wrap component with Suspense boundary
+3. **Filter not updating URL**: Use `updateFilters` not `setFilters` from hook
+4. **TypeScript strict errors**: No `any` types allowed, initialize all refs
+5. **Admin route 401**: Check ADMIN_PASSWORD env var is set

@@ -3,11 +3,11 @@
 import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Clock, TrendingUp, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { KITrick } from '@/lib/types/types'
 import { Badge } from '@/components/atoms/Badge'
 import { GlowingButton } from './GlowingButton'
-import { categoryLabels, categoryEmojis, difficultyLabels } from '@/lib/constants/constants'
+import { categoryLabels, categoryEmojis } from '@/lib/constants/constants'
 
 interface GlowingTrickCardProps {
   trick: KITrick
@@ -15,8 +15,7 @@ interface GlowingTrickCardProps {
 
 export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => {
   const categoryInfo = { label: categoryLabels[trick.category], emoji: categoryEmojis[trick.category] }
-  const difficultyLabel = difficultyLabels[trick.difficulty]
-  const impactLabel = { low: 'Niedrig', medium: 'Mittel', high: 'Hoch' }[trick.impact]
+  // difficulty/impact removed from card
   
   // Dynamic accent colors based on category - more subtle approach
   const accentColor = {
@@ -47,7 +46,7 @@ export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => 
       />
 
       <Link href={`/trick/${trick.slug}`} className="block h-full">
-        <div className="relative bg-neutral-900/80 backdrop-blur-sm border border-neutral-800 rounded-2xl p-6 h-full flex flex-col justify-between overflow-hidden transition-all duration-300 group-hover:border-neutral-700 group-hover:bg-neutral-900/90">
+  <div className="relative bg-card backdrop-blur-sm border border-border rounded-2xl p-6 h-full flex flex-col justify-between overflow-hidden transition-all duration-300 group-hover:border-muted-foreground/30 group-hover:shadow-lg group-hover:shadow-black/10">
           
           {/* Minimal background texture on hover */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.02] transition-opacity duration-700">
@@ -61,12 +60,7 @@ export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => 
           <div className="relative z-10">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
-              <Badge 
-                variant={trick.difficulty === 'beginner' ? 'success' : trick.difficulty === 'intermediate' ? 'warning' : 'danger'}
-                className="group-hover:shadow-md transition-shadow duration-300"
-              >
-                {difficultyLabel}
-              </Badge>
+              <span />
               <motion.div
                 initial={{ rotate: 0 }}
                 whileHover={{ rotate: 45 }}
@@ -79,7 +73,7 @@ export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => 
             </div>
 
             {/* Title - Clean, no shimmer animation */}
-            <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-neutral-100 transition-colors duration-300">
+            <h3 className="text-xl font-semibold text-foreground mb-3 transition-colors duration-300">
               {trick.title}
             </h3>
 
@@ -92,7 +86,7 @@ export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => 
             <div className="mb-4">
               <Badge 
                 variant="neutral" 
-                className="bg-neutral-800/60 text-neutral-300 group-hover:bg-neutral-700/60 transition-colors duration-300 border border-neutral-700/50"
+                className="bg-muted/50 text-foreground/80 group-hover:bg-muted transition-colors duration-300 border border-border"
               >
                 {categoryInfo.emoji} {categoryInfo.label}
               </Badge>
@@ -100,31 +94,7 @@ export const GlowingTrickCard: React.FC<GlowingTrickCardProps> = ({ trick }) => 
           </div>
 
           {/* Footer */}
-          <div className="relative z-10 pt-4 border-t border-neutral-800/60 group-hover:border-neutral-700/60 transition-colors duration-300">
-            <div className="flex items-center justify-between mb-3 text-sm">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-1.5 text-neutral-500">
-                  <Clock className="w-4 h-4" />
-                  <span>{trick.timeToImplement}</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <TrendingUp 
-                    className={`w-4 h-4 ${
-                      trick.impact === 'high' ? 'text-green-400' : 
-                      trick.impact === 'medium' ? 'text-yellow-400' : 
-                      'text-neutral-500'
-                    }`} 
-                  />
-                  <span className={`${
-                    trick.impact === 'high' ? 'text-green-400' : 
-                    trick.impact === 'medium' ? 'text-yellow-400' : 
-                    'text-neutral-500'
-                  }`}>
-                    {impactLabel}
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div className="relative z-10 pt-4 border-t border-border transition-colors duration-300">
             
             {/* CTA Button */}
             <GlowingButton

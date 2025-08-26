@@ -15,10 +15,7 @@ export interface Database {
           title: string
           description: string
           category: 'productivity' | 'content-creation' | 'programming' | 'design' | 'data-analysis' | 'learning' | 'business' | 'marketing'
-          difficulty: 'beginner' | 'intermediate' | 'advanced'
           tools: string[]
-          time_to_implement: string
-          impact: 'low' | 'medium' | 'high'
           steps: string[] | null
           examples: string[] | null
           slug: string
@@ -39,10 +36,7 @@ export interface Database {
           title: string
           description: string
           category: 'productivity' | 'content-creation' | 'programming' | 'design' | 'data-analysis' | 'learning' | 'business' | 'marketing'
-          difficulty: 'beginner' | 'intermediate' | 'advanced'
           tools: string[]
-          time_to_implement: string
-          impact: 'low' | 'medium' | 'high'
           steps?: string[] | null
           examples?: string[] | null
           slug: string
@@ -63,10 +57,7 @@ export interface Database {
           title?: string
           description?: string
           category?: 'productivity' | 'content-creation' | 'programming' | 'design' | 'data-analysis' | 'learning' | 'business' | 'marketing'
-          difficulty?: 'beginner' | 'intermediate' | 'advanced'
           tools?: string[]
-          time_to_implement?: string
-          impact?: 'low' | 'medium' | 'high'
           steps?: string[] | null
           examples?: string[] | null
           slug?: string

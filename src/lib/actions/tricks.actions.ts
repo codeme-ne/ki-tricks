@@ -38,15 +38,9 @@ export const getAllTools = async () => {
 
 export const getAverageImplementationTime = async () => {
   try {
-    const tricks = await TricksService.getPublishedTricks()
-    if (tricks.length === 0) return 0
-    
-    const times = tricks.map(t => {
-      const match = t.time_to_implement.match(/(\d+)/)
-      return match ? parseInt(match[1]) : 30
-    })
-    const avg = times.reduce((a, b) => a + b, 0) / times.length
-    return Math.round(avg)
+    // Time to implement has been removed from the data model
+    // Return 0 as a placeholder
+    return 0
   } catch (error) {
     console.error('Error calculating average time:', error)
     return 0

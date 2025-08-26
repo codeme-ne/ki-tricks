@@ -1,8 +1,8 @@
 'use client'
 
-import Link from 'next/link'
 import { ButtonProps } from '@/lib/types/types'
 import { cn } from '@/lib/utils/utils'
+import Link from 'next/link'
 
 export function Button({
   variant = 'primary',
@@ -17,7 +17,7 @@ export function Button({
   const baseClasses = 'inline-flex items-center justify-center font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2'
   
   const variantClasses = {
-    primary: 'bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500',
+  primary: 'bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary',
     secondary: 'bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50 focus:ring-neutral-500',
     outline: 'bg-transparent text-neutral-700 border border-neutral-300 hover:bg-neutral-50 focus:ring-neutral-500',
     text: 'text-primary-600 hover:text-primary-700 hover:bg-primary-50',

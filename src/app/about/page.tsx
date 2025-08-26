@@ -43,8 +43,7 @@ export default function AboutPage() {
               <li>Geprüfte und getestete KI-Tricks</li>
               <li>Schritt-für-Schritt Anleitungen</li>
               <li>Kategorisierung nach Anwendungsbereichen</li>
-              <li>Schwierigkeitsgrade für jeden Level</li>
-              <li>Impact-Bewertungen für schnelle Orientierung</li>
+              <li>Klarer Fokus: nur nach Kategorien filtern</li>
             </ul>
           </div>
         </div>

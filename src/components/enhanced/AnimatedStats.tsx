@@ -77,7 +77,7 @@ export const AnimatedStat: React.FC<AnimatedStatProps> = ({
           />
           
           {/* Animated number */}
-          <div className="relative text-3xl lg:text-4xl font-bold text-white">
+          <div className="relative text-3xl lg:text-4xl font-bold text-foreground">
             <span className="inline-block">
               {prefix}
               <motion.span

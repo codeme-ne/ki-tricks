@@ -37,15 +37,15 @@ export function Checkbox({
         <div 
           className={cn(
             'w-5 h-5 border-2 rounded flex items-center justify-center transition-all duration-200',
-            'border-neutral-600 group-hover:border-primary-500',
-            { 'bg-primary-600 border-primary-600': checked }
+            'border-input group-hover:border-primary',
+            { 'bg-primary border-primary': checked }
           )}
           aria-hidden="true" // Hide the decorative box from screen readers
         >
-          {checked && <Check className="w-3.5 h-3.5 text-white" />}
+          {checked && <Check className="w-3.5 h-3.5 text-primary-foreground" />}
         </div>
         <span className={cn(
-          'text-base text-neutral-300 group-hover:text-neutral-100 transition-colors duration-200 select-none',
+          'text-base text-foreground/80 group-hover:text-foreground transition-colors duration-200 select-none',
           { 'cursor-pointer': !disabled, 'cursor-not-allowed': disabled }
         )}>
           {label}

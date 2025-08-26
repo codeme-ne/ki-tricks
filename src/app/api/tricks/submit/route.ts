@@ -21,8 +21,7 @@ export async function POST(request: NextRequest) {
     sendNewTrickNotification({
       title: trickData.title,
       description: trickData.description,
-      category: trickData.category,
-      difficulty: trickData.difficulty || 'intermediate'
+      category: trickData.category
     }).catch(console.error)
     
     return NextResponse.json({

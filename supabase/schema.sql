@@ -18,14 +18,7 @@ CREATE TABLE ki_tricks (
       'business', 'marketing'
     )
   ),
-  difficulty TEXT NOT NULL CHECK (
-    difficulty IN ('beginner', 'intermediate', 'advanced')
-  ),
-  tools TEXT[] NOT NULL,
-  time_to_implement TEXT NOT NULL,
-  impact TEXT NOT NULL CHECK (
-    impact IN ('low', 'medium', 'high')
-  ),
+  tools TEXT[] DEFAULT '{}'::TEXT[] NOT NULL,
   steps TEXT[],
   examples TEXT[],
   slug TEXT UNIQUE NOT NULL,
@@ -72,7 +65,7 @@ CREATE TABLE trick_analytics (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   trick_id UUID REFERENCES ki_tricks(id) ON DELETE CASCADE,
   event_type TEXT NOT NULL CHECK (
-    event_type IN ('view', 'like', 'share', 'implement')
+    event_type IN ('view', 'share', 'implement')
   ),
   user_id UUID REFERENCES auth.users(id),
   session_id TEXT,
@@ -149,15 +142,5 @@ BEGIN
   UPDATE ki_tricks 
   SET view_count = view_count + 1 
   WHERE slug = trick_slug;
-END;
-$$ LANGUAGE plpgsql;
-
--- Function to increment like count
-CREATE OR REPLACE FUNCTION increment_like_count(trick_id UUID)
-RETURNS void AS $$
-BEGIN
-  UPDATE ki_tricks 
-  SET like_count = like_count + 1 
-  WHERE id = trick_id;
 END;
 $$ LANGUAGE plpgsql;

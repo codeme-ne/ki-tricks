@@ -125,8 +125,8 @@ export const GlowingSearchBar: React.FC<SearchBarProps> = ({
           )}
         </AnimatePresence>
 
-        {/* Search input container */}
-        <div className="relative bg-neutral-900 rounded-lg border border-neutral-800 overflow-hidden">
+  {/* Search input container */}
+  <div className="relative bg-white rounded-lg border border-neutral-200 overflow-hidden shadow-sm">
           {/* Background pattern */}
           <div className="absolute inset-0 opacity-5">
             <div 
@@ -165,7 +165,7 @@ export const GlowingSearchBar: React.FC<SearchBarProps> = ({
               transition={{ duration: 0.3 }}
             >
               <Search className={`w-5 h-5 transition-colors duration-300 ${
-                isFocused ? 'text-primary-400' : 'text-neutral-400'
+                isFocused ? 'text-primary-500' : 'text-neutral-400'
               }`} />
             </motion.div>
             
@@ -188,9 +188,9 @@ export const GlowingSearchBar: React.FC<SearchBarProps> = ({
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             placeholder={placeholder}
-            className="relative w-full pl-10 pr-10 py-3 bg-transparent text-white focus:outline-none placeholder-neutral-500 transition-all duration-300 z-10"
+            className="relative w-full pl-10 pr-10 py-3 bg-transparent text-neutral-900 focus:outline-none placeholder-neutral-400 transition-all duration-300 z-10"
             style={{
-              textShadow: isFocused ? '0 0 20px rgba(34, 153, 221, 0.5)' : 'none',
+              textShadow: isFocused ? '0 0 0 rgba(0,0,0,0)' : 'none',
             }}
           />
 
@@ -205,7 +205,7 @@ export const GlowingSearchBar: React.FC<SearchBarProps> = ({
                 whileTap={{ scale: 0.9 }}
                 onClick={handleClear}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 
-                         hover:text-white transition-colors z-10"
+                         hover:text-neutral-600 transition-colors z-10"
                 aria-label="Suche löschen"
               >
                 <X className="w-5 h-5" />

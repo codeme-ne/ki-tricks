@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { Badge } from '@/components/atoms'
-import { KITrick, categoryMetadata, impactMetadata, difficultyMetadata } from '@/lib/types/types'
-import { Clock, Code2, Brain, Briefcase, BarChart3, PenTool, Palette, TrendingUp, BookOpen, Eye, Sparkles, CheckCircle } from 'lucide-react'
+import { KITrick, categoryMetadata } from '@/lib/types/types'
+import { Code2, Brain, Briefcase, BarChart3, PenTool, Palette, TrendingUp, BookOpen, Eye, Sparkles, CheckCircle } from 'lucide-react'
 import { cn } from '@/lib/utils/utils'
 
 interface TrickPreviewProps {
@@ -13,8 +13,6 @@ interface TrickPreviewProps {
 
 export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
   const categoryMeta = categoryMetadata[formData.category || 'productivity']
-  const impactMeta = impactMetadata[formData.impact || 'medium']
-  const difficultyMeta = difficultyMetadata[formData.difficulty || 'beginner']
   
   // Get category icon
   const getCategoryIcon = () => {
@@ -32,25 +30,6 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
     }
   }
 
-  // Get difficulty color for badges
-  const getDifficultyColor = (difficulty: string): any => {
-    const colors: Record<string, any> = {
-      'beginner': 'success',
-      'intermediate': 'warning', 
-      'advanced': 'danger'
-    }
-    return colors[difficulty] || 'primary'
-  }
-
-  // Get impact color for badges
-  const getImpactColor = (impact: string): any => {
-    const colors: Record<string, any> = {
-      'low': 'neutral',
-      'medium': 'info',
-      'high': 'success'
-    }
-    return colors[impact] || 'neutral'
-  }
 
   return (
     <div className={cn("space-y-6", className)}>
@@ -76,9 +55,9 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
       </div>
 
       {/* Main Preview Card */}
-      <div className="bg-neutral-800 border border-neutral-700 rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-neutral-900/50">
+  <div className="bg-card border border-border rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-black/10">
         {/* Card Header */}
-        <div className="p-6 border-b border-neutral-700">
+  <div className="p-6 border-b border-border">
           {/* Category and Icon */}
           <div className="flex items-center gap-3 mb-4">
             <div className="text-neutral-400 transition-colors">
@@ -109,23 +88,7 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
             </h1>
           </div>
 
-          {/* Badges Row */}
-          <div className="flex flex-wrap gap-2">
-            <Badge variant={getDifficultyColor(formData.difficulty || 'beginner')}>
-              {difficultyMeta.label}
-            </Badge>
-            
-            {formData.timeToImplement && (
-              <Badge variant="primary" className="flex items-center gap-1">
-                <Clock className="w-3 h-3" />
-                {formData.timeToImplement}
-              </Badge>
-            )}
-            
-            <Badge variant={getImpactColor(formData.impact || 'medium')}>
-              Impact: {impactMeta.label}
-            </Badge>
-          </div>
+          {/* Badges Row - removed difficulty, time, and impact */}
         </div>
 
         {/* Card Content */}
@@ -185,8 +148,8 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
               </h3>
               <div className="space-y-3">
                 {formData.steps.map((step, idx) => (
-                  <div key={idx} className="flex gap-4 p-3 bg-neutral-800/50 rounded-lg border border-neutral-700">
-                    <div className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                  <div key={idx} className="flex gap-4 p-3 bg-muted/50 rounded-lg border border-border">
+                    <div className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-semibold">
                       {idx + 1}
                     </div>
                     <p className="text-neutral-700 leading-relaxed pt-0.5">
@@ -231,12 +194,10 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
         </div>
 
         {/* Card Footer */}
-        <div className="bg-neutral-800/50 px-6 py-4 border-t border-neutral-700">
+  <div className="bg-muted/50 px-6 py-4 border-t border-border">
           <div className="flex items-center justify-between text-sm text-neutral-400">
             <div className="flex items-center gap-4">
               <span>Kategorie: {categoryMeta.label}</span>
-              <span>•</span>
-              <span>Schwierigkeit: {difficultyMeta.label}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />

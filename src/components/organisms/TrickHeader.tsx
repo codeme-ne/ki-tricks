@@ -1,7 +1,7 @@
 import { KITrick } from '@/lib/types/types'
 import { Badge } from '@/components/atoms'
 import { BreadcrumbNav, TrickMeta } from '@/components/molecules'
-import { categoryLabels, difficultyLabels, difficultyVariants } from '@/lib/constants/constants'
+import { categoryLabels } from '@/lib/constants/constants'
 
 interface TrickHeaderProps {
   trick: KITrick
@@ -42,11 +42,7 @@ export const TrickHeader = ({ trick }: TrickHeaderProps) => {
                 {categoryLabels[trick.category]}
               </Badge>
             </div>
-            <div className="inline-flex shadow-lg shadow-neutral-500/20">
-              <Badge variant={difficultyVariants[trick.difficulty]}>
-                {difficultyLabels[trick.difficulty]}
-              </Badge>
-            </div>
+            {/* difficulty removed */}
           </div>
           
           {/* Title with gradient option */}
@@ -61,7 +57,7 @@ export const TrickHeader = ({ trick }: TrickHeaderProps) => {
           
           {/* Meta information with glassmorphism */}
           <div className="relative">
-            <div className="absolute inset-0 bg-neutral-800/30 backdrop-blur-sm rounded-xl" />
+            <div className="absolute inset-0 bg-foreground/5 backdrop-blur-sm rounded-xl" />
             <div className="relative">
               <TrickMeta trick={trick} />
             </div>

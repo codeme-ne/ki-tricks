@@ -9,19 +9,12 @@ export type Category =
   | 'business'
   | 'marketing'
 
-export type Difficulty = 'beginner' | 'intermediate' | 'advanced'
-
-export type Impact = 'low' | 'medium' | 'high'
-
 export interface KITrick {
   id: string
   title: string
   description: string
   category: Category
-  difficulty: Difficulty
   tools: string[]
-  timeToImplement: string
-  impact: Impact
   steps?: string[]
   examples?: string[]
   slug: string
@@ -33,8 +26,6 @@ export interface KITrick {
 // Filter Types
 export interface FilterState {
   categories: Category[]
-  difficulty: Difficulty[]
-  impact: Impact[]
   search: string
 }
 
@@ -123,8 +114,6 @@ export interface SearchBarProps {
 // Utilities and Constants
 export const EMPTY_FILTER_STATE: FilterState = {
   categories: [],
-  difficulty: [],
-  impact: [],
   search: ''
 }
 
@@ -134,7 +123,7 @@ export interface HeaderProps {
 
 export interface ResultsHeaderProps {
   count: number
-  sortBy?: 'newest' | 'oldest' | 'impact' | 'difficulty'
+  sortBy?: 'newest' | 'oldest'
   onSortChange?: (sort: string) => void
   className?: string
 }
@@ -181,18 +170,4 @@ export const categoryMetadata: Record<Category, { label: string; icon: string; c
     icon: '📈', 
     color: 'bg-red-100 text-red-700' 
   }
-}
-
-// Difficulty Metadata
-export const difficultyMetadata: Record<Difficulty, { label: string; color: string }> = {
-  'beginner': { label: 'Anfänger', color: 'bg-green-100 text-green-700' },
-  'intermediate': { label: 'Fortgeschritten', color: 'bg-amber-100 text-amber-700' },
-  'advanced': { label: 'Experte', color: 'bg-red-100 text-red-700' }
-}
-
-// Impact Metadata
-export const impactMetadata: Record<Impact, { label: string; color: string }> = {
-  'low': { label: 'Niedrig', color: 'bg-gray-100 text-gray-700' },
-  'medium': { label: 'Mittel', color: 'bg-blue-100 text-blue-700' },
-  'high': { label: 'Hoch', color: 'bg-green-100 text-green-700' }
 }

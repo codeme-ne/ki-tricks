@@ -30,22 +30,22 @@ export const GlowingButton: React.FC<GlowingButtonProps> = ({
   // Define color schemes
   const colorSchemes = {
     primary: {
-      base: 'bg-primary-500 text-white hover:bg-primary-600',
+      base: 'bg-primary text-primary-foreground hover:bg-primary/90',
       glow: glowColor || 'rgb(34, 153, 221)',
       gradient: 'from-primary-400 to-primary-600',
     },
     secondary: {
-      base: 'bg-neutral-800 text-white hover:bg-neutral-700',
+      base: 'bg-secondary text-secondary-foreground hover:bg-secondary/90',
       glow: glowColor || 'rgb(156, 163, 175)',
       gradient: 'from-neutral-700 to-neutral-900',
     },
     danger: {
-      base: 'bg-red-500 text-white hover:bg-red-600',
+      base: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
       glow: glowColor || 'rgb(239, 68, 68)',
       gradient: 'from-red-400 to-red-600',
     },
     success: {
-      base: 'bg-green-500 text-white hover:bg-green-600',
+      base: 'bg-green-600 text-white hover:bg-green-700',
       glow: glowColor || 'rgb(34, 197, 94)',
       gradient: 'from-green-400 to-green-600',
     },
@@ -120,7 +120,7 @@ export const GlowingButton: React.FC<GlowingButtonProps> = ({
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-            className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+            className="w-5 h-5 border-2 border-current border-t-transparent rounded-full"
           />
         ) : (
           <>

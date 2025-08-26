@@ -63,7 +63,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de">
-      <body className="min-h-screen bg-neutral-900 text-neutral-100 antialiased font-sans">
+  <body className="min-h-screen bg-background text-foreground antialiased font-sans">
         {children}
         <DevToolbar />
         <Analytics />

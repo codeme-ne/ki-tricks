@@ -2,4 +2,4 @@
 export * from './types/types'
 export * from './utils/utils'
 export * from './constants/constants'
-export * from './data/mock-data'
+// mock-data removed

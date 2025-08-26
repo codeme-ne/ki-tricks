@@ -1,6 +1,6 @@
 import { Category } from '../types/types'
 
-// Category labels for German translation
+// Category labels for German translation (aligned with Category union)
 export const categoryLabels: Record<Category, string> = {
   'productivity': 'Produktivität',
   'content-creation': 'Content-Erstellung',
@@ -14,26 +14,12 @@ export const categoryLabels: Record<Category, string> = {
 
 // Category emojis for visual representation
 export const categoryEmojis: Record<Category, string> = {
-  'productivity': '🚀',
+  'productivity': '�',
   'content-creation': '✍️',
-  'programming': '💻',
+  'programming': '�',
   'design': '🎨',
   'data-analysis': '📊',
-  'learning': '🎓',
+  'learning': '�',
   'business': '💼',
-  'marketing': '📢'
-}
-
-// Difficulty labels for German translation
-export const difficultyLabels = {
-  'beginner': 'Anfänger',
-  'intermediate': 'Fortgeschritten',
-  'advanced': 'Experte'
-}
-
-// Difficulty variants for Badge component
-export const difficultyVariants = {
-  'beginner': 'success' as const,
-  'intermediate': 'warning' as const,
-  'advanced': 'danger' as const
+  'marketing': '📈'
 }

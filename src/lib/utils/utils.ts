@@ -1,4 +1,4 @@
-import { FilterState, KITrick, Category, Difficulty, Impact } from '../types/types'
+import { FilterState } from '../types/types'
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -21,8 +21,6 @@ export const toggleArrayItem = <T>(array: T[], item: T): T[] => {
 export const countActiveFilters = (filters: FilterState): number => {
   let count = 0
   if (filters.categories.length > 0) count += filters.categories.length
-  if (filters.difficulty.length > 0) count += filters.difficulty.length
-  if (filters.impact.length > 0) count += filters.impact.length
   if (filters.search.trim() !== '') count += 1
   return count
 }
@@ -42,18 +40,16 @@ export const serializeArrayParam = (arr: string[]): string => {
 }
 
 // Generic filter handler creator
-export const createFilterHandler = <T extends string>(
+export const createFilterHandler = (
   filters: FilterState,
-  filterKey: keyof FilterState,
   onFilterChange: (filters: FilterState) => void
 ) => {
-  return (value: T, checked: boolean) => {
-    const currentValues = filters[filterKey] as T[]
-    const newValues = toggleArrayItem(currentValues, value)
-    
+  return (value: string, checked: boolean) => {
+  const currentValues = filters.categories as string[]
+  const next = toggleArrayItem(currentValues, value) as unknown as typeof filters.categories
     onFilterChange({
       ...filters,
-      [filterKey]: newValues
+      categories: next
     })
   }
 }

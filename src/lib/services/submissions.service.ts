@@ -21,7 +21,7 @@ export class SubmissionsService {
       trick_data: trickData,
       submitter_email: submitterInfo?.email || null,
       submitter_name: submitterInfo?.name || null,
-      quality_score: qualityScore,
+      quality_score: qualityScore.total,
       status: 'pending'
     }
     
@@ -86,10 +86,7 @@ export class SubmissionsService {
         title: trickData.title,
         description: trickData.description,
         category: trickData.category,
-        difficulty: trickData.difficulty,
         tools: trickData.tools,
-        time_to_implement: trickData.timeToImplement,
-        impact: trickData.impact,
         steps: trickData.steps || [],
         examples: trickData.examples || [],
         slug: trickData.slug,

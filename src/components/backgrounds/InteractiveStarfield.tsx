@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 interface Star {
   id: number

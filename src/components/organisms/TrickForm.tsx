@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { Button, Badge } from '@/components/atoms'
 import { TrickPreview } from '@/components/organisms/TrickPreview'
-import { KITrick, Category, Difficulty, Impact } from '@/lib/types/types'
+import { KITrick, Category } from '@/lib/types/types'
+import { categoryLabels } from '@/lib/constants/constants'
 import { Plus, X, Eye, Edit } from 'lucide-react'
 
 interface TrickFormProps {
@@ -13,37 +14,23 @@ interface TrickFormProps {
 }
 
 const categories: { value: Category; label: string }[] = [
-  { value: 'productivity', label: 'Produktivität' },
-  { value: 'content-creation', label: 'Content-Erstellung' },
-  { value: 'programming', label: 'Programmierung' },
-  { value: 'design', label: 'Design' },
-  { value: 'data-analysis', label: 'Datenanalyse' },
-  { value: 'learning', label: 'Lernen' },
-  { value: 'business', label: 'Business' },
-  { value: 'marketing', label: 'Marketing' }
-]
-
-const difficulties: { value: Difficulty; label: string }[] = [
-  { value: 'beginner', label: 'Anfänger' },
-  { value: 'intermediate', label: 'Fortgeschritten' },
-  { value: 'advanced', label: 'Experte' }
-]
-
-const impacts: { value: Impact; label: string }[] = [
-  { value: 'low', label: 'Niedrig' },
-  { value: 'medium', label: 'Mittel' },
-  { value: 'high', label: 'Hoch' }
+  { value: 'productivity', label: categoryLabels['productivity'] },
+  { value: 'content-creation', label: categoryLabels['content-creation'] },
+  { value: 'programming', label: categoryLabels['programming'] },
+  { value: 'design', label: categoryLabels['design'] },
+  { value: 'data-analysis', label: categoryLabels['data-analysis'] },
+  { value: 'learning', label: categoryLabels['learning'] },
+  { value: 'business', label: categoryLabels['business'] },
+  { value: 'marketing', label: categoryLabels['marketing'] }
 ]
 
 export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: TrickFormProps) => {
   const [formData, setFormData] = useState<Partial<KITrick>>({
     title: initialData.title || '',
     description: initialData.description || '',
-    category: initialData.category || 'productivity',
-    difficulty: initialData.difficulty || 'beginner',
-    tools: ['Claude', 'Claude Code'],
-    timeToImplement: initialData.timeToImplement || '',
-    impact: initialData.impact || 'medium',
+  category: initialData.category || 'productivity',
+    tools: initialData.tools || ['Claude', 'Claude Code'],
+  // tags removed
     steps: initialData.steps || [],
     examples: initialData.examples || [],
     'Warum es funktioniert': initialData['Warum es funktioniert'] || ''
@@ -51,6 +38,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
 
   const [newStep, setNewStep] = useState('')
   const [newExample, setNewExample] = useState('')
+  // tags removed
   const [previewMode, setPreviewMode] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -97,37 +85,8 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
     }))
   }
 
-  const getDifficultyColor = (difficulty: string) => {
-    const colors: Record<string, 'success' | 'warning' | 'danger'> = {
-      'beginner': 'success',
-      'intermediate': 'warning',
-      'advanced': 'danger'
-    }
-    return colors[difficulty] || 'primary'
-  }
 
-  const getCategoryLabel = (category: string) => {
-    const labels: Record<string, string> = {
-      'productivity': 'Produktivität',
-      'content-creation': 'Content-Erstellung',
-      'programming': 'Programmierung',
-      'design': 'Design',
-      'data-analysis': 'Datenanalyse',
-      'learning': 'Lernen',
-      'business': 'Business',
-      'marketing': 'Marketing'
-    }
-    return labels[category] || category
-  }
-
-  const getDifficultyLabel = (difficulty: string) => {
-    const labels: Record<string, string> = {
-      'beginner': 'Anfänger',
-      'intermediate': 'Fortgeschritten',
-      'advanced': 'Experte'
-    }
-    return labels[difficulty] || difficulty
-  }
+  // tag toggles removed
 
   // Preview Mode Component
   if (previewMode) {
@@ -137,7 +96,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
         <TrickPreview formData={formData} />
 
         {/* Actions */}
-        <div className="flex justify-between bg-neutral-800 border border-neutral-700 rounded-lg p-4">
+  <div className="flex justify-between bg-white border border-neutral-200 rounded-lg p-4 shadow-sm">
           <Button 
             type="button" 
             variant="secondary" 
@@ -164,7 +123,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
   return (
     <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in-0 duration-300">
       {/* Basis-Informationen */}
-      <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+  <div className="bg-white border border-neutral-200 rounded-lg p-6 shadow-sm">
         <h2 className="text-lg font-semibold mb-4">Basis-Informationen</h2>
         
         <div className="space-y-4">
@@ -179,7 +138,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               required
               value={formData.title}
               onChange={handleChange}
-              className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
+              className="w-full px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="z.B. Automatische Meeting-Zusammenfassungen mit ChatGPT"
             />
           </div>
@@ -195,7 +154,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               rows={3}
               value={formData.description}
               onChange={handleChange}
-              className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
+              className="w-full px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="Kurze Beschreibung des Tricks..."
             />
           </div>
@@ -210,89 +169,35 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               rows={2}
               value={formData['Warum es funktioniert']}
               onChange={handleChange}
-              className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
+              className="w-full px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="Erkläre kurz das Prinzip hinter diesem Trick..."
             />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="category" className="block text-sm font-medium text-neutral-300 mb-1">
-                Kategorie *
-              </label>
-              <select
-                id="category"
-                name="category"
-                required
-                value={formData.category}
-                onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-              >
-                {categories.map(cat => (
-                  <option key={cat.value} value={cat.value}>{cat.label}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="difficulty" className="block text-sm font-medium text-neutral-300 mb-1">
-                Schwierigkeit *
-              </label>
-              <select
-                id="difficulty"
-                name="difficulty"
-                required
-                value={formData.difficulty}
-                onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-              >
-                {difficulties.map(diff => (
-                  <option key={diff.value} value={diff.value}>{diff.label}</option>
-                ))}
-              </select>
-            </div>
+          <div>
+            <label htmlFor="category" className="block text-sm font-medium text-neutral-300 mb-1">
+              Kategorie *
+            </label>
+            <select
+              id="category"
+              name="category"
+              required
+              value={formData.category}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
+            >
+              {categories.map(cat => (
+                <option key={cat.value} value={cat.value}>{cat.label}</option>
+              ))}
+            </select>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="timeToImplement" className="block text-sm font-medium text-neutral-300 mb-1">
-                Umsetzungszeit *
-              </label>
-              <input
-                type="text"
-                id="timeToImplement"
-                name="timeToImplement"
-                required
-                value={formData.timeToImplement}
-                onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-                placeholder="z.B. 15 Minuten"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="impact" className="block text-sm font-medium text-neutral-300 mb-1">
-                Impact *
-              </label>
-              <select
-                id="impact"
-                name="impact"
-                required
-                value={formData.impact}
-                onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-              >
-                {impacts.map(imp => (
-                  <option key={imp.value} value={imp.value}>{imp.label}</option>
-                ))}
-              </select>
-            </div>
-          </div>
+          {/* Tags removed */}
         </div>
       </div>
 
       {/* Schritte */}
-      <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+  <div className="bg-white border border-neutral-200 rounded-lg p-6 shadow-sm">
         <h2 className="text-lg font-semibold mb-4">Schritt-für-Schritt Anleitung (optional)</h2>
         
         <div className="space-y-3">
@@ -301,7 +206,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               value={newStep}
               onChange={(e) => setNewStep(e.target.value)}
               rows={2}
-              className="flex-1 px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
+              className="flex-1 px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="Schritt hinzufügen..."
             />
             <Button type="button" onClick={addStep} variant="outline">
@@ -313,7 +218,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             {formData.steps?.map((step, index) => (
               <div
                 key={index}
-                className="flex items-start gap-3 p-3 bg-neutral-800/50 rounded-lg"
+                className="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200"
               >
                 <span className="text-sm font-medium text-neutral-500">{index + 1}.</span>
                 <p className="flex-1 text-sm">{step}</p>
@@ -331,7 +236,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
       </div>
 
       {/* Beispiele */}
-      <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+  <div className="bg-white border border-neutral-200 rounded-lg p-6 shadow-sm">
         <h2 className="text-lg font-semibold mb-4">Beispiele (optional)</h2>
         
         <div className="space-y-3">
@@ -340,7 +245,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               value={newExample}
               onChange={(e) => setNewExample(e.target.value)}
               rows={2}
-              className="flex-1 px-4 py-2 bg-neutral-700 text-neutral-100 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
+              className="flex-1 px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="Beispiel hinzufügen..."
             />
             <Button type="button" onClick={addExample} variant="outline">
@@ -352,7 +257,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             {formData.examples?.map((example, index) => (
               <div
                 key={index}
-                className="flex items-start gap-3 p-3 bg-neutral-800/50 rounded-lg"
+                className="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200"
               >
                 <span className="text-sm">•</span>
                 <p className="flex-1 text-sm">{example}</p>
@@ -370,7 +275,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
       </div>
 
       {/* Submit Buttons */}
-      <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+  <div className="bg-white border border-neutral-200 rounded-lg p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row justify-between gap-4">
           <Button 
             type="button" 
