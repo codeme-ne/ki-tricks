@@ -95,10 +95,10 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
         <Button
           variant="outline"
           onClick={() => setIsSidebarOpen(true)}
-          className="flex items-center gap-2 w-full sm:w-auto"
+          className="inline-flex items-center gap-2 min-w-[120px]"
         >
           <Menu className="h-4 w-4" />
-          Kategorien ({hasActiveFilters(filters) ? filters.categories.length : 0})
+          <span className="flex-1 text-left">Kategorien {hasActiveFilters(filters) ? `(${filters.categories.length})` : ''}</span>
         </Button>
 
         {/* Results Header */}

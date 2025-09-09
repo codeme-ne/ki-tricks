@@ -61,18 +61,18 @@ export function Header({ className = '' }: HeaderProps) {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <nav className="md:hidden mt-4 py-4 border-t border-border">
-            <div className="flex flex-col gap-3">
+          <nav className="md:hidden absolute top-[72px] left-0 right-0 bg-background border-b border-border shadow-lg">
+            <div className="container py-4 flex flex-col">
               <Link 
                 href="/tricks" 
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                className="px-4 py-3 text-sm font-medium text-foreground hover:bg-muted transition-colors rounded-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Alle Tricks
               </Link>
               <Link 
                 href="/tricks/einreichen" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium transition-colors text-center"
+                className="mt-2 px-4 py-3 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-lg text-center"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Trick einreichen
@@ -81,7 +81,7 @@ export function Header({ className = '' }: HeaderProps) {
                 href="https://www.produktiv.me/kiz/" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                className="mt-2 px-4 py-3 text-sm font-medium text-foreground hover:bg-muted transition-colors rounded-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 KI Kurs

@@ -2,7 +2,17 @@
 
 import { useEffect } from 'react'
 import { X, Filter, RotateCcw } from 'lucide-react'
-import { FilterSidebarProps, Category, EMPTY_FILTER_STATE } from '@/lib/types/types'
+import { Filter               <div className="fixed inset-0 bg-foreground/5 backdrop-blur-[1px] z-40"
+            onClick={onClose}
+          />
+          <div className="fixed top-0 left-0 w-full h-[100dvh] max-w-sm bg-background z-50 shadow-2xl border-r border-border overflow-hidden">
+            {sidebarContent}
+          </div>div className="fixed inset-0 bg-foreground/5 backdrop-blur-[1px] z-40"
+            onClick={onClose}
+          />
+          <div className="fixed top-0 left-0 w-full max-w-sm bg-background z-50 shadow-2xl border-r border-border h-[100dvh] flex flex-col">
+            {sidebarContent}
+          </div>rProps, Category, EMPTY_FILTER_STATE } from '@/lib/types/types'
 import { categoryMetadata } from '@/lib/types/types'
 import { createFilterHandler, countActiveFilters } from '@/lib/utils/utils'
 import { Button, Checkbox, FilterSection } from '@/components/atoms'
