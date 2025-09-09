@@ -63,12 +63,22 @@ export const TrickCard = React.memo(function TrickCard({
           compact ? "min-h-[240px]" : "min-h-[280px]"
         )}
       >
-        {/* Header: Icon + Category */}
-        <div className="flex items-center gap-2 mb-3">
+        {/* Header: Icon + Category + Role/Tool */}
+        <div className="flex flex-wrap items-center gap-2 mb-3">
           {getCategoryIcon()}
           <Badge className="bg-white border-neutral-200 text-neutral-600 text-[11px] py-0.5 px-2">
             {categoryMeta.label}
           </Badge>
+          {trick.role && (
+            <Badge className="bg-white border-neutral-200 text-neutral-600 text-[11px] py-0.5 px-2">
+              {trick.role}
+            </Badge>
+          )}
+          {trick.toolVendor && (
+            <Badge className="bg-white border-neutral-200 text-neutral-600 text-[11px] py-0.5 px-2">
+              {trick.toolVendor}
+            </Badge>
+          )}
         </div>
 
         {/* Title */}
@@ -91,10 +101,20 @@ export const TrickCard = React.memo(function TrickCard({
           {trick.description.split("\n")[0]}
         </p>
 
-        {/* Action */}
-        <div className="mt-4 text-neutral-900 text-sm font-medium inline-flex items-center">
-          <span>Jetzt ausprobieren</span>
-          <ArrowRight className="w-4 h-4 ml-1.5" />
+        {/* Meta + Action */}
+        <div className="mt-4 flex items-center justify-between">
+          <div className="flex items-center gap-3 text-xs text-neutral-500">
+            {typeof trick.estimatedTimeMinutes === 'number' && (
+              <span className="inline-flex items-center gap-1"><Clock className="w-3 h-3" />{trick.estimatedTimeMinutes} min</span>
+            )}
+            {trick.evidenceLevel && (
+              <span className="inline-flex items-center gap-1">📑 Evidenz {trick.evidenceLevel}</span>
+            )}
+          </div>
+          <div className="text-neutral-900 text-sm font-medium inline-flex items-center">
+            <span>Jetzt ausprobieren</span>
+            <ArrowRight className="w-4 h-4 ml-1.5" />
+          </div>
         </div>
       </div>
     </div>

@@ -8,14 +8,31 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-  
-  "transform-tricks": "tsx scripts/transform-tricks-to-supabase.ts data/generated-ki-tips.json",
-  "transform-tricks:inplace": "tsx scripts/transform-tricks-to-supabase.ts data/generated-ki-tips.json --in-place",
-  "import-tricks:validate": "tsx scripts/import-tricks-supabase-lite.ts data/generated-ki-tips.json --validate",
-  "import-tricks:simple": "tsx scripts/import-tricks-supabase-lite.ts data/generated-ki-tips.json",
-  "import-tricks:file": "tsx scripts/import-tricks-supabase-lite.ts",
-  "import-tricks:validate-file": "tsx scripts/import-tricks-supabase-lite.ts --validate",
-  "import-tricks": "tsx scripts/bulk-import-tricks.ts"
+    "transform-tricks": "tsx scripts/transform-tricks-to-supabase.ts data/generated-ki-tips.json",
+    "transform-tricks:inplace": "tsx scripts/transform-tricks-to-supabase.ts data/generated-ki-tips.json --in-place",
+    "import-tricks:validate": "tsx scripts/import-tricks-supabase-lite.ts data/generated-ki-tips.json --validate",
+    "import-tricks:simple": "tsx scripts/import-tricks-supabase-lite.ts data/generated-ki-tips.json",
+    "import-tricks:file": "tsx scripts/import-tricks-supabase-lite.ts",
+    "import-tricks:validate-file": "tsx scripts/import-tricks-supabase-lite.ts --validate",
+    "import-tricks": "tsx scripts/bulk-import-tricks.ts",
+    "clean:data": "tsx scripts/clean-data.ts",
+    "fix-build": "next lint --fix && tsc -p tsconfig.json --noEmit",
+    "fix-build-clean": "npm run fix-build && node scripts/clean-temp-files.mjs",
+    "migrate-to-supabase": "node scripts/migrate-to-supabase.mjs"
+    ,
+    "ingest:omni": "tsx scripts/ingest-omnisearch-results.ts"
+    ,
+    "supabase:version": "supabase --version",
+    "supabase:login": "supabase login",
+    "supabase:link": "supabase link --project-ref $SUPABASE_PROJECT_REF",
+    "db:push": "supabase db push",
+    "db:studio": "supabase studio"
+  },
+  "supabaseScripts": {
+    "note": "Convenience commands for Supabase CLI"
+  },
+  "supabase": {
+    "projectRefHelp": "Set SUPABASE_PROJECT_REF env var for link and push"
   },
   "keywords": [],
   "author": "",
@@ -51,8 +68,10 @@
   "devDependencies": {
     "@21st-extension/toolbar": "^0.5.14",
     "@21st-extension/toolbar-next": "^0.5.14",
+    "supabase": "^2.40.7",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "tsx": "^4.20.3"
+    "tsx": "^4.20.3",
+    "supabase": "^2.40.7"
   }
 }

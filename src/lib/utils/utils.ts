@@ -1,6 +1,5 @@
 import { FilterState } from '../types/types'
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { cn } from '../utils'
 
 /**
  * Utility functions for filtering and array manipulation
@@ -55,6 +54,4 @@ export const createFilterHandler = (
 }
 
 // CSS class utilities
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
+export { cn }

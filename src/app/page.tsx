@@ -13,19 +13,9 @@ import {
   getTrickCountByCategory,
   getAllCategories
 } from '@/lib/actions/tricks.actions'
-import { categoryLabels, categoryEmojis } from '@/lib/constants/constants'
+import { categoryLabels, categoryEmojis, categoryIcons } from '@/lib/constants/constants'
 
-// Category to icon mapping
-const categoryIcons: Record<string, string> = {
-  'programming': '/icons/categories/programming-code.svg',
-  'business': '/icons/categories/business-briefcase.svg',
-  'productivity': '/icons/categories/productivity-calendar.svg',
-  'learning': '/icons/categories/learning-book.svg',
-  'marketing': '/icons/categories/marketing-megaphone.svg',
-  'content-creation': '/icons/categories/content-camera.svg',
-  'data-analysis': '/icons/categories/data-stats.svg',
-  'design': '/icons/categories/design-palette.svg'
-}
+// Icon mapping moved to constants for reuse
 
 export default async function HomePage() {
   // Calculate dynamic statistics from Supabase
@@ -98,10 +88,10 @@ export default async function HomePage() {
                     className="relative bg-white border border-neutral-200 rounded-lg p-6 text-center hover:border-neutral-400 hover:bg-neutral-50 transition-all duration-200 group"
                   >
                     <div className="relative w-10 h-10 md:w-12 md:h-12 mx-auto mb-3">
-                      {categoryIcons[category] ? (
+                      {categoryIcons[category as keyof typeof categoryIcons] ? (
                         <div className="relative w-full h-full">
                           <Image
-                            src={categoryIcons[category]}
+                            src={categoryIcons[category as keyof typeof categoryIcons]}
                             alt={categoryLabels[category as keyof typeof categoryLabels]}
                             fill
                             className="object-contain filter opacity-60 group-hover:opacity-90 transition-opacity duration-200"

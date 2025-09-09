@@ -21,6 +21,21 @@ export interface KITrick {
   createdAt: Date
   updatedAt: Date
   'Warum es funktioniert': string
+
+  // Research-backed extensions (optional for backward compatibility)
+  role?: Role
+  industries?: string[]
+  toolVendor?: string
+  integrations?: string[]
+  estimatedTimeMinutes?: number
+  estimatedSavingsMinutes?: number
+  riskLevel?: 'low' | 'medium' | 'high'
+  evidenceLevel?: 'A' | 'B' | 'C'
+  prerequisites?: string
+  privacyNotes?: string
+  sources?: SourceRef[]
+  promptExamples?: string[]
+  kpiSuggestions?: string[]
 }
 
 // Filter Types
@@ -126,6 +141,28 @@ export interface ResultsHeaderProps {
   sortBy?: 'newest' | 'oldest'
   onSortChange?: (sort: string) => void
   className?: string
+}
+
+// Roles commonly used across DACH companies
+export type Role =
+  | 'general'
+  | 'sales'
+  | 'marketing'
+  | 'hr'
+  | 'finance'
+  | 'it'
+  | 'procurement'
+  | 'operations'
+  | 'customer-service'
+  | 'legal'
+  | 'product'
+  | 'consulting'
+
+// Source references for evidence
+export interface SourceRef {
+  title: string
+  url: string
+  type?: 'doc' | 'vendor' | 'case' | 'analysis' | 'other'
 }
 
 // Category Metadata

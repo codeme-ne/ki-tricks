@@ -8,9 +8,12 @@ import { Menu } from 'lucide-react'
 import { useFilters } from '@/hooks/useFilters'
 import { hasActiveFilters } from '@/lib/utils/utils'
 import { KITrick, Category } from '@/lib/types/types'
+import type { Database } from '@/lib/supabase/types'
+
+type TrickRow = Database['public']['Tables']['ki_tricks']['Row']
 
 interface TricksClientProps {
-  serverTricks?: any[]
+  serverTricks?: TrickRow[]
   serverCategories?: string[]
 }
 
@@ -32,7 +35,21 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
       slug: trick.slug,
       createdAt: new Date(trick.created_at),
       updatedAt: new Date(trick.updated_at),
-      'Warum es funktioniert': trick.why_it_works
+      'Warum es funktioniert': trick.why_it_works,
+      // research-backed optional fields
+      role: trick.role ?? undefined,
+      industries: trick.industries ?? undefined,
+      toolVendor: trick.tool_vendor ?? undefined,
+      integrations: trick.integrations ?? undefined,
+      estimatedTimeMinutes: trick.estimated_time_minutes ?? undefined,
+      estimatedSavingsMinutes: trick.estimated_savings_minutes ?? undefined,
+      riskLevel: trick.risk_level ?? undefined,
+      evidenceLevel: trick.evidence_level ?? undefined,
+      prerequisites: trick.prerequisites ?? undefined,
+      privacyNotes: trick.privacy_notes ?? undefined,
+      sources: (Array.isArray(trick.sources) ? trick.sources : undefined) as any,
+      promptExamples: trick.prompt_examples ?? undefined,
+      kpiSuggestions: trick.kpi_suggestions ?? undefined
     }))
   }, [serverTricks])
 

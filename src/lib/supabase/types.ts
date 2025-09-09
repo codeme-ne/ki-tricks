@@ -30,6 +30,21 @@ export interface Database {
           like_count: number
           created_by: string | null
           reviewed_by: string | null
+
+          // Research-backed extensions
+          role: 'general' | 'sales' | 'marketing' | 'hr' | 'finance' | 'it' | 'procurement' | 'operations' | 'customer-service' | 'legal' | 'product' | 'consulting' | null
+          industries: string[]
+          tool_vendor: string | null
+          integrations: string[]
+          estimated_time_minutes: number | null
+          estimated_savings_minutes: number | null
+          risk_level: 'low' | 'medium' | 'high' | null
+          evidence_level: 'A' | 'B' | 'C' | null
+          prerequisites: string | null
+          privacy_notes: string | null
+          sources: Json | null
+          prompt_examples: string[] | null
+          kpi_suggestions: string[] | null
         }
         Insert: {
           id?: string
@@ -51,6 +66,21 @@ export interface Database {
           like_count?: number
           created_by?: string | null
           reviewed_by?: string | null
+
+          // Research-backed extensions
+          role?: 'general' | 'sales' | 'marketing' | 'hr' | 'finance' | 'it' | 'procurement' | 'operations' | 'customer-service' | 'legal' | 'product' | 'consulting' | null
+          industries?: string[]
+          tool_vendor?: string | null
+          integrations?: string[]
+          estimated_time_minutes?: number | null
+          estimated_savings_minutes?: number | null
+          risk_level?: 'low' | 'medium' | 'high' | null
+          evidence_level?: 'A' | 'B' | 'C' | null
+          prerequisites?: string | null
+          privacy_notes?: string | null
+          sources?: Json | null
+          prompt_examples?: string[] | null
+          kpi_suggestions?: string[] | null
         }
         Update: {
           id?: string
@@ -72,6 +102,21 @@ export interface Database {
           like_count?: number
           created_by?: string | null
           reviewed_by?: string | null
+
+          // Research-backed extensions
+          role?: 'general' | 'sales' | 'marketing' | 'hr' | 'finance' | 'it' | 'procurement' | 'operations' | 'customer-service' | 'legal' | 'product' | 'consulting' | null
+          industries?: string[]
+          tool_vendor?: string | null
+          integrations?: string[]
+          estimated_time_minutes?: number | null
+          estimated_savings_minutes?: number | null
+          risk_level?: 'low' | 'medium' | 'high' | null
+          evidence_level?: 'A' | 'B' | 'C' | null
+          prerequisites?: string | null
+          privacy_notes?: string | null
+          sources?: Json | null
+          prompt_examples?: string[] | null
+          kpi_suggestions?: string[] | null
         }
       }
       trick_submissions: {

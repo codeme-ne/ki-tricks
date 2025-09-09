@@ -14,12 +14,24 @@ export const categoryLabels: Record<Category, string> = {
 
 // Category emojis for visual representation
 export const categoryEmojis: Record<Category, string> = {
-  'productivity': '�',
+  'productivity': '🚀',
   'content-creation': '✍️',
-  'programming': '�',
+  'programming': '💻',
   'design': '🎨',
   'data-analysis': '📊',
-  'learning': '�',
+  'learning': '📚',
   'business': '💼',
   'marketing': '📈'
+}
+
+// Optional icon mapping for categories used across pages
+export const categoryIcons: Record<Category, string> = {
+  'programming': '/icons/categories/programming-code.svg',
+  'business': '/icons/categories/business-briefcase.svg',
+  'productivity': '/icons/categories/productivity-calendar.svg',
+  'learning': '/icons/categories/learning-book.svg',
+  'marketing': '/icons/categories/marketing-megaphone.svg',
+  'content-creation': '/icons/categories/content-camera.svg',
+  'data-analysis': '/icons/categories/data-stats.svg',
+  'design': '/icons/categories/design-palette.svg'
 }

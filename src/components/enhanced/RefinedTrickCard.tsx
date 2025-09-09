@@ -73,15 +73,33 @@ export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => 
 
         {/* Footer */}
         <div className="mt-auto">
-          {/* Category Badge */}
-          <div className="mb-4">
+          {/* Top badges: Category + optional Role/ToolVendor */}
+          <div className="mb-3 flex flex-wrap gap-2">
             <span 
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-muted text-foreground rounded-md text-sm border border-border"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-muted text-foreground rounded-md text-xs border border-border"
               style={{ borderColor: `${accentColor}20` }}
             >
               <span>{categoryInfo.emoji}</span>
               <span>{categoryInfo.label}</span>
             </span>
+            {trick.role && (
+              <Badge variant="outline" className="text-xs">{trick.role}</Badge>
+            )}
+            {trick.toolVendor && (
+              <Badge variant="outline" className="text-xs">{trick.toolVendor}</Badge>
+            )}
+          </div>
+
+          {/* Meta row: time + evidence */}
+          <div className="flex items-center justify-between text-xs text-muted-foreground">
+            <div className="flex items-center gap-3">
+              {typeof trick.estimatedTimeMinutes === 'number' && (
+                <span className="inline-flex items-center gap-1">⏱️ {trick.estimatedTimeMinutes} min</span>
+              )}
+            </div>
+            {trick.evidenceLevel && (
+              <span className="inline-flex items-center gap-1">📑 Evidenz {trick.evidenceLevel}</span>
+            )}
           </div>
         </div>
 

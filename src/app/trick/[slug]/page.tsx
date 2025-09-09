@@ -77,6 +77,19 @@ export default async function TrickDetailPage({ params }: PageProps) {
     createdAt: new Date(trickData.created_at),
     updatedAt: new Date(trickData.updated_at),
     "Warum es funktioniert": trickData.why_it_works,
+    role: trickData.role ?? undefined,
+    industries: trickData.industries ?? undefined,
+    toolVendor: trickData.tool_vendor ?? undefined,
+    integrations: trickData.integrations ?? undefined,
+    estimatedTimeMinutes: trickData.estimated_time_minutes ?? undefined,
+    estimatedSavingsMinutes: trickData.estimated_savings_minutes ?? undefined,
+    riskLevel: trickData.risk_level ?? undefined,
+    evidenceLevel: trickData.evidence_level ?? undefined,
+    prerequisites: trickData.prerequisites ?? undefined,
+    privacyNotes: trickData.privacy_notes ?? undefined,
+    sources: (Array.isArray(trickData.sources) ? trickData.sources : undefined) as any,
+    promptExamples: trickData.prompt_examples ?? undefined,
+    kpiSuggestions: trickData.kpi_suggestions ?? undefined,
   };
 
   // Track page view
@@ -127,6 +140,18 @@ export default async function TrickDetailPage({ params }: PageProps) {
                   <span>{trick.tools.join(', ')}</span>
                 </div>
               )}
+              {typeof trick.estimatedTimeMinutes === 'number' && (
+                <div className="flex items-center gap-2">
+                  <span>⏱️</span>
+                  <span>{trick.estimatedTimeMinutes} min Umsetzung</span>
+                </div>
+              )}
+              {trick.evidenceLevel && (
+                <div className="flex items-center gap-2">
+                  <span>📑</span>
+                  <span>Evidenz {trick.evidenceLevel}</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -140,6 +165,33 @@ export default async function TrickDetailPage({ params }: PageProps) {
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
               {trick['Warum es funktioniert']}
             </p>
+          </section>
+        )}
+
+        {/* Research & Compliance */}
+        {(trick.evidenceLevel || trick.privacyNotes || (trick.sources && trick.sources.length)) && (
+          <section className="py-10 md:py-12 border-t border-border">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Qualität & Compliance</h2>
+            <div className="space-y-3 text-base sm:text-lg text-muted-foreground">
+              {trick.evidenceLevel && (
+                <p><strong>Evidenz:</strong> Stufe {trick.evidenceLevel}</p>
+              )}
+              {trick.privacyNotes && (
+                <p><strong>Datenschutz:</strong> {trick.privacyNotes}</p>
+              )}
+              {trick.sources && trick.sources.length > 0 && (
+                <div>
+                  <p className="mb-2"><strong>Quellen:</strong></p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    {trick.sources.map((s: any, i: number) => (
+                      <li key={i}>
+                        {s.url ? <a className="underline" href={s.url} target="_blank" rel="noreferrer">{s.title || s.url}</a> : (s.title || 'Quelle')}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           </section>
         )}
 
