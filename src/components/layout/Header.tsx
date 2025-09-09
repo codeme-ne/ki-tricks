@@ -9,7 +9,7 @@ export function Header({ className = '' }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <header className={`border-b border-border bg-background sticky top-0 z-50 ${className}`}>
+    <header className={`border-b border-border bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/75 fixed top-0 left-0 right-0 z-50 ${className}`}>
       <div className="container py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
@@ -61,7 +61,7 @@ export function Header({ className = '' }: HeaderProps) {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <nav className="md:hidden absolute top-[72px] left-0 right-0 bg-background border-b border-border shadow-lg">
+          <nav className="md:hidden fixed top-[72px] left-0 right-0 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/75 border-b border-border shadow-lg">
             <div className="container py-4 flex flex-col">
               <Link 
                 href="/tricks" 
