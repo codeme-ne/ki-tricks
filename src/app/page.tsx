@@ -11,7 +11,6 @@ import {
   getTotalTricksCount, 
   getTotalCategoriesCount, 
   getAllTools,
-  getAverageImplementationTime,
   getTrickCountByCategory,
   getAllCategories,
   getPublishedTricks,
@@ -38,7 +37,6 @@ export default async function HomePage() {
   const totalCategories = await getTotalCategoriesCount()
   const allTools = await getAllTools()
   const totalTools = allTools.length
-  const avgImplementationTime = await getAverageImplementationTime()
   const tricksByCategory = await getTrickCountByCategory()
   const allCategories = await getAllCategories()
 
@@ -102,11 +100,6 @@ export default async function HomePage() {
                 {
                   value: totalTools,
                   label: 'KI Tools'
-                },
-                {
-                  value: avgImplementationTime,
-                  label: 'Ø Umsetzungszeit',
-                  suffix: ' min'
                 }
               ]}
             />
@@ -160,7 +153,7 @@ export default async function HomePage() {
             {recentTricks.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {recentTricks.map((trick) => (
-                  <RefinedTrickCard key={trick.id} trick={trick} />
+                  <RefinedTrickCard key={trick.id} trick={trick} hideTime />
                 ))}
               </div>
             ) : (
@@ -225,26 +218,61 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* FAQ Section */}
+        {/* FAQ Section (toggles) */}
         <section className="py-16 bg-white border-t border-neutral-200">
           <div className="container max-w-5xl">
             <h2 className="text-2xl font-bold text-foreground mb-6">Häufige Fragen</h2>
-            <div className="space-y-6">
-              <div>
-                <h3 className="font-semibold mb-2">Für wen ist KI Tricks gedacht?</h3>
-                <p className="text-muted-foreground">Für Professionals, die mit wenig Zeit schnelle, verlässliche Ergebnisse brauchen – z. B. Consultants, Marketer, Produktteams und Solo-Maker.</p>
+            <div className="space-y-3">
+              <details className="group border border-neutral-200 rounded-lg p-4 bg-white" open>
+                <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between">
+                  <span>Für wen ist KI Tricks gedacht?</span>
+                  <span className="text-neutral-500 group-open:rotate-180 transition-transform">▾</span>
+                </summary>
+                <p className="text-sm text-muted-foreground mt-3">Für Professionals, die mit wenig Zeit schnelle, verlässliche Ergebnisse brauchen – z. B. Consultants, Marketer, Produktteams und Solo-Maker.</p>
+              </details>
+              <details className="group border border-neutral-200 rounded-lg p-4 bg-white">
+                <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between">
+                  <span>Sind die Anleitungen kostenlos?</span>
+                  <span className="text-neutral-500 group-open:rotate-180 transition-transform">▾</span>
+                </summary>
+                <p className="text-sm text-muted-foreground mt-3">Ja. Alle veröffentlichten Tricks sind frei zugänglich.</p>
+              </details>
+              <details className="group border border-neutral-200 rounded-lg p-4 bg-white">
+                <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between">
+                  <span>Wie werden Tricks ausgewählt?</span>
+                  <span className="text-neutral-500 group-open:rotate-180 transition-transform">▾</span>
+                </summary>
+                <p className="text-sm text-muted-foreground mt-3">Tricks werden auf Praxistauglichkeit geprüft, klar dokumentiert und kategorisiert. Community-Einsendungen werden redaktionell gesichtet.</p>
+              </details>
+              <details className="group border border-neutral-200 rounded-lg p-4 bg-white">
+                <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between">
+                  <span>Kann ich eigene Tricks einreichen?</span>
+                  <span className="text-neutral-500 group-open:rotate-180 transition-transform">▾</span>
+                </summary>
+                <p className="text-sm text-muted-foreground mt-3">Gerne – über <Link href="/tricks/einreichen" className="underline">Trick einreichen</Link> kannst du Beiträge vorschlagen.</p>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-16 bg-neutral-50 border-t border-neutral-200">
+          <div className="container max-w-5xl">
+            <div className="grid md:grid-cols-3 gap-8 items-center">
+              <div className="md:col-span-2">
+                <h2 className="text-2xl font-bold text-foreground mb-3">Starte jetzt mit bewährten KI‑Workflows</h2>
+                <p className="text-muted-foreground">Finde passende Tricks für deinen Use Case – oder reiche eigene ein und hilf der Community.</p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Link href="/tricks">
+                    <MinimalButton variant="primary" size="lg">Tricks entdecken</MinimalButton>
+                  </Link>
+                  <Link href="/tricks/einreichen">
+                    <MinimalButton variant="secondary" size="lg">Trick einreichen</MinimalButton>
+                  </Link>
+                </div>
               </div>
-              <div>
-                <h3 className="font-semibold mb-2">Sind die Anleitungen kostenlos?</h3>
-                <p className="text-muted-foreground">Ja. Alle veröffentlichten Tricks sind frei zugänglich.</p>
-              </div>
-              <div>
-                <h3 className="font-semibold mb-2">Wie werden Tricks ausgewählt?</h3>
-                <p className="text-muted-foreground">Tricks werden auf Praxistauglichkeit geprüft, klar dokumentiert und kategorisiert. Community-Einsendungen werden redaktionell gesichtet.</p>
-              </div>
-              <div>
-                <h3 className="font-semibold mb-2">Kann ich eigene Tricks einreichen?</h3>
-                <p className="text-muted-foreground">Gerne – über <Link href="/tricks/einreichen" className="underline">Trick einreichen</Link> kannst du Beiträge vorschlagen.</p>
+              <div className="relative mx-auto w-32 h-32 md:w-40 md:h-40">
+                <Image src="/icons/categories/marketing-target.svg" alt="Zielgerichtete KI‑Tricks" fill className="object-contain opacity-90" />
               </div>
             </div>
           </div>

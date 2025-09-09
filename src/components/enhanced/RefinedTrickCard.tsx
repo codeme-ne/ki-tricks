@@ -9,9 +9,10 @@ import { categoryLabels, categoryEmojis } from '@/lib/constants/constants'
 
 interface RefinedTrickCardProps {
   trick: KITrick
+  hideTime?: boolean
 }
 
-export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => {
+export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick, hideTime = false }) => {
   // Mobile detection for performance optimization
   const [isMobile, setIsMobile] = useState(false)
   
@@ -93,7 +94,7 @@ export const RefinedTrickCard: React.FC<RefinedTrickCardProps> = ({ trick }) => 
           {/* Meta row: time + evidence */}
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <div className="flex items-center gap-3">
-              {typeof trick.estimatedTimeMinutes === 'number' && (
+              {!hideTime && typeof trick.estimatedTimeMinutes === 'number' && (
                 <span className="inline-flex items-center gap-1">⏱️ {trick.estimatedTimeMinutes} min</span>
               )}
             </div>
