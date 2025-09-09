@@ -42,6 +42,9 @@ export async function generateMetadata({
     };
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ki-tricks.com';
+  const canonical = `${siteUrl.replace(/\/$/, '')}/trick/${slug}`;
+
   return {
     title: `${trickData.title} - KI Tricks Platform`,
     description: trickData.description,
@@ -52,6 +55,9 @@ export async function generateMetadata({
       publishedTime: trickData.created_at,
       modifiedTime: trickData.updated_at,
       tags: [trickData.category, ...trickData.tools],
+    },
+    alternates: {
+      canonical,
     },
   };
 }

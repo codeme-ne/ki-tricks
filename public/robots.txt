@@ -1,11 +1,11 @@
-# Robots.txt for AI Tricks Platform
-# https://ai-tricks-platform.vercel.app
+# Robots.txt for KI Tricks Platform
+# https://www.ki-tricks.com
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://ai-tricks-platform.vercel.app/sitemap.xml
+Sitemap: https://www.ki-tricks.com/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1

@@ -20,6 +20,8 @@ const inter = process.env.SKIP_GOOGLE_FONTS === 'true'
     })()
 
 export const metadata: Metadata = {
+  // Ensure absolute URLs for OG and canonical
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ki-tricks.com'),
   title: 'KI-Automationen, KI-Workflows und KI-Prompts',
   description: 'Entdecke praktische KI-Automationen, Workflows und Prompts für Berater und Coaches. Steigere deine Produktivität mit Claude Code, Claude AI, ChatGPT und No-Code Tools. KI-Workflows die funktionieren.',
   keywords: 'KI-Automationen, KI-Workflows, KI-Prompts, KI für Berater und Coaches, Claude Code, Claude AI, KI Tricks, Künstliche Intelligenz, ChatGPT, Claude, Produktivität, Automatisierung',
@@ -42,7 +44,7 @@ export const metadata: Metadata = {
     description: 'Entdecke praktische KI-Automationen, Workflows und Prompts für Berater und Coaches. Steigere deine Produktivität mit Claude Code, Claude AI, ChatGPT und No-Code Tools. KI-Workflows die funktionieren.',
     type: 'website',
     locale: 'de_DE',
-    url: 'https://ai-tricks-platform.vercel.app',
+    url: 'https://www.ki-tricks.com',
     siteName: 'KI Tricks Plattform',
   },
   twitter: {
@@ -50,9 +52,6 @@ export const metadata: Metadata = {
     title: 'KI-Automationen & Workflows für Berater',
     description: 'Entdecke praktische KI-Automationen für deinen Arbeitsalltag',
     creator: '@codeme_ne',
-  },
-  alternates: {
-    canonical: 'https://ai-tricks-platform.vercel.app',
   },
 }
 
