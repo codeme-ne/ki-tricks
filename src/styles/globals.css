@@ -79,7 +79,7 @@
   }
 
   :where(a, button, input, select, textarea, [role="button"]):focus-visible {
-    @apply ring-2 ring-ring ring-offset-2;
+    @apply ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
 
   /* Selection color */
