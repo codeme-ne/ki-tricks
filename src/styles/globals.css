@@ -73,12 +73,12 @@
     line-height: 1.6;
   }
 
-  /* Focus styles */
+  /* Focus styles: restrict rings to interactive elements */
   *:focus {
     @apply outline-none;
   }
 
-  *:focus-visible {
+  :where(a, button, input, select, textarea, [role="button"]):focus-visible {
     @apply ring-2 ring-ring ring-offset-2;
   }
 

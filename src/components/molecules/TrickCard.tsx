@@ -124,5 +124,9 @@ export const TrickCard = React.memo(function TrickCard({
     return <div onClick={onClick}>{cardContent}</div>;
   }
 
-  return <Link href={`/trick/${trick.slug}`}>{cardContent}</Link>;
+  return (
+    <Link href={`/trick/${trick.slug}`} className="block h-full rounded-lg">
+      {cardContent}
+    </Link>
+  );
 });

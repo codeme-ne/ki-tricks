@@ -85,7 +85,7 @@ export default async function HomePage() {
                   <Link 
                     key={category} 
                     href={`/tricks?categories=${category}`}
-                    className="relative bg-white border border-neutral-200 rounded-lg p-6 text-center hover:border-neutral-400 hover:bg-neutral-50 transition-all duration-200 group"
+                    className="block h-full relative bg-white border border-neutral-200 rounded-lg p-6 text-center hover:border-neutral-400 hover:bg-neutral-50 transition-all duration-200 group"
                   >
                     <div className="relative w-10 h-10 md:w-12 md:h-12 mx-auto mb-3">
                       {categoryIcons[category as keyof typeof categoryIcons] ? (
