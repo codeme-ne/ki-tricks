@@ -2,17 +2,7 @@
 
 import { useEffect } from 'react'
 import { X, Filter, RotateCcw } from 'lucide-react'
-import { Filter               <div className="fixed inset-0 bg-foreground/5 backdrop-blur-[1px] z-40"
-            onClick={onClose}
-          />
-          <div className="fixed top-0 left-0 w-full h-[100dvh] max-w-sm bg-background z-50 shadow-2xl border-r border-border overflow-hidden">
-            {sidebarContent}
-          </div>div className="fixed inset-0 bg-foreground/5 backdrop-blur-[1px] z-40"
-            onClick={onClose}
-          />
-          <div className="fixed top-0 left-0 w-full max-w-sm bg-background z-50 shadow-2xl border-r border-border h-[100dvh] flex flex-col">
-            {sidebarContent}
-          </div>rProps, Category, EMPTY_FILTER_STATE } from '@/lib/types/types'
+import { FilterSidebarProps, Category, EMPTY_FILTER_STATE } from '@/lib/types/types'
 import { categoryMetadata } from '@/lib/types/types'
 import { createFilterHandler, countActiveFilters } from '@/lib/utils/utils'
 import { Button, Checkbox, FilterSection } from '@/components/atoms'
@@ -60,53 +50,57 @@ export function FilterSidebar({
   // FilterSection is now imported as a separate component
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-background">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-border">
-        <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-foreground" />
-          <h2 className="text-base font-medium text-foreground">Kategorien</h2>
-          {activeFilterCount > 0 && (
-            <span className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded font-medium">
-              {activeFilterCount}
-            </span>
+    <div className="flex flex-col h-[100dvh] bg-background">
+      {/* Header - Fixed */}
+      <div className="sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/75 border-b border-border z-10">
+        <div className="flex items-center justify-between p-4">
+          <div className="flex items-center gap-2">
+            <Filter className="w-4 h-4 text-foreground" />
+            <h2 className="text-base font-medium text-foreground">Kategorien</h2>
+            {activeFilterCount > 0 && (
+              <span className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded font-medium">
+                {activeFilterCount}
+              </span>
+            )}
+          </div>
+          {/* Close button */}
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-muted rounded-lg transition-colors"
+              aria-label="Filter schließen"
+            >
+              <X className="w-5 h-5 text-muted-foreground" />
+            </button>
           )}
         </div>
-        {/* Close button */}
-        {onClose && (
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-muted rounded-lg transition-colors"
-            aria-label="Filter schließen"
-          >
-            <X className="w-5 h-5 text-muted-foreground" />
-          </button>
-        )}
       </div>
 
-      {/* Filter Content */}
-      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-1">
-        {/* Categories */}
-        <div className="space-y-3">
-          <h3 className="text-sm font-medium text-foreground">Kategorien wählen</h3>
-          <div className="space-y-2">
-            {categories.map((category) => (
-              <div key={category} className="flex items-center space-x-3 cursor-pointer hover:bg-muted/50 rounded-md p-2 transition-colors">
-                <Checkbox
-                  label={categoryMetadata[category].label}
-                  checked={selectedFilters.categories.includes(category)}
-                  onChange={(checked) => handleCategoryChange(category, checked)}
-                  className="shrink-0"
-                />
-              </div>
-            ))}
+      {/* Filter Content - Scrollable Area */}
+      <div className="flex-1 overflow-y-auto py-4">
+        <div className="px-4 space-y-6">
+          {/* Categories */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-medium text-foreground">Kategorien wählen</h3>
+            <div className="space-y-2">
+              {categories.map((category) => (
+                <div key={category} className="flex items-center space-x-3 cursor-pointer hover:bg-muted/50 rounded-md p-2 transition-colors">
+                  <Checkbox
+                    label={categoryMetadata[category].label}
+                    checked={selectedFilters.categories.includes(category)}
+                    onChange={(checked) => handleCategoryChange(category, checked)}
+                    className="shrink-0"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Footer - Fixed */}
       {activeFilterCount > 0 && (
-        <div className="border-t border-border p-4">
+        <div className="sticky bottom-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/75 border-t border-border p-4 mt-auto">
           <Button
             variant="outline"
             size="sm"
