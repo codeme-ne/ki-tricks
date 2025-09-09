@@ -88,6 +88,7 @@ export default async function HomePage() {
         <section className="py-12 bg-white border-y border-neutral-200">
           <div className="container">
             <MinimalStatsGrid 
+              columns={3}
               stats={[
                 {
                   value: totalTricks,
@@ -187,8 +188,8 @@ export default async function HomePage() {
                             src={categoryIcons[category as keyof typeof categoryIcons]}
                             alt={categoryLabels[category as keyof typeof categoryLabels]}
                             fill
-                            className="object-contain filter opacity-60 group-hover:opacity-90 transition-opacity duration-200"
-                            style={{ filter: 'brightness(0) saturate(100%) invert(17%) sepia(0%) saturate(7%) hue-rotate(358deg) brightness(95%) contrast(97%)' }}
+                            className="object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
+                            style={{ filter: 'brightness(0) saturate(100%)' }}
                           />
                         </div>
                       ) : (
@@ -272,7 +273,7 @@ export default async function HomePage() {
                 </div>
               </div>
               <div className="relative mx-auto w-32 h-32 md:w-40 md:h-40">
-                <Image src="/icons/categories/marketing-target.svg" alt="Zielgerichtete KI‑Tricks" fill className="object-contain opacity-90" />
+                <Image src="/icons/categories/marketing-target.svg" alt="Zielgerichtete KI‑Tricks" fill className="object-contain opacity-90" style={{ filter: 'brightness(0) saturate(100%)' }} />
               </div>
             </div>
           </div>

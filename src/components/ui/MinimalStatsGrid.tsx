@@ -28,14 +28,28 @@ interface MinimalStatsGridProps {
     suffix?: string
   }>
   className?: string
+  columns?: 1 | 2 | 3 | 4
 }
 
 export const MinimalStatsGrid: React.FC<MinimalStatsGridProps> = ({
   stats,
-  className = ''
+  className = '',
+  columns,
 }) => {
+  // Choose grid columns to keep the group visually centered.
+  const colCount = columns ?? Math.min(Math.max(stats.length, 1), 4)
+  // Enumerate Tailwind classes explicitly to avoid purge issues.
+  const gridClass =
+    colCount === 1
+      ? 'grid-cols-1'
+      : colCount === 2
+      ? 'grid-cols-2 md:grid-cols-2'
+      : colCount === 3
+      ? 'grid-cols-1 sm:grid-cols-3 md:grid-cols-3'
+      : 'grid-cols-2 md:grid-cols-4'
+
   return (
-    <div className={`grid grid-cols-2 md:grid-cols-4 gap-8 ${className}`}>
+    <div className={`grid ${gridClass} gap-8 justify-items-center ${className}`}>
       {stats.map((stat) => (
         <Stat
           key={stat.label}
