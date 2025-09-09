@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { createPublicClient } from '@/lib/supabase/public'
 import type { Database } from '@/lib/supabase/types'
 import { Category } from '@/lib/types/types'
 
@@ -9,7 +10,8 @@ type KITrickUpdate = Database['public']['Tables']['ki_tricks']['Update']
 export class TricksService {
   // Get all published tricks
   static async getPublishedTricks() {
-    const supabase = await createClient()
+    // Use cookie-less client so this can run during SSG/ISR
+    const supabase = createPublicClient()
     
     const { data, error } = await supabase
       .from('ki_tricks')
@@ -23,7 +25,8 @@ export class TricksService {
 
   // Get trick by slug
   static async getTrickBySlug(slug: string) {
-    const supabase = await createClient()
+    // Use cookie-less client so this can run during SSG/ISR
+    const supabase = createPublicClient()
     
     const { data, error } = await supabase
       .from('ki_tricks')
@@ -38,7 +41,8 @@ export class TricksService {
 
   // Get tricks by category
   static async getTricksByCategory(category: Category) {
-    const supabase = await createClient()
+    // Use cookie-less client so this can run during SSG/ISR
+    const supabase = createPublicClient()
     
     const { data, error } = await supabase
       .from('ki_tricks')
@@ -53,7 +57,8 @@ export class TricksService {
 
   // Search tricks
   static async searchTricks(query: string) {
-    const supabase = await createClient()
+    // Use cookie-less client so this can run during SSG/ISR
+    const supabase = createPublicClient()
     
     const { data, error } = await supabase
       .from('ki_tricks')
@@ -71,7 +76,8 @@ export class TricksService {
     categories?: Category[]
     search?: string
   }) {
-    const supabase = await createClient()
+    // Use cookie-less client so this can run during SSG/ISR
+    const supabase = createPublicClient()
     
     let query = supabase
       .from('ki_tricks')
@@ -96,7 +102,8 @@ export class TricksService {
 
   // Increment view count
   static async incrementViewCount(slug: string) {
-    const supabase = await createClient()
+    // Use admin client for write access and avoid cookies
+    const supabase = createAdminClient()
     
     // First get the trick to get its ID
     const { data: trick, error: fetchError } = await supabase
@@ -144,7 +151,8 @@ export class TricksService {
     sessionId?: string,
     metadata?: any
   ) {
-    const supabase = await createClient()
+    // Use admin client for write access and avoid cookies
+    const supabase = createAdminClient()
     
     const { error } = await supabase
       .from('trick_analytics')
