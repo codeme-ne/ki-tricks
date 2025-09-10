@@ -73,7 +73,7 @@
     line-height: 1.6;
   }
 
-  /* Focus styles: restrict rings to interactive elements */
+  /* Focus styles: show rings only for keyboard users */
   *:focus {
     @apply outline-none;
   }
@@ -114,14 +114,14 @@
   /* Filter Checkbox */
   .filter-checkbox {
     @apply w-4 h-4 text-primary bg-background border-border rounded;
-    @apply focus:ring-primary focus:ring-2;
+    @apply focus-visible:ring-primary focus-visible:ring-2;
   }
 
   /* Button Base */
   .btn {
     @apply inline-flex items-center justify-center px-4 py-2;
     @apply font-medium rounded-md transition-colors duration-200;
-    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
     min-height: 44px; /* iOS touch target */
   }
   
@@ -140,12 +140,12 @@
 
   .btn-primary {
     @apply btn bg-primary text-primary-foreground;
-    @apply hover:bg-primary/90 focus:ring-primary/50;
+    @apply hover:bg-primary/90 focus-visible:ring-primary/50;
   }
 
   .btn-secondary {
     @apply btn bg-secondary text-secondary-foreground border border-border;
-    @apply hover:bg-secondary/80 focus:ring-ring;
+    @apply hover:bg-secondary/80 focus-visible:ring-ring;
   }
 
   .btn-text {
@@ -181,6 +181,12 @@
 }
 
 @layer utilities {
+  /* Hide focus ring on mouse clicks; keep for keyboard */
+  :where(a, button, input, select, textarea, [role="button"]):focus:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
   /* Text truncation */
   .line-clamp-2 {
     display: -webkit-box;

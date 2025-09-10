@@ -49,7 +49,10 @@ export function Header({ className = '' }: HeaderProps) {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+            type="button"
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-nav"
           >
             {isMobileMenuOpen ? (
               <X className="w-5 h-5 text-foreground" />
@@ -61,7 +64,10 @@ export function Header({ className = '' }: HeaderProps) {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <nav className="md:hidden fixed top-[72px] left-0 right-0 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/75 border-b border-border shadow-lg">
+          <nav
+            id="mobile-nav"
+            className="md:hidden fixed top-[72px] left-0 right-0 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/75 border-b border-border shadow-lg z-[60]"
+          >
             <div className="container py-4 flex flex-col">
               <Link 
                 href="/tricks" 
