@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils/utils";
 
 interface BaseCardProps {
@@ -20,19 +20,19 @@ interface AnimationState {
 
 const cardAnimations: Record<string, AnimationState> = {
   hover: {
-    scale: 1.02,
-    translateY: -4,
+    scale: 1.01,
+    translateY: -2,
     transition: "all 0.2s ease-out"
   },
   tap: {
-    scale: 0.98,
+    scale: 0.99,
     translateY: 0,
     transition: "all 0.1s ease-in"
   },
   default: {
     scale: 1,
     translateY: 0,
-    transition: "all 0.3s ease-out"
+    transition: "all 0.2s ease-out"
   }
 };
 
@@ -46,9 +46,18 @@ export const BaseCard = React.memo(function BaseCard({
 }: BaseCardProps) {
   const [isPressed, setIsPressed] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  // Detect touch device
+  useEffect(() => {
+    const checkTouchDevice = () => {
+      setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    };
+    checkTouchDevice();
+  }, []);
 
   const handleMouseEnter = () => {
-    if (hover) setIsHovered(true);
+    if (hover && !isTouchDevice) setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
@@ -64,9 +73,17 @@ export const BaseCard = React.memo(function BaseCard({
     setIsPressed(false);
   };
 
+  const handleTouchStart = () => {
+    if (onClick) setIsPressed(true);
+  };
+
+  const handleTouchEnd = () => {
+    setIsPressed(false);
+  };
+
   const getAnimationStyle = () => {
     if (isPressed) return cardAnimations.tap;
-    if (isHovered) return cardAnimations.hover;
+    if (isHovered && !isTouchDevice) return cardAnimations.hover;
     return cardAnimations.default;
   };
 
@@ -75,9 +92,10 @@ export const BaseCard = React.memo(function BaseCard({
   return (
     <Component
       className={cn(
-        // Base styles - professional foundation
-        "bg-white border border-neutral-100 rounded-xl shadow-sm",
-        "flex flex-col relative overflow-hidden",
+        // Base styles using new trick-card class for pseudo-element shadows
+        "trick-card",
+        "bg-white border border-neutral-100 rounded-xl",
+        "flex flex-col relative",
 
         // Gradient background for depth
         "bg-gradient-to-br from-white to-neutral-50/30",
@@ -94,9 +112,6 @@ export const BaseCard = React.memo(function BaseCard({
         // Responsive spacing and margins using CSS clamp()
         "gap-2 sm:gap-3 md:gap-4",
 
-        // Enhanced shadow on hover
-        hover && isHovered && "border-neutral-200 shadow-lg shadow-neutral-200/60",
-
         // Interactive styles
         onClick && "cursor-pointer",
 
@@ -108,19 +123,12 @@ export const BaseCard = React.memo(function BaseCard({
       )}
       style={{
         transform: `scale(${animationStyle.scale}) translateY(${animationStyle.translateY || 0}px)`,
-        WebkitTransform: `scale(${animationStyle.scale}) translateY(${animationStyle.translateY || 0}px)`,
-        MozTransform: `scale(${animationStyle.scale}) translateY(${animationStyle.translateY || 0}px)`,
         transition: animationStyle.transition,
-        WebkitTransition: animationStyle.transition,
-        MozTransition: animationStyle.transition,
-        willChange: hover ? 'transform, box-shadow' : 'auto',
-        // Hardware acceleration hints with vendor prefixes
+        willChange: hover ? 'transform' : 'auto',
+        // Hardware acceleration hints
         backfaceVisibility: 'hidden',
-        WebkitBackfaceVisibility: 'hidden',
-        MozBackfaceVisibility: 'hidden',
         perspective: '1000px',
-        WebkitPerspective: '1000px',
-        // Optimize gradient rendering
+        // Optimize rendering
         contain: 'layout style paint',
       } as React.CSSProperties}
       onClick={onClick}
@@ -128,8 +136,8 @@ export const BaseCard = React.memo(function BaseCard({
       onMouseLeave={handleMouseLeave}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
-      onTouchStart={handleMouseDown}
-      onTouchEnd={handleMouseUp}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {children}
     </Component>

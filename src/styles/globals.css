@@ -28,6 +28,16 @@
   --chart-4: 43 74% 66%;
   --chart-5: 27 87% 67%;
   --radius: 0.5rem;
+  
+  /* Mobile-optimized Shadow Variables */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.18);
+  
+  /* Focus and interaction shadows */
+  --shadow-focus: 0 0 2px rgba(66, 153, 225, 0.5);
+  --shadow-active: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .dark {
@@ -55,6 +65,16 @@
   --chart-3: 30 80% 55%;
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%;
+  
+  /* Dark mode shadow adjustments */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.6);
+  
+  /* Dark mode focus and interaction shadows */
+  --shadow-focus: 0 0 2px rgba(66, 153, 225, 0.7);
+  --shadow-active: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 
@@ -104,11 +124,79 @@
     }
   }
 
-  /* Trick Card */
+  /* Trick Card - Hardware-accelerated Pseudo-Element Shadows */
   .trick-card {
     @apply bg-card rounded-lg border border-border;
-    @apply p-6 hover:shadow-md transition-all duration-200;
+    @apply p-6 transition-all duration-200;
     @apply hover:border-primary/30;
+    position: relative;
+    transform: translate3d(0, 0, 0); /* Hardware acceleration */
+    will-change: transform;
+    overflow: visible;
+  }
+
+  /* Shadow as Pseudo-Element for better mobile performance */
+  .trick-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: var(--shadow-md);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  /* Mobile-optimized Shadow states */
+  @media (max-width: 768px) {
+    .trick-card::after {
+      /* Ganzzahlige Pixel-Werte für mobile */
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .trick-card {
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+    }
+  }
+
+  /* State Management mit Touch-Detection */
+  .trick-card {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* States in korrekter Reihenfolge: hover → focus → active */
+  .trick-card:hover::after {
+    opacity: 1;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .trick-card:focus::after {
+    opacity: 1;
+    box-shadow: var(--shadow-lg), var(--shadow-focus);
+  }
+
+  .trick-card:active::after {
+    opacity: 1;
+    box-shadow: var(--shadow-active);
+    transform: translateY(1px);
+  }
+
+  /* Touch-Device spezifische Behandlung */
+  @media (hover: none) and (pointer: coarse) {
+    .trick-card:hover::after {
+      opacity: 0;
+    }
+    .trick-card:active::after {
+      opacity: 1;
+      box-shadow: var(--shadow-sm);
+    }
   }
 
   /* Filter Checkbox */
@@ -179,6 +267,32 @@
     @apply grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
   }
 
+  /* Z-Index Management für Card Stacking */
+  .tricks-container {
+    position: relative;
+    z-index: 1;
+    padding: 20px; /* Space für shadow expansion */
+  }
+
+  .trick-card {
+    position: relative;
+    z-index: 2;
+    isolation: isolate; /* Neue stacking context */
+  }
+
+  /* Elevated state bei interaction */
+  .trick-card:hover,
+  .trick-card:focus {
+    z-index: 10;
+  }
+
+  /* Buttons und Links */
+  .trick-card .btn,
+  .trick-card a {
+    position: relative;
+    z-index: 3;
+  }
+
   /* Responsive card grid utilities */
   .card-grid-compact {
     @apply grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5;
@@ -207,6 +321,21 @@
 
   .space-responsive-lg {
     gap: clamp(1.5rem, 4vw, 2rem); /* 24px - 32px */
+  }
+
+  /* Performance Optimierungen für Cards */
+  .trick-card {
+    /* GPU-Beschleunigung */
+    transform: translate3d(0, 0, 0);
+    contain: layout style paint;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .trick-card, 
+    .trick-card::after {
+      transition: none;
+    }
   }
 
   /* Typography classes migrated to Tailwind config as text-heading-*, text-body-*, text-card-*, text-ui-label */
@@ -415,9 +544,9 @@
     transition: background-color 150ms;
   }
 
-  /* Simplify shadows on mobile */
-  [class*="shadow"] {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  /* Simplify shadows on mobile - use CSS variables */
+  .trick-card::after {
+    box-shadow: var(--shadow-sm) !important;
   }
 
   /* Disable gradient animations */
@@ -425,18 +554,20 @@
     animation: none;
   }
   
-  /* Disable hover effects on touch devices */
+  /* Enhanced touch device handling */
   @media (hover: none) and (pointer: coarse) {
-    [class*="hover:"] {
-      pointer-events: auto;
+    /* Disable hover effects completely on touch devices */
+    .trick-card:hover::after {
+      opacity: 0 !important;
     }
-
-    .trick-card:hover,
-    [class*="group"]:hover * {
-      transform: none;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    
+    /* Enhanced touch feedback */
+    .trick-card:active::after {
+      opacity: 1 !important;
+      box-shadow: var(--shadow-sm) !important;
     }
-
+    
+    /* Button touch feedback */
     .btn:hover {
       transform: none;
     }
@@ -447,6 +578,13 @@
     .clickable:active {
       opacity: 0.8;
       transform: scale(0.98);
+    }
+    
+    /* Prevent double-tap zoom on buttons */
+    button, 
+    a[role="button"], 
+    .trick-card {
+      touch-action: manipulation;
     }
   }
   
@@ -472,6 +610,25 @@
     backface-visibility: hidden;
     -webkit-perspective: 1000;
     perspective: 1000;
+  }
+
+  /* Enhanced performance for trick cards */
+  .trick-card {
+    /* Force hardware acceleration */
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    /* Optimize compositing */
+    will-change: transform, opacity;
+    /* Contain layout and paint */
+    contain: layout style paint;
+    /* Optimize for mobile scrolling */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Optimize pseudo-element performance */
+  .trick-card::after {
+    will-change: opacity, box-shadow;
+    contain: layout style;
   }
 
   /* Prevent selection boxes and tap highlights on mobile */

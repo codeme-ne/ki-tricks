@@ -71,7 +71,7 @@ export function TrickGrid({
     <div className="space-y-6">
       {/* Grid with Lazy-loaded Cards */}
       <div 
-        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+        className="tricks-container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
         style={{
           contain: 'layout',
           transform: 'translateZ(0)', // Enable hardware acceleration
