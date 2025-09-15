@@ -1,0 +1,53 @@
+# Task ID: 1
+# Title: Fix Mobile Navigation Z-Index Issues
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: Resolve critical mobile navigation bug by fixing z-index hierarchy and touch event propagation
+# Details:
+1. Update Header component z-index to 30
+2. Set mobile menu overlay z-index to 20
+3. Remove top-[72px] positioning from mobile nav
+4. Implement full-screen overlay for mobile menu
+5. Add touch event handlers with proper propagation
+6. Update globals.css with new z-index scale
+7. Implement minimum touch target size of 44x44px
+<info added on 2025-09-15T02:28:06.084Z>
+Implementation status update:
+- Header component z-index successfully changed from 50 to 30
+- Mobile menu overlay z-index set to 20 with proper stacking
+- Replaced top-[72px] with pt-[72px] for proper full-screen overlay implementation
+- Added full-screen overlay backdrop with click-to-close functionality
+- Implemented touch event handlers with click-outside detection
+- Updated globals.css with documented z-index scale ranging from 10-50
+- All interactive elements now meet 44x44px minimum touch target requirement
+- Fixed FilterSidebar z-index conflicts (reduced from 40/50 to 20)
+- Mobile navigation now correctly overlays header with resolved z-index hierarchy
+
+Additional fixes:
+- FilterSidebar z-index adjustments to maintain proper stacking context
+- Touch event propagation verified and working as expected
+- Full-screen overlay backdrop implemented with proper event handling
+</info added on 2025-09-15T02:28:06.084Z>
+
+# Test Strategy:
+1. Test on iOS Safari, Chrome Android, Firefox Mobile
+2. Verify menu open/close functionality
+3. Check touch target sizes
+4. Validate event propagation
+5. Cross-browser testing on specified devices
+6. E2E tests with Playwright for menu interactions
+
+# Subtasks:
+## 1. Automated Testing with Puppeteer [in-progress]
+### Dependencies: None
+### Description: Install Puppeteer and create automated tests to verify mobile menu functionality
+### Details:
+1. Install Puppeteer as dev dependency
+2. Create test script to simulate mobile viewport
+3. Test menu open/close functionality
+4. Test overlay click-to-close
+5. Test link navigation and auto-close
+6. Verify z-index layering is correct
+7. Generate test report with screenshots
+

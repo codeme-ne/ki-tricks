@@ -8,7 +8,7 @@ interface TrickMetaProps {
 // impact/time removed
 
 export const TrickMeta = ({ trick }: TrickMetaProps) => {
-  const formattedDate = new Date(trick.updatedAt).toLocaleDateString('de-DE', {
+  const formattedDate = new Date(trick.updated_at).toLocaleDateString('de-DE', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'

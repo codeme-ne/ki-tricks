@@ -181,3 +181,7 @@ NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=
 3. **Filter not updating URL**: Use `updateFilters` not `setFilters` from hook
 4. **TypeScript strict errors**: No `any` types allowed, initialize all refs
 5. **Admin route 401**: Check ADMIN_PASSWORD env var is set
+
+## Task Master AI Instructions
+**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
+@./.taskmaster/CLAUDE.md

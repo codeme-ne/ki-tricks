@@ -1,0 +1,39 @@
+# Task ID: 15
+# Title: Update API Integration Tests
+# Status: done
+# Dependencies: 11, 13
+# Priority: medium
+# Description: Modify integration tests to reflect simplified schema and removed fields
+# Details:
+Using Jest/Supertest for API testing:
+1. Update test fixtures
+2. Remove assertions for dropped fields
+3. Update expected response shapes
+4. Test error cases
+5. Verify analytics and submission flows
+
+Example test update:
+```typescript
+describe('Tricks API', () => {
+  it('should return trick with correct schema', async () => {
+    const response = await request(app)
+      .get('/api/tricks/sample-slug')
+    
+    expect(response.body).toMatchObject({
+      id: expect.any(String),
+      title: expect.any(String),
+      // ... other retained fields
+    })
+    // Verify dropped fields are not present
+    expect(response.body).not.toHaveProperty('role')
+    // ... other dropped fields
+  })
+})
+```
+
+# Test Strategy:
+1. Run full test suite
+2. Verify coverage of new schema
+3. Test edge cases
+4. Performance testing
+5. Load testing with simplified schema

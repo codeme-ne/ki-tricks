@@ -112,14 +112,14 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
           </div>
 
           {/* Warum es funktioniert */}
-          {formData['Warum es funktioniert'] && (
+          {formData.why_it_works && (
             <div className="bg-gradient-to-r from-amber-900/20 to-orange-900/20 border border-amber-800 rounded-lg p-4">
               <h3 className="text-lg font-semibold mb-3 text-amber-300 flex items-center gap-2">
                 <Brain className="w-5 h-5" />
                 Warum es funktioniert
               </h3>
               <p className="text-amber-300 leading-relaxed">
-                {formData['Warum es funktioniert']}
+                {formData.why_it_works}
               </p>
             </div>
           )}
@@ -183,7 +183,7 @@ export const TrickPreview = ({ formData, className }: TrickPreviewProps) => {
           {/* Empty State for Optional Sections */}
           {(!formData.steps || formData.steps.length === 0) && 
            (!formData.examples || formData.examples.length === 0) && 
-           !formData['Warum es funktioniert'] && (
+           !formData.why_it_works && (
             <div className="text-center py-8 text-neutral-400">
               <BookOpen className="w-8 h-8 mx-auto mb-3 opacity-50" />
               <p className="text-sm">

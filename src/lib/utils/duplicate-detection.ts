@@ -173,8 +173,13 @@ export function checkPendingDuplicates(
     .filter(trick => trick.category === newTrick.category) // Same category only
     .map(trick => ({
       ...trick,
-      createdAt: new Date(trick.createdAt),
-      updatedAt: new Date(trick.updatedAt)
+      created_at: trick.created_at,
+      updated_at: trick.updated_at,
+      why_it_works: trick.why_it_works,
+      status: trick.status || 'published',
+      quality_score: trick.quality_score || null,
+      view_count: trick.view_count || 0,
+      published_at: trick.published_at || null
     })) as KITrick[]
 
   return checkForDuplicates(newTrick, formattedPendingTricks, {

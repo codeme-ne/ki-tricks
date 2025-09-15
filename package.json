@@ -18,15 +18,16 @@
     "clean:data": "tsx scripts/clean-data.ts",
     "fix-build": "next lint --fix && tsc -p tsconfig.json --noEmit",
     "fix-build-clean": "npm run fix-build && node scripts/clean-temp-files.mjs",
-    "migrate-to-supabase": "node scripts/migrate-to-supabase.mjs"
-    ,
-    "ingest:omni": "tsx scripts/ingest-omnisearch-results.ts"
-    ,
+    "migrate-to-supabase": "node scripts/migrate-to-supabase.mjs",
+    "ingest:omni": "tsx scripts/ingest-omnisearch-results.ts",
     "supabase:version": "supabase --version",
     "supabase:login": "supabase login",
     "supabase:link": "supabase link --project-ref $SUPABASE_PROJECT_REF",
     "db:push": "supabase db push",
-    "db:studio": "supabase studio"
+    "db:studio": "supabase studio",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase stop --no-backup && supabase start"
   },
   "supabaseScripts": {
     "note": "Convenience commands for Supabase CLI"
@@ -68,6 +69,7 @@
   "devDependencies": {
     "@21st-extension/toolbar": "^0.5.14",
     "@21st-extension/toolbar-next": "^0.5.14",
+    "puppeteer": "^24.20.0",
     "supabase": "^2.40.7",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",

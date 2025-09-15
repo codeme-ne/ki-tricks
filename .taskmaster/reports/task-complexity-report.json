@@ -1,0 +1,77 @@
+{
+	"meta": {
+		"generatedAt": "2025-09-15T03:11:30.521Z",
+		"tasksAnalyzed": 8,
+		"totalTasks": 17,
+		"analysisCount": 8,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 10,
+			"taskTitle": "Create Database Migration Script",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Break down the migration script creation into: (1) column analysis and selection, (2) index identification and validation, (3) enum/type usage audit, (4) script drafting with IF EXISTS clauses, (5) Supabase CLI migration setup, (6) local migration testing and rollback validation, (7) documentation and peer review.",
+			"reasoning": "Database migrations are inherently complex due to the need for careful schema analysis, idempotency, rollback planning, and thorough testing to avoid data loss or downtime. Industry best practices recommend a multi-step, phased approach with automated testing and documentation to mitigate risks and ensure reliability, especially when removing multiple columns, indexes, and types in production environments.[1][2][4]"
+		},
+		{
+			"taskId": 11,
+			"taskTitle": "Update TypeScript Types",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Expand into: (1) regenerate types with Supabase CLI, (2) audit and update all type references in services and components, (3) remove obsolete type guards/assertions, (4) refactor for TypeScript 5.3+ features, (5) run and fix type tests and compiler errors.",
+			"reasoning": "Updating TypeScript types after a schema change is moderately complex, requiring regeneration, codebase-wide audits, and refactoring for type safety. The process is streamlined by modern tooling but still demands careful attention to ensure all references to dropped fields are removed and type safety is maintained throughout the codebase."
+		},
+		{
+			"taskId": 12,
+			"taskTitle": "Clean Up UI Components",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Divide into: (1) identify and remove UI elements tied to dropped fields, (2) update component props and types, (3) refactor logic for optimized rendering and error boundaries, (4) write and update component tests.",
+			"reasoning": "UI cleanup is less complex than backend changes but requires careful review of all components and props to ensure no references to removed fields remain. Adhering to React 18+ best practices and updating tests adds moderate complexity."
+		},
+		{
+			"taskId": 13,
+			"taskTitle": "Update Database Queries",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Expand into: (1) audit all select, insert, update, and order queries, (2) refactor queries to exclude dropped columns, (3) update query-related business logic, (4) verify and maintain RLS policies, (5) write and run unit/integration tests, (6) document query changes.",
+			"reasoning": "Query updates are complex due to the need to audit all database interactions, refactor logic, and ensure security policies (RLS) remain intact. Comprehensive testing and documentation are essential to prevent regressions and maintain data integrity."
+		},
+		{
+			"taskId": 14,
+			"taskTitle": "Update Seed Data Scripts",
+			"complexityScore": 4,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down into: (1) update seed data structure and remove dropped fields, (2) verify seed data against schema constraints, (3) update and run test fixtures for validation.",
+			"reasoning": "Seed script updates are relatively straightforward but require attention to schema constraints and test fixtures to ensure data integrity and consistency with the new schema."
+		},
+		{
+			"taskId": 15,
+			"taskTitle": "Update API Integration Tests",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Expand into: (1) update test fixtures and expected response shapes, (2) remove assertions for dropped fields, (3) add new tests for error and edge cases, (4) run and validate full test suite for coverage.",
+			"reasoning": "Updating integration tests is moderately complex, involving fixture updates, assertion changes, and coverage validation to ensure the API reflects the simplified schema and maintains reliability."
+		},
+		{
+			"taskId": 16,
+			"taskTitle": "Validate Analytics and Submissions Flow",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Divide into: (1) test view_count increment logic, (2) verify analytics insertion and data flow, (3) test submission process end-to-end, (4) validate RLS and foreign key constraints, (5) perform load and edge case testing.",
+			"reasoning": "Validating analytics and submissions involves multiple data flows and integrity checks, requiring thorough testing of triggers, policies, and constraints to ensure continued correct operation after schema changes."
+		},
+		{
+			"taskId": 17,
+			"taskTitle": "Production Deployment Planning",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Expand into: (1) document deployment and rollback steps, (2) prepare and test monitoring/alerting, (3) schedule and communicate maintenance window, (4) validate backup and restoration procedures, (5) update documentation, (6) run performance and post-deployment tests.",
+			"reasoning": "Production deployment planning is complex due to the need for detailed documentation, rollback strategies, monitoring, and coordination across teams. Industry standards emphasize thorough preparation and testing to minimize risk and downtime during schema changes."
+		}
+	]
+}

@@ -132,6 +132,14 @@ const config: Config = {
         'spin-slow': 'spin-slow 3s linear infinite',
         'pulse-slow': 'pulse-slow 2.5s infinite',
       },
+      zIndex: {
+        '0': '0',
+        '10': '10',  // Dropdowns, tooltips
+        '20': '20',  // Mobile menu overlay and content
+        '30': '30',  // Fixed header
+        '40': '40',  // Modal backdrops
+        '50': '50',  // Modals, toast notifications
+      },
     },
   },
   plugins: [],

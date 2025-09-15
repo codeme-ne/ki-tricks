@@ -1,0 +1,139 @@
+"use client";
+
+import React, { useState } from "react";
+import { cn } from "@/lib/utils/utils";
+
+interface BaseCardProps {
+  children: React.ReactNode;
+  className?: string;
+  hover?: boolean;
+  onClick?: () => void;
+  as?: "div" | "article" | "section";
+  variant?: "default" | "compact" | "feature" | "hero";
+}
+
+interface AnimationState {
+  scale: number;
+  translateY?: number;
+  transition: string;
+}
+
+const cardAnimations: Record<string, AnimationState> = {
+  hover: {
+    scale: 1.02,
+    translateY: -4,
+    transition: "all 0.2s ease-out"
+  },
+  tap: {
+    scale: 0.98,
+    translateY: 0,
+    transition: "all 0.1s ease-in"
+  },
+  default: {
+    scale: 1,
+    translateY: 0,
+    transition: "all 0.3s ease-out"
+  }
+};
+
+export const BaseCard = React.memo(function BaseCard({
+  children,
+  className,
+  hover = true,
+  onClick,
+  as: Component = "div",
+  variant = "default",
+}: BaseCardProps) {
+  const [isPressed, setIsPressed] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    if (hover) setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setIsPressed(false);
+  };
+
+  const handleMouseDown = () => {
+    if (onClick) setIsPressed(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsPressed(false);
+  };
+
+  const getAnimationStyle = () => {
+    if (isPressed) return cardAnimations.tap;
+    if (isHovered) return cardAnimations.hover;
+    return cardAnimations.default;
+  };
+
+  const animationStyle = getAnimationStyle();
+
+  return (
+    <Component
+      className={cn(
+        // Base styles - professional foundation
+        "bg-white border border-neutral-100 rounded-xl shadow-sm",
+        "flex flex-col relative overflow-hidden",
+
+        // Gradient background for depth
+        "bg-gradient-to-br from-white to-neutral-50/30",
+
+        // Height variants with mobile-first responsive design
+        variant === "compact" && "min-h-[140px] p-3 sm:p-4",
+        variant === "default" && "min-h-[160px] sm:min-h-[180px] p-4 sm:p-5",
+        variant === "feature" && "min-h-[180px] sm:min-h-[200px] p-4 sm:p-5 md:p-6",
+        variant === "hero" && "min-h-[200px] sm:min-h-[240px] p-5 sm:p-6 md:p-8",
+
+        // Mobile touch targets (minimum 44px for accessibility)
+        onClick && "min-h-[44px]",
+
+        // Responsive spacing and margins using CSS clamp()
+        "gap-2 sm:gap-3 md:gap-4",
+
+        // Enhanced shadow on hover
+        hover && isHovered && "border-neutral-200 shadow-lg shadow-neutral-200/60",
+
+        // Interactive styles
+        onClick && "cursor-pointer",
+
+        // Mobile-specific optimizations
+        "touch-manipulation", // Improves touch response
+        "select-none", // Prevents text selection on mobile taps
+
+        className
+      )}
+      style={{
+        transform: `scale(${animationStyle.scale}) translateY(${animationStyle.translateY || 0}px)`,
+        WebkitTransform: `scale(${animationStyle.scale}) translateY(${animationStyle.translateY || 0}px)`,
+        MozTransform: `scale(${animationStyle.scale}) translateY(${animationStyle.translateY || 0}px)`,
+        transition: animationStyle.transition,
+        WebkitTransition: animationStyle.transition,
+        MozTransition: animationStyle.transition,
+        willChange: hover ? 'transform, box-shadow' : 'auto',
+        // Hardware acceleration hints with vendor prefixes
+        backfaceVisibility: 'hidden',
+        WebkitBackfaceVisibility: 'hidden',
+        MozBackfaceVisibility: 'hidden',
+        perspective: '1000px',
+        WebkitPerspective: '1000px',
+        // Optimize gradient rendering
+        contain: 'layout style paint',
+      } as React.CSSProperties}
+      onClick={onClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onTouchStart={handleMouseDown}
+      onTouchEnd={handleMouseUp}
+    >
+      {children}
+    </Component>
+  );
+});
+
+BaseCard.displayName = "BaseCard";

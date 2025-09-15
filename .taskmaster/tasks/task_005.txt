@@ -1,0 +1,55 @@
+# Task ID: 5
+# Title: Enhanced Content Structure Implementation
+# Status: pending
+# Dependencies: 2
+# Priority: high
+# Description: Develop new content structure with visual elements and metadata
+# Details:
+1. Implement new content schema:
+   - Title with value proposition
+   - Tagline
+   - Rich description
+   - Visual elements (hero, guides, comparisons)
+   - Structured metadata
+2. Set up Lucide/Heroicons integration
+3. Implement code syntax highlighting
+4. Configure image optimization with Cloudinary/Uploadthing
+
+# Test Strategy:
+1. Validate content structure compliance
+2. Test image optimization pipeline
+3. Verify metadata consistency
+4. Performance testing for visual assets
+5. Accessibility testing for content structure
+
+# Subtasks:
+## 1. Define and Implement Content Schema [pending]
+### Dependencies: None
+### Description: Create and implement the new content schema structure with all required fields and relationships
+### Details:
+Create TypeScript interfaces and database schema for content structure including: title (with value proposition field), tagline, rich description field, visual elements array (for hero, guides, comparisons), and metadata object. Implement validation rules for each field.
+
+## 2. Integrate Icon System [pending]
+### Dependencies: 5.1
+### Description: Set up and configure Lucide/Heroicons integration with optimized loading
+### Details:
+Install and configure Lucide/Heroicons packages, create icon component wrapper for consistent usage, implement dynamic imports for optimized loading, create icon registry for commonly used icons
+
+## 3. Implement Code Syntax Highlighting [pending]
+### Dependencies: 5.1
+### Description: Add syntax highlighting support for code blocks with theme configuration
+### Details:
+Install and configure syntax highlighting library (Prism.js/Highlight.js), implement code block component, add support for multiple programming languages, create light/dark theme variants
+
+## 4. Configure Image Optimization Pipeline [pending]
+### Dependencies: 5.1
+### Description: Set up image optimization and delivery system using Cloudinary/Uploadthing
+### Details:
+Configure Cloudinary/Uploadthing integration, implement image upload pipeline, create image transformation presets, implement lazy loading, add responsive image component with proper srcset
+
+## 5. Implement Metadata Management [pending]
+### Dependencies: 5.1, 5.2, 5.4
+### Description: Create system for handling and displaying structured metadata
+### Details:
+Implement metadata schema, create metadata management interface, add SEO-friendly metadata output, implement OpenGraph tags, add schema.org markup
+

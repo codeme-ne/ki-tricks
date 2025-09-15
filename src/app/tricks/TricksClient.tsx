@@ -33,23 +33,13 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
       steps: trick.steps || [],
       examples: trick.examples || [],
       slug: trick.slug,
-      createdAt: new Date(trick.created_at),
-      updatedAt: new Date(trick.updated_at),
-      'Warum es funktioniert': trick.why_it_works,
-      // research-backed optional fields
-      role: trick.role ?? undefined,
-      industries: trick.industries ?? undefined,
-      toolVendor: trick.tool_vendor ?? undefined,
-      integrations: trick.integrations ?? undefined,
-      estimatedTimeMinutes: trick.estimated_time_minutes ?? undefined,
-      estimatedSavingsMinutes: trick.estimated_savings_minutes ?? undefined,
-      riskLevel: trick.risk_level ?? undefined,
-      evidenceLevel: trick.evidence_level ?? undefined,
-      prerequisites: trick.prerequisites ?? undefined,
-      privacyNotes: trick.privacy_notes ?? undefined,
-      sources: (Array.isArray(trick.sources) ? trick.sources : undefined) as any,
-      promptExamples: trick.prompt_examples ?? undefined,
-      kpiSuggestions: trick.kpi_suggestions ?? undefined
+      created_at: trick.created_at,
+      updated_at: trick.updated_at,
+      published_at: trick.published_at || null,
+      why_it_works: trick.why_it_works,
+      status: trick.status || 'published',
+      quality_score: trick.quality_score || null,
+      view_count: trick.view_count || 0
     }))
   }, [serverTricks])
 

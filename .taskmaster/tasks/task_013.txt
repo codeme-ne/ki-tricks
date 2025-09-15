@@ -1,0 +1,80 @@
+# Task ID: 13
+# Title: Update Database Queries
+# Status: done
+# Dependencies: 10, 11
+# Priority: high
+# Description: Modify existing database queries to remove references to dropped columns
+# Details:
+Using latest Supabase JS Client (v2.39+):
+1. Update select statements to include only retained columns
+2. Modify any ORDER BY clauses using removed columns
+3. Update insert/update operations
+4. Maintain RLS policies
+
+Example query update:
+```typescript
+const { data, error } = await supabase
+  .from('ki_tricks')
+  .select(`
+    id,
+    title,
+    description,
+    category,
+    tools,
+    steps,
+    examples,
+    slug,
+    why_it_works,
+    status,
+    quality_score,
+    created_at,
+    updated_at,
+    published_at,
+    view_count
+  `)
+```
+
+# Test Strategy:
+1. Unit test updated query functions
+2. Test query performance
+3. Verify RLS policies still work
+4. Test error handling
+5. Integration tests with actual database
+
+# Subtasks:
+## 1. Audit All Database Queries [done]
+### Dependencies: None
+### Description: Review all select, insert, update, and order queries in the codebase to identify references to dropped columns.
+### Details:
+Systematically scan all query definitions, including raw SQL and ORM usage, to catalog queries that reference columns removed from the schema.
+
+## 2. Refactor Queries to Exclude Dropped Columns [done]
+### Dependencies: 13.1
+### Description: Modify all affected queries to remove references to dropped columns and ensure only retained columns are used.
+### Details:
+Update select statements, insert and update operations, and ORDER BY clauses to align with the current schema. Validate query correctness after changes.
+
+## 3. Update Query-Related Business Logic [done]
+### Dependencies: 13.2
+### Description: Revise any business logic that depended on dropped columns to ensure correct application behavior.
+### Details:
+Identify and refactor functions, validations, and conditional logic that previously referenced removed columns. Ensure feature parity and data integrity.
+
+## 4. Verify and Maintain RLS Policies [done]
+### Dependencies: 13.2
+### Description: Review and update Row Level Security (RLS) policies to ensure they do not reference dropped columns and remain effective.
+### Details:
+Audit RLS policies for references to removed columns, update policy definitions as needed, and test for correct access control and performance.
+
+## 5. Write and Run Unit/Integration Tests [done]
+### Dependencies: 13.3, 13.4
+### Description: Develop and execute tests to validate updated queries and business logic, ensuring no regressions or schema mismatches.
+### Details:
+Create unit tests for query functions and integration tests against the database. Test for query performance, error handling, and RLS enforcement.
+
+## 6. Document Query Changes [done]
+### Dependencies: 13.2, 13.3, 13.4, 13.5
+### Description: Update technical documentation to reflect all query modifications and schema changes for future maintainability.
+### Details:
+Revise code comments, developer guides, and schema documentation to describe updated query patterns and removed columns.
+

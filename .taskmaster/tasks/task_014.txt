@@ -1,0 +1,38 @@
+# Task ID: 14
+# Title: Update Seed Data Scripts
+# Status: done
+# Dependencies: 10
+# Priority: medium
+# Description: Modify database seed scripts to align with new schema
+# Details:
+1. Update seed data structure in existing scripts
+2. Remove references to dropped columns
+3. Verify seed data matches CHECK constraints
+4. Update any test fixtures
+
+Example seed data structure:
+```typescript
+const sampleTrick = {
+  id: uuid(),
+  title: 'Sample Trick',
+  description: 'Description',
+  category: 'category1',
+  tools: ['tool1', 'tool2'],
+  steps: ['step1', 'step2'],
+  examples: ['example1'],
+  slug: 'sample-trick',
+  why_it_works: 'Explanation',
+  status: 'published',
+  quality_score: 5,
+  view_count: 0,
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+  published_at: new Date().toISOString()
+}
+```
+
+# Test Strategy:
+1. Test seed data insertion
+2. Verify data integrity post-seeding
+3. Test against schema constraints
+4. Validate timestamps and UUID generation

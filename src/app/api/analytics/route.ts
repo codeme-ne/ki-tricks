@@ -67,12 +67,12 @@ export async function GET(request: NextRequest) {
 
     // Filter by date range
     const filteredPending = pendingTricks.filter(trick => {
-      const createdAt = new Date(trick.createdAt)
+      const createdAt = new Date(trick.created_at)
       return createdAt >= startDate && createdAt <= endDate
     })
 
     const filteredApproved = approvedTricks.filter(trick => {
-      const createdAt = new Date(trick.createdAt)
+      const createdAt = new Date(trick.created_at)
       return createdAt >= startDate && createdAt <= endDate
     })
 
@@ -113,7 +113,7 @@ export async function GET(request: NextRequest) {
     
     // Count submissions by date
     allTricks.forEach(trick => {
-      const date = new Date(trick.createdAt).toISOString().split('T')[0]
+      const date = new Date(trick.created_at).toISOString().split('T')[0]
       if (submissionsByDate.hasOwnProperty(date)) {
         submissionsByDate[date]++
       }
@@ -128,14 +128,14 @@ export async function GET(request: NextRequest) {
 
     // Calculate average processing time (mock calculation)
     const processedTricks = filteredApproved.filter(trick => 
-      trick.updatedAt && trick.createdAt
+      trick.updated_at && trick.created_at
     )
     
     let avgProcessingTime = 0
     if (processedTricks.length > 0) {
       const totalProcessingTime = processedTricks.reduce((total, trick) => {
-        const created = new Date(trick.createdAt).getTime()
-        const updated = new Date(trick.updatedAt).getTime()
+        const created = new Date(trick.created_at).getTime()
+        const updated = new Date(trick.updated_at).getTime()
         return total + (updated - created)
       }, 0)
       

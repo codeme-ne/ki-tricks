@@ -22,29 +22,10 @@ export interface Database {
           why_it_works: string
           status: 'draft' | 'pending' | 'published' | 'rejected'
           quality_score: number | null
-          quality_category: string | null
           created_at: string
           updated_at: string
           published_at: string | null
           view_count: number
-          like_count: number
-          created_by: string | null
-          reviewed_by: string | null
-
-          // Research-backed extensions
-          role: 'general' | 'sales' | 'marketing' | 'hr' | 'finance' | 'it' | 'procurement' | 'operations' | 'customer-service' | 'legal' | 'product' | 'consulting' | null
-          industries: string[]
-          tool_vendor: string | null
-          integrations: string[]
-          estimated_time_minutes: number | null
-          estimated_savings_minutes: number | null
-          risk_level: 'low' | 'medium' | 'high' | null
-          evidence_level: 'A' | 'B' | 'C' | null
-          prerequisites: string | null
-          privacy_notes: string | null
-          sources: Json | null
-          prompt_examples: string[] | null
-          kpi_suggestions: string[] | null
         }
         Insert: {
           id?: string
@@ -58,29 +39,10 @@ export interface Database {
           why_it_works: string
           status?: 'draft' | 'pending' | 'published' | 'rejected'
           quality_score?: number | null
-          quality_category?: string | null
           created_at?: string
           updated_at?: string
           published_at?: string | null
           view_count?: number
-          like_count?: number
-          created_by?: string | null
-          reviewed_by?: string | null
-
-          // Research-backed extensions
-          role?: 'general' | 'sales' | 'marketing' | 'hr' | 'finance' | 'it' | 'procurement' | 'operations' | 'customer-service' | 'legal' | 'product' | 'consulting' | null
-          industries?: string[]
-          tool_vendor?: string | null
-          integrations?: string[]
-          estimated_time_minutes?: number | null
-          estimated_savings_minutes?: number | null
-          risk_level?: 'low' | 'medium' | 'high' | null
-          evidence_level?: 'A' | 'B' | 'C' | null
-          prerequisites?: string | null
-          privacy_notes?: string | null
-          sources?: Json | null
-          prompt_examples?: string[] | null
-          kpi_suggestions?: string[] | null
         }
         Update: {
           id?: string
@@ -94,29 +56,10 @@ export interface Database {
           why_it_works?: string
           status?: 'draft' | 'pending' | 'published' | 'rejected'
           quality_score?: number | null
-          quality_category?: string | null
           created_at?: string
           updated_at?: string
           published_at?: string | null
           view_count?: number
-          like_count?: number
-          created_by?: string | null
-          reviewed_by?: string | null
-
-          // Research-backed extensions
-          role?: 'general' | 'sales' | 'marketing' | 'hr' | 'finance' | 'it' | 'procurement' | 'operations' | 'customer-service' | 'legal' | 'product' | 'consulting' | null
-          industries?: string[]
-          tool_vendor?: string | null
-          integrations?: string[]
-          estimated_time_minutes?: number | null
-          estimated_savings_minutes?: number | null
-          risk_level?: 'low' | 'medium' | 'high' | null
-          evidence_level?: 'A' | 'B' | 'C' | null
-          prerequisites?: string | null
-          privacy_notes?: string | null
-          sources?: Json | null
-          prompt_examples?: string[] | null
-          kpi_suggestions?: string[] | null
         }
       }
       trick_submissions: {
@@ -161,7 +104,7 @@ export interface Database {
         Row: {
           id: string
           trick_id: string
-          event_type: 'view' | 'like' | 'share' | 'implement'
+          event_type: 'view' | 'share' | 'implement'
           user_id: string | null
           session_id: string | null
           metadata: Json | null
@@ -170,7 +113,7 @@ export interface Database {
         Insert: {
           id?: string
           trick_id: string
-          event_type: 'view' | 'like' | 'share' | 'implement'
+          event_type: 'view' | 'share' | 'implement'
           user_id?: string | null
           session_id?: string | null
           metadata?: Json | null

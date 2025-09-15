@@ -28,12 +28,11 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
   const [formData, setFormData] = useState<Partial<KITrick>>({
     title: initialData.title || '',
     description: initialData.description || '',
-  category: initialData.category || 'productivity',
+    category: initialData.category || 'productivity',
     tools: initialData.tools || ['Claude', 'Claude Code'],
-  // tags removed
     steps: initialData.steps || [],
     examples: initialData.examples || [],
-    'Warum es funktioniert': initialData['Warum es funktioniert'] || ''
+    why_it_works: initialData.why_it_works || ''
   })
 
   const [newStep, setNewStep] = useState('')
@@ -160,14 +159,14 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
           </div>
 
           <div>
-            <label htmlFor="Warum es funktioniert" className="block text-sm font-medium text-neutral-300 mb-1">
+            <label htmlFor="why_it_works" className="block text-sm font-medium text-neutral-300 mb-1">
               Warum es funktioniert (optional)
             </label>
             <textarea
-              id="Warum es funktioniert"
-              name="Warum es funktioniert"
+              id="why_it_works"
+              name="why_it_works"
               rows={2}
-              value={formData['Warum es funktioniert']}
+              value={formData.why_it_works}
               onChange={handleChange}
               className="w-full px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="Erkläre kurz das Prinzip hinter diesem Trick..."

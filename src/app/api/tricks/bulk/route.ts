@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
       if (action === 'approve') {
         // Move to approved tricks
         trick.status = 'approved'
-        trick.updatedAt = new Date()
+        trick.updated_at = new Date().toISOString()
         trick.id = `approved-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
         approvedTricks.push(trick)
         
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
       } else if (action === 'reject') {
         // Mark as rejected but keep in pending
         trick.status = 'rejected'
-        trick.updatedAt = new Date()
+        trick.updated_at = new Date().toISOString()
       }
       
       processedTricks.push({

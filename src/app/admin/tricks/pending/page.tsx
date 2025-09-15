@@ -9,7 +9,7 @@ import { calculateQualityScore, getQualityAssessment } from '@/lib/utils/quality
 import { ArrowLeft, Check, X, Eye, Clock, AlertCircle, LogOut, Star } from 'lucide-react'
 import Link from 'next/link'
 
-interface ExtendedKITrick extends KITrick {
+interface ExtendedKITrick extends Omit<KITrick, 'status'> {
   status?: 'pending' | 'approved' | 'rejected'
 }
 
@@ -408,7 +408,7 @@ export default function PendingTricksPage() {
                           )}
                           {/* Difficulty removed */}
                           {(() => {
-                            const qualityScore = calculateQualityScore(trick)
+                            const qualityScore = calculateQualityScore(trick as Partial<KITrick>)
                             const assessment = getQualityAssessment(qualityScore)
                             return (
                               <Badge 
@@ -434,7 +434,7 @@ export default function PendingTricksPage() {
                         <span>{getCategoryLabel(trick.category)}</span>
                         {/* Time to implement removed */}
                         <span className="ml-auto">
-                          {new Date(trick.createdAt).toLocaleDateString('de-DE')}
+                          {new Date(trick.created_at).toLocaleDateString('de-DE')}
                         </span>
                       </div>
                     </div>
@@ -450,7 +450,7 @@ export default function PendingTricksPage() {
                   <div className="flex justify-between items-start mb-4">
                     <h2 className="text-xl font-bold">{selectedTrick.title}</h2>
                     {(() => {
-                      const qualityScore = calculateQualityScore(selectedTrick)
+                      const qualityScore = calculateQualityScore(selectedTrick as Partial<KITrick>)
                       const assessment = getQualityAssessment(qualityScore)
                       return (
                         <div className="text-right">
@@ -481,10 +481,10 @@ export default function PendingTricksPage() {
                       <p className="text-sm text-muted-foreground">{selectedTrick.description}</p>
                     </div>
 
-                    {selectedTrick['Warum es funktioniert'] && (
+                    {selectedTrick.why_it_works && (
                       <div>
                         <h3 className="font-semibold text-sm text-muted-foreground mb-1">Warum es funktioniert</h3>
-                        <p className="text-sm text-muted-foreground">{selectedTrick['Warum es funktioniert']}</p>
+                        <p className="text-sm text-muted-foreground">{selectedTrick.why_it_works}</p>
                       </div>
                     )}
 
@@ -535,7 +535,7 @@ export default function PendingTricksPage() {
 
                     {/* Quality Score Breakdown */}
                     {(() => {
-                      const qualityScore = calculateQualityScore(selectedTrick)
+                      const qualityScore = calculateQualityScore(selectedTrick as Partial<KITrick>)
                       return (
                         <div>
                           <h3 className="font-semibold text-sm text-muted-foreground mb-2">Qualitätsbewertung</h3>

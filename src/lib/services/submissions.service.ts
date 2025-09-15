@@ -90,7 +90,7 @@ export class SubmissionsService {
         steps: trickData.steps || [],
         examples: trickData.examples || [],
         slug: trickData.slug,
-        why_it_works: trickData['Warum es funktioniert'] || trickData.why_it_works,
+        why_it_works: trickData.why_it_works,
         status: 'published',
         quality_score: submission.quality_score,
         published_at: new Date().toISOString()

@@ -69,3 +69,22 @@ performance-analysis.md
 
 # Claude sessions (private development tracking)
 .claude/sessions/
+
+logs
+dev-debug.log
+# Dependency directories
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# OS specific
+
+.mcp.json
+
+# Task files
+# tasks.json
+# tasks/ 

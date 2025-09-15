@@ -24,9 +24,13 @@ export default async function RelatedTricksWrapper({
     steps: trick.steps || [],
     examples: trick.examples || [],
     slug: trick.slug,
-    createdAt: new Date(trick.created_at),
-    updatedAt: new Date(trick.updated_at),
-    'Warum es funktioniert': trick.why_it_works
+    created_at: trick.created_at,
+    updated_at: trick.updated_at,
+    why_it_works: trick.why_it_works,
+    status: trick.status || 'published',
+    quality_score: trick.quality_score || null,
+    view_count: trick.view_count || 0,
+    published_at: trick.published_at || null
   }))
   
   return (

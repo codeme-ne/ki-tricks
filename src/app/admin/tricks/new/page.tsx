@@ -22,7 +22,12 @@ export default function NewTrickPage() {
       const existingTricks = JSON.parse(localStorage.getItem('customTricks') || '[]')
       const newTrick: KITrick = {
         id: `custom-${Date.now()}`,
-        ...trickData,
+        title: trickData.title || '',
+        description: trickData.description || '',
+        category: trickData.category || 'productivity',
+        tools: trickData.tools || [],
+        steps: trickData.steps || null,
+        examples: trickData.examples || null,
         slug: trickData.title?.toLowerCase()
           .replace(/[äöü]/g, (match) => {
             const map: { [key: string]: string } = { 'ä': 'ae', 'ö': 'oe', 'ü': 'ue' }
@@ -30,10 +35,14 @@ export default function NewTrickPage() {
           })
           .replace(/[^a-z0-9]+/g, '-')
           .replace(/^-+|-+$/g, '') || '',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        'Warum es funktioniert': trickData['Warum es funktioniert'] || 'Dieser Trick basiert auf bewährten Prinzipien und ist praxiserprobt.'
-      } as KITrick
+        why_it_works: trickData.why_it_works || 'Dieser Trick basiert auf bewährten Prinzipien und ist praxiserprobt.',
+        status: trickData.status || 'draft',
+        quality_score: trickData.quality_score || null,
+        view_count: trickData.view_count || 0,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        published_at: trickData.published_at || null
+      }
       
       existingTricks.push(newTrick)
       localStorage.setItem('customTricks', JSON.stringify(existingTricks))

@@ -2,8 +2,9 @@ import { Header, Footer } from '@/components/layout'
 import { AnimatedHeroSection } from '@/components/ui/animated-hero-section'
 import { MinimalButton } from '@/components/ui/MinimalButton'
 import { MinimalStatsGrid } from '@/components/ui/MinimalStatsGrid'
+import { BaseCard } from '@/components/atoms'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, CheckCircle, Filter, Target, Zap } from 'lucide-react'
 import Image from 'next/image'
 import type { Metadata } from 'next'
 import { RefinedTrickCard } from '@/components/enhanced/RefinedTrickCard'
@@ -48,25 +49,16 @@ export default async function HomePage() {
     description: t.description,
     category: t.category as Category,
     tools: t.tools || [],
-    steps: t.steps || [],
-    examples: t.examples || [],
+    steps: t.steps || null,
+    examples: t.examples || null,
     slug: t.slug,
-    createdAt: new Date(t.created_at),
-    updatedAt: new Date(t.updated_at),
-    'Warum es funktioniert': t.why_it_works,
-    role: t.role ?? undefined,
-    industries: t.industries ?? undefined,
-    toolVendor: t.tool_vendor ?? undefined,
-    integrations: t.integrations ?? undefined,
-    estimatedTimeMinutes: t.estimated_time_minutes ?? undefined,
-    estimatedSavingsMinutes: t.estimated_savings_minutes ?? undefined,
-    riskLevel: t.risk_level ?? undefined,
-    evidenceLevel: t.evidence_level ?? undefined,
-    prerequisites: t.prerequisites ?? undefined,
-    privacyNotes: t.privacy_notes ?? undefined,
-    sources: (Array.isArray(t.sources) ? t.sources : undefined) as any,
-    promptExamples: t.prompt_examples ?? undefined,
-    kpiSuggestions: t.kpi_suggestions ?? undefined,
+    why_it_works: t.why_it_works,
+    status: t.status || 'published',
+    quality_score: t.quality_score || null,
+    view_count: t.view_count || 0,
+    created_at: t.created_at,
+    updated_at: t.updated_at,
+    published_at: t.published_at || null
   }))
   
   return (
@@ -123,22 +115,50 @@ export default async function HomePage() {
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-5 bg-white border border-neutral-200 rounded-lg">
-                  <h3 className="font-semibold mb-2">Schritt-für-Schritt</h3>
-                  <p className="text-sm text-muted-foreground">Kompakte Anleitungen mit klaren Schritten und Beispielen.</p>
-                </div>
-                <div className="p-5 bg-white border border-neutral-200 rounded-lg">
-                  <h3 className="font-semibold mb-2">Kategorisiert</h3>
-                  <p className="text-sm text-muted-foreground">Finde schnell passende Tricks nach Kategorie und Tool.</p>
-                </div>
-                <div className="p-5 bg-white border border-neutral-200 rounded-lg">
-                  <h3 className="font-semibold mb-2">Praxiserprobt</h3>
-                  <p className="text-sm text-muted-foreground">Nur Workflows, die getestet und verständlich dokumentiert sind.</p>
-                </div>
-                <div className="p-5 bg-white border border-neutral-200 rounded-lg">
-                  <h3 className="font-semibold mb-2">Schnelle Umsetzung</h3>
-                  <p className="text-sm text-muted-foreground">Kurze Zeit bis zum Ergebnis, ideal für busy Professionals.</p>
-                </div>
+                <BaseCard hover={false} variant="compact">
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 rounded-lg bg-blue-50 text-blue-600">
+                      <Zap className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-2 text-neutral-900">Schritt-für-Schritt</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">Kompakte Anleitungen mit klaren Schritten und Beispielen.</p>
+                    </div>
+                  </div>
+                </BaseCard>
+                <BaseCard hover={false} variant="compact">
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 rounded-lg bg-purple-50 text-purple-600">
+                      <Filter className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-2 text-neutral-900">Kategorisiert</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">Finde schnell passende Tricks nach Kategorie und Tool.</p>
+                    </div>
+                  </div>
+                </BaseCard>
+                <BaseCard hover={false} variant="compact">
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 rounded-lg bg-green-50 text-green-600">
+                      <CheckCircle className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-2 text-neutral-900">Praxiserprobt</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">Nur Workflows, die getestet und verständlich dokumentiert sind.</p>
+                    </div>
+                  </div>
+                </BaseCard>
+                <BaseCard hover={false} variant="compact">
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 rounded-lg bg-orange-50 text-orange-600">
+                      <Target className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-2 text-neutral-900">Schnelle Umsetzung</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">Kurze Zeit bis zum Ergebnis, ideal für busy Professionals.</p>
+                    </div>
+                  </div>
+                </BaseCard>
               </div>
             </div>
           </div>
@@ -154,7 +174,7 @@ export default async function HomePage() {
             {recentTricks.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {recentTricks.map((trick) => (
-                  <RefinedTrickCard key={trick.id} trick={trick} hideTime />
+                  <RefinedTrickCard key={trick.id} trick={trick} />
                 ))}
               </div>
             ) : (
@@ -176,32 +196,34 @@ export default async function HomePage() {
                 .sort((a, b) => (tricksByCategory[b] || 0) - (tricksByCategory[a] || 0)) // Sort by trick count
                 .slice(0, 8) // Show top 8 categories
                 .map(category => (
-                  <Link 
-                    key={category} 
+                  <Link
+                    key={category}
                     href={`/tricks?categories=${category}`}
-                    className="block h-full relative bg-white border border-neutral-200 rounded-lg p-6 text-center hover:border-neutral-400 hover:bg-neutral-50 transition-all duration-200 group"
+                    className="block h-full group"
                   >
-                    <div className="relative w-10 h-10 md:w-12 md:h-12 mx-auto mb-3">
-                      {categoryIcons[category as keyof typeof categoryIcons] ? (
-                        <div className="relative w-full h-full">
-                          <Image
-                            src={categoryIcons[category as keyof typeof categoryIcons]}
-                            alt={categoryLabels[category as keyof typeof categoryLabels]}
-                            fill
-                            className="object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
-                            style={{ filter: 'brightness(0) saturate(100%)' }}
-                          />
-                        </div>
-                      ) : (
-                        <div className="text-3xl md:text-4xl flex items-center justify-center h-full opacity-60 group-hover:opacity-90 transition-opacity">
-                          {categoryEmojis[category as keyof typeof categoryEmojis]}
-                        </div>
-                      )}
-                    </div>
-                    <h4 className="font-semibold mb-1 text-foreground text-sm md:text-base group-hover:text-primary transition-colors text-subheading">{categoryLabels[category as keyof typeof categoryLabels]}</h4>
-                    <p className="text-xs md:text-sm text-muted-foreground group-hover:text-foreground transition-colors text-readable">
-                      {tricksByCategory[category] || 0} {(tricksByCategory[category] || 0) === 1 ? 'Trick' : 'Tricks'}
-                    </p>
+                    <BaseCard className="text-center" variant="compact">
+                      <div className="relative w-12 h-12 mx-auto mb-3 p-2 rounded-xl bg-gradient-to-br from-neutral-50 to-neutral-100 group-hover:from-blue-50 group-hover:to-blue-100 transition-all duration-200">
+                        {categoryIcons[category as keyof typeof categoryIcons] ? (
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={categoryIcons[category as keyof typeof categoryIcons]}
+                              alt={categoryLabels[category as keyof typeof categoryLabels]}
+                              fill
+                              className="object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+                              style={{ filter: 'brightness(0) saturate(100%)' }}
+                            />
+                          </div>
+                        ) : (
+                          <div className="text-2xl flex items-center justify-center h-full opacity-70 group-hover:opacity-100 transition-opacity">
+                            {categoryEmojis[category as keyof typeof categoryEmojis]}
+                          </div>
+                        )}
+                      </div>
+                      <h4 className="font-semibold mb-1 text-foreground text-sm group-hover:text-blue-600 transition-colors">{categoryLabels[category as keyof typeof categoryLabels]}</h4>
+                      <p className="text-xs text-muted-foreground">
+                        {tricksByCategory[category] || 0} {(tricksByCategory[category] || 0) === 1 ? 'Trick' : 'Tricks'}
+                      </p>
+                    </BaseCard>
                   </Link>
                 ))}
             </div>
@@ -224,34 +246,53 @@ export default async function HomePage() {
           <div className="container max-w-5xl">
             <h2 className="text-2xl font-bold text-foreground mb-6">Häufige Fragen</h2>
             <div className="space-y-3">
-              <details className="group border border-neutral-200 rounded-lg p-4 bg-white" open>
-                <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between">
-                  <span>Für wen ist KI Tricks gedacht?</span>
-                  <span className="text-neutral-500 group-open:rotate-180 transition-transform">▾</span>
-                </summary>
-                <p className="text-sm text-muted-foreground mt-3">Für Professionals, die mit wenig Zeit schnelle, verlässliche Ergebnisse brauchen – z. B. Consultants, Marketer, Produktteams und Solo-Maker.</p>
-              </details>
-              <details className="group border border-neutral-200 rounded-lg p-4 bg-white">
-                <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between">
-                  <span>Sind die Anleitungen kostenlos?</span>
-                  <span className="text-neutral-500 group-open:rotate-180 transition-transform">▾</span>
-                </summary>
-                <p className="text-sm text-muted-foreground mt-3">Ja. Alle veröffentlichten Tricks sind frei zugänglich.</p>
-              </details>
-              <details className="group border border-neutral-200 rounded-lg p-4 bg-white">
-                <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between">
-                  <span>Wie werden Tricks ausgewählt?</span>
-                  <span className="text-neutral-500 group-open:rotate-180 transition-transform">▾</span>
-                </summary>
-                <p className="text-sm text-muted-foreground mt-3">Tricks werden auf Praxistauglichkeit geprüft, klar dokumentiert und kategorisiert. Community-Einsendungen werden redaktionell gesichtet.</p>
-              </details>
-              <details className="group border border-neutral-200 rounded-lg p-4 bg-white">
-                <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between">
-                  <span>Kann ich eigene Tricks einreichen?</span>
-                  <span className="text-neutral-500 group-open:rotate-180 transition-transform">▾</span>
-                </summary>
-                <p className="text-sm text-muted-foreground mt-3">Gerne – über <Link href="/tricks/einreichen" className="underline">Trick einreichen</Link> kannst du Beiträge vorschlagen.</p>
-              </details>
+              <BaseCard hover={false} variant="compact">
+                <details className="group" open>
+                  <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between hover:text-blue-600 transition-colors">
+                    <span>Für wen ist KI Tricks gedacht?</span>
+                    <div className="p-1 rounded bg-neutral-100 group-open:bg-blue-100 transition-colors">
+                      <span className="text-neutral-500 group-open:text-blue-600 group-open:rotate-180 transition-all duration-200 block">▾</span>
+                    </div>
+                  </summary>
+                  <p className="text-sm text-muted-foreground mt-4 leading-relaxed">Für Professionals, die mit wenig Zeit schnelle, verlässliche Ergebnisse brauchen – z. B. Consultants, Marketer, Produktteams und Solo-Maker.</p>
+                </details>
+              </BaseCard>
+
+              <BaseCard hover={false} variant="compact">
+                <details className="group">
+                  <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between hover:text-blue-600 transition-colors">
+                    <span>Sind die Anleitungen kostenlos?</span>
+                    <div className="p-1 rounded bg-neutral-100 group-open:bg-blue-100 transition-colors">
+                      <span className="text-neutral-500 group-open:text-blue-600 group-open:rotate-180 transition-all duration-200 block">▾</span>
+                    </div>
+                  </summary>
+                  <p className="text-sm text-muted-foreground mt-4 leading-relaxed">Ja. Alle veröffentlichten Tricks sind frei zugänglich.</p>
+                </details>
+              </BaseCard>
+
+              <BaseCard hover={false} variant="compact">
+                <details className="group">
+                  <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between hover:text-blue-600 transition-colors">
+                    <span>Wie werden Tricks ausgewählt?</span>
+                    <div className="p-1 rounded bg-neutral-100 group-open:bg-blue-100 transition-colors">
+                      <span className="text-neutral-500 group-open:text-blue-600 group-open:rotate-180 transition-all duration-200 block">▾</span>
+                    </div>
+                  </summary>
+                  <p className="text-sm text-muted-foreground mt-4 leading-relaxed">Tricks werden auf Praxistauglichkeit geprüft, klar dokumentiert und kategorisiert. Community-Einsendungen werden redaktionell gesichtet.</p>
+                </details>
+              </BaseCard>
+
+              <BaseCard hover={false} variant="compact">
+                <details className="group">
+                  <summary className="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between hover:text-blue-600 transition-colors">
+                    <span>Kann ich eigene Tricks einreichen?</span>
+                    <div className="p-1 rounded bg-neutral-100 group-open:bg-blue-100 transition-colors">
+                      <span className="text-neutral-500 group-open:text-blue-600 group-open:rotate-180 transition-all duration-200 block">▾</span>
+                    </div>
+                  </summary>
+                  <p className="text-sm text-muted-foreground mt-4 leading-relaxed">Gerne – über <Link href="/tricks/einreichen" className="text-blue-600 hover:text-blue-700 underline font-medium">Trick einreichen</Link> kannst du Beiträge vorschlagen.</p>
+                </details>
+              </BaseCard>
             </div>
           </div>
         </section>

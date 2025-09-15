@@ -15,27 +15,16 @@ export interface KITrick {
   description: string
   category: Category
   tools: string[]
-  steps?: string[]
-  examples?: string[]
+  steps?: string[] | null
+  examples?: string[] | null
   slug: string
-  createdAt: Date
-  updatedAt: Date
-  'Warum es funktioniert': string
-
-  // Research-backed extensions (optional for backward compatibility)
-  role?: Role
-  industries?: string[]
-  toolVendor?: string
-  integrations?: string[]
-  estimatedTimeMinutes?: number
-  estimatedSavingsMinutes?: number
-  riskLevel?: 'low' | 'medium' | 'high'
-  evidenceLevel?: 'A' | 'B' | 'C'
-  prerequisites?: string
-  privacyNotes?: string
-  sources?: SourceRef[]
-  promptExamples?: string[]
-  kpiSuggestions?: string[]
+  why_it_works: string
+  status: 'draft' | 'pending' | 'published' | 'rejected'
+  quality_score?: number | null
+  view_count: number
+  created_at: string
+  updated_at: string
+  published_at?: string | null
 }
 
 // Filter Types
@@ -143,27 +132,6 @@ export interface ResultsHeaderProps {
   className?: string
 }
 
-// Roles commonly used across DACH companies
-export type Role =
-  | 'general'
-  | 'sales'
-  | 'marketing'
-  | 'hr'
-  | 'finance'
-  | 'it'
-  | 'procurement'
-  | 'operations'
-  | 'customer-service'
-  | 'legal'
-  | 'product'
-  | 'consulting'
-
-// Source references for evidence
-export interface SourceRef {
-  title: string
-  url: string
-  type?: 'doc' | 'vendor' | 'case' | 'analysis' | 'other'
-}
 
 // Category Metadata
 export const categoryMetadata: Record<Category, { label: string; icon: string; color: string }> = {

@@ -1,0 +1,85 @@
+# Task ID: 10
+# Title: Create Database Migration Script
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Develop SQL migration script to remove non-essential columns and related indexes from public.ki_tricks table
+# Details:
+Create migration file '20250915_minimal_schema_cleanup.sql' with:
+1. Use Supabase CLI migration commands
+2. DROP COLUMN statements for: quality_category, like_count, created_by, reviewed_by, role, industries, tool_vendor, integrations, estimated_time_minutes, estimated_savings_minutes, risk_level, evidence_level, prerequisites, privacy_notes, sources, prompt_examples, kpi_suggestions
+3. DROP TYPE statements for unused enums: company_role_enum, risk_level_enum, evidence_level_enum
+4. Verify and drop unused indexes (idx_tricks_role, idx_tricks_tool_vendor, idx_tricks_evidence_level, idx_tricks_risk_level)
+5. Use IF EXISTS clauses for idempotency
+
+Implementation using latest Supabase CLI (v1.127.0+):
+```sql
+-- Migration script template
+BEGIN;
+  -- Drop columns
+  ALTER TABLE public.ki_tricks
+    DROP COLUMN IF EXISTS quality_category,
+    DROP COLUMN IF EXISTS like_count,
+    -- ... (remaining columns)
+  ;
+  
+  -- Drop unused indexes
+  DROP INDEX IF EXISTS idx_tricks_role;
+  -- ... (remaining indexes)
+  
+  -- Drop unused enum types
+  DROP TYPE IF EXISTS company_role_enum;
+  -- ... (remaining types)
+COMMIT;
+```
+
+# Test Strategy:
+1. Run migration locally using 'supabase db reset'
+2. Verify table structure using \d ki_tricks
+3. Confirm no orphaned types using \dT
+4. Test idempotency by running migration twice
+5. Validate existing data integrity post-migration
+
+# Subtasks:
+## 1. Analyze and Select Non-Essential Columns [done]
+### Dependencies: None
+### Description: Review the public.ki_tricks table schema to identify and confirm all non-essential columns targeted for removal.
+### Details:
+Ensure the list includes: quality_category, like_count, created_by, reviewed_by, role, industries, tool_vendor, integrations, estimated_time_minutes, estimated_savings_minutes, risk_level, evidence_level, prerequisites, privacy_notes, sources, prompt_examples, kpi_suggestions.
+
+## 2. Identify and Validate Related Indexes [done]
+### Dependencies: 10.1
+### Description: Audit the table for indexes associated with the columns selected for removal and verify if they are unused or redundant.
+### Details:
+Focus on idx_tricks_role, idx_tricks_tool_vendor, idx_tricks_evidence_level, idx_tricks_risk_level. Confirm their usage and ensure safe removal.
+
+## 3. Audit Enum and Type Usage [done]
+### Dependencies: 10.1
+### Description: Examine the schema for enum types linked to the columns and determine if they are unused elsewhere.
+### Details:
+Target company_role_enum, risk_level_enum, evidence_level_enum. Validate that dropping these types will not affect other tables or functions.
+
+## 4. Draft Migration Script with IF EXISTS Clauses [done]
+### Dependencies: 10.1, 10.2, 10.3
+### Description: Write the SQL migration script to drop selected columns, indexes, and types using IF EXISTS for idempotency.
+### Details:
+Ensure the script follows Supabase CLI conventions and includes BEGIN/COMMIT blocks for transactional safety.
+
+## 5. Set Up Supabase CLI Migration Environment [pending]
+### Dependencies: 10.4
+### Description: Prepare the migration environment using Supabase CLI, ensuring the project is initialized and linked to the correct database.
+### Details:
+Create the migration file '20250915_minimal_schema_cleanup.sql' in the supabase/migrations directory and verify CLI version compatibility.
+
+## 6. Test Migration Locally and Validate Rollback [pending]
+### Dependencies: 10.5
+### Description: Apply the migration locally, verify schema changes, test idempotency, and ensure rollback procedures work as intended.
+### Details:
+Run 'supabase db reset', inspect table and type changes, confirm no orphaned objects, and validate data integrity post-migration.
+
+## 7. Document Migration and Conduct Peer Review [pending]
+### Dependencies: 10.6
+### Description: Prepare documentation detailing the migration process, changes made, and testing outcomes. Submit for peer review and incorporate feedback.
+### Details:
+Include rationale for column/type/index removal, testing results, and rollback instructions. Ensure documentation is clear for future reference.
+

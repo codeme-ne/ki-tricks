@@ -1,0 +1,61 @@
+# Task ID: 12
+# Title: Clean Up UI Components
+# Status: pending
+# Dependencies: 11
+# Priority: medium
+# Description: Remove UI elements and logic related to dropped fields from React components
+# Details:
+Update React components using latest React 18.2+ best practices:
+1. Remove role badge from:
+   - src/components/enhanced/RefinedTrickCard.tsx
+   - src/components/molecules/TrickCard.tsx
+2. Remove any filters/sorts using dropped fields
+3. Update component props types
+4. Use React.memo() for optimized rendering
+5. Implement proper error boundaries
+
+Example component update:
+```typescript
+import { type Database } from '@/lib/supabase/types'
+
+type TrickCardProps = {
+  trick: Database['public']['Tables']['ki_tricks']['Row']
+}
+
+export const TrickCard = React.memo(({ trick }: TrickCardProps) => {
+  // Updated implementation without removed fields
+});
+```
+
+# Test Strategy:
+1. Write Jest/React Testing Library tests for updated components
+2. Verify no references to removed fields in rendered output
+3. Test component rendering with minimal schema data
+4. Visual regression testing
+5. Test responsive behavior
+
+# Subtasks:
+## 1. Identify and Remove UI Elements Tied to Dropped Fields [done]
+### Dependencies: None
+### Description: Review all relevant React components and remove UI elements (such as role badges) and logic that reference dropped fields, including filters and sorts.
+### Details:
+Focus on src/components/enhanced/RefinedTrickCard.tsx and src/components/molecules/TrickCard.tsx. Ensure no visual or logical references to dropped fields remain.
+
+## 2. Update Component Props and Types [done]
+### Dependencies: 12.1
+### Description: Revise component prop definitions and TypeScript types to reflect the removal of dropped fields, ensuring type safety and alignment with the updated schema.
+### Details:
+Update all affected components to use the correct prop types. Remove any props related to dropped fields and validate with TypeScript.
+
+## 3. Refactor Logic for Optimized Rendering and Error Boundaries [done]
+### Dependencies: 12.2
+### Description: Implement React.memo() for components where appropriate and add error boundaries to handle runtime errors gracefully, following React 18.2+ best practices.
+### Details:
+Apply React.memo() to functional components for performance optimization. Integrate error boundary components to catch and display errors in the UI.
+
+## 4. Write and Update Component Tests [done]
+### Dependencies: 12.3
+### Description: Develop and update Jest/React Testing Library tests to verify that components render correctly without dropped fields and maintain expected behavior.
+### Details:
+Ensure tests cover removal of dropped fields, correct rendering, error boundary functionality, and visual regression. Test with minimal schema data and responsive layouts.
+

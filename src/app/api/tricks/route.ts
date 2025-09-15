@@ -123,9 +123,9 @@ export async function POST(request: NextRequest) {
       steps: body.steps || [],
       examples: body.examples || [],
       slug: generateSlug(body.title),
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      'Warum es funktioniert': body['Warum es funktioniert'] || 
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      why_it_works: body.why_it_works || 
         'Dieser Trick nutzt bewährte KI-Prinzipien und wurde von der Community erprobt.',
       status: 'pending'
     }
@@ -260,14 +260,14 @@ export async function PUT(request: NextRequest) {
       // Move to approved tricks
       const approvedTricks = await readJsonFile(APPROVED_TRICKS_PATH)
       trick.status = 'approved'
-      trick.updatedAt = new Date()
+      trick.updated_at = new Date().toISOString()
       trick.id = `approved-${Date.now()}` // New ID for approved trick
       approvedTricks.push(trick)
       await writeJsonFile(APPROVED_TRICKS_PATH, approvedTricks)
     } else {
       // Mark as rejected but keep in pending with status
       trick.status = 'rejected'
-      trick.updatedAt = new Date()
+      trick.updated_at = new Date().toISOString()
     }
 
     // Remove from pending if approved, update if rejected
