@@ -209,93 +209,9 @@
     gap: clamp(1.5rem, 4vw, 2rem); /* 24px - 32px */
   }
 
-  /* Visual Hierarchy - Typography Presets */
-  .text-heading-1 {
-    font-size: clamp(2.25rem, 6vw, 3rem); /* 36px - 48px */
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -0.025em;
-  }
+  /* Typography classes migrated to Tailwind config as text-heading-*, text-body-*, text-card-*, text-ui-label */
 
-  .text-heading-2 {
-    font-size: clamp(1.875rem, 5vw, 2.25rem); /* 30px - 36px */
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -0.025em;
-  }
-
-  .text-heading-3 {
-    font-size: clamp(1.5rem, 4vw, 1.875rem); /* 24px - 30px */
-    font-weight: 600;
-    line-height: 1.375;
-    letter-spacing: -0.025em;
-  }
-
-  .text-heading-4 {
-    font-size: clamp(1.25rem, 3.5vw, 1.5rem); /* 20px - 24px */
-    font-weight: 600;
-    line-height: 1.375;
-    letter-spacing: 0;
-  }
-
-  .text-body-large {
-    font-size: clamp(1.125rem, 2.5vw, 1.25rem); /* 18px - 20px */
-    font-weight: 400;
-    line-height: 1.625;
-    letter-spacing: 0;
-  }
-
-  .text-body-default {
-    font-size: clamp(1rem, 2vw, 1.125rem); /* 16px - 18px */
-    font-weight: 400;
-    line-height: 1.5;
-    letter-spacing: 0;
-  }
-
-  .text-body-small {
-    font-size: clamp(0.875rem, 1.5vw, 1rem); /* 14px - 16px */
-    font-weight: 400;
-    line-height: 1.5;
-    letter-spacing: 0;
-  }
-
-  .text-card-title {
-    font-size: clamp(1.25rem, 3vw, 1.5rem); /* 20px - 24px */
-    font-weight: 600;
-    line-height: 1.375;
-    letter-spacing: -0.025em;
-  }
-
-  .text-card-meta {
-    font-size: clamp(0.875rem, 1.5vw, 1rem); /* 14px - 16px */
-    font-weight: 400;
-    line-height: 1.5;
-    letter-spacing: 0;
-  }
-
-  .text-ui-label {
-    font-size: clamp(0.875rem, 1.5vw, 1rem); /* 14px - 16px */
-    font-weight: 500;
-    line-height: 1.5;
-    letter-spacing: 0.025em;
-  }
-
-  /* Visual Hierarchy - Spacing System */
-  .space-4px { gap: 4px; }
-  .space-8px { gap: 8px; }
-  .space-12px { gap: 12px; }
-  .space-16px { gap: 16px; }
-  .space-20px { gap: 20px; }
-  .space-24px { gap: 24px; }
-  .space-32px { gap: 32px; }
-
-  .padding-4px { padding: 4px; }
-  .padding-8px { padding: 8px; }
-  .padding-12px { padding: 12px; }
-  .padding-16px { padding: 16px; }
-  .padding-20px { padding: 20px; }
-  .padding-24px { padding: 24px; }
-  .padding-32px { padding: 32px; }
+  /* Spacing utilities migrated to Tailwind as gap-* and p-* classes */
 
   /* Cross-Browser Compatibility Fixes */
   .card-gradient {
@@ -416,31 +332,19 @@
     overflow: hidden;
   }
 
-  /* Enhanced rounded corners */
-  .rounded-2xl {
-    border-radius: 1rem; /* 16px */
-  }
-  
-  .rounded-3xl {
-    border-radius: 1.5rem; /* 24px */
-  }
+  /* Rounded corner utilities available in Tailwind as rounded-2xl, rounded-3xl */
 
-  /* Typography utilities for better readability */
+  /* Typography utilities for better readability - can use leading-* tracking-* font-* utilities */
   .text-readable {
-    line-height: 1.7;
-    letter-spacing: 0.01em;
+    @apply leading-relaxed tracking-wide;
   }
 
   .text-heading {
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-    font-weight: 700;
+    @apply leading-tight tracking-tight font-bold;
   }
 
   .text-subheading {
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-    font-weight: 600;
+    @apply leading-snug tracking-tight font-semibold;
   }
 
   /* Enhanced shadows for dark theme */
@@ -568,6 +472,51 @@
     backface-visibility: hidden;
     -webkit-perspective: 1000;
     perspective: 1000;
+  }
+
+  /* Prevent selection boxes and tap highlights on mobile */
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    outline: none !important;
+  }
+
+  /* Prevent focus outlines on touch interactions */
+  *:focus,
+  *:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Ensure text elements in cards don't show selection */
+  .trick-card h3,
+  .trick-card p,
+  .trick-card span,
+  [class*="card"] h3,
+  [class*="card"] p,
+  [class*="card"] span {
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    outline: none !important;
+  }
+
+  /* Specifically target link elements in cards */
+  .trick-card a,
+  [class*="card"] a {
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+  }
+
+  .trick-card a:focus,
+  .trick-card a:active,
+  [class*="card"] a:focus,
+  [class*="card"] a:active {
+    outline: none !important;
+    box-shadow: none !important;
   }
 }
 

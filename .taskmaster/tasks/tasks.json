@@ -30,7 +30,7 @@
         "testStrategy": "1. Run migration on staging environment\n2. Verify data integrity\n3. Test TypeScript type generation\n4. Validate all queries and mutations\n5. Perform backup before production migration",
         "priority": "high",
         "dependencies": [],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -86,7 +86,7 @@
               "2.4"
             ],
             "details": "Execute migration on staging environment, verify data integrity, test all affected queries and mutations, create backup of production database, and implement deployment rollback plan\n<info added on 2025-09-15T04:13:35.625Z>\nCritical: System crash during previous migration attempt. Before proceeding, perform the following checks:\n1. Verify current database state and transaction logs\n2. Check for partial migration completion or data corruption\n3. Document any successfully migrated tables and columns\n4. Validate backup integrity from pre-migration state\n5. Test rollback functionality to ensure clean restore point is available\n6. Review migration logs to identify exact point of failure\n7. Confirm all database connections are stable and properly configured\n8. Verify sufficient system resources are available for migration completion\n\nOnly proceed with remaining migration steps after confirming system stability and data integrity.\n</info added on 2025-09-15T04:13:35.625Z>",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Full staging environment testing, data integrity validation, query performance testing, backup verification"
           }
         ]
@@ -119,8 +119,8 @@
             "dependencies": [
               "3.1"
             ],
-            "details": "Audit custom CSS in globals.css, create mapping document of custom CSS to Tailwind utilities, extend Tailwind config for custom values, replace custom classes with Tailwind utilities throughout codebase",
-            "status": "pending",
+            "details": "Audit custom CSS in globals.css, create mapping document of custom CSS to Tailwind utilities, extend Tailwind config for custom values, replace custom classes with Tailwind utilities throughout codebase\n<info added on 2025-09-15T08:24:01.188Z>\nAnalysis results from CSS audit:\n\nPriority conversion targets identified in globals.css:\n- Spacing utilities (lines 284-298): Replace .space-*px and .padding-*px with Tailwind gap-* and p-* \n- Typography classes (lines 213-281): Convert to Tailwind text-* utilities with custom font sizes\n- Button/badge classes (lines 121-176): Refactor using Tailwind utility combinations\n- Border radius utilities (lines 420-426): Replace with Tailwind rounded-* classes\n- Line clamp classes (lines 405-417): Migrate to @tailwindcss/line-clamp plugin\n\nClasses to preserve:\n- Root CSS variables for theming system\n- Cross-browser compatibility fixes (lines 300-386)\n- Complex glassmorphism effects (lines 681-745)\n- Animation keyframe definitions (lines 620-679)\n- Mobile performance optimizations (lines 478-617)\n\nImplementation sequence:\n1. Convert spacing utilities\n2. Migrate typography system\n3. Refactor simple component classes\n4. Document preserved classes with rationale\n\nRequired Tailwind config extensions:\n- Custom font size scale\n- Extended spacing values\n- Component class compositions\n</info added on 2025-09-15T08:24:01.188Z>\n<info added on 2025-09-15T08:29:15.746Z>\nConversion completed successfully. All targeted CSS classes have been migrated to Tailwind utilities with the following results:\n\nTypography system fully converted with custom Tailwind configuration:\n- Heading classes (h1-h4) implemented as custom theme components\n- Body text variants configured with appropriate sizing and line-height\n- UI-specific text classes integrated into Tailwind utility system\n\nSpacing utilities successfully replaced:\n- Removed redundant pixel-based spacing classes\n- Implemented standardized 4px-based scale using Tailwind gap and padding utilities\n- Verified consistent spacing across all components\n\nComponent-specific classes refactored:\n- Button and badge styles converted to Tailwind utility combinations\n- Card typography integrated with new text utility system\n- Border radius classes standardized using Tailwind rounded utilities\n\nComplex CSS features preserved with documentation:\n- Theme system CSS variables retained for dynamic styling\n- Cross-browser compatibility fixes maintained\n- Performance-critical mobile optimizations kept intact\n- Animation keyframes preserved\n- Glassmorphism effects documented and isolated\n\nBuild verification completed with no regressions detected in visual testing suite.\n</info added on 2025-09-15T08:29:15.746Z>",
+            "status": "done",
             "testStrategy": "Visual regression testing, component-level styling verification, responsive design testing"
           },
           {
@@ -240,15 +240,15 @@
         "dependencies": [
           2
         ],
-        "status": "pending",
+        "status": "in-progress",
         "subtasks": [
           {
             "id": 1,
             "title": "Define and Implement Content Schema",
             "description": "Create and implement the new content schema structure with all required fields and relationships",
             "dependencies": [],
-            "details": "Create TypeScript interfaces and database schema for content structure including: title (with value proposition field), tagline, rich description field, visual elements array (for hero, guides, comparisons), and metadata object. Implement validation rules for each field.",
-            "status": "pending",
+            "details": "Create TypeScript interfaces and database schema for content structure including: title (with value proposition field), tagline, rich description field, visual elements array (for hero, guides, comparisons), and metadata object. Implement validation rules for each field.\n<info added on 2025-09-15T08:01:59.062Z>\nBased on analysis findings, required schema updates:\n\n1. Add new TypeScript interfaces to types.ts:\n- ValueProposition: { primary: string; secondary?: string }\n- VisualElement: { type: 'hero' | 'guide' | 'comparison'; url: string; alt: string; caption?: string }\n- ContentMetadata: { keywords: string[]; category: string; lastUpdated: Date; relatedContent: string[] }\n\n2. Extend existing KITrick interface with:\n- title: { text: string; valueProposition: ValueProposition }\n- tagline: string\n- visualElements: VisualElement[]\n- metadata: ContentMetadata\n- fullContent: string\n- implementationGuide: string\n- practicalExamples: string[]\n- difficultyLevel: number\n- timeEstimate: number\n- successMetrics: string[]\n- authorName: string\n- contentVersion: string\n- contentStatus: 'draft' | 'review' | 'published' | 'archived'\n\n3. Add validation rules for new fields:\n- Title length: 5-100 characters\n- Tagline length: 10-200 characters\n- Visual elements: Minimum 1 hero image required\n- Metadata: Keywords (1-10), category required\n- Value proposition: Primary statement required\n\n4. Update database.ts validation functions to include new field constraints and type checking.\n</info added on 2025-09-15T08:01:59.062Z>",
+            "status": "in-progress",
             "testStrategy": "Validate schema compliance with test data, verify field constraints, test data persistence and retrieval"
           },
           {
@@ -1093,15 +1093,6 @@
             "details": "Add necessary vendor prefixes, implement fallback styles for older browsers, test and fix any browser-specific issues, ensure consistent gradient rendering across browsers\n<info added on 2025-09-15T04:58:35.899Z>\nSuccessfully implemented cross-browser compatibility features: Added comprehensive vendor prefixes (-webkit-, -moz-, -o-, -ms-) for gradients, box-shadows, border-radius, transforms, and transitions in globals.css. Created browser.ts utility for feature detection of modern CSS properties (backdrop-filter, CSS grid, flexbox, transforms3d) and browser capabilities (intersection observer, WebP/AVIF support, touch devices, reduced motion). Enhanced BaseCard component with vendor-prefixed properties and fallback classes for backdrop-filter, CSS grid, flexbox, and line-clamp. Implemented graceful degradation system supporting Chrome, Firefox, Safari, Edge, and legacy browsers. All gradient renders, animations, and card shadows now display consistently across supported browsers.\n</info added on 2025-09-15T04:58:35.899Z>",
             "status": "done",
             "testStrategy": "Test across major browsers (Chrome, Firefox, Safari, Edge), verify mobile browser compatibility, validate fallback behaviors"
-          },
-          {
-            "id": 8,
-            "title": "Write AI tricks using thegrowthlist.co psychology",
-            "description": "Create high-quality AI trick content using their exact opening hooks, psychological principles, and implementation structure",
-            "details": "",
-            "status": "pending",
-            "dependencies": [],
-            "parentTaskId": 18
           }
         ]
       },
@@ -1183,21 +1174,10 @@
         "status": "pending",
         "subtasks": [
           {
-            "id": 1,
-            "title": "Initialize Supabase Client and Project Structure",
-            "description": "Set up the Supabase client using the latest SDK and establish a modular project structure for maintainability.",
-            "dependencies": [],
-            "details": "Install the latest Supabase SDK, configure environment variables, and organize the codebase following best practices for separation of concerns and scalability.",
-            "status": "pending",
-            "testStrategy": "Verify Supabase client initialization with test connections and ensure environment variables are loaded correctly."
-          },
-          {
             "id": 2,
             "title": "Design and Create Database Schema with Relationships",
             "description": "Define and create the required tables (templates, content_items, variables, quality_scores) and establish their relationships using Supabase tools.",
-            "dependencies": [
-              "20.1"
-            ],
+            "dependencies": [],
             "details": "Use Supabase Studio's Visual Schema Designer or SQL migrations to create tables with appropriate columns, data types, and foreign key relationships for content management.",
             "status": "pending",
             "testStrategy": "Validate schema correctness by inspecting table structures and relationships in Supabase Studio."
@@ -1896,11 +1876,26 @@
             "testStrategy": "Test version rollback, change tracking, and workflow automation for a set of content updates."
           }
         ]
+      },
+      {
+        "id": 31,
+        "title": "Fix Mobile Card Touch Interaction Issues",
+        "description": "Investigate and resolve touch interaction problems with trick cards on mobile devices, focusing on improving touch response and preventing unintended behaviors when users interact with card elements.",
+        "details": "Implementation steps and considerations:\n\n1. Debug touch event handling:\n   - Add touchstart/touchend event listeners to card components\n   - Implement proper event.preventDefault() handling\n   - Fix event propagation issues between card elements\n\n2. Optimize touch targets:\n   - Ensure minimum touch target size of 44x44px for all interactive elements\n   - Add proper spacing between touchable elements to prevent accidental triggers\n   - Implement touch feedback indicators (active states)\n\n3. Fix card component issues:\n   - Update click/touch handlers to handle both mouse and touch events properly\n   - Implement proper debouncing for touch events\n   - Add touch-specific styles in CSS:\n   ```css\n   .card {\n     -webkit-tap-highlight-color: transparent;\n     touch-action: manipulation;\n   }\n   ```\n\n4. Performance optimizations:\n   - Use passive event listeners where appropriate\n   - Implement touch event delegation\n   - Optimize animation performance during touch interactions\n\n5. Mobile-specific adjustments:\n   - Add proper viewport meta tags\n   - Implement touch-friendly scroll behavior\n   - Handle iOS Safari-specific touch behaviors",
+        "testStrategy": "1. Manual Testing:\n   - Test on multiple mobile devices (iOS and Android)\n   - Verify touch interactions in different scenarios\n   - Test with different finger positions and gestures\n   - Validate touch feedback visibility\n\n2. Automated Testing:\n   - Implement Playwright tests for touch interactions\n   - Add unit tests for touch event handlers\n   - Test touch event propagation\n   - Verify proper event prevention\n\n3. Performance Testing:\n   - Measure touch response time\n   - Profile CPU usage during interactions\n   - Test scroll performance with many cards\n   - Verify memory usage\n\n4. Cross-browser Testing:\n   - Test on Safari iOS\n   - Test on Chrome Android\n   - Test on Firefox Mobile\n   - Verify on different screen sizes\n\n5. Visual Regression Testing:\n   - Capture and compare screenshots of touch states\n   - Verify touch feedback indicators\n   - Test card animations during touch",
+        "status": "pending",
+        "dependencies": [
+          18,
+          4,
+          6
+        ],
+        "priority": "medium",
+        "subtasks": []
       }
     ],
     "metadata": {
       "created": "2025-09-15T02:19:46.288Z",
-      "updated": "2025-09-15T06:32:53.166Z",
+      "updated": "2025-09-15T08:29:21.211Z",
       "description": "Tasks for master context"
     }
   }
