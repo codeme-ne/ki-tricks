@@ -20,6 +20,7 @@ interface TricksClientProps {
 export default function TricksClient({ serverTricks = [], serverCategories = [] }: TricksClientProps) {
   const { filters, updateFilters } = useFilters()
   const [searchQuery, setSearchQuery] = useState('')
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('')
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   // Convert Supabase data to KITrick format
@@ -52,9 +53,9 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
       result = result.filter(trick => filters.categories.includes(trick.category))
     }
 
-    // Apply search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase()
+    // Apply search filter (use debounced query for better performance)
+    if (debouncedSearchQuery) {
+      const query = debouncedSearchQuery.toLowerCase()
       result = result.filter(trick => 
         trick.title.toLowerCase().includes(query) ||
         trick.description.toLowerCase().includes(query) ||
@@ -63,7 +64,7 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
     }
 
     return result
-  }, [tricks, searchQuery, filters])
+  }, [tricks, debouncedSearchQuery, filters])
 
   const availableCategories = useMemo(() => serverCategories as Category[], [serverCategories])
 
@@ -74,8 +75,10 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
         <SearchBar
           value={searchQuery}
           onChange={setSearchQuery}
+          onDebouncedChange={setDebouncedSearchQuery}
           placeholder="Suche nach KI-Tricks, Tools, Themen..."
           variant="default"
+          debounceMs={300}
         />
       </div>
 

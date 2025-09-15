@@ -1,9 +1,10 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Search, X, Sparkles } from 'lucide-react'
 import { SearchBarProps } from '@/lib/types/types'
+import { useDebounce } from '@/hooks/useDebounce'
 
 interface Particle {
   id: number
@@ -17,14 +18,39 @@ interface Particle {
 export const SearchBar: React.FC<SearchBarProps> = ({
   value = '',
   onChange,
+  onDebouncedChange,
   placeholder = 'Suche nach Tricks, Tools...',
-  variant = 'default'
+  variant = 'default',
+  debounceMs = 300
 }) => {
   const [isFocused, setIsFocused] = useState(false)
   const [particles, setParticles] = useState<Particle[]>([])
   const [isTyping, setIsTyping] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
   const inputRef = useRef<HTMLInputElement>(null)
   const particleIdRef = useRef(0)
+  
+  // Debounced search value
+  const debouncedValue = useDebounce(value, debounceMs)
+  
+  // Call debounced callback when debounced value changes
+  useEffect(() => {
+    if (onDebouncedChange && debouncedValue !== value) {
+      onDebouncedChange(debouncedValue)
+    }
+  }, [debouncedValue, onDebouncedChange])
+
+  // Mobile Detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleClear = () => {
     onChange?.('')
@@ -33,9 +59,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     }
   }
 
-  // Create particles when typing (glowing variant only)
+  // Create particles when typing (glowing variant only, disabled on mobile)
   useEffect(() => {
-    if (variant === 'glowing' && isTyping && isFocused) {
+    if (variant === 'glowing' && isTyping && isFocused && !isMobile && !shouldReduceMotion) {
       const interval = setInterval(() => {
         const rect = inputRef.current?.getBoundingClientRect()
         if (rect) {
@@ -53,11 +79,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
       return () => clearInterval(interval)
     }
-  }, [variant, isTyping, isFocused])
+  }, [variant, isTyping, isFocused, isMobile, shouldReduceMotion])
 
-  // Animate particles (glowing variant only)
+  // Animate particles (glowing variant only, disabled on mobile)
   useEffect(() => {
-    if (variant === 'glowing') {
+    if (variant === 'glowing' && !isMobile && !shouldReduceMotion) {
       const interval = setInterval(() => {
         setParticles(prev => 
           prev
@@ -74,7 +100,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
       return () => clearInterval(interval)
     }
-  }, [variant])
+  }, [variant, isMobile, shouldReduceMotion])
 
   // Handle typing animation (glowing variant only)
   useEffect(() => {
@@ -85,9 +111,76 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     }
   }, [variant, value])
 
+  // Vereinfachte Mobile Variante für glowing
+  if (variant === 'glowing' && (isMobile || shouldReduceMotion)) {
+    return (
+      <div className="relative" role="search">
+        <label htmlFor="search-input-mobile" className="sr-only">
+          Suche nach KI-Tricks
+        </label>
+        <motion.div 
+          className="relative group"
+          whileFocus={{ scale: 1.01 }}
+          transition={{ duration: 0.1 }}
+        >
+          {/* Einfacher Glow für Mobile */}
+          {isFocused && (
+            <div className="absolute -inset-1 bg-primary/20 rounded-lg blur-sm" />
+          )}
+          
+          <div className="relative bg-white rounded-lg border border-neutral-200 shadow-sm">
+            <Search 
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 w-5 h-5" 
+              aria-hidden="true"
+            />
+            <input
+              id="search-input-mobile"
+              ref={inputRef}
+              type="text"
+              value={value}
+              onChange={(e) => onChange?.(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              placeholder={placeholder}
+              className="w-full pl-10 pr-10 py-3 bg-transparent text-neutral-900 focus:outline-none placeholder-neutral-400"
+              aria-describedby="search-help-mobile"
+              autoComplete="off"
+              spellCheck="false"
+            />
+            <div id="search-help-mobile" className="sr-only">
+              Geben Sie Suchbegriffe ein, um KI-Tricks zu finden
+            </div>
+            
+            {/* Suchergebnisse Live Region */}
+            <div 
+              aria-live="polite" 
+              aria-atomic="false" 
+              className="sr-only"
+            >
+              {value && `Suche nach "${value}"`}
+            </div>
+            
+            {value && (
+              <button
+                onClick={handleClear}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors"
+                aria-label="Suche löschen"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
+          </div>
+        </motion.div>
+      </div>
+    )
+  }
+
   if (variant === 'glowing') {
     return (
-      <div className="relative">
+      <div className="relative" role="search">
+        <label htmlFor="search-input-glow" className="sr-only">
+          Suche nach KI-Tricks
+        </label>
         <motion.div 
           className="relative group"
           animate={{
@@ -180,6 +273,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             </div>
 
             <input
+              id="search-input-glow"
               ref={inputRef}
               type="text"
               value={value}
@@ -188,10 +282,25 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               onBlur={() => setIsFocused(false)}
               placeholder={placeholder}
               className="relative w-full pl-10 pr-10 py-3 bg-transparent text-neutral-900 focus:outline-none placeholder-neutral-400 transition-all duration-300 z-10"
+              aria-describedby="search-help-glow"
+              autoComplete="off"
+              spellCheck="false"
               style={{
                 textShadow: 'none',
               }}
             />
+            <div id="search-help-glow" className="sr-only">
+              Geben Sie Suchbegriffe ein, um KI-Tricks zu finden
+            </div>
+            
+            {/* Suchergebnisse Live Region */}
+            <div 
+              aria-live="polite" 
+              aria-atomic="false" 
+              className="sr-only"
+            >
+              {value && `Suche nach "${value}"`}
+            </div>
 
             <AnimatePresence>
               {value && (
@@ -240,15 +349,38 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
   // Default variant
   return (
-    <div className="relative">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 w-5 h-5 z-10" />
+    <div className="relative" role="search">
+      <label htmlFor="search-input" className="sr-only">
+        Suche nach KI-Tricks
+      </label>
+      <Search 
+        className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 w-5 h-5 z-10" 
+        aria-hidden="true"
+      />
       <input
+        id="search-input"
         type="text"
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
         placeholder={placeholder}
         className="w-full pl-10 pr-10 py-3 bg-white border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 transition-all duration-200 hover:border-neutral-300 text-neutral-900 placeholder-neutral-400"
+        aria-describedby="search-help"
+        autoComplete="off"
+        spellCheck="false"
       />
+      <div id="search-help" className="sr-only">
+        Geben Sie Suchbegriffe ein, um KI-Tricks zu finden
+      </div>
+      
+      {/* Suchergebnisse Live Region */}
+      <div 
+        aria-live="polite" 
+        aria-atomic="false" 
+        className="sr-only"
+      >
+        {value && `Suche nach "${value}"`}
+      </div>
+      
       {value && (
         <button
           onClick={handleClear}

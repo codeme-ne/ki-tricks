@@ -110,9 +110,11 @@ export interface TrickGridProps {
 export interface SearchBarProps {
   value?: string
   onChange?: (value: string) => void
+  onDebouncedChange?: (value: string) => void
   placeholder?: string
   className?: string
   variant?: 'default' | 'glowing'
+  debounceMs?: number
 }
 
 // Utilities and Constants

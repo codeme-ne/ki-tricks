@@ -104,6 +104,18 @@ const config: Config = {
         '5': '20px',
         '6': '24px',
         '8': '32px',
+        // Content-spezifische Spacing
+        'content-xs': '0.5rem',
+        'content-sm': '1rem', 
+        'content-md': '1.5rem',
+        'content-lg': '2rem',
+        'content-xl': '3rem',
+      },
+      // Lesbarkeits-optimierte Line Heights
+      lineHeight: {
+        'reading': '1.7',
+        'heading': '1.2',
+        'subheading': '1.4',
       },
       boxShadow: {
         'sm': '0 1px 2px 0 rgb(0 0 0 / 0.05)',

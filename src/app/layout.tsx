@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next';
 import DevToolbar from '@/components/DevToolbar';
 import type { Metadata } from 'next'
 import '../styles/globals.css'
+import { PerformanceMonitoring } from '@/components/PerformanceMonitoring'
 
 // Conditional font loading - use system fonts in CI/restricted environments
 const inter = process.env.SKIP_GOOGLE_FONTS === 'true' 
@@ -66,6 +67,7 @@ export default function RootLayout({
         {children}
         <DevToolbar />
         <Analytics />
+        <PerformanceMonitoring />
       </body>
     </html>
   )

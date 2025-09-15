@@ -180,6 +180,43 @@ export const GridSkeleton: React.FC<GridSkeletonProps> = ({
   );
 };
 
+// Spezifische Skeleton für Trick Cards
+export const TrickCardSkeleton: React.FC<{ className?: string }> = ({ className }) => {
+  return (
+    <div className={cn("trick-card space-y-4", className)}>
+      <div className="flex items-start justify-between">
+        <Skeleton variant="title" className="w-3/4" />
+        <Skeleton variant="button" className="w-16 h-6" />
+      </div>
+      
+      <Skeleton variant="text" lines={3} />
+      
+      <div className="flex items-center gap-2">
+        <Skeleton variant="button" className="w-20 h-8" />
+        <Skeleton variant="button" className="w-16 h-8" />
+      </div>
+      
+      <div className="flex justify-between items-center">
+        <Skeleton variant="text" className="w-24 h-4" />
+        <Skeleton variant="text" className="w-16 h-4" />
+      </div>
+    </div>
+  )
+}
+
+// Grid von Trick Skeleton Cards
+export const TrickGridSkeleton: React.FC<{ count?: number }> = ({ count = 6 }) => {
+  return (
+    <div className="tricks-grid">
+      {Array.from({ length: count }).map((_, i) => (
+        <TrickCardSkeleton key={i} />
+      ))}
+    </div>
+  )
+}
+
 Skeleton.displayName = "Skeleton";
 CardSkeleton.displayName = "CardSkeleton";
 GridSkeleton.displayName = "GridSkeleton";
+TrickCardSkeleton.displayName = "TrickCardSkeleton";
+TrickGridSkeleton.displayName = "TrickGridSkeleton";

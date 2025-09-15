@@ -2,6 +2,8 @@ import { Suspense } from 'react'
 import { Metadata } from 'next'
 import TricksProvider from './TricksProvider'
 import { Header, Footer } from '@/components/layout'
+import { BreadcrumbNav } from '@/components/molecules'
+import { TrickGridSkeleton } from '@/components/atoms/SkeletonLoader'
 
 export const metadata: Metadata = {
   title: 'KI-Workflows für Professionals | Praktische KI-Tricks 2025',
@@ -19,13 +21,23 @@ export default function TricksPage() {
   <Header />
 
   <main className="container py-8">
+        {/* Breadcrumb Navigation */}
+        <BreadcrumbNav items={[
+          { label: 'Alle Tricks', href: '/tricks', current: true }
+        ]} />
+        
         {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4 leading-tight tracking-tight">Entdecke KI Tricks</h1>
-          <p className="text-muted-foreground text-base sm:text-lg">Finde praktische KI-Tipps und Tricks für deinen Arbeitsalltag</p>
+        <div className="mb-8 content-spacing">
+          <h1 className="text-heading-1">Entdecke KI Tricks</h1>
+          <p className="text-body-large">Finde praktische KI-Tipps und Tricks für deinen Arbeitsalltag</p>
         </div>
 
-        <Suspense fallback={<div className="text-muted-foreground">Lade...</div>}>
+        <Suspense fallback={
+          <div className="space-y-6">
+            <div className="text-body text-muted-foreground">Lade KI-Tricks...</div>
+            <TrickGridSkeleton count={9} />
+          </div>
+        }>
           <TricksProvider />
         </Suspense>
       </main>

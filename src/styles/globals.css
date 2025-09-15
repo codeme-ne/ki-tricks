@@ -338,9 +338,58 @@
     }
   }
 
-  /* Typography classes migrated to Tailwind config as text-heading-*, text-body-*, text-card-*, text-ui-label */
-
-  /* Spacing utilities migrated to Tailwind as gap-* and p-* classes */
+  /* Typography Utility Classes */
+  .text-heading-1 {
+    @apply text-heading-1;
+  }
+  
+  .text-heading-2 {
+    @apply text-heading-2;
+  }
+  
+  .text-heading-3 {
+    @apply text-heading-3;
+  }
+  
+  .text-heading-4 {
+    @apply text-heading-4;
+  }
+  
+  .text-body-large {
+    @apply text-body-large text-foreground/90;
+  }
+  
+  .text-body {
+    @apply text-body-default text-foreground/80;
+  }
+  
+  .text-body-small {
+    @apply text-body-small text-muted-foreground;
+  }
+  
+  .text-caption {
+    @apply text-xs leading-relaxed text-muted-foreground tracking-wide;
+  }
+  
+  /* Content Spacing */
+  .content-spacing > * + * {
+    @apply mt-content-md;
+  }
+  
+  .content-spacing > h1 + *,
+  .content-spacing > h2 + *,
+  .content-spacing > h3 + * {
+    @apply mt-content-sm;
+  }
+  
+  .content-spacing > * + h1,
+  .content-spacing > * + h2 {
+    @apply mt-content-xl;
+  }
+  
+  .content-spacing > * + h3 {
+    @apply mt-content-lg;
+  }
 
   /* Cross-Browser Compatibility Fixes */
   .card-gradient {

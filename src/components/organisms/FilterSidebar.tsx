@@ -81,19 +81,53 @@ export function FilterSidebar({
         <div className="px-4 space-y-6">
           {/* Categories */}
           <div className="space-y-3">
-            <h3 className="text-sm font-medium text-foreground">Kategorien wählen</h3>
-            <div className="space-y-2">
+            <h3 
+              id="categories-heading" 
+              className="text-sm font-medium text-foreground"
+            >
+              Kategorien wählen
+            </h3>
+            <div 
+              role="group" 
+              aria-labelledby="categories-heading"
+              className="space-y-2"
+            >
               {categories.map((category) => (
-                <div key={category} className="flex items-center space-x-3 cursor-pointer hover:bg-muted/50 rounded-md p-2 transition-colors">
+                <div 
+                  key={category} 
+                  className="flex items-center space-x-3 cursor-pointer hover:bg-muted/50 rounded-md p-2 transition-colors"
+                >
                   <Checkbox
+                    id={`category-${category}`}
                     label={categoryMetadata[category].label}
                     checked={selectedFilters.categories.includes(category)}
                     onChange={(checked) => handleCategoryChange(category, checked)}
                     className="shrink-0"
+                    aria-describedby={`category-${category}-desc`}
                   />
+                  <span 
+                    id={`category-${category}-desc`} 
+                    className="sr-only"
+                  >
+                    {selectedFilters.categories.includes(category) 
+                      ? `${categoryMetadata[category].label} ist ausgewählt` 
+                      : `${categoryMetadata[category].label} auswählen`
+                    }
+                  </span>
                 </div>
               ))}
             </div>
+          </div>
+          
+          {/* Live Region für Filter-Updates */}
+          <div 
+            aria-live="polite" 
+            aria-atomic="true" 
+            className="sr-only"
+          >
+            {activeFilterCount > 0 && 
+              `${activeFilterCount} Filter aktiv`
+            }
           </div>
         </div>
       </div>
