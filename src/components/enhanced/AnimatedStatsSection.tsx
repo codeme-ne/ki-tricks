@@ -43,7 +43,7 @@ const AnimatedStat: React.FC<AnimatedStatProps> = ({
       initial={{ opacity: 0, y: 30, scale: 0.8 }}
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
       transition={{ duration: 0.6, delay, type: "spring", stiffness: 100 }}
-      className="group"
+      className="group lg:mb-87"
     >
       {/* Glassmorphism Card */}
       <div className="relative">
@@ -112,34 +112,36 @@ export const AnimatedStatsSection: React.FC<AnimatedStatsSectionProps> = ({ stat
   ]
 
   return (
-    <section className="py-16 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50" />
 
-      {/* Floating particles */}
-      <div className="absolute inset-0">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-blue-400/20 rounded-full"
-            style={{
-              left: `${20 + i * 15}%`,
-              top: `${30 + (i % 2) * 40}%`,
-            }}
-            animate={{
-              y: [-20, 20, -20],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 3 + i * 0.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+      {/* Floating particles - mobile safe positioning */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="relative w-full h-full">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-blue-400/20 rounded-full z-0"
+              style={{
+                left: `${Math.min(20 + i * 12, 80)}%`,
+                top: `${30 + (i % 2) * 40}%`,
+              }}
+              animate={{
+                y: [-20, 20, -20],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 3 + i * 0.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </div>
       </div>
 
-      <div className="container max-w-7xl mx-auto px-4 relative">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 auto-rows-fr">
           {stats.map((stat, index) => (
             <AnimatedStat

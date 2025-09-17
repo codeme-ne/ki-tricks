@@ -6,6 +6,99 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Sparkles, Target, Zap } from 'lucide-react'
 import Image from 'next/image'
 
+// Animated Rocket Component
+const AnimatedRocket: React.FC = () => (
+  <motion.svg
+    viewBox="0 0 100 100"
+    className="w-full h-full"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* Rocket body */}
+    <motion.path
+      d="M50 10 L40 60 L45 65 L55 65 L60 60 Z"
+      fill="white"
+      stroke="rgba(255,255,255,0.3)"
+      strokeWidth="1"
+      initial={{ pathLength: 0, opacity: 0 }}
+      animate={{ pathLength: 1, opacity: 1 }}
+      transition={{ duration: 1, delay: 0.2 }}
+    />
+
+    {/* Rocket nose */}
+    <motion.circle
+      cx="50"
+      cy="15"
+      r="5"
+      fill="rgba(255,255,255,0.9)"
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      transition={{ duration: 0.5, delay: 0.5 }}
+    />
+
+    {/* Wings */}
+    <motion.path
+      d="M35 50 L40 60 L45 55 Z"
+      fill="rgba(255,255,255,0.8)"
+      initial={{ x: -10, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.7 }}
+    />
+    <motion.path
+      d="M65 50 L60 60 L55 55 Z"
+      fill="rgba(255,255,255,0.8)"
+      initial={{ x: 10, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.7 }}
+    />
+
+    {/* Flame */}
+    <motion.path
+      d="M45 65 L50 85 L55 65 Z"
+      fill="url(#flameGradient)"
+      animate={{
+        scaleY: [1, 1.3, 1],
+        opacity: [0.8, 1, 0.8]
+      }}
+      transition={{
+        duration: 0.8,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    />
+
+    {/* Particles */}
+    {Array.from({ length: 3 }).map((_, i) => (
+      <motion.circle
+        key={i}
+        cx={48 + i * 2}
+        cy={75 + i * 5}
+        r="1"
+        fill="rgba(255,255,255,0.6)"
+        animate={{
+          y: [0, -20, 0],
+          opacity: [0, 1, 0],
+          scale: [0.5, 1, 0.5]
+        }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          delay: i * 0.2,
+          ease: "easeOut"
+        }}
+      />
+    ))}
+
+    <defs>
+      <linearGradient id="flameGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="rgba(255,255,255,0.9)" />
+        <stop offset="50%" stopColor="rgba(255,255,255,0.7)" />
+        <stop offset="100%" stopColor="rgba(255,255,255,0.3)" />
+      </linearGradient>
+    </defs>
+  </motion.svg>
+)
+
 interface EnhancedCTASectionProps {
   title: string
   description: string
@@ -28,19 +121,22 @@ export const EnhancedCTASection: React.FC<EnhancedCTASectionProps> = ({
   iconAlt = "CTA Icon"
 }) => {
   return (
-    <section className="py-20 relative overflow-hidden">
-      {/* Dark gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
+    <section className="relative overflow-hidden">
+      {/* Dark gradient background - full viewport width */}
+      <div className="absolute left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] top-0 bottom-0 w-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
+
+      {/* Content wrapper with proper padding */}
+      <div className="relative py-20">
 
       {/* Animated background pattern */}
       <div className="absolute inset-0">
-        {/* Floating shapes */}
+        {/* Floating shapes - mobile safe positioning */}
         {Array.from({ length: 8 }).map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
             style={{
-              left: `${10 + i * 12}%`,
+              left: `${Math.min(10 + i * 10, 80)}%`,
               top: `${20 + (i % 3) * 25}%`,
             }}
             animate={{
@@ -58,9 +154,9 @@ export const EnhancedCTASection: React.FC<EnhancedCTASectionProps> = ({
           </motion.div>
         ))}
 
-        {/* Gradient orbs */}
+        {/* Gradient orbs - mobile optimized */}
         <motion.div
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-full blur-3xl"
+          className="absolute top-1/4 left-[15%] w-64 h-64 max-w-[35vw] max-h-[35vw] bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -72,7 +168,7 @@ export const EnhancedCTASection: React.FC<EnhancedCTASectionProps> = ({
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-full blur-3xl"
+          className="absolute bottom-1/4 right-[15%] w-96 h-96 max-w-[45vw] max-h-[45vw] bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-full blur-3xl"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.5, 0.3, 0.5],
@@ -85,8 +181,8 @@ export const EnhancedCTASection: React.FC<EnhancedCTASectionProps> = ({
         />
       </div>
 
-      <div className="container relative">
-        <div className="max-w-6xl mx-auto">
+        <div className="container relative">
+          <div className="max-w-6xl mx-auto">
           {/* Glassmorphism container */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -99,11 +195,11 @@ export const EnhancedCTASection: React.FC<EnhancedCTASectionProps> = ({
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-2xl" />
 
             {/* Main glassmorphism card */}
-            <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl">
-              <div className="grid md:grid-cols-3 gap-8 items-center">
+            <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-6 md:p-8 lg:p-12 shadow-2xl">
+              <div className="flex flex-col md:flex-row gap-8 items-center">
 
                 {/* Content */}
-                <div className="md:col-span-2 space-y-6">
+                <div className="flex-1 md:flex-[2] space-y-6 text-center md:text-left">
                   {/* Title with gradient text */}
                   <motion.h2
                     initial={{ opacity: 0, x: -30 }}
@@ -191,7 +287,7 @@ export const EnhancedCTASection: React.FC<EnhancedCTASectionProps> = ({
                   whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.6 }}
-                  className="relative mx-auto"
+                  className="relative mx-auto flex-shrink-0"
                 >
                   {/* Glow behind icon */}
                   <motion.div
@@ -218,7 +314,7 @@ export const EnhancedCTASection: React.FC<EnhancedCTASectionProps> = ({
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
-                    className="relative w-32 h-32 md:w-40 md:h-40 p-8 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl shadow-xl"
+                    className="relative w-28 h-28 md:w-32 lg:w-40 md:h-32 lg:h-40 p-6 md:p-8 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl shadow-xl"
                   >
                     {iconSrc ? (
                       <Image
@@ -228,13 +324,14 @@ export const EnhancedCTASection: React.FC<EnhancedCTASectionProps> = ({
                         className="object-contain opacity-90 brightness-0 invert"
                       />
                     ) : (
-                      <Target className="w-full h-full text-white opacity-90" />
+                      <AnimatedRocket />
                     )}
                   </motion.div>
                 </motion.div>
               </div>
             </div>
           </motion.div>
+          </div>
         </div>
       </div>
     </section>

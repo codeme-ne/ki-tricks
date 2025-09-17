@@ -122,13 +122,13 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
       animate={{ opacity: 1, y: 0 }}
       className={`${variants[variant]} ${className}`}
     >
-      {/* Glassmorphism container */}
-      <div className="relative">
-        {/* Glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-2xl blur-xl opacity-60" />
+      {/* Glassmorphism container with overflow containment */}
+      <div className="relative overflow-hidden rounded-2xl">
+        {/* Glow effect - contained within parent */}
+        <div className="absolute inset-2 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-xl blur-lg opacity-60" />
 
         {/* Main card */}
-        <div className={`relative backdrop-blur-md bg-white/90 border border-white/50 rounded-2xl shadow-xl ${sizes[variant]}`}>
+        <div className={`relative backdrop-blur-md bg-white/90 border border-white/50 rounded-2xl shadow-xl ${sizes[variant]} contain-layout`}>
           {/* Header */}
           <div className="text-center mb-6">
             <motion.div

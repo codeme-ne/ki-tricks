@@ -83,13 +83,13 @@ export const FloatingNewsletterWidget: React.FC<FloatingNewsletterWidgetProps> =
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-[500px] z-50"
+            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[500px] max-h-[calc(100vh-2rem)] z-50 flex flex-col"
           >
-            <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden">
-              {/* Close button */}
+            <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-full">
+              {/* Close button - sticky */}
               <button
                 onClick={handleDismiss}
-                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white transition-colors"
+                className="sticky top-0 right-0 ml-auto m-4 z-20 p-2 rounded-full bg-white/80 hover:bg-white transition-colors"
               >
                 <X className="w-5 h-5 text-gray-600" />
               </button>
@@ -128,18 +128,20 @@ export const FloatingNewsletterWidget: React.FC<FloatingNewsletterWidgetProps> =
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="p-6 -mt-4">
-                <NewsletterSignup
-                  variant="modal"
-                  source={source}
-                  leadMagnet={{
-                    title: 'Die 50 besten KI-Tricks',
-                    description: 'Bewährte Workflows für mehr Produktivität',
-                    downloadText: 'Jetzt kostenlos sichern'
-                  }}
-                  className="!max-w-none !p-0"
-                />
+              {/* Content - scrollable */}
+              <div className="flex-1 overflow-y-auto">
+                <div className="p-6 -mt-4">
+                  <NewsletterSignup
+                    variant="modal"
+                    source={source}
+                    leadMagnet={{
+                      title: 'Die 50 besten KI-Tricks',
+                      description: 'Bewährte Workflows für mehr Produktivität',
+                      downloadText: 'Jetzt kostenlos sichern'
+                    }}
+                    className="!max-w-none !p-0"
+                  />
+                </div>
               </div>
             </div>
           </motion.div>

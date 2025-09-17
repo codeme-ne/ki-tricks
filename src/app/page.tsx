@@ -83,23 +83,6 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Enhanced Stats Section */}
-        <AnimatedStatsSection
-          stats={[
-            {
-              value: totalTricks,
-              label: 'KI Tricks'
-            },
-            {
-              value: totalCategories,
-              label: 'Kategorien'
-            },
-            {
-              value: totalTools,
-              label: 'KI Tools'
-            }
-          ]}
-        />
 
         {/* Value Proposition / Intro */}
         <section className="py-16 bg-neutral-50">
@@ -319,17 +302,6 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Enhanced CTA Section */}
-        <EnhancedCTASection
-          title="Starte jetzt mit bewährten KI‑Workflows"
-          description="Finde passende Tricks für deinen Use Case – oder reiche eigene ein und hilf der Community."
-          primaryButtonText="Tricks entdecken"
-          primaryButtonHref="/tricks"
-          secondaryButtonText="Trick einreichen"
-          secondaryButtonHref="/tricks/einreichen"
-          iconSrc="/icons/categories/marketing-target.svg"
-          iconAlt="Zielgerichtete KI‑Tricks"
-        />
 
         {/* Enhanced Schema Markup for SEO */}
         <SchemaMarkup
