@@ -20,10 +20,23 @@ npm run lint                    # ESLint
 npm run clean:data              # Clean generated AI tips data
 npm run migrate-to-supabase     # Initial data migration to Supabase
 npm run import-tricks           # Bulk import from CSV/JSON files
+npm run import-tricks:validate  # Validate import data without inserting
+npm run ingest:omni             # Ingest omnisearch results
 
 # Build Utilities
 npm run fix-build               # Auto-fix build errors
 npm run fix-build-clean         # Fix build errors and remove broken imports
+
+# Supabase (Local Development)
+npm run db:start                # Start local Supabase
+npm run db:stop                 # Stop local Supabase
+npm run db:studio               # Open Supabase Studio
+npm run db:reset                # Reset local database
+npm run db:push                 # Push schema changes
+
+# Supabase Cloud
+npm run supabase:login          # Login to Supabase CLI
+npm run supabase:link           # Link to cloud project (requires SUPABASE_PROJECT_REF)
 ```
 
 ## Critical Architecture Patterns

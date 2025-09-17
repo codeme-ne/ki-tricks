@@ -98,12 +98,10 @@ export function FilterSidebar({
                   className="flex items-center space-x-3 cursor-pointer hover:bg-muted/50 rounded-md p-2 transition-colors"
                 >
                   <Checkbox
-                    id={`category-${category}`}
                     label={categoryMetadata[category].label}
                     checked={selectedFilters.categories.includes(category)}
                     onChange={(checked) => handleCategoryChange(category, checked)}
                     className="shrink-0"
-                    aria-describedby={`category-${category}-desc`}
                   />
                   <span 
                     id={`category-${category}-desc`} 

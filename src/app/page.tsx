@@ -7,7 +7,14 @@ import Link from 'next/link'
 import { ArrowRight, CheckCircle, Filter, Target, Zap } from 'lucide-react'
 import Image from 'next/image'
 import type { Metadata } from 'next'
-import { RefinedTrickCard } from '@/components/enhanced/RefinedTrickCard'
+import { RefinedTrickCard, AnimatedStatsSection, EnhancedCTASection } from '@/components/enhanced'
+import SchemaMarkup from '@/components/SEO/SchemaMarkup'
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+  generateFAQSchema
+} from '@/lib/utils/schema-markup'
+import { NewsletterSignup, FloatingNewsletterWidget } from '@/components/monetization'
 import { 
   getTotalTricksCount, 
   getTotalCategoriesCount, 
@@ -76,28 +83,23 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="py-12 bg-white border-y border-neutral-200">
-          <div className="container">
-            <MinimalStatsGrid 
-              columns={3}
-              stats={[
-                {
-                  value: totalTricks,
-                  label: 'KI Tricks'
-                },
-                {
-                  value: totalCategories,
-                  label: 'Kategorien'
-                },
-                {
-                  value: totalTools,
-                  label: 'KI Tools'
-                }
-              ]}
-            />
-          </div>
-        </section>
+        {/* Enhanced Stats Section */}
+        <AnimatedStatsSection
+          stats={[
+            {
+              value: totalTricks,
+              label: 'KI Tricks'
+            },
+            {
+              value: totalCategories,
+              label: 'Kategorien'
+            },
+            {
+              value: totalTools,
+              label: 'KI Tools'
+            }
+          ]}
+        />
 
         {/* Value Proposition / Intro */}
         <section className="py-16 bg-neutral-50">
@@ -161,6 +163,26 @@ export default async function HomePage() {
                 </BaseCard>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Newsletter Signup Section */}
+        <section className="py-16 bg-gradient-to-br from-blue-50 via-white to-purple-50">
+          <div className="container">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                Verpasse keine neuen KI-Tricks
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Werde Teil unserer Community und erhalte wöchentlich die neuesten,
+                praxiserprobten KI-Workflows direkt in dein Postfach.
+              </p>
+            </div>
+
+            <NewsletterSignup
+              source="landing_page_main"
+              className="max-w-lg mx-auto"
+            />
           </div>
         </section>
 
@@ -297,104 +319,41 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-16 bg-neutral-50 border-t border-neutral-200">
-          <div className="container max-w-5xl">
-            <div className="grid md:grid-cols-3 gap-8 items-center">
-              <div className="md:col-span-2">
-                <h2 className="text-2xl font-bold text-foreground mb-3">Starte jetzt mit bewährten KI‑Workflows</h2>
-                <p className="text-muted-foreground">Finde passende Tricks für deinen Use Case – oder reiche eigene ein und hilf der Community.</p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link href="/tricks">
-                    <MinimalButton variant="primary" size="lg">Tricks entdecken</MinimalButton>
-                  </Link>
-                  <Link href="/tricks/einreichen">
-                    <MinimalButton variant="secondary" size="lg">Trick einreichen</MinimalButton>
-                  </Link>
-                </div>
-              </div>
-              <div className="relative mx-auto w-32 h-32 md:w-40 md:h-40">
-                <Image src="/icons/categories/marketing-target.svg" alt="Zielgerichtete KI‑Tricks" fill className="object-contain opacity-90" style={{ filter: 'brightness(0) saturate(100%)' }} />
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Enhanced CTA Section */}
+        <EnhancedCTASection
+          title="Starte jetzt mit bewährten KI‑Workflows"
+          description="Finde passende Tricks für deinen Use Case – oder reiche eigene ein und hilf der Community."
+          primaryButtonText="Tricks entdecken"
+          primaryButtonHref="/tricks"
+          secondaryButtonText="Trick einreichen"
+          secondaryButtonHref="/tricks/einreichen"
+          iconSrc="/icons/categories/marketing-target.svg"
+          iconAlt="Zielgerichtete KI‑Tricks"
+        />
 
-        {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebSite',
-              name: 'KI Tricks Plattform',
-              url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ki-tricks.com').replace(/\/$/, '/') ,
-              potentialAction: {
-                '@type': 'SearchAction',
-                target: (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ki-tricks.com').replace(/\/$/, '') + '/tricks?search={search_term_string}',
-                'query-input': 'required name=search_term_string'
-              }
-            })
-          }}
+        {/* Enhanced Schema Markup for SEO */}
+        <SchemaMarkup
+          id="organization-schema"
+          schema={generateOrganizationSchema()}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Organization',
-              name: 'KI Tricks Plattform',
-              url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ki-tricks.com').replace(/\/$/, '/'),
-              sameAs: ['https://github.com/codeme-ne']
-            })
-          }}
+        <SchemaMarkup
+          id="website-schema"
+          schema={generateWebsiteSchema()}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'FAQPage',
-              mainEntity: [
-                {
-                  '@type': 'Question',
-                  name: 'Für wen ist KI Tricks gedacht?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Für Professionals, die mit wenig Zeit schnelle, verlässliche Ergebnisse brauchen – z. B. Consultants, Marketer, Produktteams und Solo-Maker.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  name: 'Sind die Anleitungen kostenlos?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Ja. Alle veröffentlichten Tricks sind frei zugänglich.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  name: 'Wie werden Tricks ausgewählt?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Tricks werden auf Praxistauglichkeit geprüft, klar dokumentiert und kategorisiert. Community-Einsendungen werden redaktionell gesichtet.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  name: 'Kann ich eigene Tricks einreichen?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Über die Seite “Trick einreichen” können Beiträge vorgeschlagen werden.'
-                  }
-                }
-              ]
-            })
-          }}
+        <SchemaMarkup
+          id="faq-schema"
+          schema={generateFAQSchema()}
         />
 
         <Footer />
       </div>
+
+      {/* Floating Newsletter Widget */}
+      <FloatingNewsletterWidget
+        delayMs={45000} // Show after 45 seconds on homepage
+        showAfterScrollPercent={60}
+        source="landing_page_exit_intent"
+      />
     </div>
   )
 }

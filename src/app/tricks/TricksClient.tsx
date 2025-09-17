@@ -69,7 +69,7 @@ export default function TricksClient({ serverTricks = [], serverCategories = [] 
   const availableCategories = useMemo(() => serverCategories as Category[], [serverCategories])
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
       {/* Search Bar */}
   <div className="relative max-w-xl sm:max-w-2xl">
         <SearchBar

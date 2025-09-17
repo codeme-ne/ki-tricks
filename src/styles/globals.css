@@ -338,33 +338,18 @@
     }
   }
 
-  /* Typography Utility Classes */
-  .text-heading-1 {
-    @apply text-heading-1;
-  }
-  
-  .text-heading-2 {
-    @apply text-heading-2;
-  }
-  
-  .text-heading-3 {
-    @apply text-heading-3;
-  }
-  
-  .text-heading-4 {
-    @apply text-heading-4;
-  }
+  /* Typography Utility Classes - using base styles to avoid circular dependencies */
   
   .text-body-large {
-    @apply text-body-large text-foreground/90;
+    @apply text-foreground/90;
   }
-  
+
   .text-body {
-    @apply text-body-default text-foreground/80;
+    @apply text-foreground/80;
   }
-  
+
   .text-body-small {
-    @apply text-body-small text-muted-foreground;
+    @apply text-muted-foreground;
   }
   
   .text-caption {

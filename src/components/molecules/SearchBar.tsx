@@ -39,7 +39,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     if (onDebouncedChange && debouncedValue !== value) {
       onDebouncedChange(debouncedValue)
     }
-  }, [debouncedValue, onDebouncedChange])
+  }, [debouncedValue, onDebouncedChange, value])
 
   // Mobile Detection
   useEffect(() => {

@@ -8,6 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Wrench, ArrowRight } from "lucide-react";
 import { Header, Footer } from "@/components/layout";
 import { MinimalButton } from "@/components/ui/MinimalButton";
+import SchemaMarkup from "@/components/SEO/SchemaMarkup";
+import {
+  generateTrickArticleSchema,
+  generateHowToSchema,
+  generateBreadcrumbSchema,
+  generateWebsiteSchema
+} from "@/lib/utils/schema-markup";
 
 interface PageProps {
   params: Promise<{
@@ -206,6 +213,31 @@ export default async function TrickDetailPage({ params }: PageProps) {
       </div>
 
   <Footer />
+
+      {/* Schema Markup for SEO */}
+      <SchemaMarkup
+        id="website-schema"
+        schema={generateWebsiteSchema()}
+      />
+      <SchemaMarkup
+        id="article-schema"
+        schema={generateTrickArticleSchema(trick, trick.category)}
+      />
+      {trick.steps && trick.steps.length > 0 && (
+        <SchemaMarkup
+          id="howto-schema"
+          schema={generateHowToSchema(trick)}
+        />
+      )}
+      <SchemaMarkup
+        id="breadcrumb-schema"
+        schema={generateBreadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Tricks', url: '/tricks' },
+          { name: trick.category, url: `/tricks?categories=${trick.category}` },
+          { name: trick.title, url: `/trick/${trick.slug}` }
+        ])}
+      />
     </div>
   );
 }

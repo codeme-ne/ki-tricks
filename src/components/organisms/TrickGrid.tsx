@@ -22,15 +22,15 @@ export function TrickGrid({
   // Loading State
   if (isLoading) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-3">
         {/* Results Counter Skeleton */}
         <div className="flex items-center justify-between">
           <div className="h-6 bg-neutral-200 rounded w-32 animate-pulse"></div>
         </div>
-        
-        {/* Grid */}
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.from({ length: 6 }).map((_, index) => (
+
+        {/* Grid - Updated to 4 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+          {Array.from({ length: 8 }).map((_, index) => (
             <SkeletonCard key={index} />
           ))}
         </div>
@@ -41,7 +41,7 @@ export function TrickGrid({
   // Empty State
   if (tricks.length === 0) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-3">
         {/* Results Counter */}
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold text-foreground">
@@ -66,12 +66,12 @@ export function TrickGrid({
     )
   }
   
-  // Results with Tricks
+  // Results with Tricks - Optimized Layout
   return (
-    <div className="space-y-6">
-      {/* Grid with Lazy-loaded Cards */}
-      <div 
-        className="tricks-container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+    <div className="space-y-3">
+      {/* Grid with Lazy-loaded Cards - 4 columns, smaller gaps, larger container */}
+      <div
+        className="tricks-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 max-w-7xl mx-auto"
         style={{
           contain: 'layout',
           transform: 'translateZ(0)', // Enable hardware acceleration

@@ -20,7 +20,7 @@ export default function TricksPage() {
     <div className="min-h-screen bg-background">
   <Header />
 
-  <main className="container py-8">
+  <main className="container max-w-7xl py-6 px-4">
         {/* Breadcrumb Navigation */}
         <BreadcrumbNav items={[
           { label: 'Alle Tricks', href: '/tricks', current: true }
