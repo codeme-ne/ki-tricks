@@ -27,6 +27,7 @@ const buttonVariants = cva(
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
+        md: "h-9 px-4 py-2 has-[>svg]:px-3",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
       },
@@ -38,24 +39,49 @@ const buttonVariants = cva(
   }
 )
 
+interface ButtonProps
+  extends React.ComponentProps<"button">,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+  icon?: React.ReactNode
+  iconPosition?: 'left' | 'right'
+}
+
 function Button({
   className,
   variant,
   size,
   asChild = false,
+  icon,
+  iconPosition = 'right',
+  children,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button"
+
+  // When using asChild, we need to ensure only one child is passed to Slot
+  if (asChild) {
+    return (
+      <Comp
+        data-slot="button"
+        className={cn(buttonVariants({ variant, size }), className)}
+        {...props}
+      >
+        {children}
+      </Comp>
+    )
+  }
 
   return (
     <Comp
       data-slot="button"
       className={cn(buttonVariants({ variant, size }), className)}
       {...props}
-    />
+    >
+      {icon && iconPosition === 'left' && icon}
+      {children}
+      {icon && iconPosition === 'right' && icon}
+    </Comp>
   )
 }
 

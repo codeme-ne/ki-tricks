@@ -77,8 +77,10 @@ export interface CheckboxProps {
 
 export interface TrickCardProps {
   trick: KITrick
-  variant?: 'default' | 'compact'
+  variant?: 'default' | 'compact' | 'featured'
+  index?: number
   onClick?: () => void
+  lazy?: boolean
   className?: string
 }
 

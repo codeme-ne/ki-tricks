@@ -7,7 +7,6 @@ import { KITrick, Category } from "@/lib/types/types";
 import { Button } from "@/components/ui/button";
 import { Calendar, Wrench, ArrowRight } from "lucide-react";
 import { Header, Footer } from "@/components/layout";
-import { MinimalButton } from "@/components/ui/MinimalButton";
 import SchemaMarkup from "@/components/SEO/SchemaMarkup";
 import {
   generateTrickArticleSchema,
@@ -203,11 +202,12 @@ export default async function TrickDetailPage({ params }: PageProps) {
         <section className="py-12 md:py-16 border-t border-border">
           <RelatedTricksWrapper currentTrickId={trick.id} category={trick.category} />
           <div className="flex justify-center mt-8 sm:mt-10">
-            <Link href="/tricks">
-              <MinimalButton variant="secondary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
+            <Button variant="secondary" size="md" asChild>
+              <Link href="/tricks" className="inline-flex items-center gap-2">
                 Alle Tricks ansehen
-              </MinimalButton>
-            </Link>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
           </div>
         </section>
       </div>

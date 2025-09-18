@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Plus } from "lucide-react";
-import { MinimalButton } from "./MinimalButton";
+import { Button } from "./button";
 import { AnimatedHeroTitle } from "./text-reveal";
 
 export const AnimatedHeroSection = () => {
@@ -35,28 +35,28 @@ export const AnimatedHeroSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.5, ease: "easeOut" }}
       >
-        <Link href="/tricks" className="w-full sm:w-auto">
-          <MinimalButton
-            variant="primary"
-            size="lg"
-            icon={<ArrowRight className="w-5 h-5" />}
-            iconPosition="right"
-            className="w-full sm:w-auto"
-          >
+        <Button
+          variant="primary"
+          size="lg"
+          className="w-full sm:w-auto"
+          asChild
+        >
+          <Link href="/tricks" className="inline-flex items-center gap-2">
             Tricks entdecken
-          </MinimalButton>
-        </Link>
-        <Link href="/tricks/einreichen" className="w-full sm:w-auto">
-          <MinimalButton
-            variant="secondary"
-            size="lg"
-            icon={<Plus className="w-5 h-5" />}
-            iconPosition="left"
-            className="w-full sm:w-auto"
-          >
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+        </Button>
+        <Button
+          variant="secondary"
+          size="lg"
+          className="w-full sm:w-auto"
+          asChild
+        >
+          <Link href="/tricks/einreichen" className="inline-flex items-center gap-2">
+            <Plus className="w-5 h-5" />
             Trick einreichen
-          </MinimalButton>
-        </Link>
+          </Link>
+        </Button>
       </motion.div>
 
       <motion.div

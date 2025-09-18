@@ -1,13 +1,12 @@
 import { Header, Footer } from '@/components/layout'
 import { AnimatedHeroSection } from '@/components/ui/animated-hero-section'
-import { MinimalButton } from '@/components/ui/MinimalButton'
-import { MinimalStatsGrid } from '@/components/ui/MinimalStatsGrid'
+import { Button } from '@/components/ui/button'
 import { BaseCard } from '@/components/atoms'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle, Filter, Target, Zap } from 'lucide-react'
 import Image from 'next/image'
 import type { Metadata } from 'next'
-import { RefinedTrickCard, AnimatedStatsSection, EnhancedCTASection } from '@/components/enhanced'
+import { TrickCard } from '@/components/molecules'
 import SchemaMarkup from '@/components/SEO/SchemaMarkup'
 import {
   generateOrganizationSchema,
@@ -179,7 +178,7 @@ export default async function HomePage() {
             {recentTricks.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {recentTricks.map((trick) => (
-                  <RefinedTrickCard key={trick.id} trick={trick} />
+                  <TrickCard key={trick.id} trick={trick} variant="featured" />
                 ))}
               </div>
             ) : (
@@ -234,13 +233,13 @@ export default async function HomePage() {
             </div>
             <div className="text-center mt-8">
               <Link href="/tricks">
-                <MinimalButton
+                <Button
                   variant="secondary"
                   size="md"
                   icon={<ArrowRight className="w-5 h-5" />}
                 >
                   Alle Kategorien ansehen
-                </MinimalButton>
+                </Button>
               </Link>
             </div>
           </div>

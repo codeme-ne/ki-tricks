@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react'
 import { SkeletonCard } from '@/components/molecules'
-import { LazyTrickCard } from '@/components/enhanced/LazyTrickCard'
+import { TrickCard } from '@/components/molecules'
 import { KITrick } from '@/lib/types/types'
 import { Search } from 'lucide-react'
 import { cn } from '@/lib/utils/utils'
@@ -78,7 +78,7 @@ export function TrickGrid({
         }}
       >
         {tricks.map((trick, index) => (
-          <LazyTrickCard key={trick.id} trick={trick} index={index} />
+          <TrickCard key={trick.id} trick={trick} index={index} lazy={true} />
         ))}
       </div>
     </div>
