@@ -241,7 +241,7 @@ function buildGuideComparisonPayload(draft: GuideDraft) {
   }
 }
 
-function buildExistingGuidePayload(guide: GuideRow) {
+function buildExistingGuidePayload(guide: GuideDuplicateSource) {
   const summaryText = typeof guide.summary === 'string' ? guide.summary : ''
   const stepsText = Array.isArray(guide.steps) ? guide.steps.join(' ') : ''
   const examplesText = Array.isArray(guide.examples) ? guide.examples.join(' ') : ''
@@ -256,9 +256,11 @@ function buildExistingGuidePayload(guide: GuideRow) {
   }
 }
 
+type GuideDuplicateSource = Pick<GuideRow, 'id' | 'title' | 'slug' | 'summary' | 'steps' | 'examples' | 'status'>
+
 export function detectGuideDuplicates(
   draft: GuideDraft,
-  existingGuides: GuideRow[],
+  existingGuides: GuideDuplicateSource[],
   thresholds = {
     title: 82,
     summary: 70,
