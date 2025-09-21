@@ -145,6 +145,8 @@ export interface Database {
           tags: string[]
           raw: Json
           processed: boolean
+          is_duplicate: boolean
+          duplicate_of: string | null
           created_at: string
           updated_at: string
         }
@@ -162,6 +164,8 @@ export interface Database {
           tags?: string[]
           raw: Json
           processed?: boolean
+          is_duplicate?: boolean
+          duplicate_of?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -179,6 +183,8 @@ export interface Database {
           tags?: string[]
           raw?: Json
           processed?: boolean
+          is_duplicate?: boolean
+          duplicate_of?: string | null
           created_at?: string
           updated_at?: string
         }

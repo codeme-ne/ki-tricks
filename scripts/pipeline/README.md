@@ -2,6 +2,26 @@
 
 Dieses Verzeichnis enthält Hilfsskripte für die Content-Pipeline. Das wichtigste Skript ist `fetch-feeds.ts`, das konfigurierte Quellen ausliest und neue Items in `news_items` schreibt.
 
+## Normalizer & Dedupe
+
+- `normalize-news-items.ts` verarbeitet alle Einträge mit `processed = false`, säubert Titel/URLs, ergänzt Quelle/Tags/Datum und markiert Dubletten.
+- Ausführung lokal:
+  ```bash
+  tsx scripts/pipeline/normalize-news-items.ts
+  ```
+- Optional kann mit `--config` ein alternativer Quellenpfad genutzt werden (z. B. Dummy-Feeds im Repo).
+- Das Skript benötigt `NEXT_PUBLIC_SUPABASE_URL` und `SUPABASE_SERVICE_ROLE_KEY` (z. B. via `.env.local`) und setzt `is_duplicate` + `duplicate_of` für doppelte Einträge.
+
+## Formatter (Guide-Generator)
+
+- `format-guides.ts` befüllt Pending-Guides mit Summary, Steps, Examples und Quality-Score.
+- Läuft gegen Guides mit `status = pending` und fehlendem/zu niedrigem Score.
+- Start:
+  ```bash
+  tsx scripts/pipeline/format-guides.ts
+  ```
+- Nutzt Heuristiken, prüft auf Dubletten und aktualisiert `quality_score` ≥ 70.
+
 ## Lokaler Test mit Dummy-Feeds
 
 1. Verwende die mitgelieferte Dummy-Konfiguration und drei Beispiel-RSS-Feeds:

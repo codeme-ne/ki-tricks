@@ -7,6 +7,7 @@ export async function GET() {
   const staticPages = [
     '',
     '/tricks',
+    '/learn',
     '/about',
     '/kontakt',
     '/impressum',
@@ -15,6 +16,7 @@ export async function GET() {
 
   // Fetch trick detail pages from Supabase (published only)
   let trickEntries: { loc: string; lastmod?: string }[] = []
+  let guideEntries: { loc: string; lastmod?: string }[] = []
   try {
     const { createAdminClient } = await import('@/lib/supabase/admin')
     const supabase = createAdminClient()
@@ -29,6 +31,24 @@ export async function GET() {
       trickEntries = tricks.map((t) => ({
         loc: `${baseUrl}/trick/${t.slug}`,
         lastmod: t.updated_at ? new Date(t.updated_at).toISOString() : undefined,
+      }))
+    }
+
+    const { data: guides, error: guideError } = await supabase
+      .from('guides')
+      .select('slug, updated_at, published_at')
+      .eq('status', 'published')
+
+    if (guideError) {
+      console.error('Sitemap guide fetch error:', guideError)
+    } else if (guides) {
+      guideEntries = guides.map((guide) => ({
+        loc: `${baseUrl}/learn/${guide.slug}`,
+        lastmod: guide.updated_at
+          ? new Date(guide.updated_at).toISOString()
+          : guide.published_at
+            ? new Date(guide.published_at).toISOString()
+            : undefined,
       }))
     }
   } catch (e) {
@@ -48,6 +68,12 @@ export async function GET() {
       lastmod: e.lastmod,
       changefreq: 'weekly',
       priority: '0.7',
+    })),
+    ...guideEntries.map((e) => ({
+      loc: e.loc,
+      lastmod: e.lastmod,
+      changefreq: 'weekly',
+      priority: '0.75',
     })),
   ]
 

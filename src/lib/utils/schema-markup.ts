@@ -118,6 +118,92 @@ export function generateHowToSchema(trick: KITrick) {
   }
 }
 
+export interface GuideSchemaInput {
+  id: string
+  slug: string
+  title: string
+  summary: string | null
+  steps: string[]
+  examples: string[]
+  tools: string[]
+  industries: string[]
+  hero_image_url: string | null
+  evidence_level: string | null
+  risk_level: string | null
+  published_at: string | null
+  updated_at: string | null
+}
+
+export function generateGuideHowToSchema(guide: GuideSchemaInput) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ki-tricks.com'
+  const cleanBase = baseUrl.replace(/\/$/, '')
+  const url = `${cleanBase}/learn/${guide.slug}`
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: guide.title,
+    description: guide.summary ?? `${guide.title} – kompakter How-To Guide.`,
+    totalTime: 'PT15M',
+    estimatedCost: {
+      '@type': 'MonetaryAmount',
+      currency: 'EUR',
+      value: '0'
+    },
+    supply: guide.tools.map(tool => ({
+      '@type': 'HowToSupply',
+      name: tool
+    })),
+    tool: guide.tools.map(tool => ({
+      '@type': 'HowToTool',
+      name: tool
+    })),
+    step: guide.steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: `Schritt ${index + 1}`,
+      text: step,
+      url: `${url}#schritt-${index + 1}`
+    })),
+    image: guide.hero_image_url
+      ? {
+          '@type': 'ImageObject',
+          url: guide.hero_image_url
+        }
+      : undefined,
+    publisher: {
+      '@type': 'Organization',
+      name: 'KI-Tricks',
+      url: cleanBase
+    },
+    inLanguage: 'de-DE'
+  }
+}
+
+export function generateGuideBreadcrumbSchema(slug: string, title: string) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ki-tricks.com'
+  const cleanBase = baseUrl.replace(/\/$/, '')
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Guides',
+        item: `${cleanBase}/learn`
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: title,
+        item: `${cleanBase}/learn/${slug}`
+      }
+    ]
+  }
+}
+
 // Generate Collection Schema for category pages
 export function generateCategoryCollectionSchema(
   category: string,

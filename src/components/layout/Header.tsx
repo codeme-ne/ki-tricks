@@ -31,6 +31,12 @@ export function Header({ className = '' }: HeaderProps) {
                 Alle Tricks
               </Link>
               <Link
+                href="/learn"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Guides
+              </Link>
+              <Link
                 href="/tricks/einreichen"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium transition-colors"
               >
@@ -100,6 +106,13 @@ export function Header({ className = '' }: HeaderProps) {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Alle Tricks
+              </Link>
+              <Link
+                href="/learn"
+                className="block mt-2 min-h-[48px] px-4 py-3 text-base font-medium text-foreground hover:bg-muted transition-colors rounded-lg"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Guides
               </Link>
               <Link
                 href="/tricks/einreichen"

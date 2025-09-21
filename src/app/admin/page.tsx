@@ -4,14 +4,15 @@ import { useState, useEffect } from 'react'
 import { PageContainer } from '@/components/layout'
 import { Button } from '@/components/atoms'
 import { AdminAuth } from '@/lib/utils/admin-auth'
-import { 
-  Clock, 
-  CheckCircle, 
-  PlusCircle, 
-  BarChart3, 
+import {
+  Clock,
+  CheckCircle,
+  PlusCircle,
+  BarChart3,
   ArrowRight,
   LogOut,
-  Settings
+  Settings,
+  BookOpen
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -161,6 +162,50 @@ export default function AdminPage() {
 
             {/* Main Actions */}
             <div className="grid md:grid-cols-2 gap-6 mb-8">
+              {/* Curator Queue */}
+              <div className="bg-card border border-border rounded-lg p-6 transition-shadow hover:shadow-lg hover:shadow-black/10">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-neutral-100 mb-2">
+                      Curator Queue
+                    </h3>
+                    <p className="text-neutral-400 mb-4">
+                      Normierte News prüfen und als Guides vorschlagen
+                    </p>
+                  </div>
+                  <PlusCircle className="w-8 h-8 text-primary-400 flex-shrink-0" />
+                </div>
+                <Link
+                  href="/admin/queue"
+                  className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium"
+                >
+                  Zur Queue
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </Link>
+              </div>
+
+              {/* Guides veröffentlichen */}
+              <div className="bg-card border border-border rounded-lg p-6 transition-shadow hover:shadow-lg hover:shadow-black/10">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-neutral-100 mb-2">
+                      Guides veröffentlichen
+                    </h3>
+                    <p className="text-neutral-400 mb-4">
+                      Pending Guides prüfen und live stellen
+                    </p>
+                  </div>
+                  <BookOpen className="w-8 h-8 text-emerald-400 flex-shrink-0" />
+                </div>
+                <Link
+                  href="/admin/guides/pending"
+                  className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium"
+                >
+                  Zu den Guides
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </Link>
+              </div>
+
               {/* Moderation */}
               <div className="bg-card border border-border rounded-lg p-6 transition-shadow hover:shadow-lg hover:shadow-black/10">
                 <div className="flex items-start justify-between">
