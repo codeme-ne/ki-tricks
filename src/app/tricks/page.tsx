@@ -1,9 +1,11 @@
 import { Suspense } from 'react'
 import { Metadata } from 'next'
+import Link from 'next/link'
 import TricksProvider from './TricksProvider'
 import { Header, Footer } from '@/components/layout'
 import { BreadcrumbNav } from '@/components/molecules'
 import { TrickGridSkeleton } from '@/components/atoms/SkeletonLoader'
+import { Button } from '@/components/ui/button'
 
 export const metadata: Metadata = {
   title: 'KI-Workflows für Professionals | Praktische KI-Tricks 2025',

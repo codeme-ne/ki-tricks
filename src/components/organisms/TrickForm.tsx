@@ -25,6 +25,9 @@ const categories: { value: Category; label: string }[] = [
 ]
 
 export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: TrickFormProps) => {
+  const TITLE_MIN_LENGTH = 10
+  const DESCRIPTION_MIN_LENGTH = 50
+
   const [formData, setFormData] = useState<Partial<KITrick>>({
     title: initialData.title || '',
     description: initialData.description || '',
@@ -39,15 +42,79 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
   const [newExample, setNewExample] = useState('')
   // tags removed
   const [previewMode, setPreviewMode] = useState(false)
+  const [errors, setErrors] = useState<{ title?: string; description?: string }>({})
+
+  const validateField = (name: string, value: string) => {
+    const trimmed = value.trim()
+    if (name === 'title') {
+      if (!trimmed || trimmed.length < TITLE_MIN_LENGTH) {
+        return `Titel muss mindestens ${TITLE_MIN_LENGTH} Zeichen haben.`
+      }
+    }
+    if (name === 'description') {
+      if (!trimmed || trimmed.length < DESCRIPTION_MIN_LENGTH) {
+        return `Beschreibung muss mindestens ${DESCRIPTION_MIN_LENGTH} Zeichen haben.`
+      }
+    }
+    return undefined
+  }
+
+  const validateForm = (data: Partial<KITrick>) => {
+    const titleError = validateField('title', data.title || '')
+    const descriptionError = validateField('description', data.description || '')
+
+    const nextErrors: { title?: string; description?: string } = {}
+    if (titleError) nextErrors.title = titleError
+    if (descriptionError) nextErrors.description = descriptionError
+
+    setErrors(nextErrors)
+    return Object.keys(nextErrors).length === 0
+  }
+
+  const getNormalizedData = (): Partial<KITrick> => ({
+    ...formData,
+    title: formData.title?.trim() || '',
+    description: formData.description?.trim() || '',
+    why_it_works: formData.why_it_works?.trim() || ''
+  })
+
+  const submitIfValid = () => {
+    const normalized = getNormalizedData()
+    if (!validateForm(normalized)) {
+      return false
+    }
+    onSubmit(normalized)
+    return true
+  }
+
+  const handlePreviewToggle = () => {
+    if (validateForm(getNormalizedData())) {
+      setPreviewMode(true)
+    }
+  }
+
+  const handlePreviewSubmit = () => {
+    const success = submitIfValid()
+    if (!success) {
+      setPreviewMode(false)
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit(formData)
+    submitIfValid()
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
+
+    if (name === 'title' || name === 'description') {
+      setErrors(prev => ({
+        ...prev,
+        [name]: validateField(name, value)
+      }))
+    }
   }
 
   const addStep = () => {
@@ -108,7 +175,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
           <Button 
             type="button" 
             variant="primary" 
-            onClick={() => onSubmit(formData)}
+            onClick={handlePreviewSubmit}
             disabled={isSubmitting}
             className="transition-all duration-200 hover:scale-105 disabled:hover:scale-100"
           >
@@ -135,11 +202,18 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               id="title"
               name="title"
               required
+              minLength={TITLE_MIN_LENGTH}
               value={formData.title}
               onChange={handleChange}
               className="w-full px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="z.B. Automatische Meeting-Zusammenfassungen mit ChatGPT"
             />
+            <div className="flex items-center justify-between mt-1">
+              <p className={`text-xs ${errors.title ? 'text-red-500' : 'text-neutral-400'}`}>
+                {errors.title ?? `Mindestens ${TITLE_MIN_LENGTH} Zeichen`}
+              </p>
+              <span className="text-xs text-neutral-400">{formData.title?.length ?? 0} Zeichen</span>
+            </div>
           </div>
 
           <div>
@@ -156,6 +230,12 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
               className="w-full px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
               placeholder="Kurze Beschreibung des Tricks..."
             />
+            <div className="flex items-center justify-between mt-1">
+              <p className={`text-xs ${errors.description ? 'text-red-500' : 'text-neutral-400'}`}>
+                {errors.description ?? `Mindestens ${DESCRIPTION_MIN_LENGTH} Zeichen`}
+              </p>
+              <span className="text-xs text-neutral-400">{formData.description?.length ?? 0} Zeichen</span>
+            </div>
           </div>
 
           <div>
@@ -279,7 +359,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
           <Button 
             type="button" 
             variant="secondary" 
-            onClick={() => setPreviewMode(true)}
+            onClick={handlePreviewToggle}
             className="transition-all duration-200 hover:scale-105 flex items-center justify-center"
           >
             <Eye className="w-4 h-4 mr-2" />
@@ -297,7 +377,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             <Button 
               type="submit" 
               variant="primary" 
-              disabled={isSubmitting}
+              disabled={isSubmitting || !!errors.title || !!errors.description}
               className="transition-all duration-200 hover:scale-105 disabled:hover:scale-100"
             >
               {isSubmitting ? 'Wird eingereicht...' : 'Trick einreichen'}

@@ -114,9 +114,32 @@ function transform(trick: InputTrick): OutputTrick {
   }
 }
 
+function parseCliArgs(argv: string[]) {
+  const positional: string[] = []
+  let inPlace = false
+
+  for (const arg of argv) {
+    if (arg === '--in-place') {
+      inPlace = true
+    } else {
+      positional.push(arg)
+    }
+  }
+
+  const [inputArg, outputArg] = positional
+
+  return {
+    inputPath: inputArg,
+    outputPath: outputArg,
+    inPlace
+  }
+}
+
 function main() {
-  const inputPath = process.argv[2] || path.join(process.cwd(), 'data', 'generated-ki-tips.json')
-  const outputPath = process.argv[3] || path.join(process.cwd(), 'data', 'generated-ki-tips.supabase.json')
+  const { inputPath: inputArg, outputPath: outputArg, inPlace } = parseCliArgs(process.argv.slice(2))
+
+  const inputPath = inputArg || path.join(process.cwd(), 'data', 'generated-ki-tips.json')
+  const outputPath = outputArg || path.join(process.cwd(), 'data', 'generated-ki-tips.supabase.json')
 
   if (!fs.existsSync(inputPath)) {
     console.error(`❌ Input file not found: ${inputPath}`)
@@ -162,7 +185,7 @@ function main() {
   }
 
   // Optionally, also overwrite the source file if the CLI flag is provided
-  if (process.argv.includes('--in-place')) {
+  if (inPlace) {
     fs.writeFileSync(inputPath, JSON.stringify(out, null, 2))
     console.log(`✍️  Updated input file in place: ${inputPath}`)
   }
