@@ -28,8 +28,11 @@
     "db:start": "supabase start",
     "db:stop": "supabase stop",
     "db:reset": "supabase stop --no-backup && supabase start",
+    "pipeline:fetch": "tsx scripts/pipeline/fetch-feeds.ts",
     "pipeline:normalize": "tsx scripts/pipeline/normalize-news-items.ts",
-    "pipeline:format-guides": "tsx scripts/pipeline/format-guides.ts"
+    "pipeline:curate": "tsx scripts/pipeline/curator.ts",
+    "pipeline:format-guides": "tsx scripts/pipeline/format-guides.ts",
+    "pipeline:full": "npm run pipeline:fetch && npm run pipeline:normalize && npm run pipeline:curate && npm run pipeline:format-guides"
   },
   "supabaseScripts": {
     "note": "Convenience commands for Supabase CLI"

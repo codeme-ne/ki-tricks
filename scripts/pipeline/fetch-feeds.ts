@@ -150,7 +150,14 @@ function readConfig(): SourceConfig[] {
   return normalized
 }
 
-async function fetchWithRetry(url: string, maxAttempts = 3, backoffMs = 750): Promise<string> {
+// Cache for ETags and Last-Modified headers
+const feedCache = new Map<string, { etag?: string; lastModified?: string; content?: string; fetchedAt?: number }>()
+
+// Rate limiting: track last fetch time per domain
+const domainLastFetch = new Map<string, number>()
+const MIN_FETCH_INTERVAL = 15 * 60 * 1000 // 15 minutes
+
+async function fetchWithRetry(url: string, maxAttempts = 3, backoffMs = 2000): Promise<string> {
   if (url.startsWith('file://')) {
     const filePath = fileURLToPath(url)
     return fs.readFileSync(filePath, 'utf-8')
@@ -164,19 +171,73 @@ async function fetchWithRetry(url: string, maxAttempts = 3, backoffMs = 750): Pr
     return fs.readFileSync(filePath, 'utf-8')
   }
 
+  // Rate limiting check
+  const urlObj = new URL(url)
+  const domain = urlObj.hostname
+  const lastFetch = domainLastFetch.get(domain)
+  if (lastFetch) {
+    const timeSinceLastFetch = Date.now() - lastFetch
+    if (timeSinceLastFetch < MIN_FETCH_INTERVAL) {
+      const waitTime = MIN_FETCH_INTERVAL - timeSinceLastFetch
+      console.log(`Rate limiting: Waiting ${Math.round(waitTime / 1000)}s before fetching from ${domain}`)
+      await new Promise(resolve => setTimeout(resolve, waitTime))
+    }
+  }
+
   let lastError: unknown
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
+      const headers: Record<string, string> = {
+        'User-Agent': 'KI-Tricks-Bot/1.0 (+https://ki-tricks.de/bot)',
+        'Accept': 'application/rss+xml, application/xml, text/xml, */*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Cache-Control': 'max-age=0'
+      }
+
+      // Add conditional headers if we have cached data
+      const cached = feedCache.get(url)
+      if (cached) {
+        if (cached.etag) headers['If-None-Match'] = cached.etag
+        if (cached.lastModified) headers['If-Modified-Since'] = cached.lastModified
+      }
+
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 30000) // 30 second timeout
+
       const response = await fetch(url, {
-        headers: { 'user-agent': 'ai-platform-fetcher/1.0 (+https://ki-tricks.com)' }
+        headers,
+        signal: controller.signal
       })
+
+      clearTimeout(timeout)
+
+      // Update rate limiting tracker
+      domainLastFetch.set(domain, Date.now())
+
+      // Handle 304 Not Modified
+      if (response.status === 304 && cached?.content) {
+        console.log(`Feed ${url} not modified, using cached content`)
+        return cached.content
+      }
+
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`)
       }
-      return await response.text()
+
+      const content = await response.text()
+
+      // Update cache with new ETags and content
+      feedCache.set(url, {
+        etag: response.headers.get('etag') || undefined,
+        lastModified: response.headers.get('last-modified') || undefined,
+        content,
+        fetchedAt: Date.now()
+      })
+
+      return content
     } catch (error) {
       lastError = error
-      const wait = backoffMs * attempt
+      const wait = backoffMs * Math.pow(2, attempt - 1) // Exponential backoff: 2s, 4s, 8s
       console.warn(`Fetch attempt ${attempt} for ${url} failed: ${(error as Error).message}. Retrying in ${wait}ms`)
       await new Promise(resolve => setTimeout(resolve, wait))
     }
@@ -271,9 +332,12 @@ function parsePublishedDate(item: RssFeedItem): string | null {
   return null
 }
 
-function buildContentHash(sourceId: string, title?: string, url?: string, guid?: string): string {
-  const base = `${sourceId}::${url ?? ''}::${guid ?? ''}::${title ?? ''}`
-  return createHash('sha256').update(base).digest('hex')
+function buildContentHash(sourceId: string, title?: string, url?: string, guid?: string, publishedDate?: string): string {
+  // More robust hash including content and date for better deduplication
+  const normalizedTitle = title?.toLowerCase().trim() ?? ''
+  const normalizedUrl = url?.toLowerCase().trim() ?? ''
+  const base = `${sourceId}::${normalizedUrl}::${guid ?? ''}::${normalizedTitle}::${publishedDate ?? ''}`
+  return createHash('sha256').update(base, 'utf-8').digest('hex')
 }
 
 function normalizeRssItems(source: SourceConfig, items: RssFeedItem[]): NormalizedNewsItem[] {
@@ -282,7 +346,7 @@ function normalizeRssItems(source: SourceConfig, items: RssFeedItem[]): Normaliz
     if (!item.title || !item.link) continue
     const summary = sanitizeSummary(item.content ?? item.description)
     const publishedAt = parsePublishedDate(item)
-    const content_hash = buildContentHash(source.id, item.title, item.link, item.guid)
+    const content_hash = buildContentHash(source.id, item.title, item.link, item.guid, publishedAt ?? undefined)
     const tags = new Set<string>()
     tags.add(source.category)
     if (item.categories) {
@@ -346,9 +410,10 @@ function createSupabaseClient(): SupabaseClient {
 
 async function persistNewsItems(client: SupabaseClient, items: NormalizedNewsItem[]): Promise<number> {
   if (items.length === 0) return 0
+  // Upsert on URL to align with DB unique constraint (url UNIQUE) and avoid conflicts
   const { error, data } = await client
     .from('news_items')
-    .upsert(items, { onConflict: 'content_hash', ignoreDuplicates: true })
+    .upsert(items, { onConflict: 'url', ignoreDuplicates: true })
     .select('id')
 
   if (error) {
