@@ -212,7 +212,7 @@ export default async function GuideDetailPage({ params }: PageProps) {
             <section className="space-y-2">
               <h2 className="text-xl font-semibold text-neutral-100">Quelle</h2>
               <p className="text-sm text-neutral-400">
-                {sourceEntry.title ?? 'Original-Link'}
+                {String(sourceEntry.title) || 'Original-Link'}
               </p>
               <Button variant="outline" asChild>
                 <Link href={String(sourceEntry.url)} target="_blank" rel="noreferrer">

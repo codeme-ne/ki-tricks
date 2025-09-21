@@ -1,4 +1,4 @@
-import type { Database } from '@/lib/supabase/types'
+import type { Database, Json } from '@/lib/supabase/types'
 import {
   calculateKeywordSimilarity,
   calculateSimilarity,
@@ -30,7 +30,7 @@ export interface GuideDraft {
   tools: string[]
   evidence_level: EvidenceLevel | null
   risk_level: RiskLevel | null
-  sources: Array<Record<string, unknown>>
+  sources: Json[]
   quality: GuideQuality
 }
 

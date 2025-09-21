@@ -28,7 +28,7 @@ async function captureScreenshot(
   options: { width: number; height: number; fullPage: boolean }
 ): Promise<Buffer> {
   const browser = await puppeteer.launch({
-    headless: 'new',
+    headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   })
 
@@ -45,7 +45,7 @@ async function captureScreenshot(
           waitUntil: 'networkidle2',
           timeout: 20000
         })
-        await page.waitForTimeout(1500)
+        await new Promise(resolve => setTimeout(resolve, 1500))
 
         const buffer = (await page.screenshot({
           type: 'webp',
@@ -58,7 +58,7 @@ async function captureScreenshot(
         }
       } catch (error) {
         lastError = error
-        await page.waitForTimeout(1000)
+        await new Promise(resolve => setTimeout(resolve, 1000))
       }
     }
 

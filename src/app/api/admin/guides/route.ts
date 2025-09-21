@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-import type { Database } from '@/lib/supabase/types'
+import type { Database, Json } from '@/lib/supabase/types'
 import {
   detectGuideDuplicates,
   type GuideDraft
@@ -119,7 +119,7 @@ function mapGuideForDuplicateCheck(guide: GuideRow): GuideDraft {
     tools: Array.isArray(guide.tools) ? guide.tools : [],
     evidence_level: guide.evidence_level ?? null,
     risk_level: guide.risk_level ?? 'medium',
-    sources: Array.isArray(guide.sources) ? (guide.sources as Array<Record<string, unknown>>) : [],
+    sources: Array.isArray(guide.sources) ? (guide.sources as Json[]) : [],
     quality: {
       score: guide.quality_score ?? 0,
       category: 'fair',
