@@ -51,12 +51,13 @@ DROP INDEX IF EXISTS idx_tricks_slug;
 DROP INDEX IF EXISTS idx_tricks_category;
 DROP INDEX IF EXISTS idx_tricks_status;
 DROP INDEX IF EXISTS idx_tricks_published_at;
+DROP INDEX IF EXISTS idx_tricks_created_at;
 
-CREATE UNIQUE INDEX idx_tricks_slug ON public.ki_tricks(slug);
-CREATE INDEX idx_tricks_category ON public.ki_tricks(category);
-CREATE INDEX idx_tricks_status ON public.ki_tricks(status) WHERE status IS NOT NULL;
-CREATE INDEX idx_tricks_published_at ON public.ki_tricks(published_at DESC) WHERE published_at IS NOT NULL;
-CREATE INDEX idx_tricks_created_at ON public.ki_tricks(created_at DESC);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_tricks_slug ON public.ki_tricks(slug);
+CREATE INDEX IF NOT EXISTS idx_tricks_category ON public.ki_tricks(category);
+CREATE INDEX IF NOT EXISTS idx_tricks_status ON public.ki_tricks(status) WHERE status IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_tricks_published_at ON public.ki_tricks(published_at DESC) WHERE published_at IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_tricks_created_at ON public.ki_tricks(created_at DESC);
 
 -- Add GiST index for full-text search
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
@@ -69,27 +70,27 @@ CREATE INDEX IF NOT EXISTS idx_tricks_search
 
 -- Clean up unused enums (if safe to do so)
 DO $$
+DECLARE
+  company_role_type oid := to_regtype('company_role_enum');
+  evidence_level_type oid := to_regtype('evidence_level_enum');
+  risk_level_type oid := to_regtype('risk_level_enum');
 BEGIN
-  -- Check if types are not used elsewhere before dropping
-  IF NOT EXISTS (
-    SELECT 1 FROM pg_attribute
-    WHERE atttypid = 'company_role_enum'::regtype::oid
+  IF company_role_type IS NOT NULL AND NOT EXISTS (
+    SELECT 1 FROM pg_attribute WHERE atttypid = company_role_type
   ) THEN
-    DROP TYPE IF EXISTS company_role_enum;
+    EXECUTE 'DROP TYPE IF EXISTS company_role_enum';
   END IF;
 
-  IF NOT EXISTS (
-    SELECT 1 FROM pg_attribute
-    WHERE atttypid = 'evidence_level_enum'::regtype::oid
+  IF evidence_level_type IS NOT NULL AND NOT EXISTS (
+    SELECT 1 FROM pg_attribute WHERE atttypid = evidence_level_type
   ) THEN
-    DROP TYPE IF EXISTS evidence_level_enum;
+    EXECUTE 'DROP TYPE IF EXISTS evidence_level_enum';
   END IF;
 
-  IF NOT EXISTS (
-    SELECT 1 FROM pg_attribute
-    WHERE atttypid = 'risk_level_enum'::regtype::oid
+  IF risk_level_type IS NOT NULL AND NOT EXISTS (
+    SELECT 1 FROM pg_attribute WHERE atttypid = risk_level_type
   ) THEN
-    DROP TYPE IF EXISTS risk_level_enum;
+    EXECUTE 'DROP TYPE IF EXISTS risk_level_enum';
   END IF;
 END $$;
 

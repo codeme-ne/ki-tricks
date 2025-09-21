@@ -2,7 +2,6 @@
 
 -- Enable RLS on ki_tricks (safe if already enabled)
 ALTER TABLE public.ki_tricks ENABLE ROW LEVEL SECURITY;
-
 -- Policy: public can view published tricks
 DO $$ BEGIN
   IF NOT EXISTS (
@@ -14,7 +13,6 @@ DO $$ BEGIN
       USING (status = 'published');
   END IF;
 END $$;
-
 -- Policy: authenticated users can manage tricks (admin usage)
 DO $$ BEGIN
   IF NOT EXISTS (
@@ -26,4 +24,3 @@ DO $$ BEGIN
       USING (auth.role() = 'authenticated');
   END IF;
 END $$;
-
