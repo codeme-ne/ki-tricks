@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/json",
+  "version": 1,
+  "sources": [
+    {
+      "id": "vendor_dummy",
+      "type": "rss",
+      "url": "file:scripts/pipeline/__fixtures__/vendor-feed.xml",
+      "category": "vendor",
+      "evidence": "B",
+      "frequency": "daily"
+    },
+    {
+      "id": "regulator_dummy",
+      "type": "rss",
+      "url": "file:scripts/pipeline/__fixtures__/regulator-feed.xml",
+      "category": "regulatory",
+      "evidence": "A",
+      "frequency": "weekly"
+    },
+    {
+      "id": "media_dummy",
+      "type": "rss",
+      "url": "file:scripts/pipeline/__fixtures__/media-feed.xml",
+      "category": "media",
+      "evidence": "C",
+      "frequency": "daily"
+    }
+  ]
+}

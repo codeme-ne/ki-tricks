@@ -9,6 +9,74 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      guides: {
+        Row: {
+          id: string
+          slug: string
+          title: string
+          summary: string
+          steps: string[]
+          examples: string[]
+          role: Database['public']['Enums']['company_role_enum'] | null
+          industries: string[]
+          tools: string[]
+          hero_image_url: string | null
+          sources: Json
+          risk_level: Database['public']['Enums']['risk_level_enum'] | null
+          evidence_level: Database['public']['Enums']['evidence_level_enum'] | null
+          status: 'draft' | 'pending' | 'published' | 'archived'
+          quality_score: number | null
+          implement_count: number
+          view_count: number
+          created_at: string
+          updated_at: string
+          published_at: string | null
+        }
+        Insert: {
+          id?: string
+          slug: string
+          title: string
+          summary: string
+          steps?: string[]
+          examples?: string[]
+          role?: Database['public']['Enums']['company_role_enum'] | null
+          industries?: string[]
+          tools?: string[]
+          hero_image_url?: string | null
+          sources?: Json
+          risk_level?: Database['public']['Enums']['risk_level_enum'] | null
+          evidence_level?: Database['public']['Enums']['evidence_level_enum'] | null
+          status?: 'draft' | 'pending' | 'published' | 'archived'
+          quality_score?: number | null
+          implement_count?: number
+          view_count?: number
+          created_at?: string
+          updated_at?: string
+          published_at?: string | null
+        }
+        Update: {
+          id?: string
+          slug?: string
+          title?: string
+          summary?: string
+          steps?: string[]
+          examples?: string[]
+          role?: Database['public']['Enums']['company_role_enum'] | null
+          industries?: string[]
+          tools?: string[]
+          hero_image_url?: string | null
+          sources?: Json
+          risk_level?: Database['public']['Enums']['risk_level_enum'] | null
+          evidence_level?: Database['public']['Enums']['evidence_level_enum'] | null
+          status?: 'draft' | 'pending' | 'published' | 'archived'
+          quality_score?: number | null
+          implement_count?: number
+          view_count?: number
+          created_at?: string
+          updated_at?: string
+          published_at?: string | null
+        }
+      }
       ki_tricks: {
         Row: {
           id: string
@@ -60,6 +128,59 @@ export interface Database {
           updated_at?: string
           published_at?: string | null
           view_count?: number
+        }
+      }
+      news_items: {
+        Row: {
+          id: string
+          source_id: string
+          source_type: string
+          source_category: string
+          evidence_level: Database['public']['Enums']['evidence_level_enum'] | null
+          title: string
+          url: string
+          published_at: string | null
+          content_hash: string
+          summary: string | null
+          tags: string[]
+          raw: Json
+          processed: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          source_id: string
+          source_type: string
+          source_category: string
+          evidence_level?: Database['public']['Enums']['evidence_level_enum'] | null
+          title: string
+          url: string
+          published_at?: string | null
+          content_hash: string
+          summary?: string | null
+          tags?: string[]
+          raw: Json
+          processed?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          source_id?: string
+          source_type?: string
+          source_category?: string
+          evidence_level?: Database['public']['Enums']['evidence_level_enum'] | null
+          title?: string
+          url?: string
+          published_at?: string | null
+          content_hash?: string
+          summary?: string | null
+          tags?: string[]
+          raw?: Json
+          processed?: boolean
+          created_at?: string
+          updated_at?: string
         }
       }
       trick_submissions: {
@@ -137,7 +258,21 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      company_role_enum:
+        | 'general'
+        | 'sales'
+        | 'marketing'
+        | 'hr'
+        | 'finance'
+        | 'it'
+        | 'procurement'
+        | 'operations'
+        | 'customer-service'
+        | 'legal'
+        | 'product'
+        | 'consulting'
+      evidence_level_enum: 'A' | 'B' | 'C'
+      risk_level_enum: 'low' | 'medium' | 'high'
     }
   }
 }

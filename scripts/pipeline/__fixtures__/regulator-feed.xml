@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Regulatorische Meldungen</title>
+    <link>https://regulator.example.com</link>
+    <description>Regulatorische Neuigkeiten</description>
+    <item>
+      <title>DSK veröffentlicht neue Leitlinie</title>
+      <link>https://regulator.example.com/dsk-new-guideline</link>
+      <guid>dsk-guideline</guid>
+      <pubDate>Mon, 06 Jan 2025 14:00:00 GMT</pubDate>
+      <description><![CDATA[Leitlinie für KI-Einsatz in Behörden.]]></description>
+      <category>policy</category>
+    </item>
+  </channel>
+</rss>

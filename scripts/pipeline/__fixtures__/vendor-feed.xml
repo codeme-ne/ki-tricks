@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Vendor Updates</title>
+    <link>https://vendor.example.com</link>
+    <description>Example vendor news feed</description>
+    <item>
+      <title>OpenAI startet neues Feature</title>
+      <link>https://vendor.example.com/openai-feature</link>
+      <guid>openai-feature</guid>
+      <pubDate>Tue, 07 Jan 2025 08:00:00 GMT</pubDate>
+      <description><![CDATA[Kurzer Überblick über das neue Feature.]]></description>
+      <category>product-update</category>
+    </item>
+    <item>
+      <title>Anthropic erweitert Claude</title>
+      <link>https://vendor.example.com/anthropic-claude</link>
+      <guid>anthropic-claude</guid>
+      <pubDate>Tue, 07 Jan 2025 09:30:00 GMT</pubDate>
+      <description><![CDATA[Langtext mit allen Details.]]></description>
+      <category>product-update</category>
+    </item>
+  </channel>
+</rss>

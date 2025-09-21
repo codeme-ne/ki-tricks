@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json.schemastore.org/json",
+  "version": 1,
+  "sources": [
+    {
+      "id": "openai_blog",
+      "type": "rss",
+      "url": "<RSS_FEED_URL>",
+      "category": "vendor",
+      "evidence": "B",
+      "frequency": "daily"
+    },
+    {
+      "id": "vendor_changelog_example",
+      "type": "rss",
+      "url": "<CHANGELOG_RSS_URL>",
+      "category": "vendor",
+      "evidence": "A",
+      "frequency": "daily"
+    },
+    {
+      "id": "regulator_dach_example",
+      "type": "rss",
+      "url": "<REGULATOR_FEED_URL>",
+      "category": "regulatory",
+      "evidence": "A",
+      "frequency": "weekly"
+    },
+    {
+      "id": "fachmedien_dach_example",
+      "type": "rss",
+      "url": "<MEDIA_FEED_URL>",
+      "category": "media",
+      "evidence": "C",
+      "frequency": "daily"
+    }
+  ]
+}

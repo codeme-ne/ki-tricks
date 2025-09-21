@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Fachmedien</title>
+    <link>https://media.example.com</link>
+    <description>Branchennews zu KI</description>
+    <item>
+      <title>t3n berichtet über KI-Compliance</title>
+      <link>https://media.example.com/ki-compliance</link>
+      <guid>ki-compliance</guid>
+      <pubDate>Sun, 05 Jan 2025 18:00:00 GMT</pubDate>
+      <description><![CDATA[Analyse zu Compliance-Themen bei KI.]]></description>
+      <category>analysis</category>
+    </item>
+    <item>
+      <title>Duplicate Example Title</title>
+      <link>https://vendor.example.com/openai-feature</link>
+      <guid>openai-feature</guid>
+      <pubDate>Tue, 07 Jan 2025 08:00:00 GMT</pubDate>
+      <description><![CDATA[Duplikat aus Vendor-Feed zum Test.]]></description>
+      <category>duplicate-test</category>
+    </item>
+  </channel>
+</rss>
