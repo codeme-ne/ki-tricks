@@ -1,11 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button, Badge } from '@/components/atoms'
 import { TrickPreview } from '@/components/organisms/TrickPreview'
 import { KITrick, Category } from '@/lib/types/types'
 import { categoryLabels } from '@/lib/constants/constants'
-import { Plus, X, Eye, Edit } from 'lucide-react'
+import {
+  Plus,
+  X,
+  Lightbulb,
+  Wand2,
+  ListChecks,
+  CheckCircle2,
+  AlertCircle,
+  Circle,
+  Target
+} from 'lucide-react'
 
 interface TrickFormProps {
   onSubmit: (data: Partial<KITrick>) => void
@@ -24,24 +34,78 @@ const categories: { value: Category; label: string }[] = [
   { value: 'marketing', label: categoryLabels['marketing'] }
 ]
 
+type FieldStatus = 'empty' | 'incomplete' | 'complete'
+
+const statusMeta: Record<FieldStatus, { label: string; variant: 'neutral' | 'warning' | 'success'; Icon: typeof Circle }> = {
+  empty: {
+    label: 'Noch offen',
+    variant: 'neutral',
+    Icon: Circle
+  },
+  incomplete: {
+    label: 'Fast geschafft',
+    variant: 'warning',
+    Icon: AlertCircle
+  },
+  complete: {
+    label: 'Fertig',
+    variant: 'success',
+    Icon: CheckCircle2
+  }
+}
+
 export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: TrickFormProps) => {
   const TITLE_MIN_LENGTH = 10
   const DESCRIPTION_MIN_LENGTH = 50
+  const STORAGE_KEY = 'ki-tricks-draft'
 
   const [formData, setFormData] = useState<Partial<KITrick>>({
     title: initialData.title || '',
     description: initialData.description || '',
     category: initialData.category || 'productivity',
-    tools: initialData.tools || ['Claude', 'Claude Code'],
+    tools: initialData.tools || [],
     steps: initialData.steps || [],
     examples: initialData.examples || [],
     why_it_works: initialData.why_it_works || ''
   })
 
+  // Auto-save form data to localStorage (debounced)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(formData))
+    }, 2000)
+    return () => clearTimeout(timer)
+  }, [formData, STORAGE_KEY])
+
+  // Load saved draft on mount
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved)
+        if (parsed.title || parsed.description) {
+          if (window.confirm('Gespeicherten Entwurf wiederherstellen?')) {
+            setFormData(parsed)
+          } else {
+            localStorage.removeItem(STORAGE_KEY)
+          }
+        }
+      } catch (error) {
+        console.error('Failed to parse saved draft:', error)
+        localStorage.removeItem(STORAGE_KEY)
+      }
+    }
+  }, [STORAGE_KEY])
+
   const [newStep, setNewStep] = useState('')
+  const [bulkSteps, setBulkSteps] = useState('')
   const [newExample, setNewExample] = useState('')
-  // tags removed
-  const [previewMode, setPreviewMode] = useState(false)
+  const [toolInput, setToolInput] = useState('')
+  const [editingStepIndex, setEditingStepIndex] = useState<number | null>(null)
+  const [editingStepValue, setEditingStepValue] = useState('')
+  const [editingExampleIndex, setEditingExampleIndex] = useState<number | null>(null)
+  const [editingExampleValue, setEditingExampleValue] = useState('')
+  const [showMobilePreview, setShowMobilePreview] = useState(false)
   const [errors, setErrors] = useState<{ title?: string; description?: string }>({})
 
   const validateField = (name: string, value: string) => {
@@ -75,29 +139,21 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
     ...formData,
     title: formData.title?.trim() || '',
     description: formData.description?.trim() || '',
-    why_it_works: formData.why_it_works?.trim() || ''
+    why_it_works: formData.why_it_works?.trim() || '',
+    tools: (formData.tools || []).map(tool => tool.trim()).filter(Boolean),
+    steps: (formData.steps || []).map(step => step.trim()).filter(Boolean),
+    examples: (formData.examples || []).map(example => example.trim()).filter(Boolean)
   })
 
+  const normalizedData = getNormalizedData()
+
   const submitIfValid = () => {
-    const normalized = getNormalizedData()
+    const normalized = normalizedData
     if (!validateForm(normalized)) {
       return false
     }
     onSubmit(normalized)
     return true
-  }
-
-  const handlePreviewToggle = () => {
-    if (validateForm(getNormalizedData())) {
-      setPreviewMode(true)
-    }
-  }
-
-  const handlePreviewSubmit = () => {
-    const success = submitIfValid()
-    if (!success) {
-      setPreviewMode(false)
-    }
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -127,6 +183,20 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
     }
   }
 
+  const addBulkSteps = () => {
+    const lines = bulkSteps
+      .split('\n')
+      .map(line => line.trim())
+      .filter(Boolean)
+    if (lines.length > 0) {
+      setFormData(prev => ({
+        ...prev,
+        steps: [...(prev.steps || []), ...lines]
+      }))
+      setBulkSteps('')
+    }
+  }
+
   const removeStep = (index: number) => {
     setFormData(prev => ({
       ...prev,
@@ -151,240 +221,590 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
     }))
   }
 
+  const addTool = () => {
+    const trimmed = toolInput.trim()
+    if (!trimmed) return
+    setFormData(prev => ({
+      ...prev,
+      tools: Array.from(new Set([...(prev.tools || []), trimmed]))
+    }))
+    setToolInput('')
+  }
 
-  // tag toggles removed
+  const removeTool = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      tools: prev.tools?.filter((_, i) => i !== index)
+    }))
+  }
 
-  // Preview Mode Component
-  if (previewMode) {
+  const handleToolKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      addTool()
+    }
+  }
+
+  const startEditStep = (index: number) => {
+    setEditingStepIndex(index)
+    setEditingStepValue(formData.steps?.[index] || '')
+  }
+
+  const saveStepEdit = () => {
+    if (editingStepIndex === null) return
+    const value = editingStepValue.trim()
+    if (!value) {
+      removeStep(editingStepIndex)
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        steps: prev.steps?.map((step, idx) => (idx === editingStepIndex ? value : step))
+      }))
+    }
+    setEditingStepIndex(null)
+    setEditingStepValue('')
+  }
+
+  const cancelStepEdit = () => {
+    setEditingStepIndex(null)
+    setEditingStepValue('')
+  }
+
+  const startEditExample = (index: number) => {
+    setEditingExampleIndex(index)
+    setEditingExampleValue(formData.examples?.[index] || '')
+  }
+
+  const saveExampleEdit = () => {
+    if (editingExampleIndex === null) return
+    const value = editingExampleValue.trim()
+    if (!value) {
+      removeExample(editingExampleIndex)
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        examples: prev.examples?.map((example, idx) => (idx === editingExampleIndex ? value : example))
+      }))
+    }
+    setEditingExampleIndex(null)
+    setEditingExampleValue('')
+  }
+
+  const cancelExampleEdit = () => {
+    setEditingExampleIndex(null)
+    setEditingExampleValue('')
+  }
+
+  const getFieldStatus = (value: string, minLength = 0): FieldStatus => {
+    if (!value.trim()) return 'empty'
+    if (value.trim().length < minLength) return 'incomplete'
+    return 'complete'
+  }
+
+  const getListStatus = (list: string[] | undefined | null, minItems = 1): FieldStatus => {
+    if (!list || list.length === 0) return 'empty'
+    if (list.length < minItems) return 'incomplete'
+    return 'complete'
+  }
+
+  const titleStatus = getFieldStatus(normalizedData.title || '', TITLE_MIN_LENGTH)
+  const descriptionStatus = getFieldStatus(normalizedData.description || '', DESCRIPTION_MIN_LENGTH)
+  const essentialsStatus: FieldStatus =
+    titleStatus === 'complete' && descriptionStatus === 'complete'
+      ? 'complete'
+      : titleStatus === 'empty' && descriptionStatus === 'empty'
+        ? 'empty'
+        : 'incomplete'
+
+  const stepsStatus = getListStatus(normalizedData.steps, 2)
+  const examplesStatus = getListStatus(normalizedData.examples, 1)
+  const toolsStatus = getListStatus(normalizedData.tools, 1)
+
+  const checklistItems = [
+    {
+      label: `Titel hat mindestens ${TITLE_MIN_LENGTH} Zeichen`,
+      done: titleStatus === 'complete'
+    },
+    {
+      label: `Beschreibung hat mindestens ${DESCRIPTION_MIN_LENGTH} Zeichen`,
+      done: descriptionStatus === 'complete'
+    },
+    {
+      label: 'Mindestens zwei Schritte hinzugefügt',
+      done: stepsStatus === 'complete'
+    },
+    {
+      label: 'Mindestens ein Beispiel vorhanden',
+      done: examplesStatus !== 'empty'
+    },
+    {
+      label: 'Benötigte Tools aufgelistet',
+      done: toolsStatus !== 'empty'
+    }
+  ]
+
+  const StatusBadge = ({ status }: { status: FieldStatus }) => {
+    const { label, variant, Icon } = statusMeta[status]
     return (
-      <div className="space-y-6 animate-in fade-in-0 duration-300">
-        {/* Preview Component */}
-        <TrickPreview formData={formData} />
-
-        {/* Actions */}
-  <div className="flex justify-between bg-white border border-neutral-200 rounded-lg p-4 shadow-sm">
-          <Button 
-            type="button" 
-            variant="secondary" 
-            onClick={() => setPreviewMode(false)}
-            className="transition-all duration-200 hover:scale-105"
-          >
-            <Edit className="w-4 h-4 mr-2" />
-            Zurück zur Bearbeitung
-          </Button>
-          <Button 
-            type="button" 
-            variant="primary" 
-            onClick={handlePreviewSubmit}
-            disabled={isSubmitting}
-            className="transition-all duration-200 hover:scale-105 disabled:hover:scale-100"
-          >
-            {isSubmitting ? 'Wird eingereicht...' : 'Trick einreichen'}
-          </Button>
-        </div>
-      </div>
+      <Badge variant={variant} className="text-xs">
+        <Icon className="w-3 h-3" />
+        {label}
+      </Badge>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in-0 duration-300">
-      {/* Basis-Informationen */}
-  <div className="bg-white border border-neutral-200 rounded-lg p-6 shadow-sm">
-        <h2 className="text-lg font-semibold mb-4">Basis-Informationen</h2>
-        
-        <div className="space-y-4">
-          <div>
-            <label htmlFor="title" className="block text-sm font-medium text-neutral-300 mb-1">
-              Titel *
-            </label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              required
-              minLength={TITLE_MIN_LENGTH}
-              value={formData.title}
-              onChange={handleChange}
-              className="w-full px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-              placeholder="z.B. Automatische Meeting-Zusammenfassungen mit ChatGPT"
-            />
-            <div className="flex items-center justify-between mt-1">
-              <p className={`text-xs ${errors.title ? 'text-red-500' : 'text-neutral-400'}`}>
-                {errors.title ?? `Mindestens ${TITLE_MIN_LENGTH} Zeichen`}
+    <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(320px,380px)] lg:gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(360px,420px)]">
+      <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in-0 duration-300">
+        <section className="bg-card dark:bg-card border border-border rounded-xl p-6 shadow-sm">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                Schritt 1
               </p>
-              <span className="text-xs text-neutral-400">{formData.title?.length ?? 0} Zeichen</span>
+              <h2 className="text-xl font-semibold text-foreground">
+                Erzähl uns vom Kern deines Tricks
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Ein klarer Titel und eine prägnante Beschreibung helfen uns, deinen Beitrag schnell einzuordnen.
+              </p>
+            </div>
+            <StatusBadge status={essentialsStatus} />
+          </div>
+
+          <div className="mt-6 space-y-5">
+            <div>
+              <label htmlFor="title" className="block text-sm font-medium text-foreground mb-1">
+                Titel *
+              </label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                required
+                minLength={TITLE_MIN_LENGTH}
+                value={formData.title}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 bg-background text-foreground border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-muted-foreground"
+                placeholder="ChatGPT schreibt perfekte Meeting-Notizen"
+              />
+              <div className="flex items-center justify-between mt-1 text-xs">
+                <p className={errors.title ? 'text-destructive' : 'text-muted-foreground'}>
+                  {errors.title ?? `Mindestens ${TITLE_MIN_LENGTH} Zeichen`}
+                </p>
+                <span className="text-muted-foreground">{formData.title?.length ?? 0} Zeichen</span>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="description" className="block text-sm font-medium text-foreground mb-1">
+                Beschreibung *
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                required
+                rows={4}
+                value={formData.description}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 bg-background text-foreground border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-muted-foreground"
+                placeholder="Mit diesem Trick erstellt ChatGPT aus deinem Meeting-Transcript strukturierte Notizen mit Action Items in unter 30 Sekunden."
+              />
+              <div className="flex items-center justify-between mt-1 text-xs">
+                <p className={errors.description ? 'text-destructive' : 'text-muted-foreground'}>
+                  {errors.description ?? `Mindestens ${DESCRIPTION_MIN_LENGTH} Zeichen`}
+                </p>
+                <span className="text-muted-foreground">{formData.description?.length ?? 0} Zeichen</span>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="why_it_works" className="block text-sm font-medium text-foreground mb-1">
+                Warum es funktioniert (optional)
+              </label>
+              <textarea
+                id="why_it_works"
+                name="why_it_works"
+                rows={3}
+                value={formData.why_it_works}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 bg-background text-foreground border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-muted-foreground"
+                placeholder="ChatGPT kann transkribierte Gespräche strukturieren und nach Kategorien sortieren - spart 80% der Zeit gegenüber manueller Zusammenfassung."
+              />
+              <p className="mt-2 flex items-start gap-2 text-xs text-muted-foreground">
+                <Lightbulb className="w-4 h-4 text-amber-500 dark:text-amber-400" />
+                Teilen eines kurzen Hintergrunds macht deinen Trick nachvollziehbarer.
+              </p>
+            </div>
+
+            <div>
+              <label htmlFor="category" className="block text-sm font-medium text-foreground mb-1">
+                Kategorie *
+              </label>
+              <select
+                id="category"
+                name="category"
+                required
+                value={formData.category}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 bg-background text-foreground border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-ring"
+              >
+                {categories.map(cat => (
+                  <option key={cat.value} value={cat.value}>
+                    {cat.label}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
+        </section>
 
-          <div>
-            <label htmlFor="description" className="block text-sm font-medium text-neutral-300 mb-1">
-              Beschreibung *
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              required
-              rows={3}
-              value={formData.description}
-              onChange={handleChange}
-              className="w-full px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-              placeholder="Kurze Beschreibung des Tricks..."
-            />
-            <div className="flex items-center justify-between mt-1">
-              <p className={`text-xs ${errors.description ? 'text-red-500' : 'text-neutral-400'}`}>
-                {errors.description ?? `Mindestens ${DESCRIPTION_MIN_LENGTH} Zeichen`}
+        <section className="bg-card dark:bg-card border border-border rounded-xl p-6 shadow-sm">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                Schritt 2
               </p>
-              <span className="text-xs text-neutral-400">{formData.description?.length ?? 0} Zeichen</span>
+              <h2 className="text-xl font-semibold text-foreground">
+                Zeige den Weg zum Ergebnis
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Zerlege deinen Trick in klare Schritte und füge Beispiele hinzu, damit andere ihn schnell nachbauen können.
+              </p>
+            </div>
+            <StatusBadge status={stepsStatus} />
+          </div>
+
+          <div className="mt-6 space-y-5">
+            <div className="rounded-lg border border-dashed border-border bg-muted/60 p-4">
+              <div className="flex items-start gap-3">
+                <Wand2 className="w-5 h-5 text-primary" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">
+                    Tipp für gute Schritte
+                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Beschreibe jede Aktion in einem Satz. Ergänze, welches Tool oder welche Eingabe notwendig ist.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <textarea
+                  value={newStep}
+                  onChange={event => setNewStep(event.target.value)}
+                  rows={2}
+                  className="flex-1 px-4 py-2.5 bg-background text-foreground border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-muted-foreground"
+                  placeholder="1. Öffne ChatGPT und wähle GPT-4 Modell"
+                />
+                <Button type="button" onClick={addStep} variant="outline" className="h-11">
+                  <Plus className="w-4 h-4" />
+                  Hinzufügen
+                </Button>
+              </div>
+
+              <div className="text-xs text-neutral-400 text-center my-3">oder</div>
+
+              <div className="space-y-3">
+                <textarea
+                  value={bulkSteps}
+                  onChange={event => setBulkSteps(event.target.value)}
+                  rows={4}
+                  className="w-full px-4 py-2.5 bg-white dark:bg-slate-800 text-neutral-900 dark:text-slate-100 border border-neutral-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary-500 dark:focus:ring-sky-400 focus:border-transparent placeholder:text-neutral-400 dark:placeholder:text-slate-500"
+                  placeholder="Oder füge mehrere Schritte auf einmal ein (eine Zeile = ein Schritt)&#10;&#10;Beispiel:&#10;Öffne ChatGPT und wähle GPT-4&#10;Gib deinen Meeting-Transcript ein&#10;Prompt: 'Fasse die Key Points zusammen'"
+                />
+                <Button type="button" onClick={addBulkSteps} variant="outline" size="sm" className="w-full sm:w-auto">
+                  <Plus className="w-4 h-4" />
+                  Alle hinzufügen
+                </Button>
+              </div>
+
+              <div className="space-y-3">
+                {formData.steps?.map((step, index) => (
+                  <div
+                    key={index}
+                    className="rounded-lg border border-neutral-200 dark:border-slate-700 bg-neutral-50 dark:bg-slate-800/50 p-4"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+                        {index + 1}
+                      </div>
+                      <div className="flex-1 space-y-3">
+                        {editingStepIndex === index ? (
+                          <>
+                            <textarea
+                              value={editingStepValue}
+                              onChange={event => setEditingStepValue(event.target.value)}
+                              rows={2}
+                              className="w-full px-3 py-2 bg-white dark:bg-slate-800 text-neutral-900 dark:text-slate-100 border border-primary rounded-lg focus:ring-2 focus:ring-primary-500 dark:focus:ring-sky-400 focus:border-transparent"
+                            />
+                            <div className="flex gap-2">
+                              <Button type="button" size="sm" onClick={saveStepEdit}>
+                                Speichern
+                              </Button>
+                              <Button type="button" size="sm" variant="secondary" onClick={cancelStepEdit}>
+                                Abbrechen
+                              </Button>
+                            </div>
+                          </>
+                        ) : (
+                          <p className="text-sm leading-relaxed text-neutral-700 dark:text-slate-300">{step}</p>
+                        )}
+                      </div>
+                      {editingStepIndex !== index && (
+                        <div className="flex flex-col gap-2">
+                          <button
+                            type="button"
+                            onClick={() => startEditStep(index)}
+                            className="text-xs text-primary hover:underline"
+                          >
+                            Bearbeiten
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => removeStep(index)}
+                            className="text-xs text-neutral-400 hover:text-neutral-600"
+                          >
+                            Entfernen
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <label className="block text-sm font-medium text-neutral-800">
+                Beispiele (optional)
+              </label>
+              <p className="text-xs text-neutral-500">
+                Zeig uns ein konkretes Ergebnis, einen Prompt oder einen Screenshot in Worten.
+              </p>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <textarea
+                  value={newExample}
+                  onChange={event => setNewExample(event.target.value)}
+                  rows={2}
+                  className="flex-1 px-4 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
+                  placeholder="Prompt-Beispiel: 'Analysiere dieses Meeting und erstelle: 1) Zusammenfassung, 2) Beschlüsse, 3) Action Items mit Verantwortlichen'"
+                />
+                <Button type="button" onClick={addExample} variant="outline" className="h-11">
+                  <Plus className="w-4 h-4" />
+                  Hinzufügen
+                </Button>
+              </div>
+
+              <div className="space-y-3">
+                {formData.examples?.map((example, index) => (
+                  <div key={index} className="rounded-lg border border-green-100 dark:border-green-900/50 bg-green-50/80 dark:bg-green-900/20 p-4">
+                    {editingExampleIndex === index ? (
+                      <>
+                        <textarea
+                          value={editingExampleValue}
+                          onChange={event => setEditingExampleValue(event.target.value)}
+                          rows={2}
+                          className="w-full px-3 py-2 bg-white dark:bg-slate-800 text-neutral-900 dark:text-slate-100 border border-primary rounded-lg focus:ring-2 focus:ring-primary-500 dark:focus:ring-sky-400 focus:border-transparent"
+                        />
+                        <div className="mt-3 flex gap-2">
+                          <Button type="button" size="sm" onClick={saveExampleEdit}>
+                            Speichern
+                          </Button>
+                          <Button type="button" size="sm" variant="secondary" onClick={cancelExampleEdit}>
+                            Abbrechen
+                          </Button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex items-start gap-3">
+                        <div className="mt-1 flex h-2.5 w-2.5 flex-shrink-0 rounded-full bg-green-500" />
+                        <p className="flex-1 text-sm leading-relaxed text-green-900 dark:text-green-100">{example}</p>
+                        <div className="flex flex-col gap-2">
+                          <button
+                            type="button"
+                            onClick={() => startEditExample(index)}
+                            className="text-xs text-primary hover:underline"
+                          >
+                            Bearbeiten
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => removeExample(index)}
+                            className="text-xs text-green-700/70 hover:text-green-700"
+                          >
+                            Entfernen
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
+        </section>
 
-          <div>
-            <label htmlFor="why_it_works" className="block text-sm font-medium text-neutral-300 mb-1">
-              Warum es funktioniert (optional)
-            </label>
-            <textarea
-              id="why_it_works"
-              name="why_it_works"
-              rows={2}
-              value={formData.why_it_works}
-              onChange={handleChange}
-              className="w-full px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-              placeholder="Erkläre kurz das Prinzip hinter diesem Trick..."
-            />
+        <section className="bg-white border border-neutral-200 rounded-xl p-6 shadow-sm">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
+                Schritt 3
+              </p>
+              <h2 className="text-xl font-semibold text-neutral-900">
+                Was wird benötigt?
+              </h2>
+              <p className="mt-2 text-sm text-neutral-500">
+                Liste die wichtigsten Tools oder Ressourcen auf, die man für deinen Trick braucht.
+              </p>
+            </div>
+            <StatusBadge status={toolsStatus} />
           </div>
 
-          <div>
-            <label htmlFor="category" className="block text-sm font-medium text-neutral-300 mb-1">
-              Kategorie *
-            </label>
-            <select
-              id="category"
-              name="category"
-              required
-              value={formData.category}
-              onChange={handleChange}
-              className="w-full px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-            >
-              {categories.map(cat => (
-                <option key={cat.value} value={cat.value}>{cat.label}</option>
+          <div className="mt-6 space-y-4">
+            <div className="rounded-lg border border-neutral-200 bg-neutral-50/80 p-4">
+              <div className="flex items-start gap-3">
+                <ListChecks className="w-5 h-5 text-primary" />
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-neutral-800">Tools einzeln hinzufügen</p>
+                  <p className="text-xs text-neutral-500">
+                    Drücke Enter, um einen Tool-Namen als Tag zu speichern. Du kannst später jederzeit anpassen.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <input
+                type="text"
+                value={toolInput}
+                onChange={event => setToolInput(event.target.value)}
+                onKeyDown={handleToolKeyDown}
+                className="flex-1 px-4 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
+                placeholder="z.B. ChatGPT, Zapier, Midjourney"
+              />
+              <Button type="button" onClick={addTool} variant="outline" className="h-11">
+                <Plus className="w-4 h-4" />
+                Hinzufügen
+              </Button>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {(formData.tools || []).length === 0 && (
+                <p className="text-xs text-neutral-400">Füge mindestens ein Tool hinzu.</p>
+              )}
+              {formData.tools?.map((tool, index) => (
+                <span
+                  key={`${tool}-${index}`}
+                  className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-sm text-primary"
+                >
+                  {tool}
+                  <button
+                    type="button"
+                    onClick={() => removeTool(index)}
+                    className="text-primary/80 transition hover:text-primary"
+                    aria-label={`${tool} entfernen`}
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </span>
               ))}
-            </select>
+            </div>
           </div>
+        </section>
 
-          {/* Tags removed */}
-        </div>
-      </div>
+        <section className="bg-white border border-neutral-200 rounded-xl p-6 shadow-sm">
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+            <div className="space-y-2">
+              <h3 className="text-lg font-semibold text-neutral-900">Bereit zum Einreichen?</h3>
+              <p className="text-sm text-neutral-500">
+                Wir prüfen deinen Beitrag manuell. Du erhältst eine Bestätigung, sobald wir ihn freigeschaltet haben.
+              </p>
+            </div>
 
-      {/* Schritte */}
-  <div className="bg-white border border-neutral-200 rounded-lg p-6 shadow-sm">
-        <h2 className="text-lg font-semibold mb-4">Schritt-für-Schritt Anleitung (optional)</h2>
-        
-        <div className="space-y-3">
-          <div className="flex gap-2">
-            <textarea
-              value={newStep}
-              onChange={(e) => setNewStep(e.target.value)}
-              rows={2}
-              className="flex-1 px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-              placeholder="Schritt hinzufügen..."
-            />
-            <Button type="button" onClick={addStep} variant="outline">
-              <Plus className="w-4 h-4" />
-            </Button>
-          </div>
-          
-          <div className="space-y-2">
-            {formData.steps?.map((step, index) => (
-              <div
-                key={index}
-                className="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200"
+            <div className="flex flex-wrap items-center gap-3">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => setShowMobilePreview(prev => !prev)}
+                className="w-full justify-center sm:w-auto lg:hidden"
               >
-                <span className="text-sm font-medium text-neutral-500">{index + 1}.</span>
-                <p className="flex-1 text-sm">{step}</p>
-                <button
-                  type="button"
-                  onClick={() => removeStep(index)}
-                  className="text-neutral-400 hover:text-neutral-200"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Beispiele */}
-  <div className="bg-white border border-neutral-200 rounded-lg p-6 shadow-sm">
-        <h2 className="text-lg font-semibold mb-4">Beispiele (optional)</h2>
-        
-        <div className="space-y-3">
-          <div className="flex gap-2">
-            <textarea
-              value={newExample}
-              onChange={(e) => setNewExample(e.target.value)}
-              rows={2}
-              className="flex-1 px-4 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
-              placeholder="Beispiel hinzufügen..."
-            />
-            <Button type="button" onClick={addExample} variant="outline">
-              <Plus className="w-4 h-4" />
-            </Button>
-          </div>
-          
-          <div className="space-y-2">
-            {formData.examples?.map((example, index) => (
-              <div
-                key={index}
-                className="flex items-start gap-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200"
+                Vorschau {showMobilePreview ? 'ausblenden' : 'anzeigen'}
+              </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => window.history.back()}
+                className="w-full justify-center sm:w-auto"
               >
-                <span className="text-sm">•</span>
-                <p className="flex-1 text-sm">{example}</p>
-                <button
-                  type="button"
-                  onClick={() => removeExample(index)}
-                  className="text-neutral-400 hover:text-neutral-200"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-            ))}
+                Abbrechen
+              </Button>
+              <Button
+                type="submit"
+                variant="primary"
+                disabled={isSubmitting || !!errors.title || !!errors.description}
+                className="w-full justify-center sm:w-auto"
+              >
+                {isSubmitting ? 'Wird eingereicht...' : 'Trick einreichen'}
+              </Button>
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Submit Buttons */}
-  <div className="bg-white border border-neutral-200 rounded-lg p-6 shadow-sm">
-        <div className="flex flex-col sm:flex-row justify-between gap-4">
-          <Button 
-            type="button" 
-            variant="secondary" 
-            onClick={handlePreviewToggle}
-            className="transition-all duration-200 hover:scale-105 flex items-center justify-center"
-          >
-            <Eye className="w-4 h-4 mr-2" />
-            Vorschau anzeigen
-          </Button>
-          <div className="flex gap-3">
-            <Button 
-              type="button" 
-              variant="secondary" 
-              onClick={() => window.history.back()}
-              className="transition-all duration-200 hover:scale-105"
-            >
-              Abbrechen
-            </Button>
-            <Button 
-              type="submit" 
-              variant="primary" 
-              disabled={isSubmitting || !!errors.title || !!errors.description}
-              className="transition-all duration-200 hover:scale-105 disabled:hover:scale-100"
-            >
-              {isSubmitting ? 'Wird eingereicht...' : 'Trick einreichen'}
-            </Button>
+        {showMobilePreview && (
+          <div className="lg:hidden space-y-4">
+            <TrickPreview formData={normalizedData} />
+            <div className="bg-white border border-neutral-200 rounded-xl p-5 shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <Target className="w-5 h-5 text-primary" />
+                <h3 className="text-sm font-semibold text-neutral-900">Einreichungs-Checkliste</h3>
+              </div>
+              <ul className="space-y-3">
+                {checklistItems.map(item => (
+                  <li key={item.label} className="flex items-start gap-3 text-sm">
+                    <span
+                      className={`mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full border ${
+                        item.done ? 'border-green-500 bg-green-500/20 text-green-600' : 'border-neutral-300 text-neutral-400'
+                      }`}
+                    >
+                      {item.done ? <CheckCircle2 className="w-3 h-3" /> : ''}
+                    </span>
+                    <span className={item.done ? 'text-neutral-600' : 'text-neutral-400'}>{item.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+      </form>
+
+      <aside className="mt-10 hidden lg:block">
+        <div className="sticky top-24 space-y-5">
+          <TrickPreview formData={normalizedData} />
+          <div className="bg-white border border-neutral-200 rounded-xl p-5 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <Target className="w-5 h-5 text-primary" />
+              <h3 className="text-sm font-semibold text-neutral-900">Einreichungs-Checkliste</h3>
+            </div>
+            <ul className="space-y-3">
+              {checklistItems.map(item => (
+                <li key={item.label} className="flex items-start gap-3 text-sm">
+                  <span
+                    className={`mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full border text-xs ${
+                      item.done ? 'border-green-500 bg-green-500/10 text-green-600' : 'border-neutral-300 text-neutral-400'
+                    }`}
+                  >
+                    {item.done ? <CheckCircle2 className="w-3.5 h-3.5" /> : ''}
+                  </span>
+                  <span className={item.done ? 'text-neutral-600' : 'text-neutral-400'}>{item.label}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </div>
-    </form>
+      </aside>
+    </div>
   )
 }

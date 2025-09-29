@@ -201,30 +201,6 @@ export function trackUserInteraction(action: string, category: string, label?: s
   }
 }
 
-// Initialize all performance monitoring
-export function initPerformanceMonitoring() {
-  if (typeof window === 'undefined') return
-
-  // Wait for page to be interactive
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        initWebVitals()
-        initPerformanceObserver()
-        trackResourcePerformance()
-        initErrorTracking()
-      }, 100)
-    })
-  } else {
-    setTimeout(() => {
-      initWebVitals()
-      initPerformanceObserver()
-      trackResourcePerformance()
-      initErrorTracking()
-    }, 100)
-  }
-}
-
 // MONETIZATION-FOCUSED TRACKING
 
 // Email Signup Tracking
@@ -374,51 +350,10 @@ export function trackAdViewability(adUnit: string, position: string, viewable: b
   }
 }
 
-// Initialize Enhanced Analytics for Monetization
-export function initMonetizationTracking() {
-  if (typeof window === 'undefined') return
-
-  // Track session duration for high-value users
-  const sessionStart = Date.now()
-  const sessionId = Math.random().toString(36).substring(2, 15)
-  sessionStorage.setItem('session_id', sessionId)
-
-  // Track when user becomes a power user (views multiple tricks)
-  let tricksViewed = 0
-  const trackPowerUser = () => {
-    tricksViewed++
-    if (tricksViewed >= 3) {
-      trackHighValueAction('multiple_tricks_viewed')
-    }
-  }
-
-  // Expose power user tracking globally
-  window.trackPowerUser = trackPowerUser
-
-  // Track session end
-  window.addEventListener('beforeunload', () => {
-    const sessionDuration = Date.now() - sessionStart
-    trackUserInteraction('session_end', 'User Behavior', 'session_duration', Math.round(sessionDuration / 1000))
-  })
-
-  // Track scroll depth for content engagement
-  let maxScrollDepth = 0
-  window.addEventListener('scroll', () => {
-    const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100)
-    if (scrollDepth > maxScrollDepth) {
-      maxScrollDepth = scrollDepth
-      if (maxScrollDepth >= 75) {
-        trackUserInteraction('deep_scroll', 'Content Engagement', 'scroll_75_percent', maxScrollDepth)
-      }
-    }
-  })
-}
-
 // Type declarations for global objects
 declare global {
   interface Window {
     va?: (event: string, data?: any) => void
     gtag?: (...args: any[]) => void
-    trackPowerUser?: () => void
   }
 }

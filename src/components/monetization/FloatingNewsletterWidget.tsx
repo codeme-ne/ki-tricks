@@ -95,7 +95,7 @@ export const FloatingNewsletterWidget: React.FC<FloatingNewsletterWidgetProps> =
               </button>
 
               {/* Header with decoration */}
-              <div className="relative bg-gradient-to-br from-blue-500 to-purple-600 text-white p-6 pb-8">
+              <div className="relative bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 pb-8">
                 <div className="absolute top-0 right-0 w-32 h-32 -translate-y-8 translate-x-8">
                   <div className="w-full h-full rounded-full bg-white/10" />
                 </div>

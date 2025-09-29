@@ -94,11 +94,12 @@ export const BaseCard = React.memo(function BaseCard({
       className={cn(
         // Base styles using new trick-card class for pseudo-element shadows
         "trick-card",
-        "bg-white border border-neutral-100 rounded-xl",
+        "bg-card dark:bg-card border border-border dark:border-slate-800 rounded-xl",
+        "shadow-sm dark:shadow-none dark:ring-1 dark:ring-white/10",
         "flex flex-col relative",
 
         // Gradient background for depth
-        "bg-gradient-to-br from-white to-neutral-50/30",
+        "bg-gradient-to-br from-card to-muted/30",
 
         // Height variants with mobile-first responsive design
         variant === "compact" && "min-h-[140px] p-3 sm:p-4",

@@ -1,9 +1,8 @@
-
-import { Analytics } from '@vercel/analytics/next';
-import DevToolbar from '@/components/DevToolbar';
+import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import '../styles/globals.css'
-import { PerformanceMonitoring } from '@/components/PerformanceMonitoring'
+import { DarkModeProvider } from '@/lib/context/DarkModeContext'
 
 // Conditional font loading - use system fonts in CI/restricted environments
 const inter = process.env.SKIP_GOOGLE_FONTS === 'true' 
@@ -59,15 +58,15 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <html lang="de">
-  <body className="min-h-screen bg-background text-foreground antialiased font-sans">
-        {children}
-        <DevToolbar />
-        <Analytics />
-        <PerformanceMonitoring />
+      <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased`}>
+        <DarkModeProvider>
+          {children}
+          <Analytics />
+        </DarkModeProvider>
       </body>
     </html>
   )

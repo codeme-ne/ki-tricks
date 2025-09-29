@@ -69,7 +69,7 @@ export const AnimatedHeroTitle: FC<AnimatedHeroTitleProps> = ({
             <motion.span
               key={i}
               variants={wordVariants}
-              className="relative inline-block text-neutral-900"
+              className="relative inline-block text-neutral-900 dark:text-neutral-100"
             >
               {word}
             </motion.span>

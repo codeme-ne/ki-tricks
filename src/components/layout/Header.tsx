@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { HeaderProps } from '@/lib/types/types'
+import { DarkModeToggle } from '@/components/atoms/DarkModeToggle'
 
 export function Header({ className = '' }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -31,12 +32,6 @@ export function Header({ className = '' }: HeaderProps) {
                 Alle Tricks
               </Link>
               <Link
-                href="/learn"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Guides
-              </Link>
-              <Link
                 href="/tricks/einreichen"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium transition-colors"
               >
@@ -50,6 +45,7 @@ export function Header({ className = '' }: HeaderProps) {
               >
                 KI Kurs
               </Link>
+              <DarkModeToggle />
             </nav>
 
             {/* Mobile Menu Button */}
@@ -108,13 +104,6 @@ export function Header({ className = '' }: HeaderProps) {
                 Alle Tricks
               </Link>
               <Link
-                href="/learn"
-                className="block mt-2 min-h-[48px] px-4 py-3 text-base font-medium text-foreground hover:bg-muted transition-colors rounded-lg"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Guides
-              </Link>
-              <Link
                 href="/tricks/einreichen"
                 className="block mt-2 min-h-[48px] px-4 py-3 text-base font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-lg text-center"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -130,6 +119,9 @@ export function Header({ className = '' }: HeaderProps) {
               >
                 KI Kurs
               </Link>
+              <div className="mt-4 pt-4 border-t border-border flex justify-center">
+                <DarkModeToggle />
+              </div>
             </div>
           </nav>
         </>

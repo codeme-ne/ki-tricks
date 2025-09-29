@@ -125,7 +125,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
       {/* Glassmorphism container with overflow containment */}
       <div className="relative overflow-hidden rounded-2xl">
         {/* Glow effect - contained within parent */}
-        <div className="absolute inset-2 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-xl blur-lg opacity-60" />
+        <div className="absolute inset-2 bg-gradient-to-r from-blue-400/20 to-blue-500/20 rounded-xl blur-lg opacity-60" />
 
         {/* Main card */}
         <div className={`relative backdrop-blur-md bg-white/90 border border-white/50 rounded-2xl shadow-xl ${sizes[variant]} contain-layout`}>
@@ -141,7 +141,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="w-12 h-12 mx-auto mb-4 p-3 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg"
+              className="w-12 h-12 mx-auto mb-4 p-3 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg"
             >
               <Download className="w-6 h-6" />
             </motion.div>
@@ -197,7 +197,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 px-6 rounded-xl hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

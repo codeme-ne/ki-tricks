@@ -43,7 +43,7 @@ export const TrickCard = React.memo(function TrickCard({
 
   // Category icon mapping
   const getCategoryIcon = () => {
-    const iconClass = 'w-4 h-4 text-neutral-400'
+    const iconClass = 'w-4 h-4 text-muted-foreground'
     switch (trick.category) {
       case 'programming':
         return <Code2 className={iconClass} />
@@ -138,14 +138,14 @@ export const TrickCard = React.memo(function TrickCard({
 
           <div className="mt-auto">
             <div className="flex items-center justify-between">
-              <Badge className="bg-neutral-50 text-neutral-700 border-neutral-200 shadow-sm">
+              <Badge className="bg-muted/60 text-foreground border-border shadow-sm">
                 <span>
                   <span className="mr-1.5">{categoryInfo.emoji}</span>
                   {categoryInfo.label}
                 </span>
               </Badge>
 
-              <div className="p-2 rounded-full bg-white/80 text-neutral-500 group-hover:bg-blue-50 group-hover:text-blue-600 transition-all shadow-sm">
+              <div className="p-2 rounded-full bg-card/80 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-all shadow-sm">
                 <ArrowRight className="w-4 h-4" />
               </div>
             </div>
@@ -156,22 +156,22 @@ export const TrickCard = React.memo(function TrickCard({
         <>
           <div className="flex flex-wrap items-center gap-2 mb-3">
             {getCategoryIcon()}
-            <Badge className="bg-neutral-50 border-neutral-200 text-neutral-700 text-xs py-1 px-2.5 font-medium">
+            <Badge className="bg-muted/60 border-border text-foreground text-xs py-1 px-2.5 font-medium">
               {categoryInfo.label}
             </Badge>
           </div>
 
-          <h3 className="text-neutral-900 font-semibold leading-tight text-lg mb-2">
+          <h3 className="text-foreground font-semibold leading-tight text-lg mb-2">
             {trick.title}
           </h3>
 
-          <p className="text-neutral-600 text-sm leading-relaxed flex-1 line-clamp-3 mb-4">
+          <p className="text-muted-foreground text-sm leading-relaxed flex-1 line-clamp-3 mb-4">
             {trick.description.split('\n')[0]}
           </p>
 
           <div className="mt-auto pt-3 flex items-center justify-between">
-            <span className="text-xs text-neutral-400 font-medium">Mehr erfahren</span>
-            <div className="p-1.5 rounded-full bg-neutral-100 text-neutral-600 group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors">
+            <span className="text-xs text-muted-foreground font-medium">Mehr erfahren</span>
+            <div className="p-1.5 rounded-full bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
               <ArrowRight className="w-3.5 h-3.5" />
             </div>
           </div>

@@ -1,0 +1,12 @@
+# KI-Tricks Platform Overview
+- **Purpose**: German-language hub for actionable AI tricks, guides, and admin curation, built to surface curated AI workflows for professionals.
+- **Core Product**: Next.js 15 App Router site with public catalog (`/tricks`, `/learn`), trick detail pages, and admin areas for queue/curation.
+- **Key Capabilities**: URL-driven filtering, responsive glassmorphism UI, analytics via Vercel, Supabase-backed content with guides/tricks, email flows via Resend/React Email, and optional monetization hooks (Stripe, Zustand state stores).
+- **Architecture**:
+  - `src/app`: Server-first routing, admin dashboards, API handlers, marketing pages.
+  - `src/components`: Atomic design (atoms → molecules → organisms → enhanced/UI). Shared layouts, monetization, SEO helpers.
+  - `src/lib`: Actions, services (Supabase, analytics), constants, utilities, shared types.
+  - `scripts/` & `docs/`: Supabase migrations, ETL/pipeline scripts (`fetch-feeds`, `normalize`, `curator`, `format-guides`), and pipeline/Serena documentation.
+  - `supabase/`: SQL schema, seeds, migrations aligning with pipeline plan (news_items, guides, newsletters).
+- **Data Flow**: Scripts ingest sources → normalize/dedupe → curator queue → formatter builds guides → publishing updates Supabase + sitemaps; cron-friendly pipeline documented in `docs/PIPELINE_PLAN.md`.
+- **Deployment**: Vercel-hosted; pushes to `main` auto-deploy, previews on PRs. Supabase provides DB/storage, EmailJS optional for contact forms.

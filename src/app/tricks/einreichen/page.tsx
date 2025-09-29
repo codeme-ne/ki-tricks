@@ -1,13 +1,163 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { PageContainer } from '@/components/layout'
 import { TrickForm } from '@/components/organisms/TrickForm'
 import { KITrick } from '@/lib/types/types'
 import { sendNewTrickNotification } from '@/lib/utils/email-notifications'
-import { ArrowLeft, CheckCircle } from 'lucide-react'
+import { ArrowLeft, CheckCircle, Clock, Sparkles, Share2, ShieldCheck, BookOpen, HelpCircle, Lightbulb, Compass, AlertTriangle, ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
+import { Badge, Button } from '@/components/atoms'
+import { createPortal } from 'react-dom'
+
+const submissionHighlights = [
+  {
+    title: 'Zeitaufwand',
+    description: 'Plane 5–10 Minuten ein. Das Formular speichert deine Eingaben lokal bis zum Absenden.',
+    icon: Clock
+  },
+  {
+    title: 'Review-Prozess',
+    description: 'Das Team prüft jede Einsendung innerhalb von 48 Stunden – inkl. Feedback bei Rückfragen.',
+    icon: ShieldCheck
+  },
+  {
+    title: 'Community Impact',
+    description: 'Dein Trick wird in der KI-Tricks Bibliothek gefeatured und in unserem Newsletter erwähnt.',
+    icon: Share2
+  }
+]
+
+const faqItems = [
+  {
+    question: 'Was passiert nach dem Absenden?',
+    answer:
+      'Wir prüfen deinen Trick redaktionell, testen die Anleitung und melden uns, falls noch Informationen fehlen. Sobald alles passt, wird er veröffentlicht und du erhältst eine Bestätigung.'
+  },
+  {
+    question: 'Kann ich meinen Trick später aktualisieren?',
+    answer:
+      'Ja! Antworten einfach auf unsere Bestätigungs-Mail oder schick uns eine Nachricht über kontakt@kitricks.de. Wir aktualisieren deinen Beitrag oder erstellen eine neue Version.'
+  },
+  {
+    question: 'Welche Inhalte sind besonders hilfreich?',
+    answer:
+      'Konkrete Schritte mit Tool-Namen, Prompt-Beispielen und einem kurzen Hinweis, warum der Trick funktioniert. Wenn du Limitierungen kennst, erwähne sie gern.'
+  }
+]
+
+interface DuplicateDialogProps {
+  warning: any
+  onClose: () => void
+  onSubmitAnyway: () => void
+  isSubmitting: boolean
+}
+
+const DuplicateDialog = ({ warning, onClose, onSubmitAnyway, isSubmitting }: DuplicateDialogProps) => {
+  const isBrowser = typeof window !== 'undefined'
+
+  useEffect(() => {
+    if (!warning || !isBrowser) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [warning, isBrowser, onClose])
+
+  if (!warning || !isBrowser) return null
+
+  const similarTricks = Array.isArray(warning.similarTricks)
+    ? warning.similarTricks.slice(0, 3)
+    : []
+
+  return createPortal(
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-10">
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
+      <div className="relative z-10 w-full max-w-2xl rounded-2xl bg-background border border-border p-6 shadow-2xl">
+        <div className="flex items-start gap-4">
+          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400">
+            <AlertTriangle className="w-6 h-6" />
+          </div>
+          <div className="space-y-3">
+            <div>
+              <h2 className="text-lg font-semibold text-foreground">
+                Wir haben ähnliche Tricks gefunden
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {warning.message || 'Prüfe kurz, ob dein Beitrag sich deutlich unterscheidet oder ergänze weitere Details.'}
+              </p>
+            </div>
+
+            {similarTricks.length > 0 && (
+              <div className="space-y-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  Ähnliche Beiträge aus der Bibliothek
+                </p>
+                <div className="space-y-3">
+                  {similarTricks.map((similar: any, index: number) => (
+                    <div key={`${similar.trick?.id ?? index}`} className="rounded-xl border border-border bg-muted p-4">
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <p className="text-sm font-semibold text-foreground">
+                            {similar.trick?.title ?? 'Ohne Titel'}
+                          </p>
+                          <p className="mt-1 text-sm text-muted-foreground line-clamp-3">
+                            {similar.trick?.description ?? 'Keine Beschreibung verfügbar.'}
+                          </p>
+                        </div>
+                        <Badge variant="neutral" className="text-[11px]">
+                          {similar.overallSimilarity ?? '?'}%
+                          <span className="text-neutral-400"> ähnlich</span>
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-4 text-sm text-amber-900 dark:text-amber-200">
+              <p className="font-semibold">So kannst du deinen Trick abheben:</p>
+              <ul className="mt-2 space-y-1.5">
+                <li>• Hebe differenzierende Schritte oder Tools hervor.</li>
+                <li>• Teile konkrete Prompt-Beispiele oder Nischen-Szenarien.</li>
+                <li>• Ergänze, warum dein Ansatz besser funktioniert.</li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:justify-end">
+              <Button variant="secondary" onClick={onClose} className="justify-center">
+                Zurück zur Bearbeitung
+              </Button>
+              <Button
+                onClick={onSubmitAnyway}
+                disabled={isSubmitting}
+                className="justify-center"
+              >
+                {isSubmitting ? 'Wird eingereicht...' : 'Trotzdem einreichen'}
+                <ArrowUpRight className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>,
+    document.body
+  )
+}
 
 export default function SubmitTrickPage() {
   const router = useRouter()
@@ -16,6 +166,11 @@ export default function SubmitTrickPage() {
   const [success, setSuccess] = useState(false)
   const [duplicateWarning, setDuplicateWarning] = useState<any>(null)
   const [lastSubmissionData, setLastSubmissionData] = useState<Partial<KITrick> | null>(null)
+
+  const handleForceDuplicateSubmit = () => {
+    if (!lastSubmissionData) return
+    handleSubmit(lastSubmissionData, true)
+  }
 
   const handleSubmit = async (trickData: Partial<KITrick>, forceDuplicate = false) => {
     setIsSubmitting(true)
@@ -57,6 +212,9 @@ export default function SubmitTrickPage() {
         // Log error but don't fail the submission
         console.error('Failed to send admin notification:', error)
       }
+      
+      // Clear saved draft
+      localStorage.removeItem('ki-tricks-draft')
       
       // Show success message
       setSuccess(true)
@@ -103,94 +261,83 @@ export default function SubmitTrickPage() {
 
   return (
     <PageContainer>
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-8">
-          <Link 
-            href="/tricks" 
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-10 space-y-6">
+          <Link
+            href="/tricks"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Zurück zur Übersicht
           </Link>
-          
-          <h1 className="text-3xl font-bold text-foreground mb-2">
-            KI-Trick einreichen
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            Teile deinen besten KI-Trick mit der Community! Deine Einreichung wird 
-            geprüft und bei Freigabe auf der Plattform veröffentlicht.
-          </p>
-        </div>
 
-        {/* Info Box */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-          <h3 className="font-semibold text-blue-800 mb-2">
-            Tipps für eine erfolgreiche Einreichung:
-          </h3>
-          <ul className="text-sm text-blue-700 space-y-1">
-            <li>• Beschreibe deinen Trick klar und verständlich</li>
-            <li>• Füge konkrete Schritte hinzu, die andere nachvollziehen können</li>
-            <li>• Gib realistische Zeitschätzungen an</li>
-            <li>• Beispiele machen deinen Trick greifbarer</li>
-          </ul>
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-1 shadow-sm dark:shadow-none">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.05),transparent_55%)] dark:bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.03),transparent_55%)]" />
+            <div className="relative grid gap-8 rounded-[calc(1.5rem-4px)] bg-card dark:bg-card p-8 md:grid-cols-[minmax(0,1.2fr)_minmax(280px,1fr)]">
+              <div className="space-y-4 text-foreground">
+                <Badge variant="new-subtle" className="uppercase tracking-wide text-xs">
+                  <Sparkles className="w-3 h-3" />
+                  Community Submission
+                </Badge>
+                <h1 className="text-3xl font-semibold sm:text-4xl">
+                  Teile deinen besten KI-Workflow mit der Community
+                </h1>
+                <p className="text-base text-muted-foreground">
+                  Zeig Schritt für Schritt, wie du mit KI Zeit sparst, Ergebnisse verbesserst oder neue Ideen möglich machst. Wir helfen dir beim letzten Feinschliff.
+                </p>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <Badge variant="neutral">🔍 Wir prüfen jede Einsendung manuell</Badge>
+                  <Badge variant="neutral">🤝 Credits für deinen Beitrag</Badge>
+                  <Badge variant="neutral">📬 Feedback innerhalb von 48h</Badge>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-border bg-muted/50 p-6">
+                <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                  <Compass className="w-4 h-4" />
+                  Einreichungs-Playbook
+                </div>
+                <ul className="mt-4 space-y-4 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="mt-1 w-4 h-4 text-emerald-400" />
+                    <span>Kurzer Titel + prägnante Zusammenfassung</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="mt-1 w-4 h-4 text-emerald-400" />
+                    <span>Schritte mit Tool-Hinweisen und Prompt-Beispielen</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="mt-1 w-4 h-4 text-emerald-400" />
+                    <span>Optional: Warum funktioniert es? Welche Grenzen gibt es?</span>
+                  </li>
+                </ul>
+                <Link
+                  href="/learn"
+                  className="mt-6 inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-foreground transition hover:border-primary hover:text-primary"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  Inspiration & Beispiele ansehen
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {submissionHighlights.map(({ title, description, icon: Icon }) => (
+              <div key={title} className="rounded-xl border border-border bg-card p-5 shadow-sm">
+                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  <Icon className="w-4 h-4 text-primary" />
+                  {title}
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground">{description}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-            <p className="text-red-700">{error}</p>
-          </div>
-        )}
-
-        {duplicateWarning && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-6">
-            <div className="flex items-start">
-              <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <div className="ml-3 flex-1">
-                <h3 className="text-sm font-medium text-amber-800">
-                  Mögliches Duplikat erkannt
-                </h3>
-                <div className="mt-2 text-sm text-amber-800">
-                  <p>{duplicateWarning.message}</p>
-                </div>
-
-                {duplicateWarning.similarTricks && duplicateWarning.similarTricks.length > 0 && (
-                  <div className="mt-4">
-                    <h4 className="text-sm font-medium text-amber-800 mb-2">Ähnliche Tricks:</h4>
-                    <div className="space-y-2">
-                      {duplicateWarning.similarTricks.slice(0, 3).map((similar: any, index: number) => (
-                        <div key={index} className="bg-amber-100 rounded p-3">
-                          <p className="font-medium text-sm text-amber-800">{similar.trick.title}</p>
-                          <p className="text-xs text-amber-700 mt-1">{similar.trick.description.substring(0, 100)}...</p>
-                          <p className="text-xs text-amber-700 mt-2">
-                            Ähnlichkeit: {similar.overallSimilarity}%
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div className="mt-4 flex gap-3">
-                  <button
-                    onClick={() => setDuplicateWarning(null)}
-                    className="text-sm bg-amber-100 text-amber-800 px-3 py-2 rounded hover:bg-amber-200 transition-colors"
-                  >
-                    Überarbeiten
-                  </button>
-                  <button
-                    onClick={() => lastSubmissionData && handleSubmit(lastSubmissionData, true)}
-                    disabled={isSubmitting}
-                    className="text-sm bg-amber-600 text-white px-3 py-2 rounded hover:bg-amber-700 transition-colors disabled:opacity-50"
-                  >
-                    {isSubmitting ? 'Wird eingereicht...' : 'Trotzdem einreichen'}
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
+            <p className="text-red-700 dark:text-red-400">{error}</p>
           </div>
         )}
 
@@ -198,7 +345,34 @@ export default function SubmitTrickPage() {
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}
         />
+
+        <section className="mt-16 space-y-6">
+          <div className="flex items-center gap-2">
+            <Lightbulb className="w-5 h-5 text-primary" />
+            <h2 className="text-xl font-semibold text-foreground">
+              Häufige Fragen zur Einreichung
+            </h2>
+          </div>
+          <div className="space-y-4">
+            {faqItems.map(({ question, answer }) => (
+              <details key={question} className="group rounded-xl border border-border bg-card p-5 shadow-sm">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium text-foreground">
+                  {question}
+                  <HelpCircle className="w-4 h-4 text-muted-foreground transition group-open:rotate-45" />
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
       </div>
+
+      <DuplicateDialog
+        warning={duplicateWarning}
+        onClose={() => setDuplicateWarning(null)}
+        onSubmitAnyway={handleForceDuplicateSubmit}
+        isSubmitting={isSubmitting}
+      />
     </PageContainer>
   )
 }
