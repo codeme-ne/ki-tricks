@@ -18,12 +18,16 @@ interface WelcomeEmailProps {
   email: string
   leadMagnet?: string
   downloadLink?: string
+  unsubscribeToken: string
+  baseUrl: string
 }
 
 export const WelcomeEmail = ({
   email,
   leadMagnet = 'Die 50 besten KI-Tricks',
   downloadLink = 'https://ki-tricks.com/download/guide',
+  unsubscribeToken,
+  baseUrl,
 }: WelcomeEmailProps) => {
   const previewText = `Willkommen bei KI Tricks, ${email}! Dein Guide wartet auf dich.`
 
@@ -85,16 +89,16 @@ export const WelcomeEmail = ({
               Entdecke sofort die beliebtesten KI-Tricks auf unserer Platform:
             </Text>
             <div style={linkGrid}>
-              <Link href="https://ki-tricks.com/tricks?category=productivity" style={categoryLink}>
+              <Link href={`${baseUrl}/tricks?category=productivity`} style={categoryLink}>
                 🚀 Produktivität
               </Link>
-              <Link href="https://ki-tricks.com/tricks?category=content-creation" style={categoryLink}>
+              <Link href={`${baseUrl}/tricks?category=content-creation`} style={categoryLink}>
                 ✍️ Content-Creation
               </Link>
-              <Link href="https://ki-tricks.com/tricks?category=programming" style={categoryLink}>
+              <Link href={`${baseUrl}/tricks?category=programming`} style={categoryLink}>
                 💻 Programmierung
               </Link>
-              <Link href="https://ki-tricks.com/tricks?category=business" style={categoryLink}>
+              <Link href={`${baseUrl}/tricks?category=business`} style={categoryLink}>
                 📊 Business
               </Link>
             </div>
@@ -106,21 +110,21 @@ export const WelcomeEmail = ({
           <Section style={footer}>
             <Text style={footerText}>
               Du erhältst diese E-Mail, weil du dich auf{' '}
-              <Link href="https://ki-tricks.com" style={link}>
+              <Link href={baseUrl} style={link}>
                 ki-tricks.com
               </Link>{' '}
               angemeldet hast.
             </Text>
             <Text style={footerText}>
-              <Link href="https://ki-tricks.com/unsubscribe?email={email}" style={link}>
+              <Link href={`${baseUrl}/unsubscribe?token=${unsubscribeToken}`} style={link}>
                 Newsletter abbestellen
               </Link>
               {' • '}
-              <Link href="https://ki-tricks.com/datenschutz" style={link}>
+              <Link href={`${baseUrl}/datenschutz`} style={link}>
                 Datenschutz
               </Link>
               {' • '}
-              <Link href="https://ki-tricks.com/impressum" style={link}>
+              <Link href={`${baseUrl}/impressum`} style={link}>
                 Impressum
               </Link>
             </Text>

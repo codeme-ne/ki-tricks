@@ -95,20 +95,20 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: "spring" }}
-            className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+            className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4"
           >
-            <CheckCircle className="w-8 h-8 text-green-600" />
+            <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
           </motion.div>
 
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
+          <h3 className="text-xl font-bold text-foreground mb-2">
             Willkommen in der Community! 🎉
           </h3>
 
-          <p className="text-gray-600 mb-4">
+          <p className="text-muted-foreground mb-4">
             Prüfe deine E-Mails für den Download-Link und die ersten KI-Tricks.
           </p>
 
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-muted-foreground">
             Keine E-Mail erhalten? Prüfe auch den Spam-Ordner.
           </div>
         </div>
@@ -128,7 +128,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
         <div className="absolute inset-2 bg-gradient-to-r from-blue-400/20 to-blue-500/20 rounded-xl blur-lg opacity-60" />
 
         {/* Main card */}
-        <div className={`relative backdrop-blur-md bg-white/90 border border-white/50 rounded-2xl shadow-xl ${sizes[variant]} contain-layout`}>
+        <div className={`relative backdrop-blur-md bg-white/90 dark:bg-gray-900/90 border border-white/50 dark:border-gray-700/50 rounded-2xl shadow-xl ${sizes[variant]} contain-layout`}>
           {/* Header */}
           <div className="text-center mb-6">
             <motion.div
@@ -146,27 +146,27 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               <Download className="w-6 h-6" />
             </motion.div>
 
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
+            <h3 className="text-xl font-bold text-foreground mb-2">
               {leadMagnet.title}
             </h3>
 
-            <p className="text-gray-600 text-sm">
+            <p className="text-muted-foreground text-sm">
               {leadMagnet.description}
             </p>
           </div>
 
           {/* Features */}
           <div className="space-y-3 mb-6">
-            <div className="flex items-center gap-3 text-sm text-gray-600">
-              <Sparkles className="w-4 h-4 text-yellow-500" />
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <Sparkles className="w-4 h-4 text-yellow-500 dark:text-yellow-400" />
               <span>50 sofort anwendbare KI-Workflows</span>
             </div>
-            <div className="flex items-center gap-3 text-sm text-gray-600">
-              <CheckCircle className="w-4 h-4 text-green-500" />
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400" />
               <span>Kategorisiert nach Anwendungsgebiet</span>
             </div>
-            <div className="flex items-center gap-3 text-sm text-gray-600">
-              <Mail className="w-4 h-4 text-blue-500" />
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <Mail className="w-4 h-4 text-blue-500 dark:text-blue-400" />
               <span>Wöchentliche neue Tricks per E-Mail</span>
             </div>
           </div>
@@ -180,14 +180,14 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="deine-email@beispiel.de"
                 required
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white/80 backdrop-blur-sm"
+                className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white/80 dark:bg-gray-800/80 text-foreground placeholder:text-muted-foreground backdrop-blur-sm"
                 disabled={isLoading}
               />
-              <Mail className="absolute right-3 top-3.5 w-5 h-5 text-gray-400" />
+              <Mail className="absolute right-3 top-3.5 w-5 h-5 text-gray-400 dark:text-gray-500" />
             </div>
 
             {error && (
-              <div className="text-red-600 text-sm text-center">
+              <div className="text-red-600 dark:text-red-400 text-sm text-center">
                 {error}
               </div>
             )}
@@ -212,14 +212,14 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
           {/* Trust indicators */}
           <div className="mt-4 text-center">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-muted-foreground">
               Kostenlos • Keine Werbung • Jederzeit abmeldbar
             </p>
             <div className="flex items-center justify-center gap-1 mt-2">
-              <div className="flex text-yellow-400">
+              <div className="flex text-yellow-400 dark:text-yellow-500">
                 {"★".repeat(5)}
               </div>
-              <span className="text-xs text-gray-500 ml-1">
+              <span className="text-xs text-muted-foreground ml-1">
                 4.8/5 von 100+ Nutzern
               </span>
             </div>

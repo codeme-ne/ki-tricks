@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { Resend } from 'resend'
 import { createClient } from '@/lib/supabase/server'
 import { WelcomeEmail } from '@/emails/WelcomeEmail'
+import { generateUnsubscribeToken } from '@/lib/auth/unsubscribe-tokens'
 
 // Initialize Resend
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
@@ -68,10 +69,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Generate verification token (optional for double opt-in)
-    const verificationToken = Math.random().toString(36).substring(2, 15)
-
-    // Add to Supabase
+    // Add to Supabase first (we need the ID for token generation)
     const { data: newSubscriber, error: insertError } = await supabase
       .from('newsletter_subscribers')
       .insert({
@@ -79,7 +77,6 @@ export async function POST(request: NextRequest) {
         status: 'active', // For now, skip double opt-in
         source,
         lead_magnet: leadMagnet,
-        verification_token: verificationToken,
         verified_at: new Date().toISOString(), // Auto-verify for now
       })
       .select()
@@ -99,6 +96,20 @@ export async function POST(request: NextRequest) {
       throw insertError
     }
 
+    // Generate secure unsubscribe token
+    const unsubscribeToken = generateUnsubscribeToken(email, newSubscriber.id)
+
+    // Store token in database
+    const { error: tokenUpdateError } = await supabase
+      .from('newsletter_subscribers')
+      .update({ verification_token: unsubscribeToken })
+      .eq('id', newSubscriber.id)
+
+    if (tokenUpdateError) {
+      console.error('Failed to store unsubscribe token:', tokenUpdateError)
+      throw new Error('Could not save subscription details. Please try again.')
+    }
+
     // Send welcome email via Resend
     if (process.env.RESEND_API_KEY) {
       try {
@@ -111,7 +122,9 @@ export async function POST(request: NextRequest) {
             leadMagnet: leadMagnet || 'Die 50 besten KI-Tricks',
             downloadLink: leadMagnet ?
               `${process.env.NEXT_PUBLIC_APP_URL}/download/${leadMagnet}` :
-              `${process.env.NEXT_PUBLIC_APP_URL}/download/ki-tricks-guide`
+              `${process.env.NEXT_PUBLIC_APP_URL}/download/ki-tricks-guide`,
+            unsubscribeToken,
+            baseUrl: process.env.NEXT_PUBLIC_APP_URL || 'https://ki-tricks.com'
           }),
         })
 
@@ -174,47 +187,4 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET endpoint to check subscription status
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
-
-    if (!email) {
-      return NextResponse.json(
-        { success: false, message: 'Email parameter required' },
-        { status: 400 }
-      )
-    }
-
-    const supabase = await createClient()
-    const { data, error } = await supabase
-      .from('newsletter_subscribers')
-      .select('status, subscribed_at')
-      .eq('email', email)
-      .single()
-
-    if (error || !data) {
-      return NextResponse.json(
-        { subscribed: false },
-        { status: 200 }
-      )
-    }
-
-    return NextResponse.json(
-      {
-        subscribed: data.status === 'active',
-        status: data.status,
-        subscribedAt: data.subscribed_at
-      },
-      { status: 200 }
-    )
-
-  } catch (error) {
-    console.error('Newsletter status check error:', error)
-    return NextResponse.json(
-      { success: false, message: 'Error checking subscription status' },
-      { status: 500 }
-    )
-  }
-}
+// GET endpoint removed for security (prevents email enumeration)
