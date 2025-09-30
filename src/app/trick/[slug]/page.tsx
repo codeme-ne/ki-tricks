@@ -7,6 +7,8 @@ import { KITrick, Category } from "@/lib/types/types";
 import { Button } from "@/components/ui/button";
 import { Calendar, Wrench, ArrowRight } from "lucide-react";
 import { Header, Footer } from "@/components/layout";
+import { InteractivePrompt } from "@/components/molecules/InteractivePrompt";
+import { StepsChecklist } from "@/components/molecules/StepsChecklist";
 import SchemaMarkup from "@/components/SEO/SchemaMarkup";
 import {
   generateTrickArticleSchema,
@@ -170,14 +172,7 @@ export default async function TrickDetailPage({ params }: PageProps) {
         {trick.prompt_template && (
           <section className="py-10 md:py-12 border-t border-border">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">Prompt Template</h2>
-            <p className="text-sm text-muted-foreground mb-4">
-              Kopiere dieses Template und fülle die Platzhalter aus:
-            </p>
-            <div className="bg-muted/50 rounded-lg p-6 border-l-4 border-primary">
-              <pre className="whitespace-pre-wrap text-sm leading-relaxed font-mono">
-                {trick.prompt_template}
-              </pre>
-            </div>
+            <InteractivePrompt template={trick.prompt_template} />
           </section>
         )}
 
@@ -186,28 +181,7 @@ export default async function TrickDetailPage({ params }: PageProps) {
           <div id="schritt-fuer-schritt" className="scroll-mt-24 sm:scroll-mt-32">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8">Schritt-für-Schritt Anleitung</h2>
             {trick.steps_structured && trick.steps_structured.length > 0 ? (
-              <div className="space-y-8">
-                {trick.steps_structured.map((step, idx) => (
-                  <div key={idx} className="border-l-4 border-primary pl-6">
-                    <h3 className="text-xl font-bold mb-3 text-foreground">{step.step}</h3>
-                    {step.description && (
-                      <p className="text-muted-foreground leading-relaxed mb-4">{step.description}</p>
-                    )}
-                    {step.code_snippet && (
-                      <pre className="bg-muted p-4 rounded-lg overflow-x-auto mb-4">
-                        <code className="text-sm">{step.code_snippet}</code>
-                      </pre>
-                    )}
-                    {step.warning && (
-                      <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 rounded">
-                        <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                          <strong>⚠️ Hinweis:</strong> {step.warning}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+              <StepsChecklist steps={trick.steps_structured} trickId={trick.id} />
             ) : trick.steps && trick.steps.length > 0 ? (
               <div className="space-y-5 sm:space-y-6">
                 {trick.steps.map((step, idx) => (
@@ -230,7 +204,7 @@ export default async function TrickDetailPage({ params }: PageProps) {
             {trick.examples && trick.examples.length > 0 ? (
               <div className="grid gap-6 md:grid-cols-3">
                 {trick.examples.map((example, idx) => (
-                  <div key={idx} className="bg-muted/50 rounded-lg p-6 border border-border">
+                  <div key={idx} className="bg-muted/50 rounded-lg p-6 border border-border transition-all duration-200 hover:scale-105 hover:shadow-lg hover:bg-muted/70">
                     <p className="text-foreground leading-relaxed">{example}</p>
                   </div>
                 ))}

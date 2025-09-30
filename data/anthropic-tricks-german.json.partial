@@ -1,0 +1,1469 @@
+[
+  {
+    "title": "Claude API: Anfrage erstellen und verarbeiten",
+    "description": "So erstellen Sie eine API-Anfrage an Anthropic. Dies beinhaltet die Installation von Paketen, das Laden des API-Schlüssels, die Initialisierung des Clients und das Verständnis der Nachrichtenstruktur.\n\n**Warum es funktioniert:** Die korrekte Einrichtung und Strukturierung der Anfrage ist entscheidend für die erfolgreiche Kommunikation mit der Claude API und die korrekte Interpretation der Antworten.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Python",
+      "python-dotenv"
+    ],
+    "steps": [
+      "Installiere `anthropic` und `python-dotenv`: `pip install anthropic python-dotenv`",
+      "Erstelle eine `.env`-Datei mit `ANTHROPIC_API_KEY=\"Dein_API_Schlüssel\"` (und ignoriere diese Datei in Git).",
+      "Lade den API-Schlüssel mit `python-dotenv` aus der `.env`-Datei.",
+      "Initialisiere den Anthropic-Client und definiere das Modell (z.B. `claude-3-sonnet`).",
+      "Erstelle eine API-Anfrage mit `client.messages.create()`, einschließlich `model`, `max_tokens` und `messages`.",
+      "Definiere die `messages` als Liste von User- und Assistant-Nachrichten mit `role` und `content`.",
+      "Extrahiere den generierten Text aus der Antwort mit `message.content[0].text`."
+    ],
+    "examples": [
+      "client.messages.create(model='claude-3-sonnet', max_tokens=1000, messages=[{\"role\": \"user\", \"content\": \"Was ist Quantencomputing?\"}])"
+    ],
+    "why_it_works": "Die API erwartet eine spezifische Struktur für Anfragen. Durch die korrekte Einhaltung dieser Struktur kann Claude die Anfrage verarbeiten und eine sinnvolle Antwort generieren.",
+    "slug": "claude-api-anfrage-erstellen-und-verarbeiten-0"
+  },
+  {
+    "title": "Prompt Engineering: Bessere Ergebnisse mit Claude",
+    "description": "Verbessere deine Prompts, um zuverlässigere und qualitativ hochwertigere Ausgaben von Claude zu erhalten. Durchlaufe den Prozess der Prompt-Verbesserung Schritt für Schritt, um die Leistung zu steigern.\n\n**Warum es funktioniert:** Durch systematisches Anwenden von Prompt-Engineering-Techniken und die Evaluierung der Ergebnisse kann die Effektivität der Prompts deutlich gesteigert werden.",
+    "category": "content-creation",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Starte mit einem einfachen, initialen Prompt.",
+      "Definiere ein konkretes Ziel für den Prompt (z.B. einen Ernährungsplan erstellen).",
+      "Nutze eine Evaluierungs-Pipeline, um die Qualität der Antworten zu messen.",
+      "Wende Prompt-Engineering-Techniken an, um den Prompt zu verbessern (z.B. Rollenbeschreibung, Einschränkungen, Beispiele).",
+      "Führe die Evaluierung mit dem verbesserten Prompt erneut durch.",
+      "Wiederhole die Schritte 4 und 5, bis die Ergebnisse zufriedenstellend sind.",
+      "Dokumentiere die Änderungen und die resultierenden Verbesserungen."
+    ],
+    "examples": [],
+    "why_it_works": "Die iterative Verbesserung von Prompts, basierend auf quantifizierbaren Ergebnissen, führt zu einer besseren Kommunikation mit dem Sprachmodell und somit zu relevanteren und präziseren Antworten.",
+    "slug": "prompt-engineering-bessere-ergebnisse-mit-claude-1"
+  },
+  {
+    "title": "Tool Functions: Claude's Fähigkeiten erweitern",
+    "description": "Nutze Tool Functions, um Claude den Zugriff auf externe Informationen zu ermöglichen und seine Fähigkeiten zu erweitern. Dies beinhaltet das Erstellen von Python-Funktionen, die von Claude automatisch aufgerufen werden, wenn zusätzliche Daten benötigt werden.\n\n**Warum es funktioniert:** Tool Functions ermöglichen es Claude, über seine Trainingsdaten hinauszugehen und auf Echtzeitinformationen und spezifische Funktionen zuzugreifen, um komplexere Aufgaben zu bewältigen.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Python"
+    ],
+    "steps": [
+      "Definiere eine Python-Funktion mit einem aussagekräftigen Namen und Argumenten.",
+      "Implementiere Input-Validierung innerhalb der Funktion, um ungültige Eingaben abzufangen.",
+      "Erzeuge aussagekräftige Fehlermeldungen, die Claude bei der Korrektur helfen.",
+      "Stelle sicher, dass Claude die Funktion aufrufen kann, wenn zusätzliche Informationen benötigt werden.",
+      "Teste die Tool Function gründlich, um sicherzustellen, dass sie korrekt funktioniert.",
+      "Überwache die Aufrufe der Tool Function, um potenzielle Probleme zu erkennen.",
+      "Aktualisiere die Tool Function regelmäßig, um sie an neue Anforderungen anzupassen."
+    ],
+    "examples": [
+      "```python\ndef get_current_datetime(date_format=\"%Y%m%d %H:%M:%S\"):\n    if not date_format:\n        raise ValueError(\"date format cannot be empty\")\n    return datetime.now().strftime(date_format)\n```"
+    ],
+    "why_it_works": "Durch gut gestaltete Tool Functions kann Claude auf Echtzeitdaten und spezifische Funktionalitäten zugreifen, was seine Fähigkeiten und Anwendbarkeit deutlich erhöht.",
+    "slug": "tool-functions-claudes-fahigkeiten-erweitern-2"
+  },
+  {
+    "title": "Claude API: Mehrere Tools integrieren",
+    "description": "Erweitere dein Claude-System durch das Hinzufügen neuer Tools. Definiere Tool-Schemas, leite Tool-Aufrufe korrekt weiter und implementiere die eigentlichen Tool-Funktionen.\n\n**Warum es funktioniert:** Ermöglicht komplexe Aufgaben, indem Claude verschiedene spezialisierte Funktionen nacheinander oder parallel nutzen kann.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Tool-Schemas zur `RunConversation` Funktion hinzufügen.",
+      "Bedingte Fälle in der `RunTool` Funktion für die neuen Tool-Namen definieren.",
+      "Tool-Funktionen implementieren, die die eigentliche Logik ausführen.",
+      "Testen, ob die Tools korrekt aufgerufen und ausgeführt werden.",
+      "Dokumentation der neuen Tools erstellen."
+    ],
+    "examples": [
+      "Hinzufügen eines Tools zur Berechnung von Datum/Uhrzeit mit Offset.",
+      "Implementieren eines Tools zum Setzen von Erinnerungen (als Mock)."
+    ],
+    "why_it_works": "Die klare Trennung von Schema, Routing und Implementierung ermöglicht eine skalierbare und wartbare Tool-Architektur.",
+    "slug": "claude-api-mehrere-tools-integrieren-3"
+  },
+  {
+    "title": "Claude API: Agenten und Workflows nutzen",
+    "description": "Setze Workflows für präzise Aufgaben mit bekannten Schritten ein. Nutze Agenten, wenn die Aufgabendetails unklar sind. Workflows definieren eine Abfolge von API-Aufrufen.\n\n**Warum es funktioniert:** Workflows und Agenten ermöglichen die Bewältigung komplexer Aufgaben, die nicht in einem einzigen Prompt gelöst werden können.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "CADQuery (Beispiel)"
+    ],
+    "steps": [
+      "Definiere den Workflow in einzelne Schritte.",
+      "Implementiere jeden Schritt als separaten API-Aufruf an Claude.",
+      "Verbinde die Schritte, um den Workflowablauf zu realisieren.",
+      "Evaluiere das Ergebnis jedes Schritts.",
+      "Bei Bedarf, wiederhole Schritte mit angepassten Parametern (Evaluator-Optimizer Muster).",
+      "Implementiere Fehlerbehandlung für jeden Schritt."
+    ],
+    "examples": [
+      "Workflow zur Konvertierung von Bildern in 3D-Modelle: Beschreibung des Bildes, Modellierung mit CADQuery, Rendering, Vergleich mit dem Originalbild."
+    ],
+    "why_it_works": "Durch die Zerlegung komplexer Aufgaben in kleinere, besser handhabbare Schritte können spezifische Probleme gezielter gelöst werden.",
+    "slug": "claude-api-agenten-und-workflows-nutzen-4"
+  },
+  {
+    "title": "Claude API: Web Search Tool aktivieren",
+    "description": "Nutze das integrierte Web Search Tool von Claude, um aktuelle und spezialisierte Informationen abzurufen. Keine Code-Implementierung nötig. Definiere Schema mit Typ, Namen, maximalen Nutzungen und optionalen Domains.\n\n**Warum es funktioniert:** Ermöglicht Claude den Zugriff auf das Internet, um Fragen mit aktuellem Bezug oder Spezialwissen zu beantworten.",
+    "category": "content-creation",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere das Tool-Schema mit `type: \"web_search_20250305\"` und `name: \"web_search\"`.",
+      "Setze `max_uses`, um die Anzahl der Suchanfragen zu begrenzen (optional).",
+      "Nutze `allowed_domains`, um die Suche auf bestimmte Domains zu beschränken (optional).",
+      "Überprüfe die Antwortstruktur: Textblöcke, Tool-Use-Blöcke, Web Search Result Blöcke, Citation Blöcke.",
+      "Stelle die Suchergebnisse als Referenzliste in der UI dar.",
+      "Hebe Zitate mit Quellenangabe hervor (Domain, Titel, URL, zitierter Text)."
+    ],
+    "examples": [
+      "Beschränkung der Suche auf NIH.gov für medizinische Beratung."
+    ],
+    "why_it_works": "Die direkte Integration ermöglicht den einfachen Zugriff auf aktuelle Informationen ohne zusätzlichen Implementierungsaufwand.",
+    "slug": "claude-api-web-search-tool-aktivieren-5"
+  },
+  {
+    "title": "Multi-Index RAG Pipeline für präzisere Suche",
+    "description": "Verbessere die Suchgenauigkeit in deinen RAG-Anwendungen (Retrieval-Augmented Generation) durch die Kombination semantischer und lexikalischer Suche. Nutze einen Vektorindex (semantische Ähnlichkeit) und einen BM25-Index (Keyword-basiert) und kombiniere die Ergebnisse mit Reciprocal Rank Fusion (RRF).\n\n**Warum es funktioniert:** Die Kombination verschiedener Suchansätze gleicht Schwächen einzelner Methoden aus und liefert robustere Ergebnisse.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Vektor Datenbanken (z.B. Chroma, Pinecone)",
+      "BM25 Implementierungen"
+    ],
+    "steps": [
+      "Implementiere einen Vektorindex für semantische Suche (z.B. mit Embeddings).",
+      "Implementiere einen BM25-Index für lexikalische Suche.",
+      "Erstelle eine Retriever-Klasse, die Anfragen an beide Indizes weiterleitet.",
+      "Nutze Reciprocal Rank Fusion (RRF) zur Zusammenführung der Ergebnisse.",
+      "Bewerte die Suchergebnisse und optimiere die Gewichtung der Indizes."
+    ],
+    "examples": [
+      "Ein Nutzer sucht nach 'Nachhaltige Energiequellen'. Der Vektorindex findet Dokumente über Solarenergie, während der BM25-Index Dokumente mit den Keywords 'Nachhaltigkeit' und 'Energie' findet. RRF kombiniert beide Ergebnisse.",
+      "Anfrage: 'Neueste Entwicklungen im Bereich KI'. Vektorindex liefert relevante Artikel, BM25 stellt sicher, dass auch Dokumente mit expliziter Erwähnung von 'KI' berücksichtigt werden."
+    ],
+    "why_it_works": "Die Kombination semantischer und lexikalischer Suche erhöht die Wahrscheinlichkeit, relevante Dokumente zu finden, da sie unterschiedliche Aspekte der Suchanfrage berücksichtigt.",
+    "slug": "multi-index-rag-pipeline-fur-prazisere-suche-6"
+  },
+  {
+    "title": "MCP Clients: Werkzeuge sicher integrieren",
+    "description": "Nutze MCP Clients (Message Communication Protocol) als Schnittstelle zwischen deinem Server und einem MCP Server, um sicher auf Tools zuzugreifen. Die Kommunikation erfolgt transportagnostisch (stdio, HTTP, WebSockets) über definierte Nachrichten (z.B. `list tools request`, `call tool request`). Erlaubt die Delegation von Tool-Ausführung an spezialisierte Server.\n\n**Warum es funktioniert:** MCP Clients isolieren die Tool-Ausführung und gewährleisten so die Sicherheit und Stabilität des Hauptservers.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "MCP (Message Communication Protocol)",
+      "GitHub API (Beispieltool)"
+    ],
+    "steps": [
+      "Implementiere einen MCP Client, der die MCP Spezifikation unterstützt.",
+      "Definiere die verfügbaren Tools auf dem MCP Server.",
+      "Implementiere die Logik für die `list tools` und `call tool` Anfragen.",
+      "Integriere den MCP Client in deinen Server, der mit Claude interagiert.",
+      "Konfiguriere die Kommunikation zwischen Client und Server (z.B. über stdio).",
+      "Teste die Tool-Ausführung über den MCP Client."
+    ],
+    "examples": [
+      "Ein Server fragt den MCP Client nach verfügbaren Tools ab (`list tools request`). Der MCP Server antwortet mit einer Liste von Tools (z.B. 'GitHub API').",
+      "Claude fordert die Ausführung eines Tools an. Der Server leitet die Anfrage an den MCP Client weiter (`call tool request`). Der MCP Server führt das Tool aus und sendet das Ergebnis zurück."
+    ],
+    "why_it_works": "MCP Clients ermöglichen eine sichere und modulare Integration von externen Tools in Anwendungen, die mit der Claude API interagieren.",
+    "slug": "mcp-clients-werkzeuge-sicher-integrieren-7"
+  },
+  {
+    "title": "Claude API Zugriff: Schritt-für-Schritt-Anleitung",
+    "description": "Erfahre, wie du in 5 Schritten die Claude API nutzen kannst: 1) Client sendet Text an deinen Server. 2) Server sendet Anfrage an Anthropic API (SDK oder HTTP) mit API-Key, Modell, Nachrichten und `max_tokens`. 3) Textgenerierung: Tokenisierung, Embedding, Kontextualisierung, Generierung. 4) Stopp bei `max_tokens` oder `end_of_sequence`. 5) API sendet Antwort zurück.\n\n**Warum es funktioniert:** Die Trennung von Client und Server schützt den API-Key und ermöglicht die Kontrolle über die Anfragen.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Python/TypeScript/JavaScript/Go/Ruby SDKs",
+      "HTTP Client"
+    ],
+    "steps": [
+      "Empfange Nutzereingaben auf deinem Server.",
+      "Erstelle eine Anfrage an die Claude API mit API-Key, Modellname, Nachrichtenliste und `max_tokens` Limit.",
+      "Verarbeite die Antwort der API (generierter Text, Nutzungsinformationen, Stoppgrund).",
+      "Sende die Antwort an den Client zur Anzeige.",
+      "Implementiere Fehlerbehandlung und Logging."
+    ],
+    "examples": [
+      "Eine Anfrage mit `max_tokens=200` stoppt, nachdem 200 Tokens generiert wurden.",
+      "Die API gibt `stop_reason='max_tokens'` zurück, wenn das `max_tokens` Limit erreicht wurde."
+    ],
+    "why_it_works": "Die detaillierte Beschreibung des API-Zugriffs ermöglicht es Entwicklern, die Funktionsweise der Claude API zu verstehen und effektiv zu nutzen.",
+    "slug": "claude-api-zugriff-schritt-fur-schritt-anleitung-8"
+  },
+  {
+    "title": "Claude API: Mehrstufige Tool-Konversationen",
+    "description": "Nutze Claude API, um komplexe Anfragen mit mehreren aufeinanderfolgenden Tool-Aufrufen zu beantworten. Die Anfrage des Nutzers löst eine Kette von Tool-Aufrufen aus, bis Claude eine endgültige Antwort liefert.\n\n**Warum es funktioniert:** Claude kann die Notwendigkeit weiterer Informationen erkennen und automatisch das passende Tool aufrufen, um diese zu beschaffen, bevor es die finale Antwort generiert.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere die verfügbaren Tools (z.B. `get_current_datetime`, `add_duration_to_datetime`).",
+      "Implementiere eine `run_conversation` Funktion, die die Konversation verwaltet.",
+      "Passe `add_user_message` und `add_assistant_message` an, um mehrere Nachrichtenblöcke zu unterstützen.",
+      "Erweitere die `chat` Funktion, um den `tools` Parameter zu akzeptieren und die gesamte Nachricht zurückzugeben.",
+      "Erstelle einen `text_from_message` Helfer, um alle Textblöcke aus einer Nachricht zu extrahieren.",
+      "Implementiere eine While-Schleife, die Claude so lange aufruft, bis keine weiteren Tool-Anfragen vorliegen."
+    ],
+    "examples": [
+      "Nutzer fragt: \"Welcher Tag ist 103 Tage von heute?\". Claude ruft `get_current_datetime` und dann `add_duration_to_datetime` auf."
+    ],
+    "why_it_works": "Durch die iterative Abfrage und Nutzung verschiedener Tools kann Claude komplexe Aufgaben lösen, die mit einem einzelnen Prompt unmöglich wären.",
+    "slug": "claude-api-mehrstufige-tool-konversationen-9"
+  },
+  {
+    "title": "Claude API: Temperatur für kreativen Output",
+    "description": "Steuere die Zufälligkeit der Textgenerierung mit dem Temperatur-Parameter (0-1) in der Claude API. Niedrige Werte erzeugen deterministischen Output, höhere Werte kreativeren.\n\n**Warum es funktioniert:** Die Temperatur beeinflusst die Wahrscheinlichkeit, mit der verschiedene Tokens für die Fortsetzung eines Textes ausgewählt werden. Höhere Temperaturen führen zu unerwarteteren, aber potenziell kreativeren Ergebnissen.",
+    "category": "content-creation",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Verstehe den Wertebereich der Temperatur (0-1).",
+      "Setze die Temperatur auf 0 für Aufgaben, die Konsistenz und Faktentreue erfordern (z.B. Datenextraktion).",
+      "Erhöhe die Temperatur (nahe 1) für kreative Aufgaben wie Brainstorming, Schreiben, Witze oder Marketing.",
+      "Implementiere den Temperatur-Parameter in deinen API-Aufrufen.",
+      "Experimentiere mit verschiedenen Temperaturwerten, um den gewünschten Output zu erzielen."
+    ],
+    "examples": [
+      "Temperatur 0: Extrahiere zuverlässig Daten aus einem Text.",
+      "Temperatur 0.7: Generiere kreative Marketing-Slogans.",
+      "Temperatur 1: Schreibe einen humorvollen Text."
+    ],
+    "why_it_works": "Die Temperatur ermöglicht die gezielte Steuerung der Textgenerierung, von präzisen und vorhersagbaren Ergebnissen bis hin zu überraschenden und kreativen Inhalten.",
+    "slug": "claude-api-temperatur-fur-kreativen-output-10"
+  },
+  {
+    "title": "Claude API: Tools für strukturierte Datenextraktion",
+    "description": "Nutze das Tool-System der Claude API, um zuverlässig strukturierte JSON-Daten zu extrahieren. Definiere ein JSON-Schema für das Tool und zwinge Claude zur Verwendung des Tools, um konsistente Ergebnisse zu erzielen.\n\n**Warum es funktioniert:** Durch die Definition eines Schemas und die erzwungene Nutzung des Tools wird die Ausgabe standardisiert und die Zuverlässigkeit der Extraktion erhöht.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere ein JSON-Schema für die gewünschte Datenstruktur.",
+      "Erstelle ein Tool mit dem definierten JSON-Schema als Input.",
+      "Setze den `tool_choice` Parameter auf `{\"type\": \"tool\", \"name\": \"your_tool_name\"}`, um die Nutzung des Tools zu erzwingen.",
+      "Passe die `chat` Funktion an, um den `tool_choice` Parameter zu akzeptieren.",
+      "Sende den Prompt und das Schema an Claude.",
+      "Greife auf die extrahierten Daten über `response.content[0].input` zu."
+    ],
+    "examples": [
+      "Extraktion von Produktinformationen (Name, Preis, Beschreibung) aus einem Webseitentext.",
+      "Umwandlung eines unstrukturierten Textes in ein strukturiertes JSON-Format."
+    ],
+    "why_it_works": "Die erzwungene Nutzung eines Tools mit definiertem Schema garantiert eine zuverlässigere und strukturiertere Datenausgabe im Vergleich zu prompt-basierten Extraktionsmethoden.",
+    "slug": "claude-api-tools-fur-strukturierte-datenextraktion-11"
+  },
+  {
+    "title": "Claude API: Mehrfache Tool-Aufrufe implementieren",
+    "description": "Implementiere Konversationen mit mehrfachen Tool-Aufrufen in Claude API. Die `run_conversation` Funktion ruft Claude auf, prüft `stop_reason` (tool_use) und ruft `run_tools` auf, um Tool-Anfragen zu verarbeiten. Die Ergebnisse werden als User-Nachrichten zurückgesendet.\n\n**Warum es funktioniert:** Durch die Schleife und die Prüfung des `stop_reason` kann Claude mehrere Tools nacheinander verwenden, bis die Anfrage vollständig bearbeitet ist.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere eine `run_conversation` Funktion.",
+      "Rufe Claude mit Nachrichten und verfügbaren Tools auf.",
+      "Füge die Antwort von Claude zum Konversationsverlauf hinzu.",
+      "Überprüfe `stop_reason`. Beende die Schleife, wenn nicht `tool_use`.",
+      "Wenn `tool_use`, rufe `run_tools` auf.",
+      "Füge die Tool-Ergebnisse als User-Nachricht hinzu.",
+      "Wiederhole, bis keine weiteren Tool-Anfragen vorhanden sind."
+    ],
+    "examples": [],
+    "why_it_works": "Die iterative Verarbeitung und die Statusprüfung erlauben die komplexe Interaktion mit Claude über mehrere Tool-Aufrufe hinweg.",
+    "slug": "claude-api-mehrfache-tool-aufrufe-implementieren-12"
+  },
+  {
+    "title": "Claude API: Textbearbeitungs-Tool nutzen",
+    "description": "Nutze das integrierte Textbearbeitungs-Tool von Claude für Datei- und Textoperationen (Lesen, Schreiben, Erstellen, Ersetzen, Rückgängigmachen). Implementiere eine eigene Logik, um die Tool-Anfragen von Claude zu verarbeiten. Das Schema-Stub wird von Claude intern erweitert.\n\n**Warum es funktioniert:** Claude stellt die Logik zur Tool-Nutzung bereit, während die tatsächlichen Dateisystemoperationen benutzerdefiniert implementiert werden müssen.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Sende einen minimalen Schema-Stub an Claude (Name + Type mit versionsspezifischem Datum).",
+      "Claude erweitert das Schema intern.",
+      "Claude sendet Tool-Nutzungsanfragen.",
+      "Die benutzerdefinierte Implementierung führt die tatsächlichen Dateisystemoperationen aus.",
+      "Sende die Ergebnisse zurück an Claude."
+    ],
+    "examples": [],
+    "why_it_works": "Die Trennung zwischen Claude's Tool-Logik und der benutzerdefinierten Dateisysteminteraktion ermöglicht flexible Textbearbeitungsszenarien.",
+    "slug": "claude-api-textbearbeitungs-tool-nutzen-13"
+  },
+  {
+    "title": "RAG Pipelines: Text-Chunking Strategien",
+    "description": "Optimiere RAG Pipelines durch effektive Text-Chunking Strategien. Wähle zwischen Größen-, Struktur- und Semantik-basiertem Chunking. Die Chunking-Qualität beeinflusst direkt die RAG-Performance. Die beste Methode hängt vom Dokumenttyp und den Anwendungsfall ab.\n\n**Warum es funktioniert:** Durch die Aufteilung der Dokumente in sinnvolle Abschnitte kann die RAG Pipeline relevantere Informationen abrufen.",
+    "category": "data-analysis",
+    "tools": [
+      "Claude API",
+      "Vektordatenbanken"
+    ],
+    "steps": [
+      "Wähle eine Chunking-Strategie (Größe, Struktur oder Semantik).",
+      "Implementiere die gewählte Strategie.",
+      "Optimiere die Chunk-Größe basierend auf der Dokumentstruktur und dem Anwendungsfall.",
+      "Berücksichtige Overlap Strategien für Kontext Erhaltung bei Größenbasiertem Chunking.",
+      "Teste verschiedene Chunking-Methoden zur Evaluierung der Retrieval Performance."
+    ],
+    "examples": [],
+    "why_it_works": "Durch die Zerlegung von Texten in handhabbare und semantisch sinnvolle Chunks kann der Suchprozess effektiver gestaltet und die Relevanz der abgerufenen Informationen erhöht werden.",
+    "slug": "rag-pipelines-text-chunking-strategien-14"
+  },
+  {
+    "title": "RAG-Flow Implementierung mit Claude API",
+    "description": "Implementiere einen Retrieval-Augmented Generation (RAG) Flow in 5 Schritten: Chunking, Embedding, Vektor-Speicher, Query Processing und Similarity Search.\n\n**Warum es funktioniert:** RAG kombiniert externe Wissensquellen mit LLMs, um genauere und kontextbezogenere Antworten zu generieren.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Dokument in Abschnitte aufteilen (Chunking).",
+      "Vektor-Repräsentationen für jeden Chunk erstellen (Embedding).",
+      "Chunk-Embedding-Paare im Vektor-Speicher speichern.",
+      "User-Query in ein Embedding umwandeln.",
+      "Ähnlichkeits-Suche durchführen, um relevante Chunks zu finden."
+    ],
+    "examples": [
+      "Nutzer fragt: \"Was hat die Softwareentwicklungsabteilung letztes Jahr gemacht?\""
+    ],
+    "why_it_works": "Durch die Vektorisierung von Text-Chunks und Nutzeranfragen ermöglicht die Cosinus-Distanz eine effiziente Ähnlichkeitssuche und somit das Auffinden relevanter Informationen.",
+    "slug": "rag-flow-implementierung-mit-claude-api-15"
+  },
+  {
+    "title": "Kontextbezogene Suche mit Claude API",
+    "description": "Verbessere die Genauigkeit deiner RAG-Pipeline durch Hinzufügen von Kontext zu den Dokument-Chunks, bevor du Embeddings erstellst.\n\n**Warum es funktioniert:** Die Kontextanreicherung hilft dem LLM, die Beziehungen zwischen den einzelnen Chunks und dem Gesamtdokument besser zu verstehen, was zu relevanteren Suchergebnissen führt.",
+    "category": "content-creation",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Einzelnen Chunk und Originaldokument nehmen.",
+      "Prompt an LLM (Claude) senden, um Kontext zu generieren.",
+      "Generierten Kontext mit Original-Chunk verbinden.",
+      "Kontextualisierten Chunk als Input für Vektor-Index verwenden.",
+      "Für große Dokumente: Selektive Kontextstrategie (Anfangs- und End-Chunks)."
+    ],
+    "examples": [
+      "Prompt: \"Generiere Kontext, der die Beziehung dieses Chunks zum Gesamtdokument erklärt.\""
+    ],
+    "why_it_works": "Das Hinzufügen von Kontextinformationen vor der Vektorisierung ermöglicht es dem Modell, die Bedeutung der einzelnen Textabschnitte im größeren Zusammenhang zu erfassen.",
+    "slug": "kontextbezogene-suche-mit-claude-api-16"
+  },
+  {
+    "title": "Erweitertes Denken mit Claude API",
+    "description": "Nutze die \"Extended Thinking\"-Funktion von Claude für komplexere Aufgaben. Sie ermöglicht es Claude, seinen Denkprozess sichtbar zu machen, was die Genauigkeit erhöht.\n\n**Warum es funktioniert:** Durch die explizite Darstellung des Denkprozesses kann Claude komplexere Zusammenhänge besser erfassen und somit genauere Ergebnisse liefern.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Aktiviere \"thinking=true\" in der API-Anfrage.",
+      "Setze den \"thinking_budget\" Parameter (min. 1024 Tokens).",
+      "Stelle sicher, dass \"max_tokens\" größer als \"thinking_budget\" ist.",
+      "Evaluiere die Ergebnisse mit Prompt-Evaluierungen."
+    ],
+    "examples": [
+      "API-Aufruf mit 'thinking=true' und 'thinking_budget=1024'."
+    ],
+    "why_it_works": "Die Zuweisung eines dedizierten Token-Budgets für den Denkprozess ermöglicht es dem Modell, tiefergehende Analysen durchzuführen und komplexere Aufgaben zu bewältigen.",
+    "slug": "erweitertes-denken-mit-claude-api-17"
+  },
+  {
+    "title": "Claude API: Bildanalyse mit Prompt-Engineering",
+    "description": "Nutze Claudes Vision-Fähigkeiten zur Bildanalyse. Wichtig: Die Bildgenauigkeit hängt stark von der Prompt-Qualität ab. Beachte Token-Kosten und Größenbeschränkungen.\n\n**Warum es funktioniert:** Detaillierte Prompts führen Claude durch den Analyseprozess und verbessern die Genauigkeit.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Bilddaten (base64) oder URL-Referenz erstellen.",
+      "`image` Block mit Bilddaten in der Nachricht definieren.",
+      "Text-Block mit detaillierten Prompt-Anweisungen erstellen.",
+      "Schritt-für-Schritt Analyseanweisungen geben.",
+      "One-Shot/Multi-Shot Beispiele (Bild/Text Paare) verwenden.",
+      "Klare Richtlinien und Verifizierungsschritte definieren."
+    ],
+    "examples": [
+      "Automatische Brandrisikoanalyse anhand von Satellitenbildern (Baumdichte, Dächer)."
+    ],
+    "why_it_works": "Claude kann Bilder analysieren, aber benötigt präzise Anweisungen, um die gewünschten Ergebnisse zu erzielen. Die Qualität des Prompts ist entscheidend.",
+    "slug": "claude-api-bildanalyse-mit-prompt-engineering-18"
+  },
+  {
+    "title": "Client-seitige Prompts mit Claude API: Vorlagen nutzen",
+    "description": "Definiere Prompts zentral auf dem MCP-Server und rufe sie vom Client aus mit spezifischen Argumenten ab. Dies ermöglicht kontextbezogene Anweisungen für LLMs.\n\n**Warum es funktioniert:** Zentralisierte Prompt-Verwaltung sorgt für Konsistenz und Flexibilität bei der Prompt-Nutzung.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Prompt im MCP-Server mit erwarteten Argumenten definieren.",
+      "Client ruft `get_prompt` mit Prompt-Namen und Argumenten auf.",
+      "Argumente werden als Keyword-Argumente an die Prompt-Funktion übergeben.",
+      "Funktion interpoliert Argumente in den Prompt-Text.",
+      "Gibt ein Array von Nachrichten zurück, das direkt an das LLM gesendet wird."
+    ],
+    "examples": [],
+    "why_it_works": "Der Client ruft vordefinierte Prompts ab und übergibt dynamisch Argumente, um maßgeschneiderte Anweisungen für das LLM zu erzeugen.",
+    "slug": "client-seitige-prompts-mit-claude-api-vorlagen-nut-19"
+  },
+  {
+    "title": "Claude Code: KI-gestützte Softwareentwicklung",
+    "description": "Nutze Claude Code als kollaborativen Softwareentwickler. Er unterstützt bei Projekt-Setup, Feature-Design, Code-Erstellung, Testing und Deployment. Claude Code ist ein Sparringspartner, kein reiner Code-Generator.\n\n**Warum es funktioniert:** Claude speichert Kontextinformationen zum Projekt und kann detaillierte Anweisungen verarbeiten, was zu besseren Ergebnissen führt.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Git"
+    ],
+    "steps": [
+      "Projekt herunterladen und im Editor öffnen.",
+      "`claude` ausführen, um Claude Code zu starten.",
+      "Claude auffordern, die README zu lesen und Setup-Anweisungen auszuführen.",
+      "`init` ausführen: Claude analysiert Codebasis und erstellt `claude.md`.",
+      "`claude.md` wird automatisch als Kontext für zukünftige Anfragen verwendet.",
+      "Verwende #, um spezifische Notizen zum Memory hinzuzufügen.",
+      "Claude kann Git-Operationen ausführen (Staging, Commit)."
+    ],
+    "examples": [],
+    "why_it_works": "Claude agiert als ein Teammitglied, das den Code versteht und aktiv an der Entwicklung teilnimmt, nicht nur Code-Schnipsel liefert. Die `claude.md` sorgt für persistenten Kontext.",
+    "slug": "claude-code-ki-gestutzte-softwareentwicklung-20"
+  },
+  {
+    "title": "Claude API: Funktionserweiterung mit MCP-Servern",
+    "description": "Nutze MCP-Server (Model Context Protocol), um Claude Code um externe Tools und Services zu erweitern. Füge Server mit `claude mcp add [server-name] [startup-command]` hinzu und erweitere so die Funktionalität von Claude in Echtzeit, ohne den Kern zu verändern.\n\n**Warum es funktioniert:** MCP-Server erlauben eine modulare Erweiterung, wodurch Claude flexibler und anpassbarer wird.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "MCP-Server",
+      "Sentry",
+      "Jira",
+      "Slack"
+    ],
+    "steps": [
+      "MCP-Server mit gewünschten Tools erstellen (z.B. Dokumentenverarbeitung).",
+      "Server zu Claude Code hinzufügen: `claude mcp add [server-name] [startup-command]`",
+      "Claude Code neu starten.",
+      "Neue Funktionen in Claude Code nutzen."
+    ],
+    "examples": [
+      "Dokumentenverarbeitungsserver (PDF/Word zu Markdown)",
+      "Integration mit Sentry für Produktionsüberwachung",
+      "Integration mit Jira für Projektmanagement"
+    ],
+    "why_it_works": "Die modulare Architektur erlaubt die Integration von spezialisierten Tools und Services, wodurch Claude an spezifische Bedürfnisse angepasst werden kann.",
+    "slug": "claude-api-funktionserweiterung-mit-mcp-servern-21"
+  },
+  {
+    "title": "Automatisiertes Debugging mit Claude API",
+    "description": "Automatisiere das Debugging in der Produktion mit Claude. Identifiziere, analysiere und behebe Fehler automatisch, ohne manuelle Intervention. Nutze GitHub Actions, CloudWatch Logs und Claude Code für eine effiziente Fehlerbehebung.\n\n**Warum es funktioniert:** Claude analysiert Fehlerkontexte und schlägt passende Lösungen vor, wodurch Zeit gespart und die Codequalität verbessert wird.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "GitHub Actions",
+      "AWS CLI",
+      "CloudWatch"
+    ],
+    "steps": [
+      "GitHub Action täglich ausführen, um Produktionsumgebung zu prüfen.",
+      "CloudWatch Logs der letzten 24 Stunden abrufen.",
+      "Claude identifiziert und dedupliziert Fehler.",
+      "Claude analysiert jeden Fehler und generiert Fixes.",
+      "Pull Request mit vorgeschlagenen Lösungen erstellen."
+    ],
+    "examples": [
+      "Behebung von Konfigurationsfehlern zwischen Umgebungen",
+      "Erkennung von Fehlern, die nur in der Produktion auftreten"
+    ],
+    "why_it_works": "Die Kombination aus automatischer Fehlererkennung, KI-gestützter Analyse und Pull-Request-Generierung beschleunigt den Debugging-Prozess erheblich.",
+    "slug": "automatisiertes-debugging-mit-claude-api-22"
+  },
+  {
+    "title": "Claude API: Routing für Workflows",
+    "description": "Kategorisiere User-Input mit Claude, um den passenden Verarbeitungsworkflow auszuwählen.  Nutze eine initiale Anfrage an Claude, um den Input in Kategorien einzuteilen und an spezialisierte Pipelines mit angepassten Prompts/Tools weiterzuleiten.\n\n**Warum es funktioniert:** Durch die Kategorisierung des Inputs kann Claude spezifische, optimierte Antworten generieren.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "User gibt ein Thema ein (z.B. \"Python Funktionen\").",
+      "Claude kategorisiert das Thema (z.B. \"educational\").",
+      "System verwendet ein educational-spezifisches Prompt-Template.",
+      "Claude generiert ein Skript mit educational Ton/Struktur."
+    ],
+    "examples": [
+      "Generierung von Social-Media-Video-Skripten mit angepasstem Tonfall",
+      "Erstellung von Lernmaterialien mit Definitionen und Erklärungen"
+    ],
+    "why_it_works": "Die Vorab-Kategorisierung des Inputs ermöglicht die Anwendung spezialisierter Prompts und Tools, um qualitativ hochwertige und themenspezifische Ergebnisse zu erzielen.",
+    "slug": "claude-api-routing-fur-workflows-23"
+  },
+  {
+    "title": "Claude API: Output-Steuerung durch Pre-Filling & Stop-Sequenzen",
+    "description": "Kontrolliere die Claude API-Ausgabe präzise mit Pre-Filling von Assistant-Nachrichten und Stop-Sequenzen. Steuere die Richtung der Antwort durch das Vorbelegen von Nachrichten und erzwinge das Anhalten der Generierung mit spezifischen Strings.\n\n**Warum es funktioniert:** Pre-Filling gibt Claude einen Startpunkt vor, während Stop-Sequenzen einen klaren Endpunkt definieren, wodurch die Ausgabe vorhersehbarer wird.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Erstelle eine Liste von Nachrichten mit dem User-Prompt und einer manuellen Assistant-Nachricht (Pre-Fill).",
+      "Sende die Nachricht an Claude API. Claude setzt die Antwort ab dem Ende des Pre-Fills fort.",
+      "Definiere eine Stop-Sequenz als String in der Chat-Funktion.",
+      "Wenn Claude die Stop-Sequenz generiert, wird die Antwort sofort beendet.",
+      "Verbinde Pre-Fill und generierte Antwort.",
+      "Teste verschiedene Stop-Sequenzen, um die optimale zu finden (z.B. mit Komma)."
+    ],
+    "examples": [
+      "Pre-Fill: \"Kaffee ist besser, weil\" → Claude führt die Begründung aus.",
+      "Prompt: \"Zähle von 1 bis 10\" + Stop-Sequenz: \"fünf\" → Ausgabe stoppt bei \"vier,\".",
+      "Prompt: \"Zähle von 1 bis 10\" + Stop-Sequenz: \", fünf\" → Saubere Ausgabe: \"eins, zwei, drei, vier\"."
+    ],
+    "why_it_works": "Pre-Filling gibt die Richtung vor, während Stop-Sequenzen die Länge begrenzen, was in Kombination eine sehr genaue Kontrolle ermöglicht.",
+    "slug": "claude-api-output-steuerung-durch-pre-filling-stop-24"
+  },
+  {
+    "title": "Claude API: Evaluierungspipeline für LLM-Tests",
+    "description": "Erstelle eine Evaluierungspipeline, um LLM-Ausgaben systematisch zu testen und zu bewerten. Die Pipeline kombiniert Testfälle mit Prompts, führt sie durch Claude aus und bewertet die Ergebnisse. Automatisiere den Prozess, um die Performance des Modells zu messen.\n\n**Warum es funktioniert:** Durch die Automatisierung der Evaluierung können große Datensätze effizient verarbeitet werden, um die Qualität der LLM-Ausgabe objektiv zu bewerten.",
+    "category": "data-analysis",
+    "tools": [
+      "Claude API",
+      "JSON"
+    ],
+    "steps": [
+      "Definiere Testfälle als JSON-Objekte mit Aufgaben.",
+      "Implementiere eine `run_prompt`-Funktion, die Testfälle mit Prompts kombiniert und an Claude sendet.",
+      "Implementiere eine `run_test_case`-Funktion, die `run_prompt` aufruft, das Ergebnis bewertet und eine Zusammenfassung zurückgibt.",
+      "Implementiere eine `run_eval`-Funktion, die durch den Datensatz iteriert und `run_test_case` für jeden Fall aufruft.",
+      "Strukturieren Sie den Prompt: \"Bitte löse folgende Aufgabe: [test_case_task]\".",
+      "Analysiere die Ausgabe (Array von Objekten mit Claude-Output, Testfall und Score).",
+      "Implementiere ein detaillierteres Bewertungssystem."
+    ],
+    "examples": [
+      "Testfall (JSON): {\"task\": \"Was ist die Hauptstadt von Frankreich?\"}",
+      "Prompt: \"Bitte beantworte die folgende Frage: [task]\""
+    ],
+    "why_it_works": "Eine strukturierte Evaluierungspipeline ermöglicht die systematische Bewertung der LLM-Performance anhand definierter Testfälle und Metriken.",
+    "slug": "claude-api-evaluierungspipeline-fur-llm-tests-25"
+  },
+  {
+    "title": "Claude API: Präzise Prompts für bessere Ergebnisse",
+    "description": "Optimiere deine Prompts für die Claude API durch spezifische Anweisungen und Richtlinien. Nutze Attribut-Listen (Typ A) und Schritt-für-Schritt-Anleitungen (Typ B), um die Modellausgabe zu steuern und die Qualität signifikant zu verbessern.\n\n**Warum es funktioniert:** Spezifische Anweisungen lenken das Modell in die gewünschte Richtung und helfen ihm, die Aufgabe effektiver zu lösen.",
+    "category": "content-creation",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere gewünschte Attribute der Ausgabe (Typ A): Länge, Struktur, Format.",
+      "Gib spezifische Schritte vor, die das Modell im Denkprozess befolgen soll (Typ B).",
+      "Kombiniere Typ A und Typ B für komplexe Prompts.",
+      "Verwende Typ A für fast alle Prompts.",
+      "Verwende Typ B für komplexe Probleme oder wenn das Modell zusätzliche Perspektiven berücksichtigen soll.",
+      "Teste verschiedene Kombinationen von Anweisungen, um die optimale zu finden."
+    ],
+    "examples": [
+      "Typ A (Attribute): \"Antworte kurz und prägnant in maximal 5 Sätzen.\"",
+      "Typ B (Schritte): \"1. Analysiere die Kundenbedürfnisse. 2. Bewerte die Wettbewerbslandschaft. 3. Entwickle eine Marketingstrategie.\""
+    ],
+    "why_it_works": "Spezifische Prompts reduzieren die Mehrdeutigkeit und führen das Modell zu einer präziseren und relevanteren Antwort.",
+    "slug": "claude-api-prazise-prompts-fur-bessere-ergebnisse-26"
+  },
+  {
+    "title": "Claude API: Externe Daten mit Tools nutzen",
+    "description": "Erweitere Claudes Wissen mit externen Daten! Nutze Tools, um Claude Zugriff auf aktuelle Informationen zu ermöglichen, die über seine Trainingsdaten hinausgehen. Der Trick: Claude fragt gezielt nach Daten, ein Server ruft diese ab, und Claude generiert eine fundierte Antwort.\n\n**Warum es funktioniert:** Claude kombiniert sein internes Wissen mit externen Datenquellen, um aktuellere und genauere Antworten zu liefern.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Sende eine initiale Anfrage an Claude mit Anweisungen für den Zugriff auf externe Daten.",
+      "Claude bewertet, ob externe Daten benötigt werden und fragt spezifische Informationen an.",
+      "Dein Server ruft die angefragten Daten von externen Quellen ab (z.B. Wetter-API).",
+      "Sende eine Folgeanfrage an Claude mit den abgerufenen Daten.",
+      "Claude generiert eine finale Antwort unter Verwendung des ursprünglichen Prompts und der externen Daten."
+    ],
+    "examples": [
+      "Nutzer fragt nach dem aktuellen Wetter → Claude fragt Wetterdaten an → Server ruft Wetter-API auf → Claude erhält Wetterdaten → Claude gibt eine informierte Wetterauskunft."
+    ],
+    "why_it_works": "Die Tool-Nutzung ermöglicht es Claude, seine Antworten mit Live-Informationen anzureichern, indem es die externe Datenabfrage zwischen Claudes Anfragen orchestriert.",
+    "slug": "claude-api-externe-daten-mit-tools-nutzen-27"
+  },
+  {
+    "title": "Tool Schemas: JSON für Claude API Tools",
+    "description": "Definiere die Struktur deiner Tools für Claude mit JSON Schemas! Diese Schemas beschreiben die Funktionen deiner Tools und deren Parameter. Nutze JSON Schema, um Daten zu validieren und sicherzustellen, dass Claude weiß, welche Argumente deine Tools benötigen.\n\n**Warum es funktioniert:** JSON Schemas standardisieren die Kommunikation zwischen Claude und externen Tools, indem sie die erwarteten Eingaben und Ausgaben klar definieren.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere den `name` (Tool-ID), `description` (3-4 Sätze zur Funktion) und `input_schema` (JSON Schema mit Argumenttypen und Beschreibungen) deines Tools.",
+      "Generiere das JSON Schema, indem du die Tool-Funktion an Claude.ai sendest.",
+      "Nutze den Prompt: \"Schreibe eine valide JSON Schema Spezifikation für Tool-Calling für diese Funktion, befolge Best Practices in der beigefügten Dokumentation\".",
+      "Füge die Anthropic API Dokumentation zur Tool-Nutzung hinzu.",
+      "Kopiere das generierte Schema.",
+      "Benenne Funktionen deskriptiv.",
+      "Importiere `ToolParam` aus `anthropic.types` und umschließe das Schema-Dictionary mit `ToolParam()`."
+    ],
+    "examples": [],
+    "why_it_works": "Tool Schemas informieren Claude über verfügbare Tools, erforderliche Argumente und Nutzungskontext durch ein standardisiertes JSON-Validierungsformat.",
+    "slug": "tool-schemas-json-fur-claude-api-tools-28"
+  },
+  {
+    "title": "Claude API: Nachrichtenblöcke und Tool-Nutzung",
+    "description": "Nutze Multi-Block Messages für die Tool-Integration mit Claude! Statt reinen Text enthalten Nachrichten jetzt mehrere Blöcke. Die Antwort von Claude enthält einen Textblock für den Nutzer und einen Tool-Use-Block mit Funktionsname und Argumenten für die Tool-Ausführung. Verwalte den Gesprächsverlauf manuell!\n\n**Warum es funktioniert:** Multi-Block Messages ermöglichen eine strukturierte Kommunikation zwischen Claude und externen Tools, wobei die Anfrage und die Ergebnisse der Tool-Ausführung klar getrennt werden.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Integriere das Tool-Schema in die Anfrage an Claude mit dem `tools` Keyword-Argument.",
+      "Beachte, dass Nachrichten jetzt mehrere Blöcke enthalten (Text und Tool-Use).",
+      "Extrahiere den Funktionsnamen und die Argumente aus dem Tool-Use-Block der Antwort.",
+      "Führe das Tool mit den extrahierten Argumenten aus.",
+      "Füge die gesamte `response.content` (alle Blöcke) zur Nachrichtenliste hinzu, nicht nur den Text.",
+      "Passe deine `add_user_message` und `add_assistant_message` Funktionen an, um Multi-Block Nachrichten zu unterstützen.",
+      "Sende den vollständigen Gesprächsverlauf zurück an Claude."
+    ],
+    "examples": [],
+    "why_it_works": "Die strukturierte Nachrichtenübermittlung mit Blöcken ermöglicht es Claude, gezielt Tool-Funktionen anzufordern und die Ergebnisse effizient zu verarbeiten, während der Gesprächsverlauf für die Kontextbeibehaltung erhalten bleibt.",
+    "slug": "claude-api-nachrichtenblocke-und-tool-nutzung-29"
+  },
+  {
+    "title": "Text Embeddings für semantische Suche nutzen",
+    "description": "Text Embeddings sind numerische Repräsentationen der Bedeutung von Texten, generiert durch Embedding-Modelle. Sie ermöglichen semantische Suche in RAG-Pipelines, indem sie die Ähnlichkeit zwischen Benutzerfragen und Textfragmenten messen.\n\n**Warum es funktioniert:** Embeddings erfassen semantische Beziehungen, nicht nur Schlüsselwörter, was präzisere Suchergebnisse ermöglicht.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Voyage AI"
+    ],
+    "steps": [
+      "Textfragmente aus Dokumenten extrahieren.",
+      "Mit Voyage AI (oder ähnlichem) Embeddings für die Textfragmente generieren.",
+      "Embedding für die Benutzerfrage generieren.",
+      "Ähnlichkeit zwischen Frage-Embedding und Textfragment-Embeddings berechnen.",
+      "Relevante Textfragmente als Kontext in den Prompt einfügen."
+    ],
+    "examples": [
+      "Suche nach 'Nachhaltige Energiequellen' findet Text über Solarenergie, obwohl der exakte Begriff nicht vorkommt."
+    ],
+    "why_it_works": "Embeddings erfassen die Bedeutung von Texten und erlauben so, auch thematisch verwandte Inhalte zu finden, selbst wenn keine direkten Übereinstimmungen bei den Schlüsselwörtern vorliegen.",
+    "slug": "text-embeddings-fur-semantische-suche-nutzen-30"
+  },
+  {
+    "title": "MCP: Vereinfachte Tool-Integration mit Claude",
+    "description": "Das Model Context Protocol (MCP) ist eine Kommunikationsschicht, die Claude mit Kontext und Tools versorgt, ohne dass Entwickler aufwändige Code schreiben müssen. MCP-Server hosten Tools und Ressourcen, wodurch die Notwendigkeit entfällt, Tool-Schemas und Funktionen selbst zu erstellen.\n\n**Warum es funktioniert:** MCP lagert die Tool-Definition und -Ausführung auf einen Server aus, wodurch Entwickler entlastet werden.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "MCP"
+    ],
+    "steps": [
+      "MCP Client mit einem MCP Server verbinden.",
+      "MCP Server stellt Tools und Ressourcen bereit (z.B. GitHub-Integration).",
+      "Claude greift über MCP auf die benötigten Tools zu.",
+      "Entwickler müssen keine Tool-Schemas oder Funktionen implementieren."
+    ],
+    "examples": [
+      "Ein GitHub-Chatbot nutzt MCP, um auf Repositories, Pull Requests und Issues zuzugreifen, ohne dass der Entwickler die API-Integration selbst programmieren muss."
+    ],
+    "why_it_works": "MCP standardisiert die Tool-Integration und verlagert die Komplexität von der Anwendungsentwicklung auf die MCP-Server-Entwicklung.",
+    "slug": "mcp-vereinfachte-tool-integration-mit-claude-31"
+  },
+  {
+    "title": "Chatbot-Projekt mit MCP Client-Server Architektur",
+    "description": "Dieses CLI-basierte Chatbot-Projekt demonstriert die MCP Client-Server Interaktion durch praktische Implementierung. Es beinhaltet einen MCP-Client, einen MCP-Server mit zwei Tools (Dokument lesen, Dokument aktualisieren) und eine Dokumentensammlung. Achtung: Normalerweise implementiert man entweder Client ODER Server, hier beides zu Lernzwecken.\n\n**Warum es funktioniert:** Das Projekt demonstriert die grundlegende Architektur und den Workflow von MCP.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "MCP"
+    ],
+    "steps": [
+      "CLI_project.zip herunterladen und entpacken.",
+      "Projekt im Code-Editor öffnen.",
+      "Readme.md Anweisungen befolgen.",
+      "API-Key zur .env Datei hinzufügen.",
+      "Abhängigkeiten installieren (mit/ohne UV).",
+      "Projekt ausführen: \"uv run main.py\" oder \"python main.py\".",
+      "Chatbot mit einem Prompt testen."
+    ],
+    "examples": [],
+    "why_it_works": "Die praktische Übung hilft, die Konzepte von MCP und Client-Server-Kommunikation besser zu verstehen.",
+    "slug": "chatbot-projekt-mit-mcp-client-server-architektur-32"
+  },
+  {
+    "title": "Vordefinierte Prompts mit Claude API nutzen",
+    "description": "Definiere geprüfte Prompt-Templates auf dem Server, die Client-Anwendungen für bestimmte Aufgaben nutzen können. Statt Ad-hoc-Prompts erstellen Server-Autoren hochwertige, evaluierte Prompts.\n\n**Warum es funktioniert:** Vordefinierte Prompts bündeln Expertenwissen, garantieren Qualität und sind wiederverwendbar, was zu besseren Ergebnissen führt als benutzergenerierte Prompts.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Nutze den `@mcpserver.prompt` Dekorator mit Name/Beschreibung.",
+      "Definiere eine Funktion, die eine Liste von Nachrichten (User/Assistant) zurückgibt.",
+      "Formatiere den Prompt-Text mit interpolierten Parametern als `base.UserMessage` Objekte.",
+      "Integriere Prompts als Autocomplete-Optionen (Slash-Befehle) in Client-Anwendungen.",
+      "Fordere Benutzer zur Eingabe erforderlicher Parameter auf.",
+      "Führe den vordefinierten Prompt-Workflow aus."
+    ],
+    "examples": [
+      "Ein Prompt zur Dokumentenformatierung, der eine Dokument-ID nimmt, Claude anweist, das Dokument mit Tools zu lesen, es in Markdown zu formatieren und Änderungen zu speichern."
+    ],
+    "why_it_works": "Durch die Verwendung von vordefinierten Prompts wird sichergestellt, dass die Anfragen an Claude konsistent und qualitativ hochwertig sind, was zu zuverlässigeren Ergebnissen führt.",
+    "slug": "vordefinierte-prompts-mit-claude-api-nutzen-33"
+  },
+  {
+    "title": "Workflow-Verkettung mit der Claude API",
+    "description": "Zerlege komplexe Aufgaben in eine Reihe von aufeinanderfolgenden Schritten, anstatt einen einzelnen, komplexen Prompt zu verwenden. Dies ermöglicht es der KI, sich auf einzelne Unteraufgaben zu konzentrieren.\n\n**Warum es funktioniert:** Die Aufteilung in kleinere, fokussierte Schritte vermeidet die Überlastung von Claude mit zu vielen Constraints gleichzeitig, was die Einhaltung aller Anforderungen verbessert.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere die Hauptaufgabe in einzelne, sequenzielle Schritte.",
+      "Sende den ersten Prompt und akzeptiere eine möglicherweise unvollkommene Ausgabe.",
+      "Sende einen Folge-Prompt, in dem Claude aufgefordert wird, die Ausgabe basierend auf spezifischen Mängeln zu überarbeiten.",
+      "Wiederhole den Prozess, bis die gewünschten Ergebnisse erzielt werden."
+    ],
+    "examples": [
+      "Benutzer gibt Thema ein → Suche nach aktuellen Themen → Claude wählt das interessanteste aus → Claude recherchiert das Thema → Claude schreibt ein Skript → Video generieren → In sozialen Medien posten."
+    ],
+    "why_it_works": "Claude kann sich besser auf spezifische Aspekte konzentrieren, wenn komplexe Aufgaben in kleinere, besser handhabbare Einheiten aufgeteilt werden.",
+    "slug": "workflow-verkettung-mit-der-claude-api-34"
+  },
+  {
+    "title": "Evaluierung von Prompts mit der Claude API",
+    "description": "Ein iterativer 6-Schritte-Prozess zur Verbesserung von Prompts. Er beinhaltet das Erstellen eines Datensatzes zur Evaluierung, das Generieren von Prompt-Variationen und die Bewertung der Antworten von Claude.\n\n**Warum es funktioniert:** Systematische Evaluierung und Iteration ermöglichen eine datengestützte Optimierung von Prompts, wodurch die Genauigkeit und Effektivität der Ergebnisse verbessert werden.",
+    "category": "data-analysis",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Erstelle einen ersten Prompt-Entwurf als Baseline.",
+      "Erstelle einen Evaluierungsdatensatz mit Testeingaben.",
+      "Generiere Prompt-Variationen, indem du jede Eingabe in das Prompt-Template interpolierst.",
+      "Sammle die Antworten von Claude auf jede Prompt-Variation.",
+      "Bewerte die Antworten mit einem Bewertungssystem (z.B. 1-10 Skala) und berechne Durchschnittswerte.",
+      "Passe den Prompt basierend auf den Bewertungen an und wiederhole den Prozess."
+    ],
+    "examples": [],
+    "why_it_works": "Durch die objektive Bewertung der Antworten können Prompts systematisch verbessert und A/B-Vergleiche durchgeführt werden, um die effektivsten Formulierungen zu ermitteln.",
+    "slug": "evaluierung-von-prompts-mit-der-claude-api-35"
+  },
+  {
+    "title": "Klare und direkte Claude Prompts formulieren",
+    "description": "Verwende einfache, direkte Sprache mit Aktionsverben in der ersten Zeile deiner Prompts, um die gewünschte Aufgabe präzise zu definieren. Die erste Zeile ist entscheidend für die Qualität der Antwort. Struktur: Aktionsverb + klare Aufgabenbeschreibung + Ausgabespezifikationen.\n\n**Warum es funktioniert:** Claude versteht präzise Anweisungen schneller und liefert dadurch bessere Ergebnisse. Die klare Struktur hilft dem Modell, den Kontext sofort zu erfassen.",
+    "category": "content-creation",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Beginne den Prompt mit einem Aktionsverb (z.B. \"Schreibe\", \"Identifiziere\", \"Generiere\").",
+      "Definiere die Aufgabe klar und präzise.",
+      "Gib detaillierte Anweisungen für das gewünschte Ausgabeformat (z.B. Anzahl der Absätze, Formatierung).",
+      "Vermeide unnötige Füllwörter und komplexe Satzstrukturen."
+    ],
+    "examples": [
+      "Schreibe drei Absätze darüber, wie Solarzellen funktionieren.",
+      "Identifiziere drei Länder, die Erdwärme nutzen und gib jeweils die Produktionsstatistiken an.",
+      "Generiere einen Tages-Essensplan für einen Sportler unter Berücksichtigung seiner Ernährungsrichtlinien."
+    ],
+    "why_it_works": "Klare Anweisungen reduzieren die Mehrdeutigkeit und ermöglichen es Claude, sich auf die Erfüllung der Aufgabe zu konzentrieren, was zu präziseren und relevanteren Ergebnissen führt.",
+    "slug": "klare-und-direkte-claude-prompts-formulieren-36"
+  },
+  {
+    "title": "XML-Tags für strukturierte Claude Prompts",
+    "description": "Nutze XML-Tags, um verschiedene Inhaltsabschnitte innerhalb von Prompts zu organisieren und abzugrenzen. Dies verbessert das Verständnis des KI-Modells, besonders bei großen Textmengen. Wickle Inhaltsbereiche in beschreibende XML-Tags wie <verkaufsdaten></verkaufsdaten> oder <mein_code></mein_code> ein, anstatt unstrukturierten Text zu verwenden.\n\n**Warum es funktioniert:** XML-Tags machen die Prompt-Struktur für Claude eindeutig und reduzieren Verwirrung über Inhaltsgrenzen. Dies führt zu einer verbesserten Ausgabequalität.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Identifiziere verschiedene Inhaltsabschnitte in deinem Prompt.",
+      "Wähle beschreibende XML-Tag-Namen, die den Inhalt widerspiegeln (z.B. <kundendaten>, <produktbeschreibung>).",
+      "Umschließe jeden Inhaltsabschnitt mit den entsprechenden XML-Tags.",
+      "Achte auf korrekte Verschachtelung und Schließung der Tags."
+    ],
+    "examples": [
+      "<mein_code>\n// Code-Beispiel\n</mein_code>\n<docs>\n// Dokumentation zum Code\n</docs>",
+      "<athleten_informationen>\n// Informationen zum Athleten\n</athleten_informationen>"
+    ],
+    "why_it_works": "Durch die klare Strukturierung mit XML-Tags kann Claude die Beziehungen zwischen verschiedenen Datenelementen besser verstehen und relevante Informationen effizienter extrahieren.",
+    "slug": "xml-tags-fur-strukturierte-claude-prompts-37"
+  },
+  {
+    "title": "Zeitbasierte Erinnerungen mit Claude implementieren",
+    "description": "Ziel: Claude soll zeitbasierte Erinnerungen über Tools in einem Jupyter Notebook setzen. Herausforderungen: Claude benötigt Zugriff auf aktuelle Zeit, korrekte Zeitberechnung und einen Mechanismus zum Setzen von Erinnerungen. Lösung: Entwickle drei Tools: Aktuelles Datum/Uhrzeit, Daueraddition (für Zeitberechnungen) und Erinnerungsfunktion. Implementierung: Baue die Tools einzeln und koordiniere sie.\n\n**Warum es funktioniert:** Durch die Zerlegung des komplexen Problems in kleinere, handhabbare Tool-Funktionen kann Claude die einzelnen Aufgaben effizienter lösen und die Ergebnisse kombinieren.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Jupyter Notebook"
+    ],
+    "steps": [
+      "Erstelle ein Tool, das das aktuelle Datum und die Uhrzeit abruft.",
+      "Entwickle ein Tool, das eine bestimmte Zeitdauer zu einem gegebenen Zeitpunkt addiert.",
+      "Implementiere ein Tool, das eine Erinnerung für einen bestimmten Zeitpunkt setzt.",
+      "Integriere die Tools in einen Workflow, in dem der Benutzer eine Erinnerung anfordert.",
+      "Claude analysiert die Anfrage, berechnet den Zeitpunkt und setzt die Erinnerung mit den Tools."
+    ],
+    "examples": [],
+    "why_it_works": "Die modulare Tool-basierte Architektur ermöglicht es Claude, komplexe Aufgaben wie zeitbasierte Erinnerungen durch die Kombination spezialisierter Funktionen zu bewältigen.",
+    "slug": "zeitbasierte-erinnerungen-mit-claude-implementiere-38"
+  },
+  {
+    "title": "Tool-Ergebnisse an Claude API senden",
+    "description": "Sende Ergebnisse von ausgeführten Tool-Funktionen als Follow-up-Requests an Claude zurück. Nutze Tool Result Blocks, um Anfragen und Ergebnisse zu verknüpfen.\n\n**Warum es funktioniert:** Stellt sicher, dass Claude die Ergebnisse der Tool-Ausführung korrekt zuordnen und in seine Antwort integrieren kann.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Tool-Funktion durch Claude angefordert, ausführen.",
+      "Tool Result Block erstellen (tool_use_id, content als JSON String, is_error).",
+      "Follow-up-Request mit vollständigem Konversationsverlauf senden.",
+      "Original Tool-Schemas beibehalten (auch wenn nicht erneut verwendet).",
+      "Tool Result Block in die User Message einfügen (nicht Assistant Message)."
+    ],
+    "examples": [],
+    "why_it_works": "Die eindeutige tool_use_id verknüpft die Anfrage mit dem zugehörigen Ergebnis, auch bei parallelen Tool-Aufrufen.",
+    "slug": "tool-ergebnisse-an-claude-api-senden-39"
+  },
+  {
+    "title": "Retrieval Augmented Generation (RAG) mit Claude",
+    "description": "Nutze RAG, um große Dokumente mit Claude zu durchsuchen, ohne Kontextlimits zu überschreiten. Teile das Dokument in Chunks und gib nur die relevantesten an Claude.\n\n**Warum es funktioniert:** Reduziert die Tokenanzahl im Prompt, was die Effizienz, Kosten und Geschwindigkeit verbessert.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Vektordatenbank",
+      "Embedding Modelle"
+    ],
+    "steps": [
+      "Dokument in kleine Text-Chunks aufteilen.",
+      "Für User-Frage die relevantesten Chunks finden (z.B. via Vektorsuche).",
+      "Nur relevante Chunks in den Prompt einfügen.",
+      "Prompt an Claude senden."
+    ],
+    "examples": [],
+    "why_it_works": "Konzentriert das Modell auf den relevanten Kontext und ermöglicht die Verarbeitung großer Dokumente.",
+    "slug": "retrieval-augmented-generation-rag-mit-claude-40"
+  },
+  {
+    "title": "Der vollständige RAG-Workflow für Claude",
+    "description": "Implementiere einen 7-stufigen RAG-Workflow mit Text-Chunking, Embeddings und Vektorsuche, um relevanten Kontext für LLM-Anfragen abzurufen.\n\n**Warum es funktioniert:** Ermöglicht präzise und effiziente Informationsabfrage aus umfangreichen Dokumentenbeständen.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Embedding Modelle",
+      "Vektordatenbank"
+    ],
+    "steps": [
+      "Text Chunking: Dokumente in Textstücke aufteilen.",
+      "Generate Embeddings: Text-Chunks in numerische Vektoren umwandeln.",
+      "Normalization: Vektor-Magnituden auf 1.0 skalieren.",
+      "Vector Database Storage: Embeddings in Vektordatenbank speichern.",
+      "Query Processing: User-Frage in Embedding umwandeln.",
+      "Similarity Search: Ähnlichste gespeicherte Embeddings finden (Cosine Similarity).",
+      "Prompt Assembly: User-Frage mit relevanten Text-Chunks kombinieren und an LLM senden."
+    ],
+    "examples": [],
+    "why_it_works": "Die Vektorsuche ermöglicht das Auffinden der relevantesten Textpassagen basierend auf semantischer Ähnlichkeit.",
+    "slug": "der-vollstandige-rag-workflow-fur-claude-41"
+  },
+  {
+    "title": "Tools definieren mit MCP und Claude API",
+    "description": "Nutze das MCP Python SDK, um Tools für Claude API zu erstellen. Anstatt JSON-Schemas manuell zu schreiben, generiert das SDK diese automatisch aus Python-Funktionsdefinitionen mit dem `@mcp.tool` Decorator.\n\n**Warum es funktioniert:** Der `@mcp.tool` Decorator vereinfacht die Tool-Definition, indem er die manuelle Erstellung von JSON-Schemas überflüssig macht und Fehler reduziert.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "MCP Python SDK",
+      "Python"
+    ],
+    "steps": [
+      "Installiere das MCP Python SDK.",
+      "Definiere ein Tool mit `@mcp.tool(name=\"tool_name\", description=\"description\")`.",
+      "Definiere Funktionsparameter mit Typen und Beschreibungen mit `Field()` aus `pydantic`.",
+      "Implementiere die Tool-Logik innerhalb der Funktion.",
+      "Behandle Fehler, z.B. durch Prüfung der Existenz von `doc_id`.",
+      "Importiere `Field` und das `mcp` Package."
+    ],
+    "examples": [
+      "@mcp.tool(name=\"read_doc_contents\", description=\"Liest den Inhalt eines Dokuments anhand seiner ID\") def read_doc_contents(doc_id: str = Field(..., description=\"Die ID des Dokuments\")) -> str: ..."
+    ],
+    "why_it_works": "Der Decorator automatisiert die Schema-Erstellung und erhöht die Lesbarkeit des Codes.",
+    "slug": "tools-definieren-mit-mcp-und-claude-api-42"
+  },
+  {
+    "title": "Anthropic Apps: Agent-Architekturen verstehen",
+    "description": "Anthropic Apps (Claude Code und Computer Use) demonstrieren Agent-Konzepte und bieten praktische Beispiele für das Verständnis von Agent-Design und -Implementierung.  Claude Code ist ein Terminal-basierter Coding-Assistent, während Computer Use Claudes Fähigkeiten über die reine Textgenerierung hinaus erweitert.\n\n**Warum es funktioniert:** Die Apps dienen als Lernmodelle und bieten konkrete Beispiele für die Entwicklung effektiver Agenten mit der Claude API.",
+    "category": "learning",
+    "tools": [
+      "Claude API",
+      "Claude Code",
+      "Computer Use"
+    ],
+    "steps": [
+      "Erkunde die Funktionalität von Claude Code als Coding-Assistent.",
+      "Analysiere, wie Computer Use Claudes Fähigkeiten erweitert.",
+      "Verstehe die Terminal-Konfiguration für die Nutzung von Claude Code.",
+      "Identifiziere die Schlüsselkomponenten der Agent-Architektur in den Apps.",
+      "Untersuche, wie die Apps als Agenten interagieren."
+    ],
+    "examples": [
+      "Claude Code zur Unterstützung von Coding-Aufgaben nutzen.",
+      "Die Tools in Computer Use analysieren, die Claudes Fähigkeiten erweitern."
+    ],
+    "why_it_works": "Die praktischen Beispiele erleichtern das Verständnis komplexer Agent-Architekturen und deren Anwendung mit der Claude API.",
+    "slug": "anthropic-apps-agent-architekturen-verstehen-43"
+  },
+  {
+    "title": "Claude Code einrichten: Coding-Assistent im Terminal",
+    "description": "Claude Code ist ein Terminal-basierter Coding-Assistent, der bei Code-bezogenen Aufgaben hilft.  Er unterstützt das Suchen/Lesen/Bearbeiten von Dateien, bietet erweiterte Tools (Web-Fetching, Terminal-Zugriff) und MCP-Client-Support für zusätzliche Funktionen.  Die vollständige Setup-Anleitung findet sich unter docs.anthropic.com.\n\n**Warum es funktioniert:** Claude Code bietet eine interaktive Umgebung für die Code-Entwicklung und demonstriert die Integration von Claude API mit lokalen Systemen und externen Ressourcen.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Claude Code",
+      "Node.js",
+      "npm"
+    ],
+    "steps": [
+      "Installiere Node.js (überprüfe mit `npm help`).",
+      "Führe `npm install` aus, um Claude Code zu installieren.",
+      "Führe den Befehl `claude` im Terminal aus, um dich bei deinem Anthropic-Konto anzumelden.",
+      "Nutze die MCP-Client-Funktionalität, um Tools von MCP-Servern zu nutzen.",
+      "Konsultiere die vollständige Setup-Anleitung unter docs.anthropic.com."
+    ],
+    "examples": [
+      "Suche, lese und bearbeite Dateien mit Claude Code im Terminal.",
+      "Nutze die Web-Fetching-Funktion, um Informationen aus dem Internet abzurufen.",
+      "Greife über Claude Code auf das Terminal zu, um Befehle auszuführen."
+    ],
+    "why_it_works": "Die einfache Installation und die umfassende Funktionalität machen Claude Code zu einem wertvollen Werkzeug für die Code-Entwicklung mit der Claude API.",
+    "slug": "claude-code-einrichten-coding-assistent-im-termina-44"
+  },
+  {
+    "title": "Claude API: Agenten und Tool-Abstraktion",
+    "description": "Nutze Agenten mit abstrakten Tools für flexible Problemlösung in der Claude API. Agenten planen dynamisch mit verfügbaren Tools, im Gegensatz zu Workflows mit festen Schritten.\n\n**Warum es funktioniert:** Abstrakte Tools ermöglichen es dem Agenten, verschiedene Aufgaben mit demselben Toolset zu lösen und Tools unerwartet zu kombinieren.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere das Ziel, das der Agent erreichen soll.",
+      "Wähle abstrakte Tools, die der Agent nutzen kann (z.B. `bash`, `web_fetch`, `file_write`).",
+      "Vermeide hyper-spezialisierte Tools (z.B. `refactor_tool`, `install_dependencies`).",
+      "Gib dem Agenten Zugriff auf die ausgewählten Tools.",
+      "Formuliere einen klaren Prompt, der dem Agenten das Ziel und die verfügbaren Tools erklärt.",
+      "Lass den Agenten einen Plan erstellen und die Tools dynamisch kombinieren, um das Ziel zu erreichen.",
+      "Überwache und optimiere die Performance des Agenten."
+    ],
+    "examples": [
+      "Ein Agent, der Zeitmanagement-Aufgaben löst, indem er `get_current_datetime`, `add_duration` und `set_reminder` kombiniert.",
+      "Ein Agent, der Webseiten scrapt, Daten extrahiert und in eine Datei schreibt, indem er `web_fetch` und `file_write` verwendet."
+    ],
+    "why_it_works": "Agenten können mit abstrakten Tools Aufgaben dynamisch planen und unerwartete Kombinationen nutzen, um Ziele flexibler zu erreichen.",
+    "slug": "claude-api-agenten-und-tool-abstraktion-45"
+  },
+  {
+    "title": "Claude API: Umgebungsprüfung für Agenten",
+    "description": "Implementiere Umgebungsprüfung, damit Agenten in der Claude API den Fortschritt beurteilen und Fehler erkennen können. Agenten benötigen Feedback-Mechanismen über Tool-Returns hinaus.\n\n**Warum es funktioniert:** Die Umgebungsprüfung ermöglicht es Agenten, den Aufgabenfortschritt zu messen, Fehler zu erkennen und sich an unerwartete Ergebnisse anzupassen, anstatt blind zu operieren.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere die Umgebung, in der der Agent agiert (z.B. ein Dateisystem, eine Webseite, ein Videostream).",
+      "Implementiere Mechanismen zur Umgebungsprüfung (z.B. Screenshots, Dateiinhalte lesen, Video-Frame-Extraktion).",
+      "Lass den Agenten nach jeder Aktion die Umgebung prüfen.",
+      "Analysiere die Ergebnisse der Umgebungsprüfung, um den Fortschritt zu beurteilen und Fehler zu erkennen.",
+      "Passe die nachfolgenden Aktionen basierend auf den Ergebnissen der Umgebungsprüfung an.",
+      "Nutze Whisper CPP für Zeitstempel-basierte Untertitel und FFmpeg zur Video-Frame-Extraktion."
+    ],
+    "examples": [
+      "Ein Agent, der Screenshots nach jeder Aktion macht, um die Veränderung einer Webseite zu verfolgen.",
+      "Ein Agent, der Dateiinhalte liest, bevor er sie ändert, um den aktuellen Zustand zu verstehen.",
+      "Ein Agent, der FFmpeg nutzt, um Screenshots zu extrahieren und das Ergebnis der Videobearbeitung zu verifizieren."
+    ],
+    "why_it_works": "Die Umgebungsprüfung ermöglicht es Agenten, den Aufgabenfortschritt zu beurteilen, Fehler zu erkennen und sich an unerwartete Ergebnisse anzupassen, anstatt blind zu agieren.",
+    "slug": "claude-api-umgebungsprufung-fur-agenten-46"
+  },
+  {
+    "title": "Claude API: System Prompts für Stilkontrolle",
+    "description": "Nutze System Prompts in der Claude API, um den Antwortstil und Ton von Claude anzupassen, indem du ihm eine spezifische Rolle oder ein Verhaltensmuster zuweist. Steuere *wie* Claude antwortet, nicht *was*.\n\n**Warum es funktioniert:** System Prompts lenken den Antwortansatz und nicht den Inhalt, wodurch dieselbe Frage basierend auf der zugewiesenen Rolle unterschiedlich behandelt wird.",
+    "category": "content-creation",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere die gewünschte Rolle oder das Verhaltensmuster für Claude (z.B. \"Du bist ein geduldiger Mathe-Tutor\").",
+      "Formuliere einen System Prompt, der die Rolle und spezifische Verhaltensanweisungen enthält.",
+      "Übergib den System Prompt als String an die `create`-Funktion mit dem `system`-Keyword-Argument.",
+      "Erstelle ein `params` Dictionary und füge den `system` Key bedingt hinzu, wenn ein Prompt vorhanden ist.",
+      "Nutze `**` Unpacking, um die `params` an die `create` Funktion zu übergeben.",
+      "Teste verschiedene System Prompts, um den optimalen Stil und Ton für deine Anwendung zu finden.",
+      "Behandle den `None` Fall, indem der System Parameter komplett weggelassen wird."
+    ],
+    "examples": [
+      "Ein System Prompt, der Claude als Mathe-Tutor agieren lässt, der Hinweise anstelle von direkten Antworten gibt.",
+      "Ein System Prompt, der Claude als freundlichen Kundenservice-Mitarbeiter agieren lässt.",
+      "Ein System Prompt, der Claude als kreativen Texter agieren lässt."
+    ],
+    "why_it_works": "System Prompts lenken den Antwortansatz und nicht den Inhalt, wodurch dieselbe Frage basierend auf der zugewiesenen Rolle unterschiedlich behandelt wird.",
+    "slug": "claude-api-system-prompts-fur-stilkontrolle-47"
+  },
+  {
+    "title": "Claude API: Response Streaming für flüssige UX",
+    "description": "Nutze Response Streaming, um Claude's Antworten Stück für Stück anzuzeigen, anstatt auf die vollständige Antwort zu warten. Das verbessert die User Experience erheblich, da Nutzer sofortiges Feedback erhalten.\n\n**Warum es funktioniert:** Vermeidet lange Wartezeiten und simuliert eine Echtzeit-Interaktion, was die gefühlte Reaktionsgeschwindigkeit erhöht.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Sende die User-Nachricht an Claude.",
+      "Claude sendet sofort eine erste Bestätigung (message_start).",
+      "Ein Stream von Events folgt, jeder enthält Text-Chunks (content_block_delta).",
+      "Sende die Chunks an das Frontend zur Echtzeit-Anzeige.",
+      "Empfange content_block_stop oder message_stop, wenn die Generierung abgeschlossen ist.",
+      "Verwende stream.get_final_message(), um die gesamte Nachricht für die Speicherung zusammenzusetzen."
+    ],
+    "examples": [],
+    "why_it_works": "Streaming liefert dem Nutzer sofortiges, inkrementelles Feedback, was Wartezeiten verkürzt und die Interaktion angenehmer gestaltet.",
+    "slug": "claude-api-response-streaming-fur-flussige-ux-48"
+  },
+  {
+    "title": "Modellbasierte Bewertung mit Claude API",
+    "description": "Implementiere ein Bewertungssystem, das Claude's Ausgaben bewertet und objektive Scores zuweist (z.B. 1-10). Nutze Code-, Modell- oder Human-Grader, wobei Modell-Grader durch zusätzliche API-Aufrufe Qualität und Instruktionsbefolgung beurteilen.\n\n**Warum es funktioniert:**  Bietet eine flexible und objektive Möglichkeit, die Qualität der Modellantworten zu messen und Prompts zu optimieren.",
+    "category": "data-analysis",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere klare Bewertungskriterien im Voraus.",
+      "Erstelle einen detaillierten Prompt, der Stärken/Schwächen/Begründung/Score anfordert (nicht nur den Score).",
+      "Verwende das JSON-Antwortformat mit vorgefertigter Assistant-Nachricht und Stop-Sequenzen.",
+      "Parse das zurückgegebene JSON für Score und Begründung.",
+      "Berechne Durchschnittswerte über Testfälle für eine endgültige Metrik."
+    ],
+    "examples": [],
+    "why_it_works": "Durch die Verwendung eines detaillierten Prompts und einer strukturierten JSON-Antwort kann Claude eine fundierte Bewertung liefern, die als objektive Basis für die Prompt-Optimierung dient.",
+    "slug": "modellbasierte-bewertung-mit-claude-api-49"
+  },
+  {
+    "title": "Codebasierte Bewertung von LLM-Ausgaben",
+    "description": "Automatisiere die Validierung von LLM-Ausgaben, die Code, JSON oder Regex enthalten.  Nutze Funktionen wie `validate_json()`, `validate_python()` und `validate_regex()`, um die Syntax zu prüfen und objektive Scores zu vergeben.\n\n**Warum es funktioniert:** Stellt sicher, dass generierter Code, JSON oder reguläre Ausdrücke syntaktisch korrekt sind, was die Nutzbarkeit und Integration in bestehende Systeme erhöht.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere den erwarteten Ausgabetyp (JSON/Python/Regex) im Dataset.",
+      "Weise das Modell an, nur rohen Code/JSON/Regex ohne Kommentare oder Erklärungen zu antworten.",
+      "Verwende eine vorgefertigte Assistant-Nachricht mit ```code``` Blöcken.",
+      "Füge Stop-Sequenzen hinzu, um saubere Ausgaben zu extrahieren.",
+      "Wende `validate_json()`, `validate_python()` oder `validate_regex()` an, um die Syntax zu validieren.",
+      "Berechne einen finalen Score aus Modell-Score und Syntax-Score."
+    ],
+    "examples": [],
+    "why_it_works": "Durch die Kombination einer semantischen Bewertung mit einer Syntaxvalidierung kann sowohl die Korrektheit als auch die technische Gültigkeit der LLM-Ausgabe gemessen werden.",
+    "slug": "codebasierte-bewertung-von-llm-ausgaben-50"
+  },
+  {
+    "title": "Claude API: Batch-Tool für parallele Ausführung",
+    "description": "Ermögliche Claude die parallele Ausführung mehrerer Tools innerhalb einer einzigen Assistenten-Nachricht, anstatt separate, sequenzielle Anfragen zu stellen. Definiere ein Batch-Tool-Schema, das eine Liste von Tool-Aufrufen entgegennimmt.\n\n**Warum es funktioniert:** Umgeht die Einschränkung, dass Claude Tool-Aufrufe selten parallelisiert, indem eine Abstraktionsebene geschaffen wird, die die parallele Ausführung manuell steuert.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Füge das Batch-Tool zum Schema hinzu, inklusive eines 'invocations'-Parameters.",
+      "Erstelle eine 'run_batch'-Funktion, die die Liste der Aufrufe durchläuft.",
+      "Extrahiere Tool-Namen und JSON-formatierte Argumente aus jedem Aufruf.",
+      "Rufe die 'run_tool'-Funktion für jedes angeforderte Tool auf.",
+      "Sammle die Ergebnisse aller Tool-Ausführungen in einer 'batch_output'-Liste.",
+      "Gib die 'batch_output'-Liste zurück."
+    ],
+    "examples": [],
+    "why_it_works": "Das Batch-Tool gaukelt Claude parallele Tool-Ausführung vor, indem es eine höhere Abstraktionsebene bereitstellt, die die automatische Funktionalität mehrerer Tool-Aufrufe manuell handhabt.",
+    "slug": "claude-api-batch-tool-fur-parallele-ausfuhrung-51"
+  },
+  {
+    "title": "RAG verbessern: BM25 für lexikalische Suche",
+    "description": "Nutze BM25 (Best Match 25), einen lexikalischen Suchalgorithmus, als Ergänzung zur semantischen Suche in RAG-Pipelines. BM25 findet exakte Übereinstimmungen und priorisiert Dokumente mit seltenen, spezifischen Suchbegriffen.\n\n**Warum es funktioniert:** Semantische Suche allein übersieht möglicherweise exakte Term-Übereinstimmungen. BM25 gleicht diese Schwäche aus, indem es Frequenz und Relevanz von Termen berücksichtigt.",
+    "category": "data-analysis",
+    "tools": [
+      "Claude API",
+      "Vektor Datenbank"
+    ],
+    "steps": [
+      "Tokenisiere die Benutzeranfrage in einzelne Terme (entferne Satzzeichen, trenne nach Leerzeichen).",
+      "Zähle die Häufigkeit jedes Terms in allen Textchunks/Dokumenten.",
+      "Weise Termen basierend auf ihrer Nutzungshäufigkeit eine relative Bedeutung zu (seltene Terme = höhere Bedeutung).",
+      "Bewerte Textchunks danach, wie oft sie höher gewichtete Terme enthalten.",
+      "Kombiniere die Ergebnisse der semantischen und lexikalischen Suche."
+    ],
+    "examples": [],
+    "why_it_works": "BM25 priorisiert Dokumente, die seltene oder spezifische Terme enthalten, was die Genauigkeit der Suche erhöht und die Schwächen der semantischen Suche ausgleicht.",
+    "slug": "rag-verbessern-bm25-fur-lexikalische-suche-52"
+  },
+  {
+    "title": "LLM-gestütztes Re-Ranking für verbesserte Suchrelevanz",
+    "description": "Verwende ein LLM, um Suchergebnisse nach der initialen Abfrage (Vektor + BM25) anhand ihrer Relevanz neu zu ordnen. Das LLM erhält die Benutzeranfrage, die Kandidatendokumente und die Anweisung, die relevantesten Dokumente in absteigender Reihenfolge zurückzugeben.\n\n**Warum es funktioniert:** Das LLM berücksichtigt den semantischen Kontext und die Nuancen der Anfrage, um relevantere Ergebnisse zu liefern, die von den initialen Suchmethoden möglicherweise übersehen wurden.",
+    "category": "data-analysis",
+    "tools": [
+      "Claude API",
+      "Vektor Datenbank"
+    ],
+    "steps": [
+      "Führe eine Vektor- und BM25-Suche durch.",
+      "Führe die Ergebnisse beider Suchen zusammen.",
+      "Gib die Benutzeranfrage und die Kandidatendokumente an das LLM weiter.",
+      "Fordere das LLM auf, die Dokumente nach Relevanz zu ordnen.",
+      "Nutze die neu geordnete Liste als Suchergebnis."
+    ],
+    "examples": [],
+    "why_it_works": "Durch die Nutzung des semantischen Verständnisses eines LLM kann die Relevanz der Suchergebnisse deutlich verbessert werden, insbesondere bei komplexen oder mehrdeutigen Anfragen.",
+    "slug": "llm-gestutztes-re-ranking-fur-verbesserte-suchrele-53"
+  },
+  {
+    "title": "Claude API: Codeausführung mit Files API",
+    "description": "Nutze die Files API und Codeausführung von Claude, um komplexe Aufgaben zu automatisieren. Lade Dateien hoch, lass Claude Code ausführen, um sie zu analysieren und Ergebnisse zu generieren.\n\n**Warum es funktioniert:** Durch die Kombination von Dateizugriff und Codeausführung kann Claude Aufgaben bewältigen, die reine Textverarbeitung übersteigen, wie z.B. Datenanalyse oder das Generieren von Diagrammen.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Python",
+      "Docker"
+    ],
+    "steps": [
+      "Datei über die Files API hochladen und die Datei-ID erhalten.",
+      "Die Datei-ID im 'container upload block' angeben.",
+      "Einen Prompt formulieren, der Claude zur Analyse auffordert.",
+      "Claude führt den Code mit Zugriff auf die hochgeladene Datei aus.",
+      "Claude gibt die Analyse, Ergebnisse und erzeugte Dateien (mit Datei-IDs) zurück."
+    ],
+    "examples": [
+      "Datenanalyse einer CSV-Datei",
+      "Generierung eines Plots aus Daten",
+      "Automatisierte Code-Generierung für komplexe Berechnungen"
+    ],
+    "why_it_works": "Die Files API ermöglicht den sicheren Zugriff auf Dateien innerhalb der isolierten Docker-Umgebung, in der Claude den Code ausführt. Dies ermöglicht komplexe Analysen und Manipulationen von Daten, ohne die Notwendigkeit, die Rohdaten direkt im Prompt zu übergeben.",
+    "slug": "claude-api-codeausfuhrung-mit-files-api-54"
+  },
+  {
+    "title": "MCP Server Inspector: Debugging leicht gemacht",
+    "description": "Verwende den MCP Inspector, einen In-Browser-Debugger, um MCP-Server zu testen, ohne dich mit Anwendungen zu verbinden. Teste Tools manuell, verifiziere Inputs und Outputs und debugge effizient.\n\n**Warum es funktioniert:** Der MCP Inspector bietet eine isolierte Umgebung zum Testen von Serverfunktionen, wodurch Fehler frühzeitig im Entwicklungsprozess erkannt und behoben werden können.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "MCP (Modular Conversational Platform)"
+    ],
+    "steps": [
+      "Führe `mcp dev [server_file.py]` im Terminal aus.",
+      "Navigiere zur bereitgestellten URL im Browser.",
+      "Verbinde dich mit dem Server über die linke Seitenleiste.",
+      "Navigiere zum 'Tools'-Bereich.",
+      "Wähle ein Tool zum Testen aus.",
+      "Gib die erforderlichen Parameter ein.",
+      "Klicke auf 'Run Tool' und überprüfe den Output."
+    ],
+    "examples": [
+      "Testen von Dokument-Tools mit Dokument-IDs.",
+      "Verifizierung von Leseoperationen.",
+      "Testen von Bearbeitungsoperationen und Verketten von Operationen."
+    ],
+    "why_it_works": "Der Inspector erlaubt das direkte Aufrufen von Tools mit definierbaren Parametern, was das Testen und Debuggen von einzelnen Funktionen deutlich vereinfacht und beschleunigt.",
+    "slug": "mcp-server-inspector-debugging-leicht-gemacht-55"
+  },
+  {
+    "title": "MCP Client Implementierung: Schnittstelle zu Claude",
+    "description": "Implementiere einen MCP-Client, um die Funktionalität des MCP-Servers für Claude zugänglich zu machen. Verwende `list_tools()` und `call_tool()`, um Tool-Listen abzurufen und Tools auszuführen.\n\n**Warum es funktioniert:** Der Client abstrahiert die Komplexität der Serverkommunikation und ermöglicht eine saubere Integration der MCP-Funktionalität in andere Teile des Projekts, insbesondere für die Interaktion mit Claude.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "MCP (Modular Conversational Platform)",
+      "MCP Python SDK"
+    ],
+    "steps": [
+      "Erstelle eine MCP-Client-Klasse als Wrapper um die Client-Session.",
+      "Implementiere `list_tools()`, um die verfügbaren Tools vom Server abzurufen.",
+      "Implementiere `call_tool()`, um ein bestimmtes Tool mit den gegebenen Inputs auszuführen.",
+      "Nutze `await self.session.list_tools()` und `await self.session.call_tool()` innerhalb der Client-Funktionen.",
+      "Verwende den Client, um Tool-Definitionen an Claude zu senden.",
+      "Führe Tools aus, wenn Claude dies anfordert.",
+      "Verwende ein Testing Harness, um die Serververbindung und den Tool-Abruf zu verifizieren."
+    ],
+    "examples": [],
+    "why_it_works": "Der Client kapselt die Session-Verwaltung und stellt klar definierte Funktionen bereit, um mit dem MCP-Server zu interagieren. Dies vereinfacht die Integration in andere Codebereiche und die Kommunikation mit Claude erheblich.",
+    "slug": "mcp-client-implementierung-schnittstelle-zu-claude-56"
+  },
+  {
+    "title": "Claude Code parallelisieren mit Git Worktrees",
+    "description": "Nutze Git Worktrees, um mehrere Claude-Instanzen parallel an verschiedenen Aufgaben im selben Projekt arbeiten zu lassen, ohne Konflikte zu erzeugen.\n\n**Warum es funktioniert:** Git Worktrees erstellen isolierte Arbeitsbereiche, wodurch jede Claude-Instanz in einer eigenen Projektkopie arbeitet. Änderungen werden später in den Hauptzweig zusammengeführt.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Git"
+    ],
+    "steps": [
+      "Git Worktree erstellen (für jeden parallelen Task).",
+      "Claude-Instanz dem Worktree zuweisen.",
+      "Claude führt Aufgabe im isolierten Worktree aus.",
+      "Änderungen committen und pushen.",
+      "Änderungen in den Hauptzweig mergen (Claude löst Konflikte automatisch).",
+      "Worktree nach Abschluss entfernen."
+    ],
+    "examples": [
+      "Mehrere Features gleichzeitig entwickeln.",
+      "Verschiedene Code-Refactorings parallel durchführen."
+    ],
+    "why_it_works": "Git Worktrees verhindern, dass sich Claude-Instanzen gegenseitig überschreiben und Code-Konflikte erzeugen, da jede Instanz in einem isolierten Bereich arbeitet.",
+    "slug": "claude-code-parallelisieren-mit-git-worktrees-57"
+  },
+  {
+    "title": "Claude API: Computersteuerung per Tool-Use",
+    "description": "Verwende das Tool-Use-System der Claude API, um Claude die Interaktion mit einem Computer zu ermöglichen (z.B. Mausbewegungen, Klicks, Screenshots).\n\n**Warum es funktioniert:** Claude manipuliert Computer nicht direkt. Stattdessen sendet es Tool-Use-Anfragen, die von einem vom Entwickler bereitgestellten Computing Environment (z.B. Docker Container) ausgeführt werden.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Docker"
+    ],
+    "steps": [
+      "Spezifisches Tool-Schema an Claude senden (beschreibt Computer-Aktionen).",
+      "Claude sendet Tool-Use-Anfrage (mit ID, Name, Input, z.B. Mausbewegung).",
+      "Docker Container empfängt und führt die Anfrage aus (simuliert Mausbewegung).",
+      "Ergebnis an Claude zurücksenden.",
+      "Chat-Interface zum Testen der Funktionalität nutzen."
+    ],
+    "examples": [],
+    "why_it_works": "Die Abstraktionsebene des Tool-Use-Systems erlaubt es Claude, mit Computern zu interagieren, ohne direkten Zugriff zu haben. Der Entwickler steuert die Ausführung über ein definiertes Environment.",
+    "slug": "claude-api-computersteuerung-per-tool-use-58"
+  },
+  {
+    "title": "Parallelisierung von Prompts für bessere Ergebnisse",
+    "description": "Zerlege komplexe Aufgaben in mehrere parallele Teilaufgaben, um die Qualität und Effizienz der Claude API zu steigern.\n\n**Warum es funktioniert:** Einzelne, fokussierte Prompts sind leichter zu verwalten und zu optimieren als ein einzelner, übermäßig komplexer Prompt. Die Modularität ermöglicht es, Teilaufgaben unabhängig voneinander zu verbessern.",
+    "category": "content-creation",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Komplexe Aufgabe identifizieren.",
+      "Aufgabe in unabhängige Teilaufgaben zerlegen.",
+      "Für jede Teilaufgabe einen separaten Prompt erstellen.",
+      "Alle Prompts parallel an Claude senden.",
+      "Ergebnisse der Teilaufgaben aggregieren.",
+      "Aggregierte Ergebnisse für die finale Ausgabe nutzen."
+    ],
+    "examples": [
+      "Materialauswahl: Separate Prompts für Metall, Polymer, etc. statt einem Gesamt-Prompt.",
+      "Marktanalyse: Parallele Prompts für Wettbewerber, Zielgruppe, Trends."
+    ],
+    "why_it_works": "Die Zerlegung reduziert die Komplexität für Claude und ermöglicht eine fokussiertere Analyse jeder Teilaufgabe, was zu besseren Ergebnissen führt.",
+    "slug": "parallelisierung-von-prompts-fur-bessere-ergebniss-59"
+  },
+  {
+    "title": "Claude Modelle: Opus, Sonnet und Haiku",
+    "description": "Claude bietet drei Modellfamilien: Opus (höchste Intelligenz, komplexe Aufgaben), Sonnet (ausgewogen, gute Codierfähigkeiten) und Haiku (schnell, kosteneffizient). Wähle das Modell passend zur Priorität (Intelligenz, Geschwindigkeit oder Balance). Nutze mehrere Modelle in einer Anwendung für unterschiedliche Aufgaben.\n\n**Warum es funktioniert:** Jedes Modell ist für bestimmte Anwendungsfälle optimiert, was zu besseren Ergebnissen und Effizienz führt.",
+    "category": "learning",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Verstehe die Stärken und Schwächen von Opus, Sonnet und Haiku.",
+      "Bestimme die Hauptpriorität Deiner Aufgabe (Intelligenz, Geschwindigkeit, Kosten).",
+      "Wähle das passende Modell basierend auf der Priorität.",
+      "Erwäge, mehrere Modelle in einer Anwendung zu kombinieren.",
+      "Nutze Opus für komplexe Aufgaben mit tiefem Verständnis.",
+      "Nutze Sonnet für die meisten praktischen Anwendungsfälle, insbesondere Code.",
+      "Nutze Haiku für Echtzeit-Interaktionen und hohe Durchsätze."
+    ],
+    "examples": [],
+    "why_it_works": "Die spezialisierte Architektur jedes Modells ermöglicht eine gezielte und effiziente Bearbeitung spezifischer Aufgaben.",
+    "slug": "claude-modelle-opus-sonnet-und-haiku-60"
+  },
+  {
+    "title": "Automatische Testdaten Generierung mit Claude",
+    "description": "Erstelle maßgeschneiderte Testdatensätze für Deine Claude Prompts, um deren Performance systematisch zu evaluieren. Generiere JSON-basierte Testdaten automatisch mit schnelleren Modellen wie Haiku. Definiere Aufgaben über das `task` Attribut. Nutze Pre-filling und Stop Sequences für strukturierte JSON-Ausgabe und speichere das Ergebnis in einer JSON-Datei.\n\n**Warum es funktioniert:** Durch die automatisierte Generierung von Testdaten wird eine systematische und reproduzierbare Evaluierung der Prompt-Performance ermöglicht.",
+    "category": "data-analysis",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere das Ziel des Prompts (z.B. Python Code ohne Erklärung).",
+      "Wähle ein schnelles Claude Modell wie Haiku für die Datengenerierung.",
+      "Strukturiere den Testdatensatz als JSON-Array mit Aufgabenbeschreibungen (`task`).",
+      "Nutze Pre-filling mit dem Assistant-Message \"\\`\\`\\`json\" für JSON-Output.",
+      "Setze die Stop Sequence auf \"\\`\\`\\`\".",
+      "Parse die Claude Antwort als JSON.",
+      "Speichere den Testdatensatz in einer Datei (z.B. `dataset.json`)."
+    ],
+    "examples": [],
+    "why_it_works": "Automatisierte Testdatengenerierung ermöglicht die schnelle und effiziente Erstellung von Datensätzen für die systematische Evaluierung von Prompts.",
+    "slug": "automatische-testdaten-generierung-mit-claude-61"
+  },
+  {
+    "title": "One-Shot/Multi-Shot Prompting für bessere Ergebnisse",
+    "description": "Verbessere die Qualität Deiner Claude-Antworten durch One-Shot oder Multi-Shot Prompting. Füge Beispiele für erwartete Inputs und Outputs in Deinen Prompt ein. Verwende XML-Tags zur Strukturierung. Füge Kontext und Begründungen für Corner Cases hinzu. Nutze erfolgreiche Beispiele aus früheren Evaluierungen als Vorlagen.\n\n**Warum es funktioniert:** Beispiele im Prompt lenken das Modell in die gewünschte Richtung und vermitteln die Erwartungshaltung bezüglich Format und Inhalt.",
+    "category": "content-creation",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Identifiziere Corner Cases und komplexe Formatierungsanforderungen.",
+      "Erstelle Beispiele für Input und idealen Output, gekapselt in XML-Tags.",
+      "Füge Kontext für Corner Cases hinzu (z.B. \"Sei vorsichtig mit Sarkasmus\").",
+      "Erkläre, warum der Output ideal ist (Begründung).",
+      "Platziere Beispiele nach den Hauptanweisungen.",
+      "Integriere erfolgreiche Beispiele aus Prompt-Evaluierungen.",
+      "Kombiniere Beispiele mit Erklärungen, um das gewünschte Verhalten zu verstärken."
+    ],
+    "examples": [
+      "<example>\n  <input>Was ist die Hauptstadt von Frankreich?</input>\n  <output>Paris</output>\n</example>",
+      "<example>\n  <input>Das ist ja eine tolle Idee! (Sarkasmus)</input>\n  <output>Das ist eine sarkastische Aussage.</output>\n</example>"
+    ],
+    "why_it_works": "Das Bereitstellen von Beispielen im Prompt demonstriert dem Modell, wie es auf bestimmte Eingaben reagieren soll, wodurch die Qualität und Relevanz der Ausgaben verbessert werden.",
+    "slug": "one-shotmulti-shot-prompting-fur-bessere-ergebniss-62"
+  },
+  {
+    "title": "PDF-Unterstützung in Claude API nutzen",
+    "description": "Claude kann PDF-Dateien direkt lesen, ähnlich der Bildverarbeitung. Nutze PDF-Dateien für umfassende Dokumentenanalysen. Ersetze Bild-Parameter durch Dokument-Parameter im Code.\n\n**Warum es funktioniert:** Claude ist in der Lage, verschiedene Dateitypen zu verarbeiten, wodurch eine umfassende Analyse von Dokumenten mit Text, Bildern, Diagrammen und Tabellen ermöglicht wird.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere den Dateityp als \"document\" anstelle von \"image\".",
+      "Setze den Media-Typ auf \"application/pdf\" anstelle von \"image/png\".",
+      "Verwende eine Variable wie `file_bytes` anstelle von `image_bytes`.",
+      "Nutze die gleiche Struktur wie bei der Bildverarbeitung, aber mit den aktualisierten Parametern."
+    ],
+    "examples": [],
+    "why_it_works": "Die Claude API ist so konzipiert, dass sie verschiedene Medientypen verarbeiten kann. Durch die korrekte Angabe des Dateityps und des Media-Typs kann Claude PDF-Dateien effektiv lesen und analysieren.",
+    "slug": "pdf-unterstutzung-in-claude-api-nutzen-63"
+  },
+  {
+    "title": "Ressourcen in Claude API definieren",
+    "description": "Definiere MCP-Ressourcen, um Daten für Leseoperationen bereitzustellen. Nutze direkte (statische URI) oder parametrisierte (templatisierte URI) Ressourcen.  Verwende den `@mcp.resource` Decorator, um URIs und MIME-Typen zu definieren.\n\n**Warum es funktioniert:** MCP-Ressourcen ermöglichen es, Daten proaktiv an Clients zu liefern, ohne dass Claude Tools aufrufen muss. Dies optimiert den Datenzugriff und die Integration in Prompts.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Verwende den `@mcp.resource` Decorator, um eine Funktion als MCP-Ressource zu kennzeichnen.",
+      "Definiere die URI für die Ressource (z.B. \"docs://documents\" oder \"docs://documents/{doc_id}\").",
+      "Gib den MIME-Typ für die zurückgegebenen Daten an (z.B. \"application/json\" oder \"text/plain\").",
+      "Implementiere die Funktion, die die Daten für die Ressource zurückgibt.",
+      "Achte darauf, dass die Funktion die Daten als String zurückgibt; die SDK serialisiert die Daten automatisch."
+    ],
+    "examples": [],
+    "why_it_works": "Die Definition von Ressourcen ermöglicht es, Daten strukturiert und automatisiert bereitzustellen, wodurch die Effizienz und Zuverlässigkeit der Datenversorgung verbessert werden.",
+    "slug": "ressourcen-in-claude-api-definieren-64"
+  },
+  {
+    "title": "Auf Claude API Ressourcen zugreifen",
+    "description": "Nutze clientseitige Funktionen, um Ressourcen vom MCP-Server anzufordern und zu parsen.  Extrahiere den Inhalt aus `result.contents[0]` und überprüfe `resource.mime_type` für die korrekte Verarbeitung (JSON oder Text).\n\n**Warum es funktioniert:**  Der strukturierte Anfrage-Antwort-Mechanismus von MCP-Ressourcen ermöglicht einen direkten Zugriff auf Serverinformationen, wodurch Dokumentinhalte automatisch in Claude-Prompts integriert werden können, ohne Tool-Aufrufe.",
+    "category": "programming",
+    "tools": [
+      "Claude API",
+      "Pydantic"
+    ],
+    "steps": [
+      "Importiere das `json` Modul und `AnyURL` von `pydantic`.",
+      "Rufe `await self.session.read_resource(AnyURL(uri))` auf, um die Ressource anzufordern.",
+      "Extrahiere das erste Element aus `result.contents[0]`.",
+      "Überprüfe `resource.mime_type`, um die Parsing-Strategie zu bestimmen.",
+      "Wenn `mime_type == \"application/json\"`, verwende `json.loads(resource.text)`, um die Daten zu parsen.",
+      "Andernfalls gib `resource.text` (Plain Text) zurück."
+    ],
+    "examples": [],
+    "why_it_works": "Der definierte Ablauf von Anforderung und Parsing von Ressourcen ermöglicht es, Daten effizient und strukturiert in Prompts zu integrieren, wodurch die Notwendigkeit von Tool-Aufrufen reduziert wird.",
+    "slug": "auf-claude-api-ressourcen-zugreifen-65"
+  },
+  {
+    "title": "Claude API: Prompts objektiv bewerten",
+    "description": "Evaluiere deine Prompts systematisch, um die beste Performance mit der Claude API zu erzielen. Statt Prompts nur ein paar Mal zu testen, nutze eine automatisierte Pipeline mit objektiven Metriken.\n\n**Warum es funktioniert:** Objektive Metriken helfen, die Effektivität von Prompts konsistent zu messen und zu verbessern, bevor sie in der Produktion eingesetzt werden. Dies vermeidet unerwartete Ergebnisse und optimiert die Antwortqualität.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere objektive Metriken zur Messung der Prompt-Performance (z.B. Genauigkeit, Relevanz).",
+      "Erstelle eine Testsuite mit repräsentativen Eingaben.",
+      "Führe die Prompts mit der Testsuite aus.",
+      "Bewerte die Ergebnisse anhand der definierten Metriken.",
+      "Passe die Prompts basierend auf den Ergebnissen an.",
+      "Wiederhole den Prozess, bis die gewünschte Performance erreicht ist."
+    ],
+    "examples": [],
+    "why_it_works": "Durch systematisches Testen und Bewerten können Schwachstellen frühzeitig erkannt und Prompts iterativ optimiert werden, um die gewünschten Ergebnisse zu erzielen.",
+    "slug": "claude-api-prompts-objektiv-bewerten-66"
+  },
+  {
+    "title": "Claude API: Prompt Caching für Effizienz",
+    "description": "Nutze Prompt Caching in der Claude API, um wiederholte Anfragen mit identischem Inhalt zu beschleunigen und Rechenressourcen zu sparen. Definiere Cache Breakpoints, um zu steuern, welcher Teil des Prompts gecached wird.\n\n**Warum es funktioniert:** Prompt Caching vermeidet die erneute Verarbeitung von Inhalten, die sich nicht geändert haben, was zu schnelleren Antwortzeiten und geringeren Kosten führt.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Verwende das Longhand-Format für Textblöcke: `content = [{\\\"type\\\": \\\"text\\\", \\\"text\\\": \\\"content\\\", \\\"cache_control\\\": {...}}]`.",
+      "Füge Cache Breakpoints in Tool Schemas, System Prompts oder Message Blocks ein.",
+      "Platziere Breakpoints strategisch, um den optimalen Teil des Prompts zu cachen (max. 4 pro Anfrage).",
+      "Beachte, dass Änderungen vor dem Breakpoint den gesamten Cache invalidieren.",
+      "Stelle sicher, dass der zu cachende Inhalt mindestens 1024 Token umfasst.",
+      "Optimiere für Use Cases mit wiederholtem, identischem Inhalt (z.B. System Prompts, Tool Definitionen)."
+    ],
+    "examples": [],
+    "why_it_works": "Durch das Cachen von wiederholten Inhalten werden Rechenressourcen geschont und die Antwortzeiten für nachfolgende Anfragen mit identischem Inhalt signifikant verbessert.",
+    "slug": "claude-api-prompt-caching-fur-effizienz-67"
+  },
+  {
+    "title": "Claude API: Zitate für mehr Transparenz",
+    "description": "Aktiviere Zitate in der Claude API, um die Herkunft der Informationen aus Quelldokumenten anzuzeigen. Dies erhöht die Transparenz und ermöglicht es Benutzern, die Genauigkeit der Antworten zu überprüfen.\n\n**Warum es funktioniert:** Zitate geben Benutzern die Möglichkeit, die Quellen zu überprüfen, auf denen die Antworten von Claude basieren, was das Vertrauen in die generierten Informationen stärkt.",
+    "category": "content-creation",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Füge `\"citations\": {\"enabled\": true}` zur API-Anfrage hinzu.",
+      "Gib einen \"title\" für jedes Quelldokument an.",
+      "Verwende PDF-Dateien oder Klartext als Quelldokumente.",
+      "Analysiere die Antwortstruktur, die jetzt eine Liste von Textblöcken mit Citations-Arrays enthält.",
+      "Nutze die `citation_page_location` (PDF) oder `citation_char_location` (Text), um die genaue Stelle im Dokument zu identifizieren.",
+      "Implementiere UI-Elemente, die Zitate hervorheben und Quelldokumente anzeigen (z.B. Popups, Overlays)."
+    ],
+    "examples": [],
+    "why_it_works": "Die Angabe von Quellen ermöglicht es den Benutzern, die Herkunft der Informationen zu überprüfen und die Genauigkeit der Antworten zu beurteilen, wodurch das Vertrauen in die generierten Inhalte gestärkt wird.",
+    "slug": "claude-api-zitate-fur-mehr-transparenz-68"
+  },
+  {
+    "title": "Claude API: Workflows vs. Agents",
+    "description": "Verstehe den Unterschied zwischen Workflows (vordefinierte Schritte) und Agents (flexible Aufgabenbearbeitung) in der Claude API. Wähle den passenden Ansatz für deine Anwendung.\n\n**Warum es funktioniert:** Workflows bieten Kontrolle und Vorhersagbarkeit, während Agents Flexibilität für unbekannte Aufgaben ermöglichen. Die richtige Wahl hängt von den Anforderungen deines Projekts ab.",
+    "category": "programming",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Definiere das Problem: Was soll Claude lösen?",
+      "Analysiere die Aufgabenstellung: Ist der Ablauf klar und repetitiv?",
+      "Workflow wählen: Ja -> Workflow erstellen, Nein -> Agent erwägen.",
+      "Workflow: Definiere die exakten API-Aufrufe und Schritte.",
+      "Agent: Definiere die grundlegenden Werkzeuge, die Claude nutzen kann.",
+      "Teste und evaluiere: Workflows sind leichter testbar.",
+      "Priorisiere Workflows für zuverlässige Ergebnisse."
+    ],
+    "examples": [
+      "Workflow: Zusammenfassung eines Artikels (definierter Prozess).",
+      "Agent: Beantwortung komplexer Kundenanfragen (variabler Prozess)."
+    ],
+    "why_it_works": "Workflows garantieren aufgrund ihrer vordefinierten Struktur eine höhere Erfolgsrate bei bekannten Aufgaben, während Agents die Komplexität delegieren und sich so besser für unvorhersehbare Szenarien eignen.",
+    "slug": "claude-api-workflows-vs-agents-69"
+  }
+]

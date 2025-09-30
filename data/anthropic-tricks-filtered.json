@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Klare und direkte Claude Prompts formulieren",
+    "description": "Verwende einfache, direkte Sprache mit Aktionsverben in der ersten Zeile deiner Prompts, um die gewünschte Aufgabe präzise zu definieren. Die erste Zeile ist entscheidend für die Qualität der Antwort. Struktur: Aktionsverb + klare Aufgabenbeschreibung + Ausgabespezifikationen.\n\n**Warum es funktioniert:** Claude versteht präzise Anweisungen schneller und liefert dadurch bessere Ergebnisse. Die klare Struktur hilft dem Modell, den Kontext sofort zu erfassen.",
+    "category": "content-creation",
+    "tools": [
+      "Claude API"
+    ],
+    "steps": [
+      "Beginne den Prompt mit einem Aktionsverb (z.B. \"Schreibe\", \"Identifiziere\", \"Generiere\").",
+      "Definiere die Aufgabe klar und präzise.",
+      "Gib detaillierte Anweisungen für das gewünschte Ausgabeformat (z.B. Anzahl der Absätze, Formatierung).",
+      "Vermeide unnötige Füllwörter und komplexe Satzstrukturen."
+    ],
+    "examples": [
+      "Schreibe drei Absätze darüber, wie Solarzellen funktionieren.",
+      "Identifiziere drei Länder, die Erdwärme nutzen und gib jeweils die Produktionsstatistiken an.",
+      "Generiere einen Tages-Essensplan für einen Sportler unter Berücksichtigung seiner Ernährungsrichtlinien."
+    ],
+    "why_it_works": "Klare Anweisungen reduzieren die Mehrdeutigkeit und ermöglichen es Claude, sich auf die Erfüllung der Aufgabe zu konzentrieren, was zu präziseren und relevanteren Ergebnissen führt.",
+    "slug": "klare-und-direkte-claude-prompts-formulieren-36"
+  }
+]
