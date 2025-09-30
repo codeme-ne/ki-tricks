@@ -1,6 +1,46 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Ratelimit } from '@upstash/ratelimit'
+import { kv } from '@vercel/kv'
 
-export function middleware(request: NextRequest) {
+// Rate limiter for LLM API endpoints
+// 10 requests per minute per IP (prevents abuse while allowing legitimate use)
+const rateLimiter = new Ratelimit({
+  redis: kv,
+  limiter: Ratelimit.slidingWindow(10, '1 m'),
+  analytics: true,
+  prefix: '@upstash/ratelimit',
+})
+
+export async function middleware(request: NextRequest) {
+  // Rate limiting for LLM API endpoints
+  if (request.nextUrl.pathname.startsWith('/api/optimize-prompt-llm')) {
+    // Get IP address for rate limiting
+    const ip = request.ip ?? request.headers.get('x-forwarded-for') ?? 'anonymous'
+
+    // Check rate limit
+    const { success, limit, reset, remaining } = await rateLimiter.limit(ip)
+
+    // Set rate limit headers
+    const response = success
+      ? NextResponse.next()
+      : NextResponse.json(
+          {
+            error: 'Too many requests',
+            message: 'Rate limit exceeded. Please try again later.',
+            resetTime: new Date(reset).toISOString()
+          },
+          { status: 429 }
+        )
+
+    response.headers.set('X-RateLimit-Limit', limit.toString())
+    response.headers.set('X-RateLimit-Remaining', remaining.toString())
+    response.headers.set('X-RateLimit-Reset', reset.toString())
+
+    if (!success) {
+      return response
+    }
+  }
+
   // Check if the request is for an admin route
   if (request.nextUrl.pathname.startsWith('/admin')) {
     // Check for authentication
@@ -39,5 +79,6 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/admin/:path*',
+    '/api/optimize-prompt-llm/:path*',
   ],
 }
