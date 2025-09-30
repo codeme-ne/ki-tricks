@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { PageContainer } from '@/components/layout'
 import { TrickForm } from '@/components/organisms/TrickForm'
 import { KITrick } from '@/lib/types/types'
+import type { DuplicateWarning, DuplicateDialogProps, SimilarTrick } from '@/lib/types/duplicateWarning'
 import { sendNewTrickNotification } from '@/lib/utils/email-notifications'
 import { ArrowLeft, CheckCircle, Clock, Sparkles, Share2, ShieldCheck, BookOpen, HelpCircle, Lightbulb, Compass, AlertTriangle, ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
@@ -47,13 +48,6 @@ const faqItems = [
   }
 ]
 
-interface DuplicateDialogProps {
-  warning: any
-  onClose: () => void
-  onSubmitAnyway: () => void
-  isSubmitting: boolean
-}
-
 const DuplicateDialog = ({ warning, onClose, onSubmitAnyway, isSubmitting }: DuplicateDialogProps) => {
   const isBrowser = typeof window !== 'undefined'
 
@@ -79,7 +73,7 @@ const DuplicateDialog = ({ warning, onClose, onSubmitAnyway, isSubmitting }: Dup
 
   if (!warning || !isBrowser) return null
 
-  const similarTricks = Array.isArray(warning.similarTricks)
+  const similarTricks: SimilarTrick[] = Array.isArray(warning.similarTricks)
     ? warning.similarTricks.slice(0, 3)
     : []
 
@@ -107,7 +101,7 @@ const DuplicateDialog = ({ warning, onClose, onSubmitAnyway, isSubmitting }: Dup
                   Ähnliche Beiträge aus der Bibliothek
                 </p>
                 <div className="space-y-3">
-                  {similarTricks.map((similar: any, index: number) => (
+                  {similarTricks.map((similar, index) => (
                     <div key={`${similar.trick?.id ?? index}`} className="rounded-xl border border-border bg-muted p-4">
                       <div className="flex items-center justify-between gap-4">
                         <div>
@@ -164,7 +158,7 @@ export default function SubmitTrickPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
-  const [duplicateWarning, setDuplicateWarning] = useState<any>(null)
+  const [duplicateWarning, setDuplicateWarning] = useState<DuplicateWarning | null>(null)
   const [lastSubmissionData, setLastSubmissionData] = useState<Partial<KITrick> | null>(null)
 
   const handleForceDuplicateSubmit = () => {
