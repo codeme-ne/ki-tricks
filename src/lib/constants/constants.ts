@@ -1,4 +1,15 @@
 import { Category } from '../types/types'
+import {
+  Zap,
+  PenTool,
+  Code2,
+  Palette,
+  BarChart3,
+  GraduationCap,
+  Briefcase,
+  TrendingUp,
+  type LucideIcon
+} from 'lucide-react'
 
 // Category labels for German translation (aligned with Category union)
 export const categoryLabels: Record<Category, string> = {
@@ -24,7 +35,19 @@ export const categoryEmojis: Record<Category, string> = {
   'marketing': '📈'
 }
 
-// Optional icon mapping for categories used across pages
+// Lucide icon components for categories
+export const categoryLucideIcons: Record<Category, LucideIcon> = {
+  'productivity': Zap,
+  'content-creation': PenTool,
+  'programming': Code2,
+  'design': Palette,
+  'data-analysis': BarChart3,
+  'learning': GraduationCap,
+  'business': Briefcase,
+  'marketing': TrendingUp
+}
+
+// Optional icon mapping for categories used across pages (deprecated - use categoryLucideIcons)
 export const categoryIcons: Record<Category, string> = {
   'programming': '/icons/categories/programming-code.svg',
   'business': '/icons/categories/business-briefcase.svg',

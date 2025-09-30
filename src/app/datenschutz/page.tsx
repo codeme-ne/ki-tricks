@@ -15,9 +15,9 @@ export default function DatenschutzPage() {
         <div className="mb-6">
           <BackButton />
         </div>
-        <h1 className="text-3xl font-bold text-neutral-900 mb-8">Datenschutzerklärung</h1>
-        
-        <div className="prose prose-neutral max-w-none">
+        <h1 className="text-3xl font-bold text-foreground mb-8">Datenschutzerklärung</h1>
+
+        <div className="prose prose-neutral dark:prose-invert max-w-none text-foreground">
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">1. Datenschutz auf einen Blick</h2>
             
@@ -215,7 +215,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section className="mb-8">
-            <p className="text-sm text-neutral-600">
+            <p className="text-sm text-muted-foreground">
               Stand: Januar 2025
             </p>
           </section>

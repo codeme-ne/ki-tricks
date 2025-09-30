@@ -356,16 +356,16 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
   return (
     <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(320px,380px)] lg:gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(360px,420px)]">
       <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in-0 duration-300">
-        <section className="bg-card dark:bg-card border border-border rounded-xl p-6 shadow-sm">
+        <section className="bg-white dark:bg-gray-800 border border-border rounded-xl p-6 shadow-sm">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-gray-400">
                 Schritt 1
               </p>
-              <h2 className="text-xl font-semibold text-foreground">
+              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
                 Erzähl uns vom Kern deines Tricks
               </h2>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-sm text-neutral-600 dark:text-gray-400">
                 Ein klarer Titel und eine prägnante Beschreibung helfen uns, deinen Beitrag schnell einzuordnen.
               </p>
             </div>
@@ -374,7 +374,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
 
           <div className="mt-6 space-y-5">
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-foreground mb-1">
+              <label htmlFor="title" className="block text-sm font-medium text-neutral-900 dark:text-white mb-1">
                 Titel *
               </label>
               <input
@@ -385,7 +385,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                 minLength={TITLE_MIN_LENGTH}
                 value={formData.title}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 bg-background text-foreground border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-muted-foreground"
+                className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 text-neutral-900 dark:text-white border border-neutral-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-neutral-400 dark:placeholder:text-gray-500"
                 placeholder="ChatGPT schreibt perfekte Meeting-Notizen"
               />
               <div className="flex items-center justify-between mt-1 text-xs">
@@ -397,7 +397,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-foreground mb-1">
+              <label htmlFor="description" className="block text-sm font-medium text-neutral-900 dark:text-white mb-1">
                 Beschreibung *
               </label>
               <textarea
@@ -407,7 +407,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                 rows={4}
                 value={formData.description}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 bg-background text-foreground border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-muted-foreground"
+                className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 text-neutral-900 dark:text-white border border-neutral-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-neutral-400 dark:placeholder:text-gray-500"
                 placeholder="Mit diesem Trick erstellt ChatGPT aus deinem Meeting-Transcript strukturierte Notizen mit Action Items in unter 30 Sekunden."
               />
               <div className="flex items-center justify-between mt-1 text-xs">
@@ -419,7 +419,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             </div>
 
             <div>
-              <label htmlFor="why_it_works" className="block text-sm font-medium text-foreground mb-1">
+              <label htmlFor="why_it_works" className="block text-sm font-medium text-neutral-900 dark:text-white mb-1">
                 Warum es funktioniert (optional)
               </label>
               <textarea
@@ -428,17 +428,17 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                 rows={3}
                 value={formData.why_it_works}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 bg-background text-foreground border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-muted-foreground"
+                className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 text-neutral-900 dark:text-white border border-neutral-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-neutral-400 dark:placeholder:text-gray-500"
                 placeholder="ChatGPT kann transkribierte Gespräche strukturieren und nach Kategorien sortieren - spart 80% der Zeit gegenüber manueller Zusammenfassung."
               />
-              <p className="mt-2 flex items-start gap-2 text-xs text-muted-foreground">
+              <p className="mt-2 flex items-start gap-2 text-xs text-neutral-600 dark:text-gray-400">
                 <Lightbulb className="w-4 h-4 text-amber-500 dark:text-amber-400" />
                 Teilen eines kurzen Hintergrunds macht deinen Trick nachvollziehbarer.
               </p>
             </div>
 
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-foreground mb-1">
+              <label htmlFor="category" className="block text-sm font-medium text-neutral-900 dark:text-white mb-1">
                 Kategorie *
               </label>
               <select
@@ -447,7 +447,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                 required
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 bg-background text-foreground border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-ring"
+                className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 text-neutral-900 dark:text-white border border-neutral-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-ring focus:border-ring"
               >
                 {categories.map(cat => (
                   <option key={cat.value} value={cat.value}>
@@ -459,16 +459,16 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
           </div>
         </section>
 
-        <section className="bg-card dark:bg-card border border-border rounded-xl p-6 shadow-sm">
+        <section className="bg-white dark:bg-gray-800 border border-border rounded-xl p-6 shadow-sm">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-gray-400">
                 Schritt 2
               </p>
-              <h2 className="text-xl font-semibold text-foreground">
+              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
                 Zeige den Weg zum Ergebnis
               </h2>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-sm text-neutral-600 dark:text-gray-400">
                 Zerlege deinen Trick in klare Schritte und füge Beispiele hinzu, damit andere ihn schnell nachbauen können.
               </p>
             </div>
@@ -476,14 +476,14 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
           </div>
 
           <div className="mt-6 space-y-5">
-            <div className="rounded-lg border border-dashed border-border bg-muted/60 p-4">
+            <div className="rounded-lg border border-dashed border-neutral-200 dark:border-gray-700 bg-neutral-50 dark:bg-gray-900/50 p-4">
               <div className="flex items-start gap-3">
                 <Wand2 className="w-5 h-5 text-primary" />
                 <div>
-                  <p className="text-sm font-medium text-foreground">
+                  <p className="text-sm font-medium text-neutral-900 dark:text-white">
                     Tipp für gute Schritte
                   </p>
-                  <p className="mt-1 text-xs text-muted-foreground">
+                  <p className="mt-1 text-xs text-neutral-600 dark:text-gray-400">
                     Beschreibe jede Aktion in einem Satz. Ergänze, welches Tool oder welche Eingabe notwendig ist.
                   </p>
                 </div>
@@ -496,7 +496,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                   value={newStep}
                   onChange={event => setNewStep(event.target.value)}
                   rows={2}
-                  className="flex-1 px-4 py-2.5 bg-background text-foreground border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-muted-foreground"
+                  className="flex-1 px-4 py-2.5 bg-white dark:bg-gray-900 text-neutral-900 dark:text-white border border-neutral-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-ring focus:border-ring placeholder:text-neutral-400 dark:placeholder:text-gray-500"
                   placeholder="1. Öffne ChatGPT und wähle GPT-4 Modell"
                 />
                 <Button type="button" onClick={addStep} variant="outline" className="h-11">
@@ -505,7 +505,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                 </Button>
               </div>
 
-              <div className="text-xs text-neutral-400 text-center my-3">oder</div>
+              <div className="text-xs text-neutral-400 dark:text-gray-500 text-center my-3">oder</div>
 
               <div className="space-y-3">
                 <textarea
@@ -578,10 +578,10 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
             </div>
 
             <div className="space-y-3">
-              <label className="block text-sm font-medium text-neutral-800">
+              <label className="block text-sm font-medium text-neutral-900 dark:text-white">
                 Beispiele (optional)
               </label>
-              <p className="text-xs text-neutral-500">
+              <p className="text-xs text-neutral-600 dark:text-gray-400">
                 Zeig uns ein konkretes Ergebnis, einen Prompt oder einen Screenshot in Worten.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
@@ -589,7 +589,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                   value={newExample}
                   onChange={event => setNewExample(event.target.value)}
                   rows={2}
-                  className="flex-1 px-4 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
+                  className="flex-1 px-4 py-2.5 bg-white dark:bg-gray-900 text-neutral-900 dark:text-white border border-neutral-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400 dark:placeholder:text-gray-500"
                   placeholder="Prompt-Beispiel: 'Analysiere dieses Meeting und erstelle: 1) Zusammenfassung, 2) Beschlüsse, 3) Action Items mit Verantwortlichen'"
                 />
                 <Button type="button" onClick={addExample} variant="outline" className="h-11">
@@ -647,16 +647,16 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
           </div>
         </section>
 
-        <section className="bg-white border border-neutral-200 rounded-xl p-6 shadow-sm">
+        <section className="bg-white dark:bg-gray-800 border border-neutral-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
+              <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-gray-400">
                 Schritt 3
               </p>
-              <h2 className="text-xl font-semibold text-neutral-900">
+              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
                 Was wird benötigt?
               </h2>
-              <p className="mt-2 text-sm text-neutral-500">
+              <p className="mt-2 text-sm text-neutral-600 dark:text-gray-400">
                 Liste die wichtigsten Tools oder Ressourcen auf, die man für deinen Trick braucht.
               </p>
             </div>
@@ -664,12 +664,12 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
           </div>
 
           <div className="mt-6 space-y-4">
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50/80 p-4">
+            <div className="rounded-lg border border-neutral-200 dark:border-gray-700 bg-neutral-50 dark:bg-gray-900/50 p-4">
               <div className="flex items-start gap-3">
                 <ListChecks className="w-5 h-5 text-primary" />
                 <div className="space-y-1">
-                  <p className="text-sm font-medium text-neutral-800">Tools einzeln hinzufügen</p>
-                  <p className="text-xs text-neutral-500">
+                  <p className="text-sm font-medium text-neutral-900 dark:text-white">Tools einzeln hinzufügen</p>
+                  <p className="text-xs text-neutral-600 dark:text-gray-400">
                     Drücke Enter, um einen Tool-Namen als Tag zu speichern. Du kannst später jederzeit anpassen.
                   </p>
                 </div>
@@ -682,7 +682,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
                 value={toolInput}
                 onChange={event => setToolInput(event.target.value)}
                 onKeyDown={handleToolKeyDown}
-                className="flex-1 px-4 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400"
+                className="flex-1 px-4 py-2.5 bg-white dark:bg-gray-900 text-neutral-900 dark:text-white border border-neutral-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-neutral-400 dark:placeholder:text-gray-500"
                 placeholder="z.B. ChatGPT, Zapier, Midjourney"
               />
               <Button type="button" onClick={addTool} variant="outline" className="h-11">
@@ -693,7 +693,7 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
 
             <div className="flex flex-wrap gap-2">
               {(formData.tools || []).length === 0 && (
-                <p className="text-xs text-neutral-400">Füge mindestens ein Tool hinzu.</p>
+                <p className="text-xs text-neutral-400 dark:text-gray-500">Füge mindestens ein Tool hinzu.</p>
               )}
               {formData.tools?.map((tool, index) => (
                 <span
@@ -715,11 +715,11 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
           </div>
         </section>
 
-        <section className="bg-white border border-neutral-200 rounded-xl p-6 shadow-sm">
+        <section className="bg-white dark:bg-gray-800 border border-neutral-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
           <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
             <div className="space-y-2">
-              <h3 className="text-lg font-semibold text-neutral-900">Bereit zum Einreichen?</h3>
-              <p className="text-sm text-neutral-500">
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Bereit zum Einreichen?</h3>
+              <p className="text-sm text-neutral-600 dark:text-gray-400">
                 Wir prüfen deinen Beitrag manuell. Du erhältst eine Bestätigung, sobald wir ihn freigeschaltet haben.
               </p>
             </div>
@@ -756,10 +756,10 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
         {showMobilePreview && (
           <div className="lg:hidden space-y-4">
             <TrickPreview formData={normalizedData} />
-            <div className="bg-white border border-neutral-200 rounded-xl p-5 shadow-sm">
+            <div className="bg-white dark:bg-gray-800 border border-neutral-200 dark:border-gray-700 rounded-xl p-5 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
                 <Target className="w-5 h-5 text-primary" />
-                <h3 className="text-sm font-semibold text-neutral-900">Einreichungs-Checkliste</h3>
+                <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">Einreichungs-Checkliste</h3>
               </div>
               <ul className="space-y-3">
                 {checklistItems.map(item => (
@@ -783,10 +783,10 @@ export const TrickForm = ({ onSubmit, isSubmitting = false, initialData = {} }: 
       <aside className="mt-10 hidden lg:block">
         <div className="sticky top-24 space-y-5">
           <TrickPreview formData={normalizedData} />
-          <div className="bg-white border border-neutral-200 rounded-xl p-5 shadow-sm">
+          <div className="bg-white dark:bg-gray-800 border border-neutral-200 dark:border-gray-700 rounded-xl p-5 shadow-sm">
             <div className="flex items-center gap-3 mb-4">
               <Target className="w-5 h-5 text-primary" />
-              <h3 className="text-sm font-semibold text-neutral-900">Einreichungs-Checkliste</h3>
+              <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">Einreichungs-Checkliste</h3>
             </div>
             <ul className="space-y-3">
               {checklistItems.map(item => (

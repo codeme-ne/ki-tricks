@@ -61,8 +61,23 @@ export default function RootLayout({
   children: ReactNode
 }) {
   return (
-    <html lang="de">
-      <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased`}>
+    <html lang="de" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('theme') || 
+                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased`} suppressHydrationWarning>
         <DarkModeProvider>
           {children}
           <Analytics />

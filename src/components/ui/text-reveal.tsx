@@ -64,12 +64,12 @@ export const AnimatedHeroTitle: FC<AnimatedHeroTitleProps> = ({
         initial="hidden"
         animate={controls}
       >
-        <h1 className="flex flex-wrap justify-center items-center gap-x-3 gap-y-2 text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-center text-heading">
+        <h1 className="flex flex-wrap justify-center items-center gap-x-3 gap-y-3 text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-center text-heading tracking-tight">
           {words.map((word, i) => (
             <motion.span
               key={i}
               variants={wordVariants}
-              className="relative inline-block text-neutral-900 dark:text-neutral-100"
+              className="relative inline-block bg-gradient-to-br from-foreground via-foreground to-primary/80 bg-clip-text text-transparent"
             >
               {word}
             </motion.span>

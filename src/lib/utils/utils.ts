@@ -44,11 +44,14 @@ export const createFilterHandler = (
   onFilterChange: (filters: FilterState) => void
 ) => {
   return (value: string, checked: boolean) => {
-  const currentValues = filters.categories as string[]
-  const next = toggleArrayItem(currentValues, value) as unknown as typeof filters.categories
+    const currentValues = filters.categories as string[]
+    // Use checked parameter to avoid race conditions
+    const next = checked 
+      ? [...currentValues, value]
+      : currentValues.filter(v => v !== value)
     onFilterChange({
       ...filters,
-      categories: next
+      categories: next as typeof filters.categories
     })
   }
 }

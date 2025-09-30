@@ -5,6 +5,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 DROP TABLE IF EXISTS trick_analytics CASCADE;
 DROP TABLE IF EXISTS trick_submissions CASCADE;
 DROP TABLE IF EXISTS ki_tricks CASCADE;
+DROP TABLE IF EXISTS newsletter_subscribers CASCADE;
 
 -- Create ki_tricks table
 CREATE TABLE ki_tricks (
@@ -74,6 +75,26 @@ CREATE TABLE trick_analytics (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Create newsletter_subscribers table
+CREATE TABLE newsletter_subscribers (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  status TEXT DEFAULT 'active' CHECK (
+    status IN ('active', 'unsubscribed', 'bounced')
+  ),
+  source TEXT,
+  lead_magnet TEXT,
+  verification_token TEXT,
+  resend_contact_id TEXT,
+  
+  subscribed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  verified_at TIMESTAMP WITH TIME ZONE,
+  unsubscribed_at TIMESTAMP WITH TIME ZONE,
+  
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Create indexes for better performance
 CREATE INDEX idx_tricks_slug ON ki_tricks(slug);
 CREATE INDEX idx_tricks_category ON ki_tricks(category);
@@ -82,11 +103,14 @@ CREATE INDEX idx_tricks_published_at ON ki_tricks(published_at DESC);
 CREATE INDEX idx_analytics_trick ON trick_analytics(trick_id);
 CREATE INDEX idx_analytics_event ON trick_analytics(event_type);
 CREATE INDEX idx_submissions_status ON trick_submissions(status);
+CREATE INDEX idx_newsletter_email ON newsletter_subscribers(email);
+CREATE INDEX idx_newsletter_status ON newsletter_subscribers(status);
 
 -- Enable Row Level Security
 ALTER TABLE ki_tricks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE trick_submissions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE trick_analytics ENABLE ROW LEVEL SECURITY;
+ALTER TABLE newsletter_subscribers ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policies
 
@@ -118,6 +142,21 @@ CREATE POLICY "Public can track analytics"
 -- Public can view analytics
 CREATE POLICY "Public can view analytics" 
   ON trick_analytics FOR SELECT 
+  USING (true);
+
+-- Anyone can subscribe to newsletter
+CREATE POLICY "Anyone can subscribe to newsletter" 
+  ON newsletter_subscribers FOR INSERT 
+  WITH CHECK (true);
+
+-- Authenticated users can manage newsletter subscribers
+CREATE POLICY "Authenticated users can manage newsletter" 
+  ON newsletter_subscribers FOR ALL 
+  USING (auth.role() = 'authenticated');
+
+-- Subscribers can update their own subscription via token
+CREATE POLICY "Subscribers can unsubscribe via token" 
+  ON newsletter_subscribers FOR UPDATE 
   USING (true);
 
 -- Function to update updated_at timestamp

@@ -271,18 +271,18 @@ export default function SubmitTrickPage() {
             Zurück zur Übersicht
           </Link>
 
-          <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-1 shadow-sm dark:shadow-none">
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-white dark:bg-gray-900 p-1 shadow-sm">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.05),transparent_55%)] dark:bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.03),transparent_55%)]" />
-            <div className="relative grid gap-8 rounded-[calc(1.5rem-4px)] bg-card dark:bg-card p-8 md:grid-cols-[minmax(0,1.2fr)_minmax(280px,1fr)]">
-              <div className="space-y-4 text-foreground">
+            <div className="relative grid gap-8 rounded-[calc(1.5rem-4px)] bg-white dark:bg-gray-900 p-8 md:grid-cols-[minmax(0,1.2fr)_minmax(280px,1fr)]">
+              <div className="space-y-4">
                 <Badge variant="new-subtle" className="uppercase tracking-wide text-xs">
                   <Sparkles className="w-3 h-3" />
                   Community Submission
                 </Badge>
-                <h1 className="text-3xl font-semibold sm:text-4xl">
+                <h1 className="text-3xl font-semibold sm:text-4xl text-neutral-900 dark:text-white">
                   Teile deinen besten KI-Workflow mit der Community
                 </h1>
-                <p className="text-base text-muted-foreground">
+                <p className="text-base text-neutral-600 dark:text-gray-400">
                   Zeig Schritt für Schritt, wie du mit KI Zeit sparst, Ergebnisse verbesserst oder neue Ideen möglich machst. Wir helfen dir beim letzten Feinschliff.
                 </p>
                 <div className="flex flex-wrap gap-3 pt-2">
@@ -292,22 +292,22 @@ export default function SubmitTrickPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-border bg-muted/50 p-6">
-                <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+              <div className="rounded-2xl border border-border bg-neutral-50 dark:bg-gray-800 p-6">
+                <div className="flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-white">
                   <Compass className="w-4 h-4" />
                   Einreichungs-Playbook
                 </div>
-                <ul className="mt-4 space-y-4 text-sm text-muted-foreground">
+                <ul className="mt-4 space-y-4 text-sm text-neutral-600 dark:text-gray-400">
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="mt-1 w-4 h-4 text-emerald-400" />
+                    <CheckCircle className="mt-1 w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                     <span>Kurzer Titel + prägnante Zusammenfassung</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="mt-1 w-4 h-4 text-emerald-400" />
+                    <CheckCircle className="mt-1 w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                     <span>Schritte mit Tool-Hinweisen und Prompt-Beispielen</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="mt-1 w-4 h-4 text-emerald-400" />
+                    <CheckCircle className="mt-1 w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                     <span>Optional: Warum funktioniert es? Welche Grenzen gibt es?</span>
                   </li>
                 </ul>
@@ -324,12 +324,12 @@ export default function SubmitTrickPage() {
 
           <div className="grid gap-4 md:grid-cols-3">
             {submissionHighlights.map(({ title, description, icon: Icon }) => (
-              <div key={title} className="rounded-xl border border-border bg-card p-5 shadow-sm">
-                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <div key={title} className="rounded-xl border border-border bg-white dark:bg-gray-800 p-5 shadow-sm">
+                <div className="flex items-center gap-2 text-sm font-medium text-neutral-900 dark:text-white">
                   <Icon className="w-4 h-4 text-primary" />
                   {title}
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground">{description}</p>
+                <p className="mt-2 text-sm text-neutral-600 dark:text-gray-400">{description}</p>
               </div>
             ))}
           </div>
@@ -349,18 +349,18 @@ export default function SubmitTrickPage() {
         <section className="mt-16 space-y-6">
           <div className="flex items-center gap-2">
             <Lightbulb className="w-5 h-5 text-primary" />
-            <h2 className="text-xl font-semibold text-foreground">
+            <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
               Häufige Fragen zur Einreichung
             </h2>
           </div>
           <div className="space-y-4">
             {faqItems.map(({ question, answer }) => (
-              <details key={question} className="group rounded-xl border border-border bg-card p-5 shadow-sm">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium text-foreground">
+              <details key={question} className="group rounded-xl border border-border bg-white dark:bg-gray-800 p-5 shadow-sm">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium text-neutral-900 dark:text-white">
                   {question}
-                  <HelpCircle className="w-4 h-4 text-muted-foreground transition group-open:rotate-45" />
+                  <HelpCircle className="w-4 h-4 text-neutral-500 dark:text-gray-400 transition group-open:rotate-45" />
                 </summary>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{answer}</p>
+                <p className="mt-3 text-sm leading-relaxed text-neutral-600 dark:text-gray-400">{answer}</p>
               </details>
             ))}
           </div>

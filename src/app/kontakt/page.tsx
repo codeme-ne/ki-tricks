@@ -76,15 +76,15 @@ export default function KontaktPage() {
         <div className="mb-6">
           <BackButton />
         </div>
-        <h1 className="text-3xl font-bold text-neutral-900 mb-2">Kontakt</h1>
-        <p className="text-lg text-neutral-600 mb-8">
+        <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">Kontakt</h1>
+        <p className="text-lg text-neutral-600 dark:text-gray-400 mb-8">
           Hast du Fragen, Feedback oder möchtest einen neuen KI-Trick vorschlagen? Ich freue mich von dir zu hören!
         </p>
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Kontaktformular */}
           <div>
-            <h2 className="text-xl font-semibold mb-6">Nachricht senden</h2>
+            <h2 className="text-xl font-semibold mb-6 dark:text-white">Nachricht senden</h2>
             
             {isSubmitted ? (
               <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
@@ -95,7 +95,7 @@ export default function KontaktPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-neutral-700 dark:text-gray-300 mb-2">
                     Name *
                   </label>
                   <input
@@ -105,13 +105,13 @@ export default function KontaktPage() {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-2 bg-white dark:bg-gray-800 text-neutral-900 dark:text-white border border-neutral-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors placeholder:text-neutral-400 dark:placeholder:text-gray-500"
                     placeholder="Dein Name"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-neutral-700 dark:text-gray-300 mb-2">
                     E-Mail *
                   </label>
                   <input
@@ -121,13 +121,13 @@ export default function KontaktPage() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-2 bg-white dark:bg-gray-800 text-neutral-900 dark:text-white border border-neutral-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors placeholder:text-neutral-400 dark:placeholder:text-gray-500"
                     placeholder="deine@email.de"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-medium text-neutral-700 dark:text-gray-300 mb-2">
                     Betreff *
                   </label>
                   <input
@@ -137,13 +137,13 @@ export default function KontaktPage() {
                     required
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-2 bg-white dark:bg-gray-800 text-neutral-900 dark:text-white border border-neutral-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors placeholder:text-neutral-400 dark:placeholder:text-gray-500"
                     placeholder="Worum geht es?"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-neutral-700 dark:text-gray-300 mb-2">
                     Nachricht *
                   </label>
                   <textarea
@@ -153,7 +153,7 @@ export default function KontaktPage() {
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
+                    className="w-full px-4 py-2 bg-white dark:bg-gray-800 text-neutral-900 dark:text-white border border-neutral-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none placeholder:text-neutral-400 dark:placeholder:text-gray-500"
                     placeholder="Deine Nachricht..."
                   />
                 </div>
@@ -186,50 +186,50 @@ export default function KontaktPage() {
 
           {/* Direkte Kontaktinformationen */}
           <div>
-            <h2 className="text-xl font-semibold mb-6 text-center">Direkter Kontakt</h2>
+            <h2 className="text-xl font-semibold mb-6 dark:text-white text-center">Direkter Kontakt</h2>
             
             <div className="grid grid-cols-2 gap-8">
               <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-3">
+                <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center mb-3">
                   <Mail className="w-8 h-8 text-primary-600" />
                 </div>
-                <h3 className="font-medium text-neutral-900 mb-2">E-Mail</h3>
+                <h3 className="font-medium text-neutral-900 dark:text-white mb-2">E-Mail</h3>
                 <a 
                   href="mailto:zangerl.luk@gmail.com" 
-                  className="text-primary-600 hover:underline"
+                  className="text-primary-600 dark:text-primary-400 hover:underline"
                 >
                   zangerl.luk@gmail.com
                 </a>
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-3">
+                <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center mb-3">
                   <Github className="w-8 h-8 text-primary-600" />
                 </div>
-                <h3 className="font-medium text-neutral-900 mb-2">GitHub</h3>
+                <h3 className="font-medium text-neutral-900 dark:text-white mb-2">GitHub</h3>
                 <a 
                   href="https://github.com/codeme-ne" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-primary-600 hover:underline"
+                  className="text-primary-600 dark:text-primary-400 hover:underline"
                 >
                   @codeme-ne
                 </a>
               </div>
             </div>
 
-            <div className="mt-8 p-6 bg-neutral-50 rounded-lg">
-              <h3 className="font-medium text-neutral-900 mb-2">Feedback & Vorschläge</h3>
-              <p className="text-sm text-neutral-600">
+            <div className="mt-8 p-6 bg-neutral-50 dark:bg-gray-800 rounded-lg">
+              <h3 className="font-medium text-neutral-900 dark:text-white mb-2">Feedback & Vorschläge</h3>
+              <p className="text-sm text-neutral-600 dark:text-gray-400">
                 Du hast einen tollen KI-Trick entdeckt oder Verbesserungsvorschläge für die Plattform? 
                 Ich freue mich über jedes Feedback! Gemeinsam machen wir die KI Tricks Platform zur 
                 besten Ressource für praktische KI-Anwendungen.
               </p>
             </div>
 
-            <div className="mt-6 p-6 bg-primary-50 border border-primary-200 rounded-lg">
-              <h3 className="font-medium text-primary-900 mb-2">Zusammenarbeit</h3>
-              <p className="text-sm text-primary-700">
+            <div className="mt-6 p-6 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg">
+              <h3 className="font-medium text-primary-900 dark:text-primary-300 mb-2">Zusammenarbeit</h3>
+              <p className="text-sm text-primary-700 dark:text-primary-300">
                 Interessiert an einer Zusammenarbeit? Ob Content-Partnerschaften, technische 
                 Integrationen oder gemeinsame Projekte - lass uns darüber sprechen, wie wir die 
                 KI-Community gemeinsam voranbringen können.

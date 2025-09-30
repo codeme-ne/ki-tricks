@@ -24,16 +24,16 @@ export function Header({ className = '' }: HeaderProps) {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden md:flex items-center gap-4">
               <Link
                 href="/tricks"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-base font-semibold text-foreground hover:text-primary transition-colors px-3 py-2"
               >
                 Alle Tricks
               </Link>
               <Link
                 href="/tricks/einreichen"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-5 py-2.5 rounded-lg text-base font-semibold transition-all hover:shadow-lg"
               >
                 Trick einreichen
               </Link>
@@ -41,7 +41,7 @@ export function Header({ className = '' }: HeaderProps) {
                 href="https://www.produktiv.me/kiz/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2"
               >
                 KI Kurs
               </Link>
@@ -119,8 +119,8 @@ export function Header({ className = '' }: HeaderProps) {
               >
                 KI Kurs
               </Link>
-              <div className="mt-4 pt-4 border-t border-border flex justify-center">
-                <DarkModeToggle />
+              <div className="mt-4 pt-4 border-t border-border">
+                <DarkModeToggle fullWidth />
               </div>
             </div>
           </nav>

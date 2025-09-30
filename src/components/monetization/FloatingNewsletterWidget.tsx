@@ -85,11 +85,11 @@ export const FloatingNewsletterWidget: React.FC<FloatingNewsletterWidgetProps> =
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[500px] max-h-[calc(100vh-2rem)] z-50 flex flex-col"
           >
-            <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-full">
+            <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-full">
               {/* Close button - sticky */}
               <button
                 onClick={handleDismiss}
-                className="sticky top-0 right-0 ml-auto m-4 z-20 p-2 rounded-full bg-white/80 hover:bg-white transition-colors"
+                className="sticky top-0 right-0 ml-auto m-4 z-20 p-2 rounded-full bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-700 transition-colors"
               >
                 <X className="w-5 h-5 text-gray-600" />
               </button>

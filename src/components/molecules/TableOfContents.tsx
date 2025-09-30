@@ -15,7 +15,7 @@ export const TableOfContents = ({ items }: TableOfContentsProps) => {
   };
 
   return (
-    <div className="bg-white border border-neutral-200 rounded-xl p-6 shadow-sm">
+    <div className="bg-white dark:bg-gray-900 border border-neutral-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
       <h3 className="flex items-center gap-2 font-semibold text-neutral-900 mb-4">
         <List className="w-5 h-5" />
         Inhaltsverzeichnis

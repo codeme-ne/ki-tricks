@@ -15,9 +15,9 @@ export default function ImpressumPage() {
         <div className="mb-6">
           <BackButton />
         </div>
-        <h1 className="text-3xl font-bold text-neutral-900 mb-8">Impressum</h1>
-        
-        <div className="prose prose-neutral max-w-none">
+        <h1 className="text-3xl font-bold text-foreground mb-8">Impressum</h1>
+
+        <div className="prose prose-neutral dark:prose-invert max-w-none text-foreground">
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Angaben gemäß § 5 TMG</h2>
             <p className="mb-2">
@@ -30,7 +30,7 @@ export default function ImpressumPage() {
             <h2 className="text-xl font-semibold mb-4">Kontakt</h2>
             <p className="mb-2">
               E-Mail: zangerl.luk@gmail.com<br />
-              GitHub: <a href="https://github.com/codeme-ne" className="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">codeme-ne</a>
+              GitHub: <a href="https://github.com/codeme-ne" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">codeme-ne</a>
             </p>
           </section>
 
@@ -45,8 +45,8 @@ export default function ImpressumPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">EU-Streitschlichtung</h2>
             <p className="mb-4">
-              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: 
-              <a href="https://ec.europa.eu/consumers/odr/" className="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer"> https://ec.europa.eu/consumers/odr/</a>.
+              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+              <a href="https://ec.europa.eu/consumers/odr/" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer"> https://ec.europa.eu/consumers/odr/</a>.
             </p>
             <p className="mb-2">
               Unsere E-Mail-Adresse finden Sie oben im Impressum.
