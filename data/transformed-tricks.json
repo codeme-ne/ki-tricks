@@ -1,0 +1,805 @@
+[
+  {
+    "title": "Instagram Captions in 90 Sekunden",
+    "description": "Erstelle professionelle Instagram Captions mit dem AIDA-Framework (Attention-Interest-Desire-Action) in nur 90 Sekunden. Statt stundenlang über die perfekte Caption nachzudenken, nutzt du eine bewährte Marketing-Formel.\n\n**Warum es funktioniert:** Das AIDA-Framework ist wie ein Rezept für erfolgreiche Werbung - du folgst einer klaren Struktur (Aufmerksamkeit erregen → Interesse wecken → Verlangen erzeugen → Handlung auslösen) statt aus dem Bauch heraus zu texten.",
+    "category": "marketing",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "instagram-captions-in-90-sekunden",
+    "why_it_works": "Das AIDA-Framework ist wie ein Rezept für erfolgreiche Werbung - du folgst einer klaren Struktur (Aufmerksamkeit erregen → Interesse wecken → Verlangen erzeugen → Handlung auslösen) statt aus dem Bauch heraus zu texten.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein erfahrener Social Media Marketing Experte. Erstelle eine Instagram Caption nach dem AIDA-Framework:\n\nProdukt/Dienstleistung: [DEIN PRODUKT]\nZielgruppe: [DEINE ZIELGRUPPE]\nHauptvorteil: [HAUPTVORTEIL]\nCall-to-Action: [GEWÜNSCHTE HANDLUNG]\n\nStruktur:\n- Attention: Starker Hook in der ersten Zeile\n- Interest: Zeige relevanten Nutzen\n- Desire: Wecke Verlangen mit Emotionen oder Social Proof\n- Action: Klare Handlungsaufforderung\n\nHalte die Caption unter 150 Wörter und füge 3-5 relevante Hashtags hinzu.",
+    "steps_structured": [
+      {
+        "step": "Ziel definieren",
+        "description": "Überlege, welches Produkt/welche Dienstleistung du bewirbst und was der Hauptvorteil für deine Zielgruppe ist.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Prompt-Template kopieren",
+        "description": "Kopiere das Prompt-Template und fülle die Platzhalter [DEIN PRODUKT], [DEINE ZIELGRUPPE], [HAUPTVORTEIL], [GEWÜNSCHTE HANDLUNG] aus.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "In ChatGPT/Claude einfügen",
+        "description": "Füge den ausgefüllten Prompt in ChatGPT, Claude oder Gemini ein und generiere die Caption.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Caption anpassen",
+        "description": "Lies die generierte Caption durch und passe sie bei Bedarf an deinen Tonfall und deine Marke an.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Prüfe, ob die Caption authentisch klingt und zu deiner Marke passt. KI kann manchmal generisch wirken."
+      }
+    ],
+    "examples": [
+      "Vorher: Stundenlang Überlegen + mehrere Entwürfe = 2-3h Arbeit",
+      "Nachher: Prompt ausfüllen → Caption generieren → Anpassen = 90 Sekunden",
+      "Ersparnis: 98% weniger Zeit bei gleichbleibender Qualität"
+    ]
+  },
+  {
+    "title": "LinkedIn B2B Post in 3 Minuten",
+    "description": "Schreibe überzeugende LinkedIn Posts mit der Hook-Story-Takeaway Struktur in nur 3 Minuten. Statt langweilige Unternehmens-Updates zu posten, nutzt du eine Story-basierte Formel für mehr Engagement.\n\n**Warum es funktioniert:** Die Hook-Story-Takeaway Struktur funktioniert wie ein guter Film - du startest mit einem Cliffhanger (Hook), erzählst dann die Geschichte und lieferst am Ende eine klare Botschaft. Menschen merken sich Geschichten 22x besser als reine Fakten.",
+    "category": "marketing",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "linkedin-b2b-post-in-3-minuten",
+    "why_it_works": "Die Hook-Story-Takeaway Struktur funktioniert wie ein guter Film - du startest mit einem Cliffhanger (Hook), erzählst dann die Geschichte und lieferst am Ende eine klare Botschaft. Menschen merken sich Geschichten 22x besser als reine Fakten.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein LinkedIn Content Experte für B2B. Schreibe einen LinkedIn Post nach der Hook-Story-Takeaway Struktur:\n\nThema: [DEIN THEMA]\nZielgruppe: [B2B ZIELGRUPPE]\nKernbotschaft: [HAUPTMESSAGE]\nErfahrung/Beispiel: [KONKRETE STORY ODER BEISPIEL]\n\nStruktur:\n- Hook (1-2 Sätze): Provokante Frage oder überraschende Aussage\n- Story (3-5 Sätze): Konkrete Situation, Problem, Lösung\n- Takeaway (1-2 Sätze): Was können Leser mitnehmen?\n\nTon: Professionell aber persönlich. Nutze Absätze für bessere Lesbarkeit.",
+    "steps_structured": [
+      {
+        "step": "Thema und Zielgruppe festlegen",
+        "description": "Definiere das Thema deines Posts und für welche B2B-Zielgruppe er relevant ist.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Konkrete Story finden",
+        "description": "Überlege dir eine konkrete Erfahrung, einen Kundenerfolg oder ein relevantes Beispiel aus deiner Branche.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Prompt ausfüllen und generieren",
+        "description": "Fülle alle Platzhalter im Template aus und lasse den Post von der KI generieren.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Hook optimieren",
+        "description": "Prüfe, ob die erste Zeile wirklich zum Weiterlesen animiert. Falls nicht, generiere 3 alternative Hooks.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Der Hook entscheidet über 80% deines Engagement. Investiere hier die meiste Zeit."
+      }
+    ],
+    "examples": [
+      "Vorher: Post schreiben + Überarbeiten = 15-20 Minuten",
+      "Nachher: Story-Struktur anwenden + KI nutzen = 3 Minuten",
+      "Ersparnis: 85% Zeitersparnis + höhere Engagement-Rate durch bewährte Struktur"
+    ]
+  },
+  {
+    "title": "Blog Post Outline in 5 Minuten",
+    "description": "Erstelle strukturierte Blog Post Outlines mit der Inverted Pyramid Methode in nur 5 Minuten. Statt von einer leeren Seite zu starten, nutzt du eine journalistische Struktur für bessere Lesbarkeit.\n\n**Warum es funktioniert:** Die Inverted Pyramid ist wie eine Zeitungsartikel-Struktur - die wichtigsten Infos kommen zuerst (Lead), dann Details (Body), dann Hintergrund (Tail). Leser können jederzeit abbrechen und haben trotzdem die Hauptinformation bekommen.",
+    "category": "content-creation",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "blog-post-outline-in-5-minuten",
+    "why_it_works": "Die Inverted Pyramid ist wie eine Zeitungsartikel-Struktur - die wichtigsten Infos kommen zuerst (Lead), dann Details (Body), dann Hintergrund (Tail). Leser können jederzeit abbrechen und haben trotzdem die Hauptinformation bekommen.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein Content Stratege. Erstelle ein Blog Post Outline nach der Inverted Pyramid Methode:\n\nThema: [DEIN THEMA]\nZielgruppe: [DEINE ZIELGRUPPE]\nHauptkeyword: [SEO KEYWORD]\nGewünschte Länge: [WORTANZAHL]\n\nStruktur:\n1. Lead (10% des Textes): Die wichtigsten Infos zuerst - Was, Wer, Wann, Wo, Warum\n2. Body (70% des Textes): Details, Beispiele, Daten in absteigender Wichtigkeit\n3. Tail (20% des Textes): Hintergrundinfos, weiterführende Links, Call-to-Action\n\nGib mir:\n- Catchy Titel (max 60 Zeichen)\n- Meta Description (max 155 Zeichen)\n- H2/H3 Überschriften mit Hauptpunkten\n- Vorschläge für Medien (Bilder, Grafiken)",
+    "steps_structured": [
+      {
+        "step": "Thema und SEO-Keyword definieren",
+        "description": "Wähle ein konkretes Thema und recherchiere das Hauptkeyword, für das du ranken möchtest.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Zielgruppe und Intent klären",
+        "description": "Überlege, für wen du schreibst und welche Fragen sie haben (informational, transactional, navigational).",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Outline generieren",
+        "description": "Füge alle Infos in das Prompt-Template ein und generiere das Outline.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Struktur prüfen",
+        "description": "Stelle sicher, dass die wichtigsten Infos wirklich ganz oben stehen und die Überschriften logisch aufgebaut sind.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Vermeide es, wichtige Infos ans Ende zu stellen. Die meisten Leser lesen nur 20% des Artikels."
+      }
+    ],
+    "examples": [
+      "Vorher: Brainstorming + Recherche + Strukturieren = 30-45 Minuten",
+      "Nachher: Prompt ausfüllen → Outline generieren → Anpassen = 5 Minuten",
+      "Ersparnis: 88% Zeitersparnis + SEO-optimierte Struktur von Anfang an"
+    ]
+  },
+  {
+    "title": "Newsletter Hooks in 60 Sekunden",
+    "description": "Generiere überzeugende Newsletter-Betreffzeilen mit 5 bewährten Hook-Pattern in nur 60 Sekunden. Statt dutzende Varianten manuell zu testen, nutzt du psychologische Trigger für höhere Öffnungsraten.\n\n**Warum es funktioniert:** Die 5 Hook-Pattern basieren auf psychologischen Triggern - Curiosity Gap (Neugier), Social Proof (Herdentrieb), Scarcity (Knappheit), Personalization (Relevanz), Benefit-First (Nutzen). Wie ein Swiss Army Knife hast du für jede Situation das richtige Tool.",
+    "category": "content-creation",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "newsletter-hooks-in-60-sekunden",
+    "why_it_works": "Die 5 Hook-Pattern basieren auf psychologischen Triggern - Curiosity Gap (Neugier), Social Proof (Herdentrieb), Scarcity (Knappheit), Personalization (Relevanz), Benefit-First (Nutzen). Wie ein Swiss Army Knife hast du für jede Situation das richtige Tool.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein E-Mail Marketing Experte. Generiere 5 Newsletter-Betreffzeilen mit verschiedenen Hook-Pattern:\n\nNewsletter-Inhalt: [HAUPTTHEMA/INHALT]\nZielgruppe: [DEINE SUBSCRIBER]\nZiel: [ÖFFNUNGSRATE/KLICKRATE ERHÖHEN]\n\nGeneriere je 1 Variante für jedes Pattern:\n\n1. Curiosity Gap: \"[Intrigierender Fakt] aber [unerwartete Wendung]...\"\n2. Social Proof: \"Warum [X Personen/Unternehmen] [Aktion machen]...\"\n3. Scarcity: \"Nur noch [Zeitangabe]: [Wertvolles Angebot]...\"\n4. Personalization: \"[Name], hier ist [persönlich relevanter Nutzen]...\"\n5. Benefit-First: \"[Konkretes Ergebnis] in [Zeitangabe] - [Wie]...\"\n\nJede Betreffzeile max 50 Zeichen. Füge Emoji hinzu wo passend.",
+    "steps_structured": [
+      {
+        "step": "Newsletter-Inhalt zusammenfassen",
+        "description": "Fasse den Hauptinhalt deines Newsletters in 1-2 Sätzen zusammen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "5 Hooks generieren",
+        "description": "Fülle das Prompt-Template aus und lasse für jedes Pattern eine Betreffzeile generieren.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Beste Hook auswählen",
+        "description": "Wähle die Hook, die am besten zu deinem Inhalt und deiner Zielgruppe passt.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "A/B-Test vorbereiten",
+        "description": "Nutze die Top 2 Hooks für einen A/B-Test, um zu sehen, welches Pattern bei deiner Audience am besten funktioniert.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Vermeide Clickbait-Hooks, die nicht zum Inhalt passen. Das zerstört Vertrauen und erhöht Abmeldungen."
+      }
+    ],
+    "examples": [
+      "Vorher: 10-15 Betreffzeilen manuell überlegen = 15-20 Minuten",
+      "Nachher: 5 Pattern-basierte Hooks generieren = 60 Sekunden",
+      "Ersparnis: 95% Zeitersparnis + wissenschaftlich fundierte Psychologie"
+    ]
+  },
+  {
+    "title": "Product Descriptions in 2 Minuten",
+    "description": "Schreibe überzeugende Produktbeschreibungen mit der PAS-Formel (Problem-Agitate-Solution) in nur 2 Minuten. Statt Features aufzulisten, adressierst du emotionale Schmerzpunkte deiner Kunden.\n\n**Warum es funktioniert:** Die PAS-Formel ist wie ein Arztbesuch - erst wird das Problem diagnostiziert (Problem), dann werden die Konsequenzen aufgezeigt (Agitate), dann kommt die Lösung (Solution). Menschen kaufen Lösungen für Probleme, keine Features.",
+    "category": "marketing",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "product-descriptions-in-2-minuten",
+    "why_it_works": "Die PAS-Formel ist wie ein Arztbesuch - erst wird das Problem diagnostiziert (Problem), dann werden die Konsequenzen aufgezeigt (Agitate), dann kommt die Lösung (Solution). Menschen kaufen Lösungen für Probleme, keine Features.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein E-Commerce Copywriter. Schreibe eine Produktbeschreibung nach der PAS-Formel:\n\nProdukt: [PRODUKTNAME]\nHauptproblem der Zielgruppe: [SPEZIFISCHES PROBLEM]\nProdukt-Features: [KEY FEATURES]\nPreis/Angebot: [PREIS UND CALL-TO-ACTION]\n\nStruktur:\n\n**Problem (2-3 Sätze):**\nBeschreibe das konkrete Problem/die Frustration, die der Kunde hat. Sei spezifisch.\n\n**Agitate (2-3 Sätze):**\nVerstärke das Problem - welche Konsequenzen hat es? Was passiert, wenn es nicht gelöst wird?\n\n**Solution (3-4 Sätze):**\nZeige, wie dein Produkt das Problem löst. Nenne Features nur als Beweis für die Lösung.\n\n**Call-to-Action (1 Satz):**\nKlare Handlungsaufforderung mit Dringlichkeit.\n\nTon: Empathisch, direkt, Vorteile statt Features.",
+    "steps_structured": [
+      {
+        "step": "Hauptproblem identifizieren",
+        "description": "Überlege, welches spezifische Problem dein Produkt löst. Nicht das generische Problem, sondern das emotionale.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Features sammeln",
+        "description": "Liste die wichtigsten 3-5 Features auf, aber formuliere sie als Lösungen, nicht als technische Specs.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Beschreibung generieren",
+        "description": "Fülle das Prompt-Template aus und lasse die PAS-Beschreibung generieren.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Agitate-Teil prüfen",
+        "description": "Stelle sicher, dass der Agitate-Teil nicht zu aggressiv ist. Er soll Dringlichkeit schaffen, nicht Angst.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Übertreibe nicht beim Agitieren. Bei manchen Produkten (z.B. Luxusgüter) passt ein positiver Ansatz besser."
+      }
+    ],
+    "examples": [
+      "Vorher: Features auflisten + umschreiben = 10-15 Minuten pro Produkt",
+      "Nachher: Problem definieren → PAS generieren = 2 Minuten",
+      "Ersparnis: 87% Zeitersparnis + höhere Conversion durch emotionale Ansprache"
+    ]
+  },
+  {
+    "title": "E-Mail Betreffzeilen in 30 Sekunden",
+    "description": "Erstelle klickstarke E-Mail Betreffzeilen mit der Curiosity Gap Technik in nur 30 Sekunden. Statt langweilige \"Newsletter #47\" zu schreiben, öffnest du eine Informationslücke, die geschlossen werden muss.\n\n**Warum es funktioniert:** Der Curiosity Gap ist wie ein Cliffhanger in einer Serie - du gibst genug Info, um Interesse zu wecken, aber nicht genug, um die Neugier zu stillen. Das Gehirn hasst offene Fragen und will sie schließen (Zeigarnik-Effekt).",
+    "category": "marketing",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "e-mail-betreffzeilen-in-30-sekunden",
+    "why_it_works": "Der Curiosity Gap ist wie ein Cliffhanger in einer Serie - du gibst genug Info, um Interesse zu wecken, aber nicht genug, um die Neugier zu stillen. Das Gehirn hasst offene Fragen und will sie schließen (Zeigarnik-Effekt).",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein E-Mail Marketing Experte. Erstelle 5 Betreffzeilen mit der Curiosity Gap Technik:\n\nE-Mail Inhalt: [HAUPTTHEMA]\nZielgruppe: [DEINE EMPFÄNGER]\nZiel: [ÖFFNUNG/KLICK/ANTWORT]\n\nCuriosity Gap Formeln:\n\n1. \"Das [unerwartete Ergebnis], das niemand kommen sah...\"\n2. \"Warum [erfolgreiche Personen/Firmen] [überraschende Aktion]...\"\n3. \"[Zahl] Dinge über [Thema], die dich überraschen werden...\"\n4. \"Der Grund, warum [häufiges Problem] nicht [häufige Lösung] ist...\"\n5. \"Was [bekannte Person/Marke] über [Thema] verschweigt...\"\n\nRegeln:\n- Max 50 Zeichen\n- Keine Clickbait-Lügen\n- Der Inhalt muss die Neugier erfüllen\n- Emoji optional, aber passend",
+    "steps_structured": [
+      {
+        "step": "Kernbotschaft definieren",
+        "description": "Fasse die Hauptaussage deiner E-Mail in einem Satz zusammen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "5 Gap-Varianten generieren",
+        "description": "Nutze das Prompt-Template, um 5 verschiedene Curiosity Gap Betreffzeilen zu erstellen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Beste auswählen",
+        "description": "Wähle die Betreffzeile, die am besten zu deinem Tonfall passt und nicht zu reißerisch klingt.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Achte darauf, dass dein E-Mail-Inhalt die geweckte Neugier auch wirklich befriedigt. Sonst verlierst du Vertrauen."
+      }
+    ],
+    "examples": [
+      "Vorher: 5-10 Betreffzeilen manuell testen = 10 Minuten",
+      "Nachher: 5 Gap-Formeln anwenden = 30 Sekunden",
+      "Ersparnis: 95% Zeitersparnis + 30-50% höhere Öffnungsrate (laut Studien)"
+    ]
+  },
+  {
+    "title": "Cold Email B2B in 5 Minuten",
+    "description": "Schreibe effektive Cold Emails mit der Value-First Methode in nur 5 Minuten. Statt direkt zu verkaufen, lieferst du zuerst einen konkreten Mehrwert, der Vertrauen aufbaut.\n\n**Warum es funktioniert:** Value-First ist wie ein Kostprobe im Supermarkt - du gibst etwas Wertvolles umsonst (Insight, Tool, Analyse), bevor du nach etwas fragst. Reziprozität (Prinzip der Gegenseitigkeit) sorgt dafür, dass Menschen eher antworten, wenn sie zuerst etwas bekommen haben.",
+    "category": "business",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "cold-email-b2b-in-5-minuten",
+    "why_it_works": "Value-First ist wie ein Kostprobe im Supermarkt - du gibst etwas Wertvolles umsonst (Insight, Tool, Analyse), bevor du nach etwas fragst. Reziprozität (Prinzip der Gegenseitigkeit) sorgt dafür, dass Menschen eher antworten, wenn sie zuerst etwas bekommen haben.",
+    "difficulty": "intermediate",
+    "prompt_template": "Du bist ein B2B Sales Experte. Schreibe eine Cold Email nach der Value-First Methode:\n\nMein Unternehmen: [FIRMA/POSITION]\nEmpfänger-Unternehmen: [ZIEL-FIRMA]\nEmpfänger-Position: [POSITION/ABTEILUNG]\nKonkreter Value: [WAS ICH GEBE - z.B. Audit, Analyse, Tool]\nMein Angebot: [WAS ICH VERKAUFE]\n\nStruktur:\n\n**Betreff:** Personalisiert + Value-Hinweis (z.B. \"[Firma-Name]: Quick Win für [Problem]\")\n\n**Body:**\n1. Personalisierter Opener (1 Satz über sie, nicht dich)\n2. Value-Angebot (2-3 Sätze) - Gib etwas Konkretes OHNE Gegenleistung\n3. Social Proof (1 Satz) - Kurze Erwähnung ähnlicher Kunden\n4. Low-Friction CTA (1 Satz) - Frage nach 15min Call oder einfacher Antwort\n\nMax 100 Wörter. Ton: Professionell, hilfsbereit, nicht verkäuferisch.",
+    "steps_structured": [
+      {
+        "step": "Recherche: Empfänger analysieren",
+        "description": "Schau dir LinkedIn, Unternehmenswebsite oder News an. Finde 1-2 konkrete Details über ihr Geschäft/ihre Herausforderungen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Ohne Recherche wirkt deine Email generisch. Investiere 3-5 Minuten pro Empfänger."
+      },
+      {
+        "step": "Value-Offer definieren",
+        "description": "Überlege, was du JETZT geben kannst (Mini-Audit, Checkliste, personalisiertes Insight) ohne Gegenleistung.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Email generieren",
+        "description": "Fülle alle Platzhalter aus und lasse die Value-First Email generieren.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Personalisierung prüfen",
+        "description": "Stelle sicher, dass mindestens die erste Zeile wirklich personalisiert ist (keine Floskeln wie 'Ich habe Ihr Profil gesehen').",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Vermeide es, dein Angebot im ersten Email zu pushen. Fokus: Value geben, Gespräch starten."
+      }
+    ],
+    "examples": [
+      "Vorher: Recherche + Email schreiben + Überarbeiten = 15-20 Minuten pro Empfänger",
+      "Nachher: Schnelle Recherche + Template nutzen = 5 Minuten",
+      "Ersparnis: 75% Zeitersparnis + 3-5x höhere Antwortrate (Benchmark: 8-15% statt 2-3%)"
+    ]
+  },
+  {
+    "title": "Meeting Notes → Action Items in 60 Sekunden",
+    "description": "Extrahiere konkrete Action Items aus unstrukturierten Meeting Notes in nur 60 Sekunden. Statt stundenlang Notizen durchzugehen, nutzt du KI, um Aufgaben, Verantwortliche und Deadlines automatisch zu identifizieren.\n\n**Warum es funktioniert:** KI kann wie ein persönlicher Assistent aus chaotischen Notizen strukturierte To-Dos extrahieren, weil sie Muster erkennt (Verben wie 'soll', 'wird', 'muss' + Person + Zeitangabe). Du sparst dir das manuelle Durchkämmen von Informationen.",
+    "category": "productivity",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "meeting-notes-action-items-in-60-sekunden",
+    "why_it_works": "KI kann wie ein persönlicher Assistent aus chaotischen Notizen strukturierte To-Dos extrahieren, weil sie Muster erkennt (Verben wie 'soll', 'wird', 'muss' + Person + Zeitangabe). Du sparst dir das manuelle Durchkämmen von Informationen.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein Meeting-Protokoll Experte. Extrahiere aus diesen Meeting Notes alle Action Items:\n\n[FÜGE DEINE MEETING NOTES HIER EIN]\n\nFormat für jeden Action Item:\n\n**[Nummer]. [Konkrete Aufgabe]**\n- Verantwortlich: [Name oder Team]\n- Deadline: [Datum oder 'keine Angabe']\n- Kontext: [1 Satz warum/wofür]\n- Priorität: [Hoch/Mittel/Niedrig basierend auf Dringlichkeit im Meeting]\n\nRegeln:\n- Nur konkrete Aufgaben, keine Diskussionspunkte\n- Bei unklarer Verantwortung: \"[Zu klären]\"\n- Nummeriere chronologisch\n- Gruppiere verwandte Tasks",
+    "steps_structured": [
+      {
+        "step": "Meeting Notes kopieren",
+        "description": "Kopiere deine Meeting Notes (egal wie chaotisch) - Stichpunkte, Sätze, oder Aufnahme-Transkript.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Prompt einfügen",
+        "description": "Füge das Prompt-Template in ChatGPT/Claude ein und ersetze [MEETING NOTES] mit deinen Notizen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Action Items erhalten",
+        "description": "Die KI gibt dir eine strukturierte Liste mit allen Aufgaben, Verantwortlichen und Deadlines.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "In Tool übertragen",
+        "description": "Kopiere die Action Items in dein Projektmanagement-Tool (Asana, Trello, Notion, etc.).",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Prüfe bei wichtigen Meetings manuell nach, ob alle kritischen Action Items erfasst wurden."
+      }
+    ],
+    "examples": [
+      "Vorher: Meeting Notes durchgehen + Aufgaben manuell extrahieren = 15-20 Minuten",
+      "Nachher: Notes einfügen → Action Items kopieren = 60 Sekunden",
+      "Ersparnis: 95% Zeitersparnis + keine vergessenen Tasks"
+    ]
+  },
+  {
+    "title": "Text Simplifier in 90 Sekunden",
+    "description": "Vereinfache komplexe Texte in drei Schwierigkeitsstufen (8. Klasse, Fachpublikum, Experten) in nur 90 Sekunden. Statt stundenlang zu formulieren, nutzt du KI für verschiedene Zielgruppen-Versionen.\n\n**Warum es funktioniert:** Die 3-Levels-Methode ist wie das Zoom-Prinzip - du kannst denselben Inhalt in verschiedenen Detailgraden darstellen. KI kann Komplexität anpassen, weil sie Fachbegriffe erkennt und durch einfachere Konzepte oder Analogien ersetzen kann.",
+    "category": "productivity",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "text-simplifier-in-90-sekunden",
+    "why_it_works": "Die 3-Levels-Methode ist wie das Zoom-Prinzip - du kannst denselben Inhalt in verschiedenen Detailgraden darstellen. KI kann Komplexität anpassen, weil sie Fachbegriffe erkennt und durch einfachere Konzepte oder Analogien ersetzen kann.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein technischer Redakteur. Vereinfache diesen Text in 3 Versionen:\n\n[ORIGINALER TEXT HIER EINFÜGEN]\n\nErstelle 3 Versionen:\n\n**Level 1: Laien-Version (8. Klasse)**\n- Keine Fachbegriffe\n- Kurze Sätze (max 15 Wörter)\n- Alltags-Analogien\n- Zielgruppe: Jeder kann es verstehen\n\n**Level 2: Fachpublikum-Version**\n- Fachbegriffe erlaubt, aber erklärt\n- Mittlere Komplexität\n- Zielgruppe: Interessierte mit Grundwissen\n\n**Level 3: Experten-Version**\n- Volle Fachterminologie\n- Präzise, kompakt\n- Zielgruppe: Fachleute aus dem Bereich\n\nBewahre die Kernaussage in allen 3 Versionen.",
+    "steps_structured": [
+      {
+        "step": "Originalen Text kopieren",
+        "description": "Kopiere den komplexen Text, den du vereinfachen möchtest (Fachartikel, technische Dokumentation, etc.).",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Zielgruppe wählen",
+        "description": "Überlege, welche der 3 Versionen du brauchst (oder alle drei für verschiedene Kanäle).",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Prompt ausführen",
+        "description": "Füge deinen Text in das Template ein und lasse alle 3 Versionen generieren.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Passende Version nutzen",
+        "description": "Wähle die Version für deine Zielgruppe: Level 1 für Website/Marketing, Level 2 für Whitepaper, Level 3 für Fachjournals.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Prüfe bei Level 1, ob wichtige Nuancen verloren gegangen sind. Manchmal braucht es fachliche Präzision."
+      }
+    ],
+    "examples": [
+      "Vorher: Text mehrfach umschreiben für verschiedene Audiences = 45-60 Minuten",
+      "Nachher: 3 Versionen gleichzeitig generieren = 90 Sekunden",
+      "Ersparnis: 97% Zeitersparnis + bessere Zielgruppen-Ansprache"
+    ]
+  },
+  {
+    "title": "Customer Persona in 3 Minuten",
+    "description": "Erstelle datenbasierte Customer Personas mit dem Jobs-to-be-Done Framework in nur 3 Minuten. Statt auf Demographie zu fokussieren, verstehst du die eigentlichen Motivationen und Ziele deiner Kunden.\n\n**Warum es funktioniert:** Jobs-to-be-Done ist wie ein Röntgenblick auf Kundenmotivation - Menschen kaufen keine Produkte, sondern 'stellen' sie ein, um einen Job zu erledigen (z.B. 'spare Zeit', 'fühle mich sicher', 'zeige Status'). Das Framework deckt die echten Kaufgründe auf, die oft versteckt sind.",
+    "category": "business",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "customer-persona-in-3-minuten",
+    "why_it_works": "Jobs-to-be-Done ist wie ein Röntgenblick auf Kundenmotivation - Menschen kaufen keine Produkte, sondern 'stellen' sie ein, um einen Job zu erledigen (z.B. 'spare Zeit', 'fühle mich sicher', 'zeige Status'). Das Framework deckt die echten Kaufgründe auf, die oft versteckt sind.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein Customer Research Experte. Erstelle eine Customer Persona nach dem Jobs-to-be-Done Framework:\n\nProdukt/Service: [DEIN PRODUKT]\nBestehendes Kundenwissen: [WAS DU ÜBER KUNDEN WEISST]\nTop 3 Use Cases: [WIE KUNDEN DEIN PRODUKT NUTZEN]\n\nErstelle die Persona mit folgender Struktur:\n\n**1. Persona Basics**\n- Name & Rolle\n- Demographie (nur wenn relevant)\n- Kurze Beschreibung\n\n**2. Jobs-to-be-Done (Hauptfokus!)**\n- Functional Job: Was will der Kunde erreichen? (objektiv messbar)\n- Emotional Job: Wie will er sich dabei fühlen?\n- Social Job: Wie will er von anderen gesehen werden?\n\n**3. Pain Points & Gains**\n- Top 3 Frustrationen (vor deinem Produkt)\n- Top 3 Desired Outcomes (mit deinem Produkt)\n\n**4. Buying Triggers**\n- Wann entscheidet er sich zu kaufen? (Situationen/Events)\n- Welche Alternativen nutzt er aktuell?\n\n**5. Messaging Insights**\n- Kernbotschaft die resoniert\n- Kanäle wo er aktiv ist",
+    "steps_structured": [
+      {
+        "step": "Produkt und Use Cases definieren",
+        "description": "Notiere dein Produkt/Service und die häufigsten 3 Use Cases deiner Kunden.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Bestehendes Wissen sammeln",
+        "description": "Sammle alles, was du über deine Kunden weißt (Support-Tickets, Reviews, Verkaufsgespräche).",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Persona generieren",
+        "description": "Füge alle Infos in das Prompt-Template ein und lasse die Jobs-to-be-Done Persona erstellen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Mit echten Kunden validieren",
+        "description": "Nutze die Persona als Hypothese und validiere sie durch 3-5 Kundengespräche.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Die KI-Persona ist ein Startpunkt, kein Ersatz für echte Kundenforschung. Validiere die Annahmen!"
+      }
+    ],
+    "examples": [
+      "Vorher: Kunden-Interviews + Analyse + Persona-Dokument = 3-5 Stunden",
+      "Nachher: Bestehendes Wissen nutzen + Jobs-Framework anwenden = 3 Minuten",
+      "Ersparnis: 98% Zeitersparnis für initiale Hypothese + tieferes Verständnis der Motivation"
+    ]
+  },
+  {
+    "title": "SWOT-Analyse in 5 Minuten",
+    "description": "Erstelle eine strukturierte SWOT-Analyse (Strengths, Weaknesses, Opportunities, Threats) in nur 5 Minuten. Statt stundenlang Brainstorming zu betreiben, nutzt du KI für eine objektive Erst-Analyse.\n\n**Warum es funktioniert:** SWOT ist wie ein strategisches Röntgenbild - du siehst interne Faktoren (Stärken/Schwächen) und externe Faktoren (Chancen/Risiken) auf einen Blick. KI kann öffentliche Infos, Markttrends und Konkurrenz-Benchmarks kombinieren, die du manuell recherchieren müsstest.",
+    "category": "business",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "swot-analyse-in-5-minuten",
+    "why_it_works": "SWOT ist wie ein strategisches Röntgenbild - du siehst interne Faktoren (Stärken/Schwächen) und externe Faktoren (Chancen/Risiken) auf einen Blick. KI kann öffentliche Infos, Markttrends und Konkurrenz-Benchmarks kombinieren, die du manuell recherchieren müsstest.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein Strategieberater. Erstelle eine SWOT-Analyse:\n\nUnternehmen/Projekt: [NAME]\nBranche: [BRANCHE]\nHauptprodukt/-service: [PRODUKT]\nGröße: [MITARBEITER/UMSATZ]\nHauptkonkurrenten: [TOP 3 KONKURRENTEN]\n\nErstelle eine detaillierte SWOT-Analyse:\n\n**STRENGTHS (Stärken - intern)**\nWas machen wir besser als andere?\n- [5-7 konkrete Stärken]\n- Jede mit Begründung warum es eine Stärke ist\n\n**WEAKNESSES (Schwächen - intern)**\nWo müssen wir uns verbessern?\n- [5-7 konkrete Schwächen]\n- Jede mit Impact-Einschätzung (hoch/mittel/niedrig)\n\n**OPPORTUNITIES (Chancen - extern)**\nWelche Markt-Trends können wir nutzen?\n- [5-7 Chancen]\n- Jede mit Umsetzbarkeits-Score (einfach/mittel/schwer)\n\n**THREATS (Risiken - extern)**\nWelche externen Gefahren gibt es?\n- [5-7 Bedrohungen]\n- Jede mit Wahrscheinlichkeit (hoch/mittel/niedrig)\n\n**STRATEGISCHE EMPFEHLUNGEN:**\n- Top 3 Quick Wins (Stärken + Chancen nutzen)\n- Top 3 Defensive Moves (Schwächen minimieren, Risiken abwehren)",
+    "steps_structured": [
+      {
+        "step": "Basis-Infos sammeln",
+        "description": "Notiere Name, Branche, Hauptprodukt, Größe und Top 3 Konkurrenten deines Unternehmens/Projekts.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "SWOT generieren",
+        "description": "Füge alle Infos in das Prompt-Template ein und lasse die SWOT-Analyse erstellen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Ergebnisse verifizieren",
+        "description": "Prüfe die generierten Punkte auf Relevanz und Realismus. Entferne generische Aussagen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Mit Team diskutieren",
+        "description": "Nutze die SWOT als Diskussionsgrundlage im Team-Meeting. Priorisiere die wichtigsten Punkte gemeinsam.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Die KI-SWOT ist ein Startpunkt, kein finales Dokument. Interne Insights vom Team sind unverzichtbar."
+      }
+    ],
+    "examples": [
+      "Vorher: Workshop + Recherche + Dokumentation = 3-4 Stunden",
+      "Nachher: Basis-Infos → SWOT generieren → Team-Review = 5 Minuten + 30min Diskussion",
+      "Ersparnis: 80% Zeitersparnis für Erst-Analyse + bessere Meeting-Vorbereitung"
+    ]
+  },
+  {
+    "title": "Competitor Analysis in 10 Minuten",
+    "description": "Erstelle eine umfassende Wettbewerbs-Analyse mit 5 Dimensionen (Produkt, Pricing, Marketing, Tech, Positioning) in nur 10 Minuten. Statt tagelang zu recherchieren, nutzt du KI für eine strukturierte Erst-Analyse.\n\n**Warum es funktioniert:** Die 5-Dimensionen-Analyse ist wie ein Battle Card Deck - du siehst auf einen Blick, wo Konkurrenten stärker/schwächer sind. KI kann öffentliche Infos (Websites, Reviews, Pressemitteilungen) strukturiert auswerten, die du manuell mühsam zusammensuchen müsstest.",
+    "category": "business",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "competitor-analysis-in-10-minuten",
+    "why_it_works": "Die 5-Dimensionen-Analyse ist wie ein Battle Card Deck - du siehst auf einen Blick, wo Konkurrenten stärker/schwächer sind. KI kann öffentliche Infos (Websites, Reviews, Pressemitteilungen) strukturiert auswerten, die du manuell mühsam zusammensuchen müsstest.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein Competitive Intelligence Analyst. Analysiere diese Konkurrenten:\n\nMein Unternehmen: [DEIN UNTERNEHMEN]\nBranche: [BRANCHE]\nKonkurrenten zu analysieren: [LISTE 3-5 KONKURRENTEN]\n\nErstelle für jeden Konkurrenten eine Analyse in 5 Dimensionen:\n\n**1. PRODUKT/SERVICE**\n- Kernprodukt & Features\n- USP (Unique Selling Proposition)\n- Produktqualität (basierend auf Reviews)\n\n**2. PRICING & GESCHÄFTSMODELL**\n- Preisstrategie (Premium/Mid-Range/Budget)\n- Geschäftsmodell (SaaS/Lizenz/Freemium etc.)\n- Value-for-Money Score (1-10)\n\n**3. MARKETING & BRANDING**\n- Positionierung & Messaging\n- Hauptkanäle (SEO/Paid/Social/etc.)\n- Brand Strength (Bekanntheit/Vertrauen)\n\n**4. TECHNOLOGIE & INNOVATION**\n- Tech-Stack (soweit bekannt)\n- Innovations-Tempo (schnell/mittel/langsam)\n- Tech-Differenzierung\n\n**5. POSITIONING & ZIELGRUPPE**\n- Hauptzielgruppe\n- Marktposition (Leader/Challenger/Niche)\n- Customer Sentiment (aus Reviews)\n\n**COMPETITIVE SUMMARY:**\nVergleichstabelle: [Dein Unternehmen] vs. [Konkurrenten] über alle 5 Dimensionen\n\n**STRATEGISCHE LÜCKEN:**\n- Was machen Konkurrenten, was du nicht tust?\n- Wo kannst du dich differenzieren?",
+    "steps_structured": [
+      {
+        "step": "Konkurrenten identifizieren",
+        "description": "Liste 3-5 Hauptkonkurrenten auf (direkte Konkurrenz, nicht angrenzende Märkte).",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Öffentliche Infos sammeln",
+        "description": "Öffne die Websites der Konkurrenten, notiere Produktseiten, Pricing-Pages und Positionierung.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Analyse generieren",
+        "description": "Füge alle Infos in das Prompt-Template ein und lasse die 5-Dimensionen-Analyse erstellen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Lücken identifizieren",
+        "description": "Fokussiere auf den 'Strategische Lücken' Teil - wo kannst du dich klar differenzieren?",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Die Analyse basiert auf öffentlichen Infos. Für tiefere Insights brauchst du Customer Interviews und Mystery Shopping."
+      }
+    ],
+    "examples": [
+      "Vorher: Website-Recherche + Preis-Vergleich + Review-Analyse = 2-3 Tage",
+      "Nachher: Basis-Infos → 5-Dimensionen-Analyse = 10 Minuten",
+      "Ersparnis: 99% Zeitersparnis für Erst-Übersicht + strukturierte Vergleichbarkeit"
+    ]
+  },
+  {
+    "title": "Marketing Campaign Brief in 8 Minuten",
+    "description": "Erstelle einen umfassenden Marketing Campaign Brief mit dem 5W+H Framework (Who, What, Where, When, Why, How) in nur 8 Minuten. Statt stundenlang Brief-Dokumente zu schreiben, nutzt du eine journalistische Struktur.\n\n**Warum es funktioniert:** Das 5W+H Framework ist wie ein Journalist-Cheat-Sheet - wenn du alle 6 Fragen beantwortest, hast du automatisch alle kritischen Infos abgedeckt. Keine Info wird vergessen, keine ist redundant.",
+    "category": "marketing",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "marketing-campaign-brief-in-8-minuten",
+    "why_it_works": "Das 5W+H Framework ist wie ein Journalist-Cheat-Sheet - wenn du alle 6 Fragen beantwortest, hast du automatisch alle kritischen Infos abgedeckt. Keine Info wird vergessen, keine ist redundant.",
+    "difficulty": "intermediate",
+    "prompt_template": "Du bist ein Marketing Campaign Manager. Erstelle einen Campaign Brief nach dem 5W+H Framework:\n\n**CAMPAIGN BASICS:**\nCampaign Name: [NAME]\nProdukt/Service: [WAS BEWORBEN WIRD]\nBudget: [BUDGET]\nZeitraum: [START - ENDE]\n\n**5W+H FRAMEWORK:**\n\n**1. WHO (Wer ist die Zielgruppe?)**\n- Primäre Persona: [Demographie + Psychographie]\n- Sekundäre Persona (falls relevant)\n- Pain Points & Motivationen\n- Wo treffen wir sie? (Kanäle)\n\n**2. WHAT (Was ist die Botschaft?)**\n- Kernbotschaft (1 Satz)\n- Key Messages (3-5 Punkte)\n- Value Proposition\n- Call-to-Action\n\n**3. WHERE (Welche Kanäle?)**\n- Primärkanäle: [z.B. Google Ads, Instagram, LinkedIn]\n- Sekundärkanäle\n- Content-Formate pro Kanal\n- Budget-Split pro Kanal\n\n**4. WHEN (Wann und in welcher Sequenz?)**\n- Campaign Timeline (Phasen: Teaser/Launch/Amplify/Retarget)\n- Key Dates & Milestones\n- Posting-Frequenz pro Kanal\n\n**5. WHY (Warum diese Campaign?)**\n- Business Objective (z.B. +20% Leads, Brand Awareness)\n- KPIs & Messkriterien\n- Erfolgs-Definition\n\n**6. HOW (Wie setzen wir um?)**\n- Creative Approach (Tone, Visuals, Style)\n- Content-Plan (Übersicht)\n- Team & Responsibilities\n- Tech-Stack & Tools\n\n**RISKS & MITIGATION:**\n- Top 3 Risiken & wie wir sie adressieren\n\n**APPROVAL & SIGN-OFF:**\n- Wer muss approven?\n- Approval-Deadline",
+    "steps_structured": [
+      {
+        "step": "Campaign-Basics definieren",
+        "description": "Kläre Name, Produkt, Budget und Zeitraum der Campaign.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Zielgruppe & Objective festlegen",
+        "description": "Definiere WHO (Zielgruppe) und WHY (Business Ziel) zuerst - das ist die Basis.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Brief generieren",
+        "description": "Füge alle Infos in das 5W+H Template ein und lasse den vollständigen Campaign Brief erstellen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Mit Stakeholdern reviewen",
+        "description": "Teile den Brief mit allen Stakeholdern (Creative, Media, Management) und hole Feedback ein.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Der Brief ist ein lebendes Dokument. Update ihn während der Campaign basierend auf Performance-Daten."
+      }
+    ],
+    "examples": [
+      "Vorher: Brief schreiben + Abstimmungen + Revisions = 3-5 Stunden",
+      "Nachher: 5W+H Framework ausfüllen → Brief generieren → Review = 8 Minuten + 30min Stakeholder-Abstimmung",
+      "Ersparnis: 90% Zeitersparnis + vollständigere Briefings (keine vergessenen Punkte)"
+    ]
+  },
+  {
+    "title": "Content Pillar Strategie in 10 Minuten",
+    "description": "Entwickle eine Content Pillar Strategie mit 3-5 Hauptthemen für 12 Monate Content in nur 10 Minuten. Statt chaotisch Content zu produzieren, nutzt du eine strukturierte Themen-Architektur für SEO und Thought Leadership.\n\n**Warum es funktioniert:** Content Pillars sind wie Säulen eines Hauses - 3-5 Hauptthemen (Pillars) tragen deine gesamte Content-Strategie. Jeder Pillar hat Sub-Topics (Cluster), die auf den Pillar verlinken. Das sorgt für topische Autorität bei Google und klare Themenschwerpunkte.",
+    "category": "marketing",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "content-pillar-strategie-in-10-minuten",
+    "why_it_works": "Content Pillars sind wie Säulen eines Hauses - 3-5 Hauptthemen (Pillars) tragen deine gesamte Content-Strategie. Jeder Pillar hat Sub-Topics (Cluster), die auf den Pillar verlinken. Das sorgt für topische Autorität bei Google und klare Themenschwerpunkte.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein Content Strategist. Entwickle eine Content Pillar Strategie:\n\nUnternehmen/Brand: [NAME]\nBranche: [BRANCHE]\nZielgruppe: [PERSONAS]\nBusiness Ziele: [ZIELE - z.B. Leads, Brand Awareness]\nHaupt-Keywords: [TOP 3-5 KEYWORDS]\n\n**CONTENT PILLAR FRAMEWORK:**\n\nDefiniere 3-5 Content Pillars (Hauptthemen), die:\n- Relevant für Zielgruppe sind\n- Business Ziele unterstützen\n- SEO-Potenzial haben\n- Deine Expertise zeigen\n\nPro Pillar:\n\n**PILLAR [Nummer]: [Thema]**\n- Core Topic: [1 Satz Beschreibung]\n- Warum relevant: [Business + Audience Fit]\n- SEO Opportunity: [Search Volume/Difficulty]\n- Format-Mix: [Blog/Video/Podcast/Infographic]\n\n**SUB-TOPICS (Cluster Content):**\n- [10-15 Sub-Topics die auf Pillar-Page verlinken]\n- Jedes Sub-Topic mit [Keyword + Intent (informational/transactional)]\n\n**PILLAR PAGE OUTLINE:**\n- Headline\n- Key Sections (H2s)\n- CTAs\n\n**12-MONTH CONTENT CALENDAR:**\n- Monat-für-Monat Plan: Welcher Pillar wann im Fokus\n- Frequenz: [X Posts pro Pillar pro Monat]\n- Cross-Channel Distribution\n\n**MEASUREMENT:**\n- KPIs pro Pillar\n- Tools für Tracking",
+    "steps_structured": [
+      {
+        "step": "Zielgruppe & Ziele definieren",
+        "description": "Kläre, für wen du Content erstellst und was du damit erreichen willst (Leads, Autorität, Traffic).",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Keyword-Recherche (optional)",
+        "description": "Nutze Tools wie Google Keyword Planner, Ahrefs oder Semrush, um Top-Keywords deiner Branche zu finden.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Content Pillars generieren",
+        "description": "Füge alle Infos in das Template ein und lasse die 3-5 Pillars mit Sub-Topics erstellen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Pillar Pages erstellen",
+        "description": "Beginne mit den Pillar Pages (umfassende, 3000+ Wort Guides) bevor du Cluster Content produzierst.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Content Pillar Strategie ist ein Marathon, kein Sprint. Plane 6-12 Monate für volle Implementierung ein."
+      }
+    ],
+    "examples": [
+      "Vorher: Content-Audit + Keyword-Recherche + Strategie-Workshop = 1-2 Wochen",
+      "Nachher: Basis-Infos → Pillar-Strategie → 12-Monats-Plan = 10 Minuten",
+      "Ersparnis: 99% Zeitersparnis für initiale Strategie + klare Content-Roadmap"
+    ]
+  },
+  {
+    "title": "Social Media Content Calendar in 5 Minuten",
+    "description": "Erstelle einen 30-Tage Social Media Content Calendar mit Themen, Formaten und Posting-Zeiten in nur 5 Minuten. Statt jeden Tag ad-hoc zu posten, nutzt du eine strategische Planung.\n\n**Warum es funktioniert:** Ein Content Calendar ist wie Meal-Prep für Social Media - du planst im Voraus, sparst tägliche Entscheidungsmüdigkeit und stellst Content-Mix sicher (Bildung/Unterhaltung/Promotion). Konsistenz > Perfektion auf Social Media.",
+    "category": "marketing",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "social-media-content-calendar-in-5-minuten",
+    "why_it_works": "Ein Content Calendar ist wie Meal-Prep für Social Media - du planst im Voraus, sparst tägliche Entscheidungsmüdigkeit und stellst Content-Mix sicher (Bildung/Unterhaltung/Promotion). Konsistenz > Perfektion auf Social Media.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein Social Media Manager. Erstelle einen 30-Tage Content Calendar:\n\n**ACCOUNT INFO:**\nPlattform(en): [Instagram/LinkedIn/Twitter/TikTok]\nBranche: [BRANCHE]\nZielgruppe: [PERSONAS]\nPosting-Frequenz: [X Posts pro Woche]\nContent Pillars: [3-5 HAUPTTHEMEN]\n\n**CONTENT-MIX REGEL (prozentual):**\n- 60% Educational (Tipps, How-Tos, Insights)\n- 30% Engaging (Fragen, Polls, User-Generated Content)\n- 10% Promotional (Produkt, Angebot, CTA)\n\n**30-TAGE CALENDAR:**\n\nErstelle für jeden Tag:\n\n**Tag [Nummer] - [Datum] - [Wochentag]**\n- Pillar: [Welches Hauptthema]\n- Content-Typ: [Educational/Engaging/Promotional]\n- Format: [Carousel/Video/Single Image/Text]\n- Hook/Headline: [Erste Zeile]\n- Key Points: [2-3 Bullet Points]\n- CTA: [Call-to-Action]\n- Best Time to Post: [Uhrzeit basierend auf Plattform]\n- Hashtags: [3-5 relevante]\n\n**CONTENT-THEMEN pro Woche:**\n- Woche 1: [Thema]\n- Woche 2: [Thema]\n- Woche 3: [Thema]\n- Woche 4: [Thema]\n\n**SPECIAL DAYS/EVENTS:**\n- Liste relevante Feiertage/Events im Monat\n- Content-Ideen dafür",
+    "steps_structured": [
+      {
+        "step": "Content Pillars definieren",
+        "description": "Lege 3-5 Hauptthemen fest, über die du regelmäßig posten möchtest (z.B. 'Tipps', 'Behind-the-Scenes', 'Customer Stories').",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Posting-Frequenz festlegen",
+        "description": "Entscheide realistisch, wie oft du posten kannst (z.B. 3x pro Woche ist besser als täglich mit Ausfällen).",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Calendar generieren",
+        "description": "Füge alle Infos in das Template ein und lasse den 30-Tage Calendar mit konkreten Post-Ideen erstellen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Content batch-produzieren",
+        "description": "Blocke 2-3 Stunden pro Woche, um Content für die nächsten 7 Tage zu erstellen (Fotos, Videos, Captions).",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Der Calendar ist ein Plan, keine Pflicht. Reagiere auf aktuelle Events und ersetze geplante Posts wenn nötig."
+      }
+    ],
+    "examples": [
+      "Vorher: Jeden Tag Content überlegen + erstellen = 30-60 Minuten täglich = 15-30h/Monat",
+      "Nachher: Monat im Voraus planen + batchen = 5 Minuten Planung + 6-8h Produktion = 50% Zeitersparnis",
+      "Ersparnis: Weniger Stress + konsistentere Posting-Frequenz + besserer Content-Mix"
+    ]
+  },
+  {
+    "title": "SEO Meta-Descriptions in 2 Minuten",
+    "description": "Schreibe klickstarke SEO Meta-Descriptions mit integriertem Call-to-Action in nur 2 Minuten. Statt generische Descriptions zu haben, nutzt du verkaufspsychologische Trigger für höhere Click-Through-Rates.\n\n**Warum es funktioniert:** Meta-Descriptions sind wie Mini-Werbeanzeigen in Google - sie beeinflussen nicht das Ranking, aber die Click-Through-Rate (CTR). Eine gute Description mit Benefit + Dringlichkeit + CTA kann CTR um 20-30% erhöhen.",
+    "category": "marketing",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "seo-meta-descriptions-in-2-minuten",
+    "why_it_works": "Meta-Descriptions sind wie Mini-Werbeanzeigen in Google - sie beeinflussen nicht das Ranking, aber die Click-Through-Rate (CTR). Eine gute Description mit Benefit + Dringlichkeit + CTA kann CTR um 20-30% erhöhen.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein SEO Copywriter. Schreibe 3 Meta-Description Varianten:\n\n**PAGE INFO:**\nSeiten-URL: [URL]\nTarget Keyword: [HAUPTKEYWORD]\nSeiten-Inhalt (kurz): [WORUM GEHTS]\nZielgruppe: [WER SUCHT DANACH]\n\n**META-DESCRIPTION REGELN:**\n- Max 155 Zeichen (Google cutoff)\n- Keyword am Anfang integrieren\n- Benefit-orientiert (nicht feature-orientiert)\n- Call-to-Action am Ende\n- Aktionsverben nutzen\n- Optional: Emoji für Eye-Catching\n\n**ERSTELLE 3 VARIANTEN:**\n\n**Variante 1: Problem-Lösung Approach**\n\"[Problem]? [Lösung mit Keyword]. [Benefit] [CTA]\"\n\n**Variante 2: Listicle/Number Approach**\n\"[Zahl] [Keyword] die [Ergebnis]. [Benefit] [CTA]\"\n\n**Variante 3: Social Proof Approach**\n\"[Keyword]: [Social Proof Element]. [Benefit] [CTA]\"\n\nMarkiere für jede Variante:\n- Zeichenlänge\n- Primary Keyword (ja/nein)\n- Emoji (falls verwendet)",
+    "steps_structured": [
+      {
+        "step": "Seite und Keyword identifizieren",
+        "description": "Wähle die Seite, für die du eine Meta-Description brauchst, und das Target Keyword.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Benefit definieren",
+        "description": "Überlege, was der Nutzer auf dieser Seite bekommt (nicht was die Seite enthält, sondern was der Nutzer davon hat).",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "3 Varianten generieren",
+        "description": "Füge alle Infos in das Template ein und lasse 3 verschiedene Meta-Descriptions erstellen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Beste Variante wählen",
+        "description": "Wähle die Description, die am besten zum Suchergebnis-Umfeld passt. A/B-teste nach 2-3 Monaten.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Google überschreibt manchmal Meta-Descriptions. Wenn das passiert, analysiere warum und passe an."
+      }
+    ],
+    "examples": [
+      "Vorher: Pro Seite Meta-Description schreiben = 5-10 Minuten x 20 Seiten = 2-3 Stunden",
+      "Nachher: Batch-Erstellung für 20 Seiten = 2 Minuten pro Seite = 40 Minuten",
+      "Ersparnis: 77% Zeitersparnis + verkaufspsychologisch optimiert"
+    ]
+  },
+  {
+    "title": "Research Paper Summary in 90 Sekunden",
+    "description": "Fasse wissenschaftliche Paper mit der Pyramiden-Methode in nur 90 Sekunden zusammen. Statt stundenlang komplexe Studien zu lesen, extrahierst du die Kernaussagen strukturiert.\n\n**Warum es funktioniert:** Die Pyramiden-Methode ist wie ein Trichter - von breit (Kontext) zu spitz (Kernaussage). Du startest mit 'Was wurde untersucht?', gehst zu 'Was wurde gefunden?' und endest bei 'Was bedeutet das?'. Perfekt für schnelles Wissens-Skimming.",
+    "category": "learning",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "research-paper-summary-in-90-sekunden",
+    "why_it_works": "Die Pyramiden-Methode ist wie ein Trichter - von breit (Kontext) zu spitz (Kernaussage). Du startest mit 'Was wurde untersucht?', gehst zu 'Was wurde gefunden?' und endest bei 'Was bedeutet das?'. Perfekt für schnelles Wissens-Skimming.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein Wissenschafts-Redakteur. Fasse dieses Research Paper nach der Pyramiden-Methode zusammen:\n\n[FÜGE ABSTRACT/KEY SECTIONS DES PAPERS HIER EIN]\n\n**PYRAMIDEN-STRUKTUR:**\n\n**EBENE 1: KONTEXT (1-2 Sätze)**\n- Was ist der Forschungsbereich?\n- Warum ist das Thema relevant?\n\n**EBENE 2: FORSCHUNGSFRAGE (1 Satz)**\n- Was wollten die Autoren herausfinden?\n\n**EBENE 3: METHODIK (1 Satz)**\n- Wie wurde geforscht? (Studiendesign, Stichprobe)\n\n**EBENE 4: HAUPTERGEBNISSE (2-3 Bullet Points)**\n- Key Finding 1\n- Key Finding 2\n- Key Finding 3\n\n**EBENE 5: KERNAUSSAGE (1 Satz)**\n- Die wichtigste Erkenntnis in einem Satz\n\n**EBENE 6: IMPLIKATIONEN (1-2 Sätze)**\n- Was bedeutet das für die Praxis?\n- Was sind die nächsten Schritte?\n\n**LIMITATIONEN (1 Satz):**\n- Wichtigste Einschränkung der Studie\n\nMax 150 Wörter gesamt.",
+    "steps_structured": [
+      {
+        "step": "Paper oder Abstract kopieren",
+        "description": "Kopiere das Abstract oder die wichtigsten Sections (Introduction, Results, Conclusion) des Papers.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Summary generieren",
+        "description": "Füge den Text in das Pyramiden-Template ein und lasse die strukturierte Zusammenfassung erstellen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Kernaussage verifizieren",
+        "description": "Prüfe, ob die Kernaussage (Ebene 5) tatsächlich die Haupterkenntnis ist. Lies dafür die Conclusion des Papers.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Für spätere Nutzung speichern",
+        "description": "Speichere die Summary in deinem Wissensmanagement-System (Notion, Obsidian, etc.) mit Link zum Original-Paper.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Die Summary ersetzt nicht das Lesen des vollständigen Papers, wenn du Details brauchst. Nutze sie für initiales Screening."
+      }
+    ],
+    "examples": [
+      "Vorher: Paper komplett lesen + Notizen machen = 45-90 Minuten",
+      "Nachher: Abstract + Key Sections → Pyramiden-Summary = 90 Sekunden",
+      "Ersparnis: 98% Zeitersparnis für initiales Paper-Screening"
+    ]
+  },
+  {
+    "title": "Value Proposition in 3 Minuten",
+    "description": "Formuliere eine klare Value Proposition mit der We-Help-By Formel in nur 3 Minuten. Statt vage 'Wir sind die Besten' zu sagen, kommunizierst du konkret, wem du wie hilfst.\n\n**Warum es funktioniert:** Die We-Help-By Formel ist wie ein Elevator Pitch Blueprint - sie zwingt dich, konkret zu sein: 'Wir helfen [Zielgruppe] [Problem zu lösen] durch [Lösung/Methode]'. Keine Floskeln, nur messbare Aussagen.",
+    "category": "business",
+    "tools": ["ChatGPT", "Claude", "Gemini"],
+    "slug": "value-proposition-in-3-minuten",
+    "why_it_works": "Die We-Help-By Formel ist wie ein Elevator Pitch Blueprint - sie zwingt dich, konkret zu sein: 'Wir helfen [Zielgruppe] [Problem zu lösen] durch [Lösung/Methode]'. Keine Floskeln, nur messbare Aussagen.",
+    "difficulty": "beginner",
+    "prompt_template": "Du bist ein Value Proposition Experte. Formuliere eine klare Value Proposition nach der We-Help-By Formel:\n\n**PRODUKT/SERVICE INFO:**\nWas wir anbieten: [PRODUKT/SERVICE]\nZielgruppe: [SPEZIFISCHE ZIELGRUPPE]\nHauptproblem das wir lösen: [PROBLEM]\nWie wir es lösen: [METHODE/ANSATZ]\nMessbares Ergebnis: [OUTCOME - z.B. 30% mehr Umsatz, 10h/Woche gespart]\n\n**ERSTELLE 3 VERSIONEN:**\n\n**Version 1: Klassische We-Help-By Formel**\n\"Wir helfen [Zielgruppe] [Problem zu lösen] durch [Lösung], sodass [messbares Ergebnis].\"\n\n**Version 2: Outcome-First (für Homepage Hero)**\n\"[Messbares Ergebnis] für [Zielgruppe] - [Wie wir das erreichen].\"\n\n**Version 3: Differentiation-Focus (für Wettbewerbs-Positionierung)**\n\"Im Gegensatz zu [Alternative], helfen wir [Zielgruppe] [Problem zu lösen] durch [Unique Approach].\"\n\n**ZUSÄTZLICH:**\n- 3 Sub-Headlines (Supporting Points)\n- Social Proof Element (falls verfügbar)\n- Call-to-Action Vorschlag",
+    "steps_structured": [
+      {
+        "step": "Problem-Lösung-Ergebnis klären",
+        "description": "Definiere konkret: Welches Problem löst du? Wie löst du es? Was ist das messbare Ergebnis?",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Zielgruppe spezifizieren",
+        "description": "Nicht 'Unternehmen' sondern 'B2B SaaS Startups mit 10-50 Mitarbeitern'. Je spezifischer, desto besser.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "3 Versionen generieren",
+        "description": "Füge alle Infos in das Template ein und lasse 3 verschiedene Value Propositions erstellen.",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": null
+      },
+      {
+        "step": "Mit Kunden testen",
+        "description": "Zeige die Value Props 5-10 Kunden/Prospects und frage: 'Ist klar, was wir machen? Klingt das relevant für dich?'",
+        "image_url": null,
+        "code_snippet": null,
+        "warning": "Die beste Value Prop nutzt die Sprache deiner Kunden, nicht dein internes Jargon. Validiere immer mit echten Kunden."
+      }
+    ],
+    "examples": [
+      "Vorher: Workshops + Iterationen + Stakeholder-Alignment = 2-3 Wochen",
+      "Nachher: We-Help-By Framework anwenden → 3 Versionen → Customer Feedback = 3 Minuten + 1-2h Validierung",
+      "Ersparnis: 95% Zeitersparnis für erste Version + klare Testing-Hypothesen"
+    ]
+  }
+]

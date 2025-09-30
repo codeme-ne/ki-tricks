@@ -1,0 +1,163 @@
+{
+  "scrape_date": "2025-09-30",
+  "total_sources": 15,
+  "scraping_strategy": "3-Phase Omnisearch approach based on Gemini 2.5 Pro analysis",
+  "sources": [
+    {
+      "phase": 1,
+      "type": "perplexity",
+      "query": "Best ChatGPT prompts for marketing professionals in 2025",
+      "content_preview": "Marketing prompt examples for email marketing, social media, content creation, SEO optimization",
+      "notes": "High-quality structured prompts for business use cases"
+    },
+    {
+      "phase": 1,
+      "type": "perplexity",
+      "query": "ChatGPT workflow templates for business content creation",
+      "content_preview": "Step-by-step workflow templates for newsletters, blog posts, social media campaigns",
+      "notes": "Process-oriented content, good for step-by-step tricks"
+    },
+    {
+      "phase": 1,
+      "type": "perplexity",
+      "query": "AI productivity hacks for newsletters and email writing",
+      "content_preview": "Automation strategies, template creation, personalization techniques",
+      "notes": "Time-saving focus, perfect for productivity category"
+    },
+    {
+      "phase": 1,
+      "type": "perplexity",
+      "query": "ChatGPT prompts for small business owners without technical knowledge",
+      "content_preview": "Beginner-friendly prompts for copywriting, social media, customer service",
+      "notes": "Explicitly non-technical, matches target audience perfectly"
+    },
+    {
+      "phase": 2,
+      "type": "brave",
+      "query": "site:reddit.com/r/ChatGPT prompt templates workflow",
+      "results_count": 6,
+      "top_results": [
+        "r/ChatGPTPromptGenius - community for prompt sharing",
+        "Reddit threads about business prompt templates",
+        "User-validated workflow discussions"
+      ],
+      "notes": "Community-validated content, high practical value"
+    },
+    {
+      "phase": 2,
+      "type": "brave",
+      "query": "site:reddit.com/r/Claude useful prompts marketing",
+      "results_count": 15,
+      "top_results": [
+        "Market research prompt frameworks",
+        "Marketing strategy templates",
+        "Claude-specific prompt structures"
+      ],
+      "notes": "Claude-focused content for multi-tool coverage"
+    },
+    {
+      "phase": 2,
+      "type": "brave",
+      "query": "Zapier ChatGPT automation tutorials for beginners",
+      "results_count": 10,
+      "notes": "While Zapier tutorials, focus on ChatGPT prompts and workflows"
+    },
+    {
+      "phase": 2,
+      "type": "brave",
+      "query": "Claude AI prompt templates for marketing copywriting",
+      "results_count": 10,
+      "notes": "Marketing-focused Claude prompts"
+    },
+    {
+      "phase": 3,
+      "type": "github",
+      "query": "awesome chatgpt prompts language:markdown",
+      "results_count": 10,
+      "top_repository": "f/awesome-chatgpt-prompts",
+      "notes": "Massive collection, but too large to scrape directly (45K tokens)"
+    },
+    {
+      "phase": 3,
+      "type": "jina_reader",
+      "url": "https://www.godofprompt.ai/blog/chatgpt-prompts-for-small-businesses",
+      "word_count": 4267,
+      "content_type": "Business prompts with examples",
+      "key_sections": [
+        "20 ChatGPT prompts for small business owners",
+        "Marketing & Sales prompts",
+        "Customer Service prompts",
+        "Operations & Management prompts",
+        "Finance & Accounting prompts"
+      ],
+      "quality": "high",
+      "target_audience_match": "excellent - explicitly for non-technical business owners",
+      "notes": "Perfect source - beginner-friendly, ready-to-use templates, real business use cases"
+    },
+    {
+      "phase": 3,
+      "type": "jina_reader",
+      "url": "https://blog.hubspot.com/marketing/chatgpt-prompts",
+      "word_count": 3976,
+      "title": "33 ChatGPT prompts I keep in my toolkit",
+      "author": "Experienced HubSpot marketer",
+      "key_sections": [
+        "Marketing strategy prompts",
+        "Content creation prompts",
+        "SEO optimization prompts",
+        "Email marketing prompts",
+        "Social media prompts"
+      ],
+      "quality": "high",
+      "target_audience_match": "excellent - marketing professionals without code",
+      "notes": "Professional marketer's actual toolkit - battle-tested prompts"
+    },
+    {
+      "phase": 3,
+      "type": "jina_reader",
+      "url": "https://www.socialpilot.co/blog/chatgpt-prompts-for-social-media",
+      "word_count": 8714,
+      "title": "75+ Smart ChatGPT Prompts for Social Media Marketers",
+      "key_sections": [
+        "Content creation prompts",
+        "Caption writing prompts",
+        "Hashtag research prompts",
+        "Engagement optimization prompts",
+        "Analytics & reporting prompts",
+        "Platform-specific prompts (LinkedIn, Instagram, Twitter, Facebook)"
+      ],
+      "quality": "high",
+      "target_audience_match": "excellent - social media marketers",
+      "notes": "Largest collection, highly structured, platform-specific examples"
+    }
+  ],
+  "content_statistics": {
+    "total_word_count": 16957,
+    "high_quality_articles": 3,
+    "community_sources": 2,
+    "search_results": 10,
+    "primary_categories": [
+      "marketing",
+      "content-creation",
+      "business",
+      "productivity",
+      "social-media"
+    ]
+  },
+  "transformation_notes": {
+    "winning_template_from_gemini": {
+      "title_format": "[Ergebnis] + [Geschwindigkeit]",
+      "intro": "Problem → Solution",
+      "why_it_works": "[Fachbegriff]: [Vereinfachung] + Analogie",
+      "steps": "Imperative verbs, workflow (not code)",
+      "examples": "Vorher/Nachher with time savings",
+      "prompt_template": "Ready-to-use with [PLACEHOLDERS]"
+    },
+    "filtering_criteria": {
+      "1_conceptual_without_code": "No API, JSON, tokens, technical terms",
+      "2_achievable_in_web_ui": "Copy-paste ready in Claude.ai/ChatGPT",
+      "3_target_audience_relevant": "Solves marketing/business/content problems for absolute beginners"
+    },
+    "estimated_output": "20-30 beginner-friendly tricks after filtering and transformation"
+  }
+}

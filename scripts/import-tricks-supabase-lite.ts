@@ -14,6 +14,15 @@ type Trick = {
   slug?: string
   why_it_works?: string
   ['Warum es funktioniert']?: string
+  difficulty?: 'beginner' | 'intermediate' | 'advanced'
+  prompt_template?: string
+  steps_structured?: Array<{
+    step: string
+    description?: string
+    image_url?: string | null
+    code_snippet?: string | null
+    warning?: string | null
+  }>
 }
 
 const validCategories = new Set([
@@ -73,11 +82,29 @@ function normalize(input: Trick, idx: number) {
     (input['Warum es funktioniert'] && String(input['Warum es funktioniert']).trim()) ||
     why || `Dieser Trick nutzt KI gezielt, um "${title}" effizienter umzusetzen.`
 
+  // New fields from schema migration
+  const difficulty = input.difficulty || 'beginner'
+  const prompt_template = input.prompt_template || null
+  const steps_structured = input.steps_structured || null
+
   if (errors.length) return { ok: false as const, errors, idx }
 
   return {
     ok: true as const,
-    data: { title, description, category, tools, steps, examples, slug, why_it_works }
+    data: {
+      title,
+      description,
+      category,
+      tools,
+      // Note: 'steps' column was renamed to '_steps_deprecated' in migration
+      // We now use 'steps_structured' instead
+      examples,
+      slug,
+      why_it_works,
+      difficulty,
+      prompt_template,
+      steps_structured
+    }
   }
 }
 
@@ -103,7 +130,11 @@ async function main() {
     envContent.split('\n').forEach(line => {
       const [key, ...valueParts] = line.split('=')
       if (key && valueParts.length > 0) {
-        const value = valueParts.join('=')?.trim()
+        let value = valueParts.join('=')?.trim()
+        // Remove surrounding quotes if present
+        if (value && ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'")))) {
+          value = value.slice(1, -1)
+        }
         if (!process.env[key.trim()] && value) process.env[key.trim()] = value
       }
     })
@@ -174,6 +205,44 @@ async function main() {
 
   console.log(`✅ Imported/updated ${data?.length || 0} records.`)
   ;(data || []).forEach((r: any) => console.log(`   ✓ ${r.slug} — ${r.title}`))
+
+  // Trigger cache revalidation on Vercel
+  await triggerRevalidation()
+}
+
+async function triggerRevalidation() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  const revalidationSecret = process.env.REVALIDATION_SECRET
+  
+  if (!revalidationSecret) {
+    console.warn('⚠️  REVALIDATION_SECRET not set - skipping cache revalidation')
+    return
+  }
+
+  console.log('
+🔄 Triggering cache revalidation...')
+  
+  try {
+    const response = await fetch(`${siteUrl}/api/revalidate`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${revalidationSecret}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ path: '/tricks' })
+    })
+
+    if (response.ok) {
+      const result = await response.json()
+      console.log('✅ Cache revalidated successfully')
+      console.log(`   Timestamp: ${new Date(result.now).toLocaleString('de-DE')}`)
+    } else {
+      console.warn(`⚠️  Revalidation failed: ${response.status} ${response.statusText}`)
+    }
+  } catch (error) {
+    console.warn('⚠️  Failed to trigger revalidation:', error instanceof Error ? error.message : error)
+    console.log('   Tricks are imported but cache will update after 60 seconds (ISR)')
+  }
 }
 
 main()

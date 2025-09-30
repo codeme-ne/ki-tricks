@@ -37,6 +37,8 @@ export const metadata: Metadata = {
     type: 'website',
   },
 }
+// Enable ISR: Revalidate every 60 seconds
+export const revalidate = 60
 
 export default async function HomePage() {
   // Calculate dynamic statistics from Supabase
