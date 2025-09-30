@@ -24,12 +24,12 @@ export default function PromptOptimizerPage() {
         {/* Info Box */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
           <h2 className="text-lg font-semibold text-blue-900 mb-3">
-            Wie funktioniert's?
+            Wie funktioniert&apos;s?
           </h2>
           <ul className="space-y-2 text-sm text-blue-800">
             <li className="flex items-start gap-2">
               <span className="text-blue-600 font-bold mt-0.5">1.</span>
-              <span>Gib deinen simplen Prompt ein (z.B. "Schreibe einen Blogpost über KI")</span>
+              <span>Gib deinen simplen Prompt ein (z.B. &ldquo;Schreibe einen Blogpost über KI&rdquo;)</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-600 font-bold mt-0.5">2.</span>
