@@ -25,6 +25,15 @@ export interface KITrick {
   created_at: string
   updated_at: string
   published_at?: string | null
+  difficulty?: 'beginner' | 'intermediate' | 'advanced'
+  prompt_template?: string | null
+  steps_structured?: Array<{
+    step: string
+    description?: string
+    image_url?: string | null
+    code_snippet?: string | null
+    warning?: string | null
+  }> | null
 }
 
 // Filter Types

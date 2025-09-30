@@ -95,7 +95,10 @@ export default async function TrickDetailPage({ params }: PageProps) {
     view_count: trickData.view_count || 0,
     created_at: trickData.created_at,
     updated_at: trickData.updated_at,
-    published_at: trickData.published_at || null
+    published_at: trickData.published_at || null,
+    difficulty: trickData.difficulty || 'beginner',
+    prompt_template: trickData.prompt_template || null,
+    steps_structured: trickData.steps_structured || null
   };
 
   // Track page view
@@ -163,11 +166,49 @@ export default async function TrickDetailPage({ params }: PageProps) {
         )}
 
 
+        {/* Prompt Template */}
+        {trick.prompt_template && (
+          <section className="py-10 md:py-12 border-t border-border">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">Prompt Template</h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              Kopiere dieses Template und fülle die Platzhalter aus:
+            </p>
+            <div className="bg-muted/50 rounded-lg p-6 border-l-4 border-primary">
+              <pre className="whitespace-pre-wrap text-sm leading-relaxed font-mono">
+                {trick.prompt_template}
+              </pre>
+            </div>
+          </section>
+        )}
+
         {/* Steps */}
         <section className="py-12 md:py-16">
           <div id="schritt-fuer-schritt" className="scroll-mt-24 sm:scroll-mt-32">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8">Schritt-für-Schritt Anleitung</h2>
-            {trick.steps && trick.steps.length > 0 ? (
+            {trick.steps_structured && trick.steps_structured.length > 0 ? (
+              <div className="space-y-8">
+                {trick.steps_structured.map((step, idx) => (
+                  <div key={idx} className="border-l-4 border-primary pl-6">
+                    <h3 className="text-xl font-bold mb-3 text-foreground">{step.step}</h3>
+                    {step.description && (
+                      <p className="text-muted-foreground leading-relaxed mb-4">{step.description}</p>
+                    )}
+                    {step.code_snippet && (
+                      <pre className="bg-muted p-4 rounded-lg overflow-x-auto mb-4">
+                        <code className="text-sm">{step.code_snippet}</code>
+                      </pre>
+                    )}
+                    {step.warning && (
+                      <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 rounded">
+                        <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                          <strong>⚠️ Hinweis:</strong> {step.warning}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : trick.steps && trick.steps.length > 0 ? (
               <div className="space-y-5 sm:space-y-6">
                 {trick.steps.map((step, idx) => (
                   <div key={idx}>
@@ -187,11 +228,10 @@ export default async function TrickDetailPage({ params }: PageProps) {
           <div id="beispiele" className="scroll-mt-24 sm:scroll-mt-32">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8">Praktische Beispiele</h2>
             {trick.examples && trick.examples.length > 0 ? (
-              <div className="space-y-5 sm:space-y-6">
+              <div className="grid gap-6 md:grid-cols-3">
                 {trick.examples.map((example, idx) => (
-                  <div key={idx}>
-                    <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Beispiel {idx + 1}</h3>
-                    <p className="text-muted-foreground leading-relaxed text-base">{example}</p>
+                  <div key={idx} className="bg-muted/50 rounded-lg p-6 border border-border">
+                    <p className="text-foreground leading-relaxed">{example}</p>
                   </div>
                 ))}
               </div>
