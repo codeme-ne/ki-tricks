@@ -15,7 +15,7 @@ interface Particle {
   life: number
 }
 
-export const SearchBar: React.FC<SearchBarProps> = React.memo(({
+const SearchBarComponent: React.FC<SearchBarProps> = ({
   value = '',
   onChange,
   onDebouncedChange,
@@ -409,4 +409,8 @@ export const SearchBar: React.FC<SearchBarProps> = React.memo(({
       )}
     </div>
   )
-})
+}
+
+SearchBarComponent.displayName = 'SearchBar'
+
+export const SearchBar = React.memo(SearchBarComponent)
