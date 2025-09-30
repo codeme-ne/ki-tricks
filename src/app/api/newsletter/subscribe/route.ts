@@ -21,11 +21,18 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { email, source, leadMagnet } = subscribeSchema.parse(body)
 
-    // Initialize Supabase client
+    // Initialize Supabase client with service role to bypass RLS
     const supabase = await createClient()
+    
+    // Create service role client for insert (bypasses RLS)
+    const { createClient: createServiceClient } = await import('@supabase/supabase-js')
+    const supabaseAdmin = createServiceClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    )
 
     // Check if email already exists
-    const { data: existingSubscriber, error: checkError } = await supabase
+    const { data: existingSubscriber, error: checkError } = await supabaseAdmin
       .from('newsletter_subscribers')
       .select('id, status')
       .eq('email', email)
@@ -45,7 +52,7 @@ export async function POST(request: NextRequest) {
 
       // If unsubscribed, reactivate
       if (existingSubscriber.status === 'unsubscribed') {
-        const { error: updateError } = await supabase
+        const { error: updateError } = await supabaseAdmin
           .from('newsletter_subscribers')
           .update({
             status: 'active',
@@ -70,7 +77,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Add to Supabase first (we need the ID for token generation)
-    const { data: newSubscriber, error: insertError } = await supabase
+    const { data: newSubscriber, error: insertError } = await supabaseAdmin
       .from('newsletter_subscribers')
       .insert({
         email,
@@ -100,7 +107,7 @@ export async function POST(request: NextRequest) {
     const unsubscribeToken = generateUnsubscribeToken(email, newSubscriber.id)
 
     // Store token in database
-    const { error: tokenUpdateError } = await supabase
+    const { error: tokenUpdateError } = await supabaseAdmin
       .from('newsletter_subscribers')
       .update({ verification_token: unsubscribeToken })
       .eq('id', newSubscriber.id)
@@ -130,7 +137,7 @@ export async function POST(request: NextRequest) {
 
         // Store Resend contact ID if available
         if (emailData?.id) {
-          await supabase
+          await supabaseAdmin
             .from('newsletter_subscribers')
             .update({ resend_contact_id: emailData.id })
             .eq('id', newSubscriber.id)
