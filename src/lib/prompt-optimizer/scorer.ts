@@ -128,7 +128,7 @@ function scoreExamples(prompt: string): DimensionScore {
   if (headerExamples) exampleCount += headerExamples.length;
   
   // Pattern 3: Input/Output patterns
-  const ioPatterns = prompt.match(/(?:eingabe|input|frage|question)[:\s]*.*?(?:ausgabe|output|antwort|answer)/gis);
+  const ioPatterns = prompt.match(/(?:eingabe|input|frage|question)[:\s]*[\s\S]*?(?:ausgabe|output|antwort|answer)/gi);
   if (ioPatterns) exampleCount += ioPatterns.length;
   
   // Pattern 4: Email examples (Betreff:)

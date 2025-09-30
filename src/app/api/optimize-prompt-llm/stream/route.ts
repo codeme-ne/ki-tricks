@@ -270,8 +270,7 @@ export async function POST(req: NextRequest) {
                 weaknesses: parsed.weaknesses,
                 improvements: parsed.improvements,
                 optimizedPrompt: parsed.optimizedPrompt,
-                overallScore,
-                thinkingProcess: thinkingContent
+                overallScore
               });
 
               // Update current prompt for next round

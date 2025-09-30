@@ -677,7 +677,7 @@ function enhanceExamplesDetail(
   if (prompt.includes('# Beispiele')) {
     // Already has examples section - enhance it
     return prompt.replace(
-      /# Beispiele\n\n.*?\n\n/s,
+      /# Beispiele\n\n[\s\S]*?\n\n/,
       `# Beispiele
 
 **Beispiel 1 (Einfach):**
@@ -811,7 +811,7 @@ Konzentriere dich auf:
 function enhanceOutputFormat(prompt: string): string {
   if (prompt.includes('# Gewünschtes Output-Format')) {
     return prompt.replace(
-      /# Gewünschtes Output-Format\n\n.*?\n\n/s,
+      /# Gewünschtes Output-Format\n\n[\s\S]*?\n\n/,
       `# Gewünschtes Output-Format
 
 Deine Antwort muss folgende Kriterien erfüllen:
