@@ -14,8 +14,8 @@ const rateLimiter = new Ratelimit({
 export async function middleware(request: NextRequest) {
   // Rate limiting for LLM API endpoints
   if (request.nextUrl.pathname.startsWith('/api/optimize-prompt-llm')) {
-    // Get IP address for rate limiting
-    const ip = request.ip ?? request.headers.get('x-forwarded-for') ?? 'anonymous'
+    // Get IP address for rate limiting (Next.js 15 uses headers only)
+    const ip = request.headers.get('x-forwarded-for') ?? request.headers.get('x-real-ip') ?? 'anonymous'
 
     // Check rate limit
     const { success, limit, reset, remaining } = await rateLimiter.limit(ip)
