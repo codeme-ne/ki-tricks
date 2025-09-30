@@ -59,6 +59,20 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     }
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      // Sofort den aktuellen Wert an debounced Change weitergeben
+      if (onDebouncedChange) {
+        onDebouncedChange(value)
+      }
+      // Optional: Blur to close mobile keyboard
+      if (inputRef.current) {
+        inputRef.current.blur()
+      }
+    }
+  }
+
   // Create particles when typing (glowing variant only, disabled on mobile)
   useEffect(() => {
     if (variant === 'glowing' && isTyping && isFocused && !isMobile && !shouldReduceMotion) {
@@ -139,6 +153,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               type="text"
               value={value}
               onChange={(e) => onChange?.(e.target.value)}
+              onKeyDown={handleKeyDown}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               placeholder={placeholder}
@@ -278,6 +293,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               type="text"
               value={value}
               onChange={(e) => onChange?.(e.target.value)}
+              onKeyDown={handleKeyDown}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               placeholder={placeholder}
@@ -362,6 +378,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         type="text"
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
+        onKeyDown={handleKeyDown}
         placeholder={placeholder}
         className="w-full pl-10 pr-10 py-3 bg-white border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 transition-all duration-200 hover:border-neutral-300 text-neutral-900 placeholder-neutral-400"
         aria-describedby="search-help"
