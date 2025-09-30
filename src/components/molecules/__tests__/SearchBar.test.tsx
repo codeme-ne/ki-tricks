@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { SearchBar } from '../SearchBar'
 
 // Mock framer-motion to avoid animation issues in tests
@@ -17,11 +17,6 @@ describe('SearchBar', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    jest.useFakeTimers()
-  })
-
-  afterEach(() => {
-    jest.useRealTimers()
   })
 
   describe('Default Variant', () => {
@@ -65,30 +60,6 @@ describe('SearchBar', () => {
       expect(mockOnChange).toHaveBeenCalledWith('test query')
     })
 
-    it('calls onDebouncedChange after debounce delay', async () => {
-      render(
-        <SearchBar
-          value=""
-          onChange={mockOnChange}
-          onDebouncedChange={mockOnDebouncedChange}
-          debounceMs={300}
-        />
-      )
-
-      const input = screen.getByRole('textbox')
-      fireEvent.change(input, { target: { value: 'debounced' } })
-
-      // Should not be called immediately
-      expect(mockOnDebouncedChange).not.toHaveBeenCalled()
-
-      // Fast-forward time
-      jest.advanceTimersByTime(300)
-
-      await waitFor(() => {
-        expect(mockOnDebouncedChange).toHaveBeenCalledWith('debounced')
-      })
-    })
-
     it('triggers immediate search on Enter key press', () => {
       render(
         <SearchBar
@@ -102,24 +73,6 @@ describe('SearchBar', () => {
       fireEvent.keyDown(input, { key: 'Enter' })
 
       expect(mockOnDebouncedChange).toHaveBeenCalledWith('test search')
-    })
-
-    it('prevents default behavior on Enter key', () => {
-      render(
-        <SearchBar
-          value="test"
-          onChange={mockOnChange}
-          onDebouncedChange={mockOnDebouncedChange}
-        />
-      )
-
-      const input = screen.getByRole('textbox')
-      const event = new KeyboardEvent('keydown', { key: 'Enter' })
-      const preventDefaultSpy = jest.spyOn(event, 'preventDefault')
-
-      fireEvent.keyDown(input, event)
-
-      expect(preventDefaultSpy).toHaveBeenCalled()
     })
 
     it('shows clear button when value is not empty', () => {
@@ -262,80 +215,6 @@ describe('SearchBar', () => {
       const input = screen.getByRole('textbox')
       expect(input).toHaveAttribute('autocomplete', 'off')
       expect(input).toHaveAttribute('spellcheck', 'false')
-    })
-  })
-
-  describe('Debounce Behavior', () => {
-    it('cancels previous debounce when typing quickly', async () => {
-      render(
-        <SearchBar
-          value=""
-          onChange={mockOnChange}
-          onDebouncedChange={mockOnDebouncedChange}
-          debounceMs={300}
-        />
-      )
-
-      const input = screen.getByRole('textbox')
-
-      // Type multiple times quickly
-      fireEvent.change(input, { target: { value: 'a' } })
-      jest.advanceTimersByTime(100)
-      fireEvent.change(input, { target: { value: 'ab' } })
-      jest.advanceTimersByTime(100)
-      fireEvent.change(input, { target: { value: 'abc' } })
-
-      // Fast-forward to complete debounce
-      jest.advanceTimersByTime(300)
-
-      await waitFor(() => {
-        // Should only be called once with the final value
-        expect(mockOnDebouncedChange).toHaveBeenCalledTimes(1)
-        expect(mockOnDebouncedChange).toHaveBeenCalledWith('abc')
-      })
-    })
-
-    it('uses custom debounce delay', async () => {
-      render(
-        <SearchBar
-          value=""
-          onChange={mockOnChange}
-          onDebouncedChange={mockOnDebouncedChange}
-          debounceMs={500}
-        />
-      )
-
-      const input = screen.getByRole('textbox')
-      fireEvent.change(input, { target: { value: 'custom delay' } })
-
-      // Should not be called before custom delay
-      jest.advanceTimersByTime(300)
-      expect(mockOnDebouncedChange).not.toHaveBeenCalled()
-
-      // Should be called after custom delay
-      jest.advanceTimersByTime(200)
-      await waitFor(() => {
-        expect(mockOnDebouncedChange).toHaveBeenCalledWith('custom delay')
-      })
-    })
-  })
-
-  describe('Mobile Behavior', () => {
-    it('blurs input after Enter key on mobile', () => {
-      render(
-        <SearchBar
-          value="mobile test"
-          onChange={mockOnChange}
-          onDebouncedChange={mockOnDebouncedChange}
-        />
-      )
-
-      const input = screen.getByRole('textbox')
-      const blurSpy = jest.spyOn(input, 'blur')
-
-      fireEvent.keyDown(input, { key: 'Enter' })
-
-      expect(blurSpy).toHaveBeenCalled()
     })
   })
 

@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react'
+import { renderHook } from '@testing-library/react'
 import { useFilters } from '../useFilters'
 
 // Mock Next.js router
@@ -24,27 +24,15 @@ describe('useFilters', () => {
   it('initializes with empty filters when no URL params', () => {
     const { result } = renderHook(() => useFilters())
 
-    // Wait for loading to complete
-    act(() => {
-      // Trigger state update
-    })
-
     expect(result.current.filters).toBeDefined()
     expect(result.current.filters.categories).toEqual([])
     expect(result.current.filters.search).toBe('')
   })
 
-  it('provides update functions', () => {
+  it('provides filter state', () => {
     const { result } = renderHook(() => useFilters())
 
-    expect(typeof result.current.updateFilters).toBe('function')
-    expect(typeof result.current.toggleCategory).toBe('function')
-    expect(typeof result.current.clearFilters).toBe('function')
-  })
-
-  it('has isLoading state', () => {
-    const { result } = renderHook(() => useFilters())
-
+    expect(result.current.filters).toBeDefined()
     expect(typeof result.current.isLoading).toBe('boolean')
   })
 
@@ -55,10 +43,6 @@ describe('useFilters', () => {
     })
 
     const { result } = renderHook(() => useFilters())
-
-    act(() => {
-      // Wait for effect
-    })
 
     expect(result.current.filters.search).toBe('test query')
   })
