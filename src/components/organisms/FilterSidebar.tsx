@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { X, Filter, RotateCcw } from 'lucide-react'
 import { FilterSidebarProps, Category, EMPTY_FILTER_STATE } from '@/lib/types/types'
 import { categoryMetadata } from '@/lib/types/types'
 import { createFilterHandler, countActiveFilters } from '@/lib/utils/utils'
 import { Button, Checkbox, FilterSection } from '@/components/atoms'
 
-export function FilterSidebar({
+export const FilterSidebar = React.memo(function FilterSidebar({
   categories,
   selectedFilters,
   onFilterChange,
@@ -163,4 +163,4 @@ export function FilterSidebar({
       )}
     </>
   )
-}
+})
