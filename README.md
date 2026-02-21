@@ -47,8 +47,8 @@ Die KI-Tricks Platform ist eine intuitive Webplattform, die praktische Tipps und
 
 1. **Repository klonen**
 ```bash
-git clone https://github.com/codeme-ne/ai-platform.git
-cd ai-platform
+git clone https://github.com/codeme-ne/ki-tricks.git
+cd ki-tricks
 ```
 
 2. **Abhängigkeiten installieren**
@@ -87,7 +87,7 @@ Die Anwendung ist nun unter `http://localhost:3000` verfügbar.
 ## 📂 Projektstruktur
 
 ```
-ai-platform/
+ki-tricks/
 ├── src/
 │   ├── app/              # Next.js App Router Seiten
 │   │   ├── admin/        # Admin-Interface
@@ -174,7 +174,7 @@ Dieses Projekt ist unter der ISC-Lizenz lizenziert. Siehe [LICENSE](LICENSE) fü
 ## 🆘 Support
 
 Bei Fragen oder Problemen:
-- Öffnen Sie ein [Issue](https://github.com/codeme-ne/ai-platform/issues)
+- Öffnen Sie ein [Issue](https://github.com/codeme-ne/ki-tricks/issues)
 - Nutzen Sie das Kontaktformular auf der Webseite
 - Schauen Sie in die [Dokumentation](./docs)
 	- Import-Guide: [IMPORT_TRICKS.md](./docs/IMPORT_TRICKS.md)
