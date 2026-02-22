@@ -50,9 +50,23 @@ const faqItems = [
 
 const DuplicateDialog = ({ warning, onClose, onSubmitAnyway, isSubmitting }: DuplicateDialogProps) => {
   const isBrowser = typeof window !== 'undefined'
+  const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null)
 
   useEffect(() => {
-    if (!warning || !isBrowser) return
+    if (!isBrowser) return
+
+    let root = document.getElementById('duplicate-dialog-portal') as HTMLElement | null
+    if (!root) {
+      root = document.createElement('div')
+      root.id = 'duplicate-dialog-portal'
+      document.body.appendChild(root)
+    }
+
+    setPortalRoot(root)
+  }, [isBrowser])
+
+  useEffect(() => {
+    if (!warning || !isBrowser || !portalRoot) return
 
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
@@ -69,9 +83,9 @@ const DuplicateDialog = ({ warning, onClose, onSubmitAnyway, isSubmitting }: Dup
       document.body.style.overflow = previousOverflow
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [warning, isBrowser, onClose])
+  }, [warning, isBrowser, onClose, portalRoot])
 
-  if (!warning || !isBrowser) return null
+  if (!warning || !isBrowser || !portalRoot) return null
 
   const similarTricks: SimilarTrick[] = Array.isArray(warning.similarTricks)
     ? warning.similarTricks.slice(0, 3)
@@ -149,7 +163,7 @@ const DuplicateDialog = ({ warning, onClose, onSubmitAnyway, isSubmitting }: Dup
         </div>
       </div>
     </div>,
-    document.body
+    portalRoot
   )
 }
 

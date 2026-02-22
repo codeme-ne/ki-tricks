@@ -8,6 +8,7 @@ import Image from 'next/image'
 import type { Metadata } from 'next'
 import { TrickCard, FAQAccordion } from '@/components/molecules'
 import SchemaMarkup from '@/components/SEO/SchemaMarkup'
+import type { Database } from '@/lib/supabase/types'
 import {
   generateOrganizationSchema,
   generateWebsiteSchema,
@@ -26,6 +27,7 @@ import { categoryLabels, categoryLucideIcons } from '@/lib/constants/constants'
 import { Category, KITrick } from '@/lib/types/types'
 
 // Icon mapping moved to constants for reuse
+type PublishedTrickRow = Database['public']['Tables']['ki_tricks']['Row']
 
 export const metadata: Metadata = {
   title: 'KI-Tricks: Automationen, Workflows & Prompts für Professionals',
@@ -50,8 +52,8 @@ export default async function HomePage() {
   const allCategories = await getAllCategories()
 
   // Latest tricks for homepage
-  const recentRaw = (await getPublishedTricks()).slice(0, 6)
-  const recentTricks: KITrick[] = recentRaw.map((t: any) => ({
+  const recentRaw = (await getPublishedTricks()).slice(0, 6) as PublishedTrickRow[]
+  const recentTricks: KITrick[] = recentRaw.map((t) => ({
     id: t.id,
     title: t.title,
     description: t.description,
