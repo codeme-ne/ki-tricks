@@ -11,6 +11,28 @@ Eine moderne Next.js 15 Webanwendung zum Entdecken und Implementieren praktische
 
 Die KI-Tricks Platform ist eine intuitive Webplattform, die praktische Tipps und Tricks für die effektive Nutzung von KI-Tools wie Claude, ChatGPT und anderen sammelt und präsentiert. Mit einem minimalistischen Design inspiriert von modernen Plattformen bietet sie eine benutzerfreundliche Oberfläche in deutscher Sprache.
 
+## 🌐 Live Demo
+
+- https://www.ki-tricks.com/
+
+## 📸 Reale Screenshots (Live-App)
+
+### Homepage (Desktop)
+
+![KI-Tricks Homepage Desktop](./public/screenshots/ki-tricks-home-desktop.png)
+
+### Trick-Bibliothek mit Suche/Filtern (Desktop)
+
+![KI-Tricks Trick-Bibliothek Desktop](./public/screenshots/ki-tricks-tricks-desktop.png)
+
+### Einreichen-Flow (Desktop)
+
+![KI-Tricks Einreichen Desktop](./public/screenshots/ki-tricks-submit-desktop.png)
+
+### Trick-Bibliothek (Mobile)
+
+![KI-Tricks Trick-Bibliothek Mobile](./public/screenshots/ki-tricks-tricks-mobile.png)
+
 ## ✨ Features
 
 - **📚 Umfangreiche Sammlung**

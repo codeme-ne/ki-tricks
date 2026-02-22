@@ -85,6 +85,8 @@ dev-debug.log
 
 .mcp.json
 .supabase/
+.playwright-cli/
+output/playwright/
 
 # Task files
 # tasks.json
